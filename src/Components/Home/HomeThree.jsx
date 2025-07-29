@@ -2,10 +2,12 @@ import React, { useRef, useState } from 'react';
 import Frame176 from "../../assets/Active lawsuits set.png";
 import Framem176 from "../../assets/Active lawsuits set.png";
 import bg from "../../assets/MesoImage.png";
-import MesoGroup from "../../assets/MesoGroup.png";
-import ClassAction from "../../assets/ClassAction.png";
-import bPersonalInjury from "../../assets/PersonalInjury.png";
-import MassTort from "../../assets/MesoLaww.png";
+import masstortlap from "../../assets/masstortlap.png";
+import classactionlap from "../../assets/classactionlap.png";
+import personallap from "../../assets/personallap.png";
+import ClassAction from "../../assets/classactionbg.png";
+import bPersonalInjury from "../../assets/personalinjurybg.png";
+import MassTort from "../../assets/masstortbg.png";
 function HomeThree() {
     const targetRef = useRef(null);
     // Add state for active tab
@@ -111,7 +113,7 @@ function HomeThree() {
                           {/* Tablet/Laptop: overlay text on image, left-aligned */}
                           <div className="hidden md:flex w-full overflow-hidden lg:rounded-none relative min-h-[400px] items-center justify-start">
                               <img
-                                  src={MesoGroup}
+                                  src={masstortlap}
                                   alt="X-ray or Medical Illustration"
                                   className="w-full h-64 sm:h-80 md:h-96 lg:h-[500px] xl:h-[600px] 2xl:h-[700px] object-cover lg:rounded-none"
                               />
@@ -161,7 +163,7 @@ function HomeThree() {
                         </div>
                         <div className="hidden md:flex w-full overflow-hidden lg:rounded-none relative min-h-[400px] items-center justify-start">
                           <img
-                            src={MesoGroup}
+                            src={classactionlap}
                             alt="Class Action"
                             className="w-full h-64 sm:h-80 md:h-96 lg:h-[500px] xl:h-[600px] 2xl:h-[700px] object-cover lg:rounded-none"
                           />
@@ -211,7 +213,7 @@ function HomeThree() {
                         </div>
                         <div className="hidden md:flex w-full overflow-hidden lg:rounded-none relative min-h-[400px] items-center justify-start">
                           <img
-                            src={MesoGroup}
+                            src={personallap}
                             alt="Personal Injury"
                             className="w-full h-64 sm:h-80 md:h-96 lg:h-[500px] xl:h-[600px] 2xl:h-[700px] object-cover lg:rounded-none"
                           />

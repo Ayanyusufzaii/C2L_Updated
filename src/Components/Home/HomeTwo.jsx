@@ -5,8 +5,8 @@ import emailjs from '@emailjs/browser';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./HomeTwo.css";
-import Frame from "../../assets/Frame 260.png";
-import Frame2 from "../../assets/Group 88.png";
+import Frame from "../../assets/justiceimg.png";
+import Frame2 from "../../assets/justiceimg.png";
 import { useMediaQuery, MenuItem } from '@mui/material';
 import FormBG from "../../assets/FormBG.png";
 
