@@ -9,6 +9,7 @@ import SearchbarIcon1 from '../../src/assets/MobileSearch.png';
 import locationIcon from '../../src/assets/locationlogo.png';
 import closeIcon from '../../src/assets/logoo.png';
 
+
 const regions = [
   'New South Wales',
   'Queensland',
@@ -24,7 +25,7 @@ const menuLinks = [
   { name: 'Home', path: '/' },
   { name: 'Services', path: '/Service' },
   { name: 'About Us', path: '/About' },
-  { name: 'Contact', path: '/ContactUs' }
+  { name: 'Contact Us', path: '/ContactUs' }
 ];
 
 const NavBar = () => {
@@ -303,7 +304,7 @@ const NavBar = () => {
               <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full">
                 <img src={callIcon} alt="Call" className="h-8" />
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-[#023437]">Toll Free</span>
+                  <span className="text-[10px] text-[#023437]">Toll Free Number</span>
                   <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
                 </div>
               </div>

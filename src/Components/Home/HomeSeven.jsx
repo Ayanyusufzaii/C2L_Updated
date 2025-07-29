@@ -18,46 +18,48 @@ function HomeSeven() {
                     </h2>
                 </div>
 
-                {/* Right Section: Two Tiles */}
-                <div className="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:max-w-[48%]">
+        
+               {/* Right Section: Two Tiles */}
+<div className="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:max-w-[48%]">
 
-                    {/* Tile 1: Partner With Us */}
-                    <div className="flex flex-col justify-between items-start p-4 md:p-6 xl:p-8 border border-white border-opacity-40 text-left bg-transparent w-full sm:w-1/2 min-h-[150px]">
-                        <div className="flex-1 flex flex-col justify-center w-full">
-                            <h2 className="text-white text-2xl font-bold mb-2">
-                                Partner With Us
-                            </h2>
-                            <p className="text-white text-base">
-                                Receive pre-qualified legal leads!
-                            </p>
-                        </div>
-                        <button
-                            className="mt-4 flex h-[44px] px-6 py-2 justify-center items-center bg-[#C09F53] hover:bg-amber-600 text-white font-semibold text-sm sm:text-base transition-colors w-full max-w-[160px] rounded-3xl"
-                            onClick={() => navigate("/ContactUs")}
-                        >
-                            Let’s Talk
-                        </button>
-                    </div>
+  {/* Tile 1: Partner With Us */}
+  <div className="flex flex-col justify-between items-start p-4 md:p-6 xl:p-8 border border-white border-opacity-40 text-left bg-transparent w-full sm:w-1/2 min-h-[150px]">
+    <div className="flex-1 flex flex-col justify-center w-full">
+      <h2 className="text-white text-3xl font-bold mb-2 font-['Playfair_Display']">
+        Partner With Us
+      </h2>
+      <p className="text-white text-base font-['Playfair_Display']">
+        Receive pre-qualified legal leads!
+      </p>
+    </div>
+    <button
+      className="mt-4 flex h-[44px] px-6 py-2 justify-center items-center bg-[#C09F53] hover:bg-amber-600 text-white font-semibold text-sm sm:text-base transition-colors w-full max-w-[160px] rounded-3xl"
+      onClick={() => navigate("/ContactUs")}
+    >
+      Let’s Talk
+    </button>
+  </div>
 
-                    {/* Tile 2: Need Legal Help */}
-                    <div className="flex flex-col justify-between items-start p-4 md:p-6 xl:p-8 border border-white border-opacity-40 text-left bg-transparent w-full sm:w-1/2 min-h-[150px]">
-                        <div className="flex-1 flex flex-col justify-center w-full">
-                            <h2 className="text-white text-2xl font-bold mb-2">
-                                Need Legal Help?
-                            </h2>
-                            <p className="text-white text-base">
-                                Start your free claim today!
-                            </p>
-                        </div>
-                        <button
-                            className="mt-4 flex h-[44px] px-6 py-2 justify-center items-center bg-[#C09F53] hover:bg-amber-600 text-white font-semibold text-sm sm:text-base transition-colors w-full max-w-[180px] rounded-3xl"
-                            onClick={() => navigate("/ContactUs")}
-                        >
-                            Start Your Claim
-                        </button>
-                    </div>
+  {/* Tile 2: Need Legal Help */}
+  <div className="flex flex-col justify-between items-start p-4 md:p-6 xl:p-8 border border-white border-opacity-40 text-left bg-transparent w-full sm:w-1/2 min-h-[150px]">
+    <div className="flex-1 flex flex-col justify-center w-full">
+      <h2 className="text-white text-3xl font-bold mb-2 font-['Playfair_Display']">
+        Need Legal Help?
+      </h2>
+      <p className="text-white text-base font-['Playfair_Display']">
+        Start your free claim today!
+      </p>
+    </div>
+    <button
+      className="mt-4 flex h-[44px] px-6 py-2 justify-center items-center bg-[#C09F53] hover:bg-amber-600 text-white font-semibold text-sm sm:text-base transition-colors w-full max-w-[180px] rounded-3xl"
+      onClick={() => navigate("/ContactUs")}
+    >
+      Start Your Claim
+    </button>
+  </div>
 
-                </div>
+</div>
+
             </div>
         </div>
     );
