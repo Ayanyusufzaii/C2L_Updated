@@ -1,4 +1,3 @@
-// Enhanced Responsive NavBar with Mobile Hamburger Menu
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Frame from '../../src/assets/LogoNavbar.png';
@@ -51,6 +50,7 @@ const NavBar = () => {
   const isActive = (path) => location.pathname === path;
 
   // Hamburger Icon Component
+  
   const HamburgerIcon = ({ isOpen, onClick }) => (
     <button
       onClick={onClick}
