@@ -40,7 +40,7 @@ function App() {
       element: <HomePage />,
     },
     {
-      path: '/HomeNewSouthWales',
+      path: '/New-South-Wales',
       element: <HomeNewSouthWales />,
     },
      {

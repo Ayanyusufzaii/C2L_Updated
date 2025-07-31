@@ -140,7 +140,7 @@ const NavBar = () => {
   const handleRegionSelect = (region) => {
     setSelectedRegion(region);
     setRegionDropdownOpen(false);
-    navigate(`/region/${region.replace(/\s+/g, '-')}`);
+    navigate(`/${region.replace(/\s+/g, '-')}`);
   };
 
   // Hamburger Icon Component
