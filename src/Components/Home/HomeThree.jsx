@@ -102,7 +102,7 @@ function HomeThree() {
                                      We help victims file claims for asbestos-related diseases, secure financial compensation for medical expenses and hold companies accountable for toxic exposure.
                                   </p>
                                   <button
-                                      className="rounded-full border-2 border-white px-6 md:px-8 py-3 md:py-4 text-white font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#C09F53] cursor-pointer drop-shadow-md"
+                                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
                                       onClick={handleLearnMoreClick}
                                   >
                                       Learn More
@@ -125,7 +125,7 @@ function HomeThree() {
                                      We help victims file claims for asbestos-related diseases, secure financial compensation for medical expenses and hold companies accountable for toxic exposure.
                                   </p>
                                   <button
-                                      className="rounded-full border-2 border-white px-6 md:px-8 py-3 md:py-4 text-white font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#C09F53] cursor-pointer drop-shadow-md text-left"
+                                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                                       style={{fontSize: '20px'}}
                                       onClick={handleLearnMoreClick}
                                   >
@@ -148,13 +148,13 @@ function HomeThree() {
                           />
                           <div className="bg-[#C09F53] p-6 sm:p-8 md:p-10 flex flex-col justify-center">
                             <h2 className="text-white font-['Playfair_Display'] text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg">
-                              Class Action
+                             Rideshare Sexual<br></br>Assault Lawsuit 
                             </h2>
                             <p className="text-white font-['Open_Sans'] text-base sm:text-lg md:text-xl font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-full">
-                              Support for individuals impacted by unsafe systems, with legal guidance designed to help you drive change through collective action.
+                             We support survivors in taking legal action against rideshare companies, seeking compensation and accountability for assault and unsafe conditions. 
                             </p>
                             <button
-                              className="rounded-full border-2 border-white px-6 md:px-8 py-3 md:py-4 text-white font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#C09F53] cursor-pointer drop-shadow-md"
+                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-[#023437] hover:text-[#C09F53] cursor-pointer drop-shadow-md"
                               onClick={handleLearnMoreClick}
                             >
                               Learn More
@@ -169,13 +169,13 @@ function HomeThree() {
                           />
                           <div className="absolute inset-0 flex flex-col justify-center items-start p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20 w-full">
                             <h2 className="text-white font-['Playfair_Display'] font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg text-left whitespace-nowrap overflow-hidden text-ellipsis" style={{fontSize: 'min(6vw, 100px)'}}>
-                              Class Action
+                              Rideshare Sexual <br></br>Assault Lawsuit 
                             </h2>
                             <p className="text-white font-['Open_Sans'] font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-[50%] text-left" style={{fontSize: '20px'}}>
-                             Support for individuals impacted by unsafe systems, with legal guidance designed to help you drive change through collective action.
+                             We support survivors in taking legal action against rideshare companies, seeking compensation and accountability for assault and unsafe conditions. 
                             </p>
                             <button
-                              className="rounded-full border-2 border-white px-6 md:px-8 py-3 md:py-4 text-white font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#C09F53] cursor-pointer drop-shadow-md text-left"
+                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                               style={{fontSize: '20px'}}
                               onClick={handleLearnMoreClick}
                             >
@@ -198,13 +198,13 @@ function HomeThree() {
                           />
                           <div className="bg-[#C09F53] p-6 sm:p-8 md:p-10 flex flex-col justify-center">
                             <h2 className="text-white font-['Playfair_Display'] text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg">
-                              Personal Injury
+                             18-Wheeler <br></br>Accident Lawsuit 
                             </h2>
                             <p className="text-white font-['Open_Sans'] text-base sm:text-lg md:text-xl font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-full">
-                              Helping people recover after serious accidents by offering direction, support, and a path toward rebuilding what’s been lost. 
+                             We help victims of trucking accidents pursue claims for injuries, lost income, and damages caused by driver negligence or vehicle failure. 
                             </p>
                             <button
-                              className="rounded-full border-2 border-white px-6 md:px-8 py-3 md:py-4 text-white font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#C09F53] cursor-pointer drop-shadow-md"
+                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
                               onClick={handleLearnMoreClick}
                             >
                               Learn More
@@ -219,13 +219,13 @@ function HomeThree() {
                           />
                           <div className="absolute inset-0 flex flex-col justify-center items-start p-4 md:p-8 lg:p-12 xl:p-16 2xl:p-20 w-full">
                             <h2 className="text-white font-['Playfair_Display'] font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg text-left whitespace-nowrap overflow-hidden text-ellipsis" style={{fontSize: 'min(6vw, 100px)'}}>
-                              Personal Injury
+                              18-Wheeler <br></br>Accident Lawsuit 
                             </h2>
                             <p className="text-white font-['Open_Sans'] font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-[50%] text-left" style={{fontSize: '20px'}}>
-                             Helping people recover after serious accidents by offering direction, support, and a path toward rebuilding what’s been lost. 
+                             We help victims of trucking accidents pursue claims for injuries, lost income, and damages caused by driver negligence or vehicle failure. 
                             </p>
                             <button
-                              className="rounded-full border-2 border-white px-6 md:px-8 py-3 md:py-4 text-white font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#C09F53] cursor-pointer drop-shadow-md text-left"
+                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                               style={{fontSize: '20px'}}
                               onClick={handleLearnMoreClick}
                             >

@@ -10,7 +10,16 @@ function LegalHeroSection() {
   const [isMobileMenuOpen] = useState(false);
 
 
-  const regions = ['New South Wales'];
+ const regions = [
+  'New South Wales',
+  'Queensland',
+  'South Australia',
+  'Tasmania',
+  'Victoria',
+  'Western Australia',
+  'Australian Capital Territory',
+  'Northern Territory'
+];
 
 
   useEffect(() => {
@@ -30,7 +39,7 @@ function LegalHeroSection() {
       <div 
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
       >
-        <div className="w-full h-full pb-8 sm:pb-0 px-0 pt-0 sm:px-2 sm:pt-3 sm:pb-12 md:px-4 md:pt-5 md:pb-16 lg:px-6 lg:pt-7 lg:pb-20 xl:px-8 xl:pt-9 xl:pb-24 2xl:px-10 2xl:pt-10 2xl:pb-28">
+        <div className="w-full h-full pb-8 sm:pb-0  pt-0 sm: sm:pt-0 sm:pb-12 md: md:pt-0 md:pb-16 lg: lg:pt-0 lg:pb-20 xl: xl:pt-0 xl:pb-24 2xl:0 2xl:pt-0 2xl:pb-28">
           <div
             className="w-full h-full bg-cover bg-center bg-no-repeat rounded-none"
             style={{ backgroundImage: `url(${bg})` }}
@@ -109,52 +118,72 @@ function LegalHeroSection() {
       <div className="relative z-10 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 pb-6 sm:pb-8 md:pb-10">
         <div className="bg-[#EFE4CB] rounded-none p-4 sm:p-6 lg:p-8 shadow-xl w-full max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto">
           <h2
-  className="font-playfair text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-[#023437] mb-3 sm:mb-4 inline-block border-b-4 border-[#C09F53] pb-1"
+  className="font-playfair text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-[#023437] mb-3 sm:mb-4 inline-block  pb-1 underline decoration-[#C09F53]"
 >
   Select your location
 </h2>
           <p className="text-[#023437] mb-4 sm:mb-6 text-sm sm:text-base lg:text-base xl:text-lg leading-relaxed">
            Different laws apply in different states. Please choose your state to view the relevant legal information.
           </p>
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div className="relative flex-1 max-w-full lg:max-w-md dropdown-container">
-              <button
-                onClick={() => setIsLocationDropdownOpen(!isLocationDropdownOpen)}
-                className="w-full flex items-center justify-between px-4 py-3 bg-[#023437] text-white rounded-lg font-medium hover:bg-teal-800 transition-colors text-sm sm:text-base"
-              >
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
-                  <span>{selectedLocation}</span>
-                </div>
-                <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
-              {isLocationDropdownOpen && (
-                <div className="absolute top-full mt-2 w-full z-20">
-                  <button
-                    onClick={() => {
-                      setSelectedLocation('New South Wales');
-                      setIsLocationDropdownOpen(false);
-                    }}
-                    className="w-full px-4 py-3 bg-[#023437] text-white rounded-lg font-medium text-left text-sm sm:text-base hover:bg-teal-800 transition-colors"
-                  >
-                    New South Wales
-                  </button>
-                </div>
-              )}
-            </div>
-            <div className="text-center lg:text-right">
-              <button className="text-teal-800 font-medium underline hover:text-teal-900 transition-colors text-sm sm:text-base">
-                I am outside of Australia
-              </button>
-            </div>
+          <div className="bg-[#023437] p-6 shadow-lg">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div className="relative flex-1 max-w-full lg:max-w-md dropdown-container">
+            <button
+              onClick={() => setIsLocationDropdownOpen(!isLocationDropdownOpen)}
+              className="w-full flex items-center justify-between px-4 py-3 bg-[#023437] text-white rounded-3xl border-2 border-white font-medium hover:bg-[#023437] transition-colors text-sm sm:text-base"
+            >
+              <div className="flex items-center space-x-2">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>{selectedLocation}</span>
+              </div>
+              <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+            {isLocationDropdownOpen && (
+              <div className="absolute top-full mt-2 w-full z-20">
+            <div className="relative">
+  {/* Trigger Button */}
+  <button
+    onClick={() => setIsLocationDropdownOpen(!isLocationDropdownOpen)}
+    className="w-full px-4 py-3 bg-[#023437] text-white rounded-lg border-2 border-white font-medium text-left text-sm sm:text-base hover:bg-teal-800 transition-colors"
+  >
+    {selectedLocation || "Select Region"}
+  </button>
+
+  {/* Dropdown */}
+{isLocationDropdownOpen && (
+  <div className="absolute top-full left-0 mt-2 w-full bg-white shadow-lg z-50 rounded-lg overflow-hidden">
+    {regions.map((region, index) => (
+      <button
+        key={index}
+        onClick={() => {
+          setSelectedLocation(region);
+          setIsLocationDropdownOpen(false);
+          // Scroll to target on select
+          document.getElementById('location-content')?.scrollIntoView({ behavior: 'smooth' });
+        }}
+        className="w-full px-4 py-3 bg-[#023437] text-white border-b border-white text-left text-sm sm:text-base hover:bg-teal-800 transition-colors"
+      >
+        {region}
+      </button>
+    ))}
+  </div>
+)}
+
+</div>
+
+              </div>
+            )}
+          </div>
+          <div className="text-center lg:text-right">
+            <button className="text-white font-medium underline decoration-[#C09F53] hover:text-gray-200 transition-colors text-sm sm:text-base">
+              I am outside of Australia
+            </button>
           </div>
         </div>
       </div>
+        </div>
+      </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-20 right-20 w-12 h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 bg-yellow-600 opacity-20 rounded-full animate-pulse hidden md:block"></div>
-      <div className="absolute bottom-40 left-20 w-6 h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 bg-teal-600 opacity-30 rounded-full animate-bounce hidden md:block"></div>
-      <div className="absolute top-1/2 right-10 w-4 h-4 lg:w-6 lg:h-6 bg-yellow-400 opacity-25 rounded-full animate-ping hidden lg:block"></div>
     </div>
   );
 }
