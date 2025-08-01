@@ -28,7 +28,8 @@ function HomeThree() {
     const expertiseTags = [
         { text: 'Mass Tort' },
         { text: 'Class Action' },
-        { text: 'Personal Injury' }
+        { text: 'Personal Injury' },
+        { text: 'See All'}
     ];
 
     const steps = [
@@ -240,22 +241,22 @@ function HomeThree() {
             </section>
 
             {/* How It Works Section */}
-            <section className="w-full bg-[#023437] py-12 lg:py-20">
+            <section className="w-full bg-[#023437] py-6 lg:py-10">
                 <div ref={targetRef}></div>
                 
-               <section className="w-full bg-[#023437] py-12 lg:py-20">
+               <section className="w-full bg-[#023437] py-3 lg:py-5">
   <div ref={targetRef}></div>
   
   {/* Section Header */}
   <div className="flex flex-row items-end gap-4 lg:gap-16 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mb-8 lg:mb-16">
-    <h1 className="text-[#FFFBF3] font-['Playfair_Display'] text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-extrabold leading-tight whitespace-nowrap mb-0">
+    <h1 className="text-[#FFFBF3] font-['Playfair_Display'] text-3xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold leading-tight whitespace-nowrap mb-0">
       How It Works
     </h1>
     <div className="flex-1 flex justify-end items-end">
       <div className="max-w-md">
         <p className="text-[#FFFBF3] font-['Open_Sans'] text-sm sm:text-base md:text-lg lg:text-2xl leading-relaxed text-left">
           Start in just a few steps,<br />
-          where your rights come first.
+          where <span className='text-[#C09F53]'>your rights come first.</span>
         </p>
       </div>
     </div>
@@ -286,7 +287,7 @@ function HomeThree() {
                             <h4 className="text-[#C09F53] font-sans text-2xl md:text-3xl lg:text-4xl font-bold leading-tight underline">
                                 {step.title}
                             </h4>
-                            <p className="text-[#FFFBF3] font-['Open_Sans'] text-base md:text-lg lg:text-xl font-semibold leading-relaxed">
+                            <p className="text-[#FFFBF3] font-['Open_Sans'] text-base md:text-lg lg:text-xl leading-relaxed">
                                 {step.description}
                             </p>
                         </div>
