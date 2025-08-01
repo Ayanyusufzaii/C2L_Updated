@@ -35,11 +35,10 @@ function AboutOne() {
             </div>
         </div>
 
-        {/* Overlay Image at the Bottom, a bit more above */}
         <img
             src={HomeGroup} // import and provide your overlay image
             alt="Overlay Decorative"
-            className="absolute left-1/2 -translate-x-1/2 bottom-72 md:bottom-32 lg:bottom-72 4k:bottom-[30rem] w-[95vw] md:w-[90vw] lg:w-[80vw] xl:w-[1200px] 2xl:w-[1600px] h-auto object-contain opacity-95 z-20"
+            className="absolute left-1/2 -translate-x-1/2 bottom-30 md:bottom-32 lg:bottom-72 4k:bottom-[30rem] w-[95vw] md:w-[90vw] lg:w-[80vw] xl:w-[1200px] 2xl:w-[1600px] h-auto object-contain opacity-95 z-20"
             style={{ pointerEvents: 'none' }}
         />
 

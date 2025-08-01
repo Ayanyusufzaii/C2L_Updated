@@ -1,16 +1,11 @@
-<<<<<<< HEAD
 import React, { useState, useRef, useEffect } from 'react';
-=======
-import React, { useState, useRef } from 'react';
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
 import Marquee from "../../assets/Group 45.png";
 import TextField from '@mui/material/TextField';
 import emailjs from '@emailjs/browser';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./HomeTwo.css";
-<<<<<<< HEAD
-import Frame from "../../assets/Frame 260.png";
+import Frame from "../../assets/justiceimg.png";
 import Frame2 from "../../assets/Group 88.png";
 import { useMediaQuery, MenuItem } from '@mui/material';
 import FormBG from "../../assets/hFormBG.png";
@@ -225,12 +220,6 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     </div>
   );
 };
-=======
-import Frame from "../../assets/justiceimg.png";
-import Frame2 from "../../assets/justiceimg.png";
-import { useMediaQuery, MenuItem } from '@mui/material';
-import FormBG from "../../assets/FormBG.png";
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
 
 function HomeTwo() {
   const formRef = useRef();
@@ -243,19 +232,14 @@ function HomeTwo() {
     caseHistory: '',
     settlementHelp: false,
     privacyConsent: false,
-<<<<<<< HEAD
     humanVerification: false,
     captchaEnabled: false
-=======
-    humanVerification: false
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
   });
    
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-<<<<<<< HEAD
   
   // New states for lander essentials
   const [captchaValid, setCaptchaValid] = useState(false);
@@ -269,18 +253,12 @@ function HomeTwo() {
   // Responsive breakpoints
   const isMobile = useMediaQuery('(max-width:768px)');
   const isSmallMobile = useMediaQuery('(max-width:375px)');
-=======
-
-  // Responsive breakpoints
-  const isMobile = useMediaQuery('(max-width:768px)');
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
   const isTablet = useMediaQuery('(min-width:769px) and (max-width:1024px)');
   const isDesktop = useMediaQuery('(min-width:1025px)');
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-<<<<<<< HEAD
   // Capture page URL and IP on mount
   useEffect(() => {
     // Set page URL
@@ -341,27 +319,16 @@ function HomeTwo() {
   const getTextFieldStyle = () => ({
     '& .MuiInputLabel-root': {
       color: '#023437',
-=======
-  // Dynamic text field styles based on screen size
-  const getTextFieldStyle = () => ({
-    '& .MuiInputLabel-root': {
-      color: 'white',
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
       fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
       fontFamily: 'Helvetica',
       fontWeight: 'bold',
       '&.Mui-focused': {
-<<<<<<< HEAD
         color: '#023437'
-=======
-        color: 'white'
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
       }
     },
     '& .MuiInput-root': {
       fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
       fontFamily: 'Helvetica',
-<<<<<<< HEAD
       color: '#023437',
       '&:before': {
         borderBottomColor: '#023437'
@@ -374,20 +341,6 @@ function HomeTwo() {
       },
       '&.Mui-focused': {
         color: '#023437'
-=======
-      color: 'white',
-      '&:before': {
-        borderBottomColor: 'white'
-      },
-      '&:hover:not(.Mui-disabled):before': {
-        borderBottomColor: 'white'
-      },
-      '&:after': {
-        borderBottomColor: 'white'
-      },
-      '&.Mui-focused': {
-        color: 'white'
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
       }
     },
     '& .MuiFormHelperText-root': {
@@ -395,11 +348,7 @@ function HomeTwo() {
       fontFamily: 'Helvetica'
     },
     '& .Mui-error': {
-<<<<<<< HEAD
       color: '#023437',
-=======
-      color: 'white',
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
       '&:after': {
         borderBottomColor: '#d32f2f'
       }
@@ -421,13 +370,10 @@ function HomeTwo() {
     }
   };
 
-<<<<<<< HEAD
   const handleCaptchaChange = (isValid) => {
     setCaptchaValid(isValid);
   };
 
-=======
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
   const validateForm = () => {
     const newErrors = {};
 
@@ -463,14 +409,11 @@ function HomeTwo() {
       newErrors.humanVerification = 'Please verify you are human';
     }
 
-<<<<<<< HEAD
     // Add captcha validation
     if (formData.captchaEnabled && !captchaValid) {
       newErrors.captcha = 'Please complete the CAPTCHA verification';
     }
 
-=======
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -494,7 +437,6 @@ function HomeTwo() {
       email: formData.emailId,
       phone_number: formData.phoneNumber,
       concern: formData.concern,
-<<<<<<< HEAD
       case_history: formData.caseHistory,
       // Add TrustedForm and other lander essentials
       xxTrustedFormCertUrl: certId,
@@ -502,9 +444,6 @@ function HomeTwo() {
       xxTrustedFormCertToken: tokenUrl,
       pageUrl: pageUrl,
       ipAddress: ipAddress
-=======
-      case_history: formData.caseHistory
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
     };
 
     emailjs.send(serviceId, templateId, templateParams, publicKey)
@@ -521,7 +460,6 @@ function HomeTwo() {
           caseHistory: '',
           settlementHelp: false,
           privacyConsent: false,
-<<<<<<< HEAD
           humanVerification: false,
           captchaEnabled: false
         });
@@ -530,11 +468,6 @@ function HomeTwo() {
         setCaptchaValid(false);
         setCaptchaResetTrigger(prev => prev + 1);
 
-=======
-          humanVerification: false
-        });
-
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
         setSuccessDialogOpen(true);
         setShowModal(true);
 
@@ -586,20 +519,16 @@ function HomeTwo() {
   // Responsive form layout
   const getFormLayout = () => {
     if (isMobile) {
-<<<<<<< HEAD
       return 'flex-col space-y-8';
     } else {
       return 'grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8';
-=======
-      return 'flex-col space-y-6';
-    } else {
-      return 'grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8';
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
     }
   };
 
+
+  
+
   return (
-<<<<<<< HEAD
     <div className="w-full overflow-x-hidden" style={{
       backgroundImage: `url(${isMobile ? mobFormBG : FormBG})`,
       backgroundSize: 'cover',
@@ -609,25 +538,14 @@ function HomeTwo() {
     }}>
       {/* Responsive Marquee Banner */}
       <div className={`${isMobile ? 'mt-10' : isTablet ? 'mt-32' : 'mt-40'} ${isMobile ? 'px-4' : ''}`}>
-=======
-    <div className="w-full overflow-x-hidden">
-      {/* Responsive Marquee Banner */}
-      <div className={`mt-${isMobile ? '10' : '32'} ${isMobile ? 'px-4' : ''}`}>
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
         <div 
           className="flex justify-end items-center bg-[#C09F53] overflow-hidden relative -rotate-[4.013deg]"
           style={{ 
             height: marqueeConfig.height,
-<<<<<<< HEAD
             width: '110vw',
             marginLeft: isMobile ? '-16px' : isTablet ? '-40px' : '-10px',
             marginRight: '-10vw',
             marginTop: isMobile ? '20px' : isTablet ? '10px' : '20px'
-=======
-            width: '100vw',
-            marginLeft: isMobile ? '-16px' : isTablet ? '-40px' : '-10px',
-            marginTop: isMobile ? '20px' : '40px'
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
           }}
         >
           <div className="w-full overflow-hidden py-2">
@@ -657,7 +575,6 @@ function HomeTwo() {
 
         {/* Responsive Form Container */}
         <div 
-<<<<<<< HEAD
           className="bg-[#FFFBF3] mx-auto"
           style={{
             padding: isSmallMobile ? '16px 12px' : isMobile ? '24px 20px' : isTablet ? '48px' : '60px 80px',
@@ -668,23 +585,11 @@ function HomeTwo() {
             maxWidth: isMobile ? 'none' : isTablet ? '900px' : '1400px',
             minHeight: isMobile ? 'auto' : isTablet ? '1000px' : '1200px',
             borderRadius: '0'
-=======
-          className="text-center bg-[#023437] mx-auto"
-          style={{
-            padding: isMobile ? '16px' : isTablet ? '32px' : '20px',
-            marginTop: isMobile ? '-80px' : isTablet ? '-90px' : '-120px',
-            marginLeft: isMobile ? '0' : isTablet ? '2%' : '4%',
-            width: isMobile ? 'calc(100% - 32px)' : isTablet ? '96%' : '1150px',
-            maxWidth: isMobile ? 'none' : isTablet ? 'calc(100vw - 80px)' : '1150px',
-            minHeight: isMobile ? 'auto' : isTablet ? '900px' : '1100px',
-            borderRadius: isMobile ? '8px' : '0'
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
           }}
         >
           <form 
             ref={formRef} 
             onSubmit={handleSubmit} 
-<<<<<<< HEAD
             className={`${isMobile ? 'mt-[10%]' : isTablet ? 'mt-[15%]' : 'mt-[20%]'}`}
           >
             {/* Hidden TrustedForm fields */}
@@ -707,10 +612,6 @@ function HomeTwo() {
               value={pingUrl}
             />
 
-=======
-            className={`${isMobile ? 'mt-[15%]' : isTablet ? 'mt-[12%]' : 'mt-[20%]'}`}
-          >
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
             {/* Form Fields Grid */}
             <div className={getFormLayout()}>
               {/* Name */}
@@ -718,11 +619,7 @@ function HomeTwo() {
                 <TextField
                   id="firstName"
                   name="firstName"
-<<<<<<< HEAD
                   label="Full name"
-=======
-                  label="Name"
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
                   variant="standard"
                   fullWidth
                   value={formData.firstName}
@@ -731,11 +628,7 @@ function HomeTwo() {
                   helperText={errors.firstName}
                   sx={{
                     ...getTextFieldStyle(),
-<<<<<<< HEAD
                     marginBottom: isMobile ? '0px' : '40px',
-=======
-                    marginBottom: isMobile ? '0px' : '60px',
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
                     marginTop: isMobile ? '40px' : '0px'
                   }}
                 />
@@ -746,11 +639,7 @@ function HomeTwo() {
                 <TextField
                   id="phoneNumber"
                   name="phoneNumber"
-<<<<<<< HEAD
                   label="Phone"
-=======
-                  label="Phone Number"
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
                   variant="standard"
                   fullWidth
                   value={formData.phoneNumber}
@@ -759,11 +648,7 @@ function HomeTwo() {
                   helperText={errors.phoneNumber}
                   sx={{
                     ...getTextFieldStyle(),
-<<<<<<< HEAD
                     marginBottom: isMobile ? '0px' : '40px'
-=======
-                    marginBottom: isMobile ? '0px' : '60px'
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
                   }}
                 />
               </div>
@@ -773,11 +658,7 @@ function HomeTwo() {
                 <TextField
                   id="emailId"
                   name="emailId"
-<<<<<<< HEAD
                   label="Email"
-=======
-                  label="Email ID"
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
                   variant="standard"
                   fullWidth
                   value={formData.emailId}
@@ -825,11 +706,7 @@ function HomeTwo() {
             </div>
 
             {/* Case History - Full Width */}
-<<<<<<< HEAD
             <div className={`w-full ${isMobile ? 'mt-8' : 'mt-12'}`}>
-=======
-            <div className="w-full mt-6">
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
               <TextField
                 id="caseHistory"
                 name="caseHistory"
@@ -847,11 +724,7 @@ function HomeTwo() {
                   marginBottom: '30px',
                   '& .MuiInputLabel-root': {
   fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
-<<<<<<< HEAD
   color: '#023437',
-=======
-  color: 'white',
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
   fontWeight: 'bold',
   // Remove or reduce transform
   transform: 'translate(0, 80px) scale(1)',
@@ -859,7 +732,6 @@ function HomeTwo() {
 
                   '& .MuiInputLabel-shrink': {
                     transform: 'translate(0, -10px) scale(0.75)',
-<<<<<<< HEAD
                     color: "#023437"
                   },
                   '& .MuiInput-root': {
@@ -881,40 +753,13 @@ function HomeTwo() {
                   },
                   '& .MuiFormHelperText-root': {
                     color: "#023437"
-=======
-                    color: "white"
-                  },
-                  '& .MuiInput-root': {
-                    marginTop: '10px',
-                    color: "white",
-                    '&:before': {
-                      borderBottom: '1px solid white',
-                      marginTop: '20px'
-                    },
-                    '&:hover:not(.Mui-disabled):before': {
-                      borderBottom: '2px solid white'
-                    },
-                    '&:after': {
-                      borderBottom: '2px solid white'
-                    }
-                  },
-                  '& .MuiInput-input': {
-                    color: "white"
-                  },
-                  '& .MuiFormHelperText-root': {
-                    color: "white"
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
                   }
                 }}
               />
             </div>
 
             {/* Checkboxes */}
-<<<<<<< HEAD
             <div className={`mt-8 space-y-6 text-[#023437] ${isMobile ? 'text-sm space-y-4' : 'text-base'} leading-relaxed`}>
-=======
-            <div className={`mt-8 space-y-6 text-white ${isMobile ? 'text-sm' : 'text-base'} leading-relaxed`}>
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
 
               {/* Privacy Consent */}
               <div className="flex items-start">
@@ -925,26 +770,16 @@ function HomeTwo() {
                     name="privacyConsent"
                     checked={formData.privacyConsent}
                     onChange={handleChange}
-<<<<<<< HEAD
                     className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'} rounded border-[#023437] bg-transparent text-indigo-600 focus:ring-indigo-500 accent-[#C09F53]`}
                     style={{ backgroundColor: 'transparent', borderColor: '#023437' }}
                     required
                   />
                 </div>
                 <label htmlFor="privacyConsent" className="ml-3 block text-[#023437] text-left">
-=======
-                    className="h-5 w-5 rounded border-white bg-transparent text-indigo-600 focus:ring-indigo-500 accent-[#C09F53]"
-                    style={{ backgroundColor: 'transparent', borderColor: '#fff' }}
-                    required
-                  />
-                </div>
-                <label htmlFor="privacyConsent" className="ml-3 block text-white text-left">
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
                   {!isMobile ? (
                     <>
                       <span className="block">
                         I agree to the{' '}
-<<<<<<< HEAD
                         <a href="/PrivacyPolicy" className=" text-[#C09F53] hover:text-yellow-500">
                           privacy policy
                         </a>{' '}
@@ -952,15 +787,6 @@ function HomeTwo() {
                         <a href="/Disclaimer" className=" text-[#C09F53] hover:text-yellow-500">
                           disclaimer
                           </a>{' '} and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
-=======
-                        <a href="/PrivacyPolicy" className=" hover:text-blue-200">
-                          privacy policy
-                        </a>{' '}
-                        and{' '}
-                        <a href="/Disclaimer" className=" hover:text-blue-200">
-                          disclaimer and give my express written consent, affiliates and/or lawyer to contact you atthe number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
-                        </a>.
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
                       </span>
                     
                     </>
@@ -973,7 +799,6 @@ function HomeTwo() {
                 )}
               </div>
 
-<<<<<<< HEAD
               {/* Human Verification with Captcha */}
               <div className="w-full">
                 <div className="flex items-start">
@@ -1006,18 +831,10 @@ function HomeTwo() {
 
              {/* Submit Button - below privacy consent, left aligned, smaller width and reduced height on all screens */}
             <div className={`flex mt-8 ${isMobile ? 'justify-center' : 'justify-start'} w-full`}>
-=======
-             
-            </div>
-
-             {/* Submit Button - below privacy consent, left aligned, smaller width and reduced height on all screens */}
-            <div className="flex mt-4 justify-start w-full">
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className={`
-<<<<<<< HEAD
                   ${isMobile ? `
                     inline-flex
                     w-full
@@ -1038,6 +855,7 @@ function HomeTwo() {
                   ` : `
                     inline-flex
                     h-[56px]
+                    w-[280px]
                     px-[32px]
                     justify-start
                     items-center
@@ -1050,36 +868,14 @@ function HomeTwo() {
                     border-[#FFFBF3]
                     font-open-sans
                     text-[22px]
-                    font-bold
+                    font-medium
                     leading-normal
                     hover:bg-[#374A67]
+                    text-center
                   `}
                   disabled:opacity-70
                   transition-colors
                   duration-200
-=======
-                  inline-flex
-                  h-[56px]
-                  px-[32px]
-                  justify-start
-                  items-center
-                  gap-[10px]
-                  flex-shrink-0
-                  rounded-[60px]
-                  bg-[#023437]
-                  text-[#FFFBF3]
-                  border
-                  border-[#FFFBF3]
-                  font-open-sans
-                  text-[22px]
-                  font-bold
-                  leading-normal
-                  hover:bg-[#374A67]
-                  disabled:opacity-70
-                  transition-colors
-                  duration-200
-                  ml-0
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
                 `}
               >
                 {isSubmitting ? 'Submitting...' : 'Submit'}

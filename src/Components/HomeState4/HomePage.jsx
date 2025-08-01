@@ -13,7 +13,7 @@ function HomeState4() {
       <HomeOne />
       <HomeThree />
       <HomeTwo />
-      <HomeSeven />
+      {/* <HomeSeven /> */}
       <Footer />
     </div>
   )

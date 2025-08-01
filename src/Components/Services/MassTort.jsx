@@ -1,113 +1,117 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Group from "../../assets/Group 64.png";
-// import Frame from "../../assets/Frame 19.png";
-import Frame116 from "../../assets/MassImg.png";
-// import Searchbar from "../../assets/Search bar.png";
-import Frames from "../../assets/Frame 171.png";
-import Frame169 from "../../assets/MassImg.png";
-import Frame60 from "../../assets/Frame 160.png";
-import Frame175 from "../../assets/Frame 175.png";
-import HomeSeven from '../Home/HomeSeven';
-import Footer from '../Footer';
-import NavBar from '../NavBar';
-import FaqMassTort from '../FAQMassTort';
+import React from 'react';
+import { ArrowLeft } from 'lucide-react';
+import heroBg from "../../../assets/massTortHerobg.png";
+import heroBgMob from "../../../assets/massTortHeroBgmob.png";
 
-function MassTort() {
-    const navigate = useNavigate();
-    useEffect(() => {
-        window.scrollTo(0, 0); 
-    }, []);
-
-    return (
-        <div className="relative">
-            <div className="hidden md:block bg-[#023437]">
-                <div className="fixed top-0 left-0 w-full bg-transparent z-[1000]">
-                    <NavBar />
-                </div>
-                <img src={Group} className="w-full p-0 block bg-[#023437]" alt="Background" />
-                <div className="relative z-10 w-full flex flex-col md:flex-row items-center justify-center px-4 sm:px-8 md:px-10 lg:px-16 xl:px-24 2xl:px-32 bg-[#023437] py-12">
-                    <img
-                        src={Frame116}
-                        className="w-full max-w-[220px] sm:max-w-[260px] md:max-w-[300px] lg:max-w-[400px] xl:max-w-[420px] h-auto object-cover flex-shrink-0 mb-8 md:mb-0"
-                        alt="Content"
-                    />
-                    <div className="w-full md:w-auto bg-[#023437] p-4 sm:p-6 md:p-8 shadow-md border border-white md:ml-4 lg:ml-8 xl:ml-12" style={{ borderRadius: 0 }}>
-                        <h2
-                            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#ffffff] mb-4 text-left font-['Playfair_Display']"
-                        >
-                            Mesothelioma Lawsuit
-                        </h2>
-                        <p
-                            className="text-base sm:text-lg md:text-xl text-[#ffffff] mb-6 text-left font-['Open_Sans']"
-                        >
-                            Seeks justice for individuals diagnosed with mesothelioma due to asbestos exposure, often decades ago.
-                        </p>
-                        <button
-                            className="inline-flex h-[48px] px-[20px] py-[10px] justify-center items-center flex-shrink-0 rounded-[60px] bg-[#C09F53] text-white text-base font-semibold self-start"
-                            onClick={() => navigate('/Sub-Service')}
-                        >
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    <FaqMassTort />
-                    <HomeSeven />
-                    <Footer />
-                </div>
-            </div>
-.  
-            {/* Mobile View (fixed) */}
-            <div className="md:hidden block overflow-hidden">
-                <NavBar />
-                <main className="pt-16 pb-0">
-                    <div className="relative bg-[#023437] w-full h-[300px] overflow-hidden">
-                        <img
-                            src={Frame175}
-                            className="w-full h-full object-cover"
-                            alt="Background"
-                        />
-                    </div>
-
-                    {/* Content Sections */}
-                    <div className="px-4 bg-[#023437] w-full pt-10 pb-5">
-                        <img
-                            src={Frame169}
-                            className="w-full h-auto shadow-md"
-                            alt="Content"
-                        />
-                    </div>
-
-    <div className="bg-[#023437] w-full pt-2">
-  <div className="px-4 py-8 flex flex-col items-center">
-    <div className="w-full bg-transparent shadow-lg p-5 flex flex-col items-start gap-3 border border-white rounded-none">
-      <h3 className="text-4xl sm:text-5xl font-extrabold text-white mb-1" style={{ fontFamily: 'Playfair Display, serif' }}>
-        Mesothelioma Lawsuit
-      </h3>
-      <p className="text-sm text-white mb-2" style={{ fontFamily: 'Open Sans, sans-serif' }}>
-        Seeks justice for individuals diagnosed with mesothelioma due to asbestos exposure, often decades ago.
-      </p>
-      <button
-        className="bg-[#C09F53] text-white text-sm font-bold py-2 px-5 rounded-full shadow-md hover:bg-[#b18e3e] transition-colors duration-200 mt-2"
-        onClick={() => navigate('/Sub-Service')}
-      >
-        Learn More
-      </button>
-    </div>
-  </div>
-</div>
-                </main>
-
-                {/* Footer Sections */}
-                <div>
-                    <FaqMassTort />
-                    <HomeSeven />
-                    <Footer />
-                </div>
-            </div>
+const MassTortHero = () => {
+  return (
+    <>
+      {/* Spacer for navbar - adjust height based on your navbar */}
+      <div className="h-16 sm:h-20 md:h-24"></div>
+      
+      <section className="relative w-full h-[365px] bg-black overflow-hidden">
+        {/* Desktop/Tablet Background */}
+        <div className="hidden md:block absolute inset-0">
+          <img 
+            src={heroBg}
+            alt=""
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+              w-full h-full
+              md:w-auto md:h-full md:min-w-full
+              lg:w-auto lg:h-full lg:min-w-full
+              xl:w-full xl:h-auto xl:min-h-full
+              2xl:w-full 2xl:h-auto 2xl:min-h-full
+              object-cover brightness-[1.8] contrast-125 saturate-110"
+          />
+          {/* Light overlays for brightness */}
+          <div className="absolute inset-0 bg-white/20" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
         </div>
-    );
-}
+        
+        {/* Mobile Background */}
+        <div className="block md:hidden absolute inset-0">
+          <img 
+            src={heroBgMob}
+            alt=""
+            className="w-full h-full object-cover brightness-[1.8] contrast-125 saturate-110"
+          />
+          {/* Light overlays for brightness */}
+          <div className="absolute inset-0 bg-white/20" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
+        </div>
+        
+        {/* Content Container */}
+        <div className="relative z-10 h-full">
+          <div className="h-full flex flex-col max-w-[1920px] mx-auto">
+            {/* Back Button */}
+            <div className="flex-shrink-0 p-4 sm:p-5 md:p-6 lg:p-8 xl:p-10">
+              <button
+                onClick={() => window.history.back()}
+                className="group inline-flex items-center justify-center 
+                  w-10 h-10
+                  sm:w-12 sm:h-12
+                  md:w-12 md:h-12
+                  lg:w-14 lg:h-14
+                  xl:w-14 xl:h-14
+                  2xl:w-16 2xl:h-16
+                  bg-white/10 backdrop-blur-md rounded-full border border-white/20 
+                  hover:bg-white/20 hover:border-white/30 
+                  transform transition-all duration-300 ease-out
+                  focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent"
+                aria-label="Go back"
+              >
+                <ArrowLeft 
+                  className="w-5 h-5 md:w-6 md:h-6 text-white 
+                    group-hover:-translate-x-0.5 transition-transform duration-200" 
+                  strokeWidth={2}
+                />
+              </button>
+            </div>
+            
+            {/* Main Content - Bottom Aligned */}
+            <div className="flex-1 flex items-end">
+              <div className="w-full px-4 sm:px-5 md:px-6 lg:px-8 xl:px-10 
+                pb-6 sm:pb-7 md:pb-8 lg:pb-10 xl:pb-12">
+                {/* Heading */}
+                <h1 className="text-white font-bold leading-none">
+                  <span className="block 
+                    text-3xl
+                    sm:text-4xl
+                    md:text-4xl
+                    lg:text-5xl
+                    xl:text-6xl
+                    2xl:text-7xl
+                    tracking-tight
+                    [text-shadow:_0_4px_20px_rgb(0_0_0_/_80%)]">
+                    Mass Tort
+                  </span>
+                </h1>
+                
+                {/* Subtitle */}
+                <p className="text-white/90
+                  text-sm
+                  sm:text-base
+                  md:text-base
+                  lg:text-lg
+                  xl:text-xl
+                  2xl:text-2xl
+                  mt-3 sm:mt-4 md:mt-4 lg:mt-5 xl:mt-6
+                  max-w-[90%] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
+                  leading-relaxed
+                  [text-shadow:_0_2px_12px_rgb(0_0_0_/_60%)]">
+                  Comprehensive legal representation for mass tort litigation cases
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Bottom gradient overlay */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 
+          bg-gradient-to-t from-black/40 via-black/20 to-transparent pointer-events-none" />
+      </section>
+    </>
+  );
+};
 
-export default MassTort;
+export default MassTortHero;

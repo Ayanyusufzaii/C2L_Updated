@@ -13,7 +13,7 @@ import Service from "./Components/ServiceOverview/ServiceOverview"
 import SubService from "./Components/Sub-Services/Meso/SubService"
 import About from './Components/AboutUs/About';
 import ContactUs from "./Components/ContactUs/ContactUs"
-import MassTort from './Components/Services/MassTort';
+import MassTort from './Components/Services/MassTort/MassTort';
 import PIService from './Components/PersonalInjury/PIService';
 import ClassService from './Components/ClassAction/ClassService';
 import { ParallaxProvider } from 'react-scroll-parallax';

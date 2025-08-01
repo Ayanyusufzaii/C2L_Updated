@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Phone, MapPin } from 'lucide-react';
-<<<<<<< HEAD
-import bg from "../../assets/1st.jpg";
-=======
 import bg from "../../assets/HomeHero.png";
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
 
 function LegalHeroSection() {
   const [selectedRegion, setSelectedRegion] = useState('Select Region');
@@ -96,11 +92,7 @@ function LegalHeroSection() {
             className="font-playfair font-extrabold text-[48px] xs:text-[72px] sm:text-[96px] md:text-[120px] lg:text-[144px] leading-tight sm:leading-[90px] md:leading-[110px] lg:leading-[140px] text-white mb-4 sm:mb-6 text-center sm:text-left"
           >
             Your Case<br />
-<<<<<<< HEAD
-            Our Priority
-=======
             Our <span className='text-[#C09F53]'>Priority</span>
->>>>>>> 01d88ce365a0a4a2ac1151d2283b27cf69eed9cd
           </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-gray-200 mb-6 sm:mb-8 max-w-xl md:max-w-2xl lg:max-w-2xl xl:max-w-3xl leading-relaxed text-center sm:text-left">
             We match you with the right legal expertise to ensure your rights are protected and your voice is heard.
