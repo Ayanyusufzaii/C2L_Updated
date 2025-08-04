@@ -19,7 +19,15 @@ import ClassService from './Components/ClassAction/ClassService';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import './index.css'; 
 import ChatInterface from './Components/ChatBot/ChatInterface';
-import HomeNewSouthWales from './Components/HomeNewSouthWales/HomePage';
+import HomeNewSouthWales from './Components/Regions/HomeNewSouthWales/HomePage';
+import HomeTasmania from './Components/Regions/HomeTasmania/HomePage';
+import HomeVictoria from './Components/Regions/HomeVictoria/HomePage';  
+import HomeQueensland from './Components/Regions/HomeQueensland/HomePage';
+import HomeWesternAustralia from './Components/Regions/HomeWesternAustralia/HomePage';
+import HomeSouthAustralia from './Components/Regions/HomeSouthAustralia/HomePage';
+import HomeNorthernTerritory from './Components/Regions/HomeNorthernTerritory/HomePage';
+import HomeAustralainCapitalTerritory from './Components/Regions/HomeAustralianCapitalTerritory/HomePage';
+import LawyersPage from './Components/Lawyers/HomePage';
 import HomeState1 from './Components/HomeState1/HomePage';
 import HomeState2 from './Components/HomeState2/HomePage';
 import HomeState3 from './Components/HomeState3/HomePage';      
@@ -40,8 +48,36 @@ function App() {
       element: <HomePage />,
     },
     {
-      path: '/HomeNewSouthWales',
+      path: '/New-South-Wales',
       element: <HomeNewSouthWales />,
+    },
+    {
+      path: '/Queensland',
+      element: <HomeQueensland />,
+    },
+    {
+      path: '/South-Australia',
+      element: <HomeSouthAustralia />,
+    },
+    {
+      path: '/Tasmania',
+      element: <HomeTasmania />,
+    },
+    {
+      path: '/Victoria',
+      element: <HomeVictoria />,
+    },
+    {
+      path: '/Western-Australia',
+      element: <HomeWesternAustralia />,
+    },
+    {
+      path: '/Australian-Capital-Territory',
+      element: <HomeAustralainCapitalTerritory />,
+    },
+    {
+      path: '/Northern-Territory',
+      element: <HomeNorthernTerritory/>,
     },
      {
       path: '/HomeState1',
@@ -135,6 +171,10 @@ function App() {
     {
       path: '/ClassService',
       element: <ClassService />,
+    },
+    {
+      path:'/Lawyers',
+      element:<LawyersPage />,
     },
     {
       path: '*',
