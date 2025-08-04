@@ -99,8 +99,8 @@ const ContactUsHero = () => {
             paddingLeft: `${calc.infoPaddingPercent}%`,
             minPaddingLeft: "44px",
             paddingRight: "2%",
-            paddingTop: "80px",
-            paddingBottom: "80px",
+            paddingTop: "3%",
+            paddingBottom: "3%",
           }}
         >
           {/* Main Heading */}

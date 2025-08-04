@@ -3,9 +3,10 @@ import NavBar from "../../NavBar";
 import Footer from '../../Footer';
 import FaqMassTort from '../../FAQMassTort';
 import MassTortHero from './MassTortHero';
+import MassTortTwo from './MassTortTwo';
 
 
-function ContactUs() {
+function MassTort() {
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
@@ -17,7 +18,7 @@ function ContactUs() {
             <NavBar />
             <div className="relative w-full">
                 <MassTortHero />
-                {/* <MassTortTwo />  */}
+                <MassTortTwo /> 
                 <FaqMassTort />
                 <Footer />
             </div>
@@ -25,4 +26,4 @@ function ContactUs() {
     );
 }
 
-export default ContactUs;
+export default MassTort;
