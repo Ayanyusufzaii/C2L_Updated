@@ -1,7 +1,7 @@
 import React from "react";
 import AustraliaMap from "../../../assets/NTHERODESKTOP.png";
 import AustraliaMapMob from "../../../assets/NTHEROMOBILE.png";
-import AustraliaMapTab from "../../../assets/NTHEROTABLET.png";
+import AustraliaMapTab from "../../../assets/NTHERODESKTOP.png";
 
 const HomeOneMobile = () => (
   <section className="block md:hidden w-full bg-white px-6 py-6 flex flex-col items-left justify-start gap-6 font-playfair">
@@ -85,7 +85,10 @@ const HomeOneDesktop = () => (
                 </span>
               </h1>
 
-              <div className="mt-8 lg:mt-10 xl:mt-12 2xl:mt-14 3xl:mt-16 4xl:mt-20 max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl 3xl:max-w-3xl 4xl:max-w-4xl">
+              <div className="mt-8 lg:mt-10 xl:mt-12 2xl:mt-14 3xl:mt-16 4xl:mt-20 
+                max-w-[18rem] sm:max-w-[24rem] md:max-w-[28rem] 
+                lg:max-w-[30rem] xl:max-w-[36rem] 2xl:max-w-[42rem] 
+                3xl:max-w-[48rem] 4xl:max-w-[56rem]">
                 <p className="text-[#023437] font-semibold font-playfair text-[16px] lg:text-[20px] xl:text-[24px] 2xl:text-[28px] 3xl:text-[32px] 4xl:text-[36px]">
                   Start your claim with no upfront fees.
                 </p>

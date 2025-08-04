@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Marquee from "../../assets/Group 45.png";
 import TextField from '@mui/material/TextField';
 import emailjs from '@emailjs/browser';
@@ -6,9 +6,220 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./HomeTwo.css";
 import Frame from "../../assets/justiceimg.png";
-import Frame2 from "../../assets/justiceimg.png";
+import Frame2 from "../../assets/Group 88.png";
 import { useMediaQuery, MenuItem } from '@mui/material';
-import FormBG from "../../assets/FormBG.png";
+import FormBG from "../../assets/hFormBG.png";
+import mobFormBG from "../../assets/MobileFormBG.png";
+
+// Custom Captcha Component
+const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
+  const [captchaText, setCaptchaText] = useState('');
+  const [userInput, setUserInput] = useState('');
+  const [isValid, setIsValid] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(false);
+  const [charOffsets, setCharOffsets] = useState([]);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
+  const generateCaptcha = () => {
+    // Stop any ongoing speech when generating new CAPTCHA
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    let offsets = [];
+    for (let i = 0; i < 6; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+      offsets.push((Math.random() * 10 - 5).toFixed(2));
+    }
+    setCaptchaText(result);
+    setCharOffsets(offsets);
+    setUserInput('');
+    setIsValid(false);
+    onCaptchaChange && onCaptchaChange(false);
+  };
+
+  // Generate CAPTCHA immediately when component mounts
+  useEffect(() => {
+    generateCaptcha();
+  }, []);
+
+  // Reset captcha when resetTrigger changes
+  useEffect(() => {
+    if (resetTrigger) {
+      generateCaptcha();
+    }
+  }, [resetTrigger]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      generateCaptcha();
+    }, 60000);
+
+    return () => {
+      clearInterval(timer);
+      // Stop any ongoing speech when component unmounts
+      if (isSpeaking) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, [isSpeaking]);
+
+  const speakCaptcha = () => {
+    if ('speechSynthesis' in window) {
+      // Stop any ongoing speech before starting new one
+      window.speechSynthesis.cancel();
+      setIsSpeaking(true);
+
+      const voices = window.speechSynthesis.getVoices();
+      const maleUsVoice = voices.find(voice =>
+        voice.lang === 'en-US' &&
+        voice.name.toLowerCase().includes('david')
+      ) || voices.find(voice =>
+        voice.lang === 'en-US'
+      );
+
+      let currentIndex = 0;
+      const speakNextChar = () => {
+        if (currentIndex < captchaText.length) {
+          const char = captchaText[currentIndex];
+          const utterance = new SpeechSynthesisUtterance(char);
+          utterance.rate = 0.5;
+          utterance.pitch = 0.9;
+          utterance.volume = 1.0;
+          utterance.lang = 'en-US';
+
+          if (maleUsVoice) {
+            utterance.voice = maleUsVoice;
+          }
+
+          utterance.onend = () => {
+            currentIndex++;
+            speakNextChar();
+          };
+
+          window.speechSynthesis.speak(utterance);
+        } else {
+          setIsSpeaking(false);
+        }
+      };
+
+      speakNextChar();
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setUserInput(value);
+    const valid = value === captchaText;
+    setIsValid(valid);
+    onCaptchaChange && onCaptchaChange(valid);
+  };
+
+  const handleAudioToggle = (e) => {
+    setAudioEnabled(e.target.checked);
+  };
+
+  return (
+    <div className="mt-4">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        <div className="bg-gray-100 p-3 rounded font-mono text-lg tracking-wider select-none relative overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage: `repeating-linear-gradient(
+                0deg,
+                #ccc,
+                #ccc 1px,
+                transparent 1px,
+                transparent 5px
+              )`,
+              backgroundSize: '100% 10px',
+              backgroundPosition: '0 50%'
+            }}
+          />
+          <div className="relative z-10">
+            {captchaText.split('').map((char, index) => (
+              <span
+                key={index}
+                style={{
+                  transform: `translateY(${charOffsets[index]}px)`,
+                  display: 'inline-block',
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+                }}
+                className="mx-0.5"
+              >
+                {char}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="flex gap-2 items-center justify-left sm:justify-start">
+          <button
+            type="button"
+            onClick={generateCaptcha}
+            className="px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0"
+            title="Refresh CAPTCHA"
+          >
+            ↻
+          </button>
+          {audioEnabled && (
+            <button
+              type="button"
+              onClick={speakCaptcha}
+              disabled={isSpeaking}
+              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${
+                isSpeaking ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              title="Listen to CAPTCHA"
+            >
+              {isSpeaking ? '🔊🎵' : '🔊'}
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-center mt-2">
+        <input
+          type="checkbox"
+          id="enableAudio"
+          checked={audioEnabled}
+          onChange={handleAudioToggle}
+          className="mr-2"
+        />
+        <label htmlFor="enableAudio" className="text-sm text-gray-700">
+          Enable Audio
+        </label>
+      </div>
+
+      <div className="mt-3">
+        <input
+          type="text"
+          value={userInput}
+          onChange={handleInputChange}
+          placeholder="Enter CAPTCHA"
+          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            userInput !== '' && !isValid
+              ? 'border-red-500 focus:ring-red-500'
+              : 'border-gray-300'
+          }`}
+        />
+        {userInput !== '' && !isValid && (
+          <p className="text-red-500 text-sm mt-1">
+            CAPTCHA does not match
+          </p>
+        )}
+        {isValid && (
+          <p className="text-green-500 text-sm mt-1">
+            ✓ CAPTCHA verified successfully
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
 
 function HomeTwo() {
   const formRef = useRef();
@@ -21,48 +232,118 @@ function HomeTwo() {
     caseHistory: '',
     settlementHelp: false,
     privacyConsent: false,
-    humanVerification: false
+    humanVerification: false,
+    captchaEnabled: false
   });
    
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  
+  // New states for lander essentials
+  const [captchaValid, setCaptchaValid] = useState(false);
+  const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
+  const [pingUrl, setPingUrl] = useState("");
+  const [certId, setCertId] = useState("");
+  const [tokenUrl, setTokenUrl] = useState("");
+  const [pageUrl, setPageUrl] = useState("");
+  const [ipAddress, setIpAddress] = useState("");
 
   // Responsive breakpoints
   const isMobile = useMediaQuery('(max-width:768px)');
+  const isSmallMobile = useMediaQuery('(max-width:375px)');
   const isTablet = useMediaQuery('(min-width:769px) and (max-width:1024px)');
   const isDesktop = useMediaQuery('(min-width:1025px)');
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
+  // Capture page URL and IP on mount
+  useEffect(() => {
+    // Set page URL
+    setPageUrl(window.location.href);
+    
+    // Get IP address (you may need to use a service for this)
+    // For now, we'll leave it empty or you can integrate with an IP service
+    // Example: fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => setIpAddress(data.ip));
+  }, []);
+
+  // TrustedForm integration
+  useEffect(() => {
+    // Simple observer to capture TrustedForm data when it's populated
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "attributes" && mutation.attributeName === "value") {
+          const target = mutation.target;
+
+          // Check if this is a TrustedForm field
+          if (target.name === "xxTrustedFormCertUrl" && target.value) {
+            setCertId(target.value);
+            console.log("TrustedForm Cert ID:", target.value);
+          }
+
+          if (target.name === "xxTrustedFormPingUrl" && target.value) {
+            setPingUrl(target.value);
+            console.log("TrustedForm Ping URL:", target.value);
+          }
+
+          if (target.name === "xxTrustedFormCertToken" && target.value) {
+            setTokenUrl(target.value);
+            console.log("TrustedForm Cert Token:", target.value);
+          }
+        }
+      });
+    });
+
+    // Start observing after a short delay to ensure TrustedForm script has loaded
+    const timeoutId = setTimeout(() => {
+      const certField = document.querySelector('[name="xxTrustedFormCertUrl"]');
+      const pingField = document.querySelector('[name="xxTrustedFormPingUrl"]');
+      const tokenField = document.querySelector('[name="xxTrustedFormCertToken"]');
+
+      [certField, pingField, tokenField].forEach((field) => {
+        if (field) observer.observe(field, { attributes: true });
+      });
+
+      // Check if values are already populated
+      if (certField?.value) setCertId(certField.value);
+      if (pingField?.value) setPingUrl(pingField.value);
+      if (tokenField?.value) setTokenUrl(tokenField.value);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, []);
+
   // Dynamic text field styles based on screen size
   const getTextFieldStyle = () => ({
     '& .MuiInputLabel-root': {
-      color: 'white',
+      color: '#023437',
       fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
       fontFamily: 'Helvetica',
       fontWeight: 'bold',
       '&.Mui-focused': {
-        color: 'white'
+        color: '#023437'
       }
     },
     '& .MuiInput-root': {
       fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
       fontFamily: 'Helvetica',
-      color: 'white',
+      color: '#023437',
       '&:before': {
-        borderBottomColor: 'white'
+        borderBottomColor: '#023437'
       },
       '&:hover:not(.Mui-disabled):before': {
-        borderBottomColor: 'white'
+        borderBottomColor: '#023437'
       },
       '&:after': {
-        borderBottomColor: 'white'
+        borderBottomColor: '#023437'
       },
       '&.Mui-focused': {
-        color: 'white'
+        color: '#023437'
       }
     },
     '& .MuiFormHelperText-root': {
@@ -70,7 +351,7 @@ function HomeTwo() {
       fontFamily: 'Helvetica'
     },
     '& .Mui-error': {
-      color: 'white',
+      color: '#023437',
       '&:after': {
         borderBottomColor: '#d32f2f'
       }
@@ -90,6 +371,10 @@ function HomeTwo() {
         [name]: ''
       }));
     }
+  };
+
+  const handleCaptchaChange = (isValid) => {
+    setCaptchaValid(isValid);
   };
 
   const validateForm = () => {
@@ -127,6 +412,11 @@ function HomeTwo() {
       newErrors.humanVerification = 'Please verify you are human';
     }
 
+    // Add captcha validation
+    if (formData.captchaEnabled && !captchaValid) {
+      newErrors.captcha = 'Please complete the CAPTCHA verification';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -150,7 +440,13 @@ function HomeTwo() {
       email: formData.emailId,
       phone_number: formData.phoneNumber,
       concern: formData.concern,
-      case_history: formData.caseHistory
+      case_history: formData.caseHistory,
+      // Add TrustedForm and other lander essentials
+      xxTrustedFormCertUrl: certId,
+      xxTrustedFormPingUrl: pingUrl,
+      xxTrustedFormCertToken: tokenUrl,
+      pageUrl: pageUrl,
+      ipAddress: ipAddress
     };
 
     emailjs.send(serviceId, templateId, templateParams, publicKey)
@@ -167,8 +463,13 @@ function HomeTwo() {
           caseHistory: '',
           settlementHelp: false,
           privacyConsent: false,
-          humanVerification: false
+          humanVerification: false,
+          captchaEnabled: false
         });
+
+        // Reset captcha
+        setCaptchaValid(false);
+        setCaptchaResetTrigger(prev => prev + 1);
 
         setSuccessDialogOpen(true);
         setShowModal(true);
@@ -221,23 +522,33 @@ function HomeTwo() {
   // Responsive form layout
   const getFormLayout = () => {
     if (isMobile) {
-      return 'flex-col space-y-6';
+      return 'flex-col space-y-8';
     } else {
-      return 'grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8';
+      return 'grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8';
     }
   };
 
+
+  
+
   return (
-    <div className="w-full overflow-x-hidden">
+    <div className="w-full overflow-x-hidden" style={{
+      backgroundImage: `url(${isMobile ? mobFormBG : FormBG})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      minHeight: '100vh'
+    }}>
       {/* Responsive Marquee Banner */}
-      <div className={`mt-${isMobile ? '10' : '32'} ${isMobile ? 'px-4' : ''}`}>
+      <div className={`${isMobile ? 'mt-10' : isTablet ? 'mt-32' : 'mt-40'} ${isMobile ? 'px-4' : ''}`}>
         <div 
           className="flex justify-end items-center bg-[#C09F53] overflow-hidden relative -rotate-[4.013deg]"
           style={{ 
             height: marqueeConfig.height,
-            width: '100vw',
+            width: '110vw',
             marginLeft: isMobile ? '-16px' : isTablet ? '-40px' : '-10px',
-            marginTop: isMobile ? '20px' : '40px'
+            marginRight: '-10vw',
+            marginTop: isMobile ? '20px' : isTablet ? '10px' : '20px'
           }}
         >
           <div className="w-full overflow-hidden py-2">
@@ -267,22 +578,43 @@ function HomeTwo() {
 
         {/* Responsive Form Container */}
         <div 
-          className="text-center bg-[#023437] mx-auto"
+          className="bg-[#FFFBF3] mx-auto"
           style={{
-            padding: isMobile ? '16px' : isTablet ? '32px' : '20px',
-            marginTop: isMobile ? '-80px' : isTablet ? '-90px' : '-120px',
-            marginLeft: isMobile ? '0' : isTablet ? '2%' : '4%',
-            width: isMobile ? 'calc(100% - 32px)' : isTablet ? '96%' : '1150px',
-            maxWidth: isMobile ? 'none' : isTablet ? 'calc(100vw - 80px)' : '1150px',
-            minHeight: isMobile ? 'auto' : isTablet ? '900px' : '1100px',
-            borderRadius: isMobile ? '8px' : '0'
+            padding: isSmallMobile ? '16px 12px' : isMobile ? '24px 20px' : isTablet ? '48px' : '60px 80px',
+            marginTop: isMobile ? '-80px' : isTablet ? '-120px' : '-160px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            width: isSmallMobile ? 'calc(100% - 16px)' : isMobile ? 'calc(100% - 32px)' : isTablet ? '90%' : '85%',
+            maxWidth: isMobile ? 'none' : isTablet ? '900px' : '1400px',
+            minHeight: isMobile ? 'auto' : isTablet ? '1000px' : '1200px',
+            borderRadius: '0'
           }}
         >
           <form 
             ref={formRef} 
             onSubmit={handleSubmit} 
-            className={`${isMobile ? 'mt-[15%]' : isTablet ? 'mt-[12%]' : 'mt-[20%]'}`}
+            className={`${isMobile ? 'mt-[10%]' : isTablet ? 'mt-[15%]' : 'mt-[20%]'}`}
           >
+            {/* Hidden TrustedForm fields */}
+            <input
+              type="hidden"
+              id="xxTrustedFormCertUrl"
+              name="xxTrustedFormCertUrl"
+              value={certId}
+            />
+            <input
+              type="hidden"
+              id="xxTrustedFormCertToken"
+              name="xxTrustedFormCertToken"
+              value={tokenUrl}
+            />
+            <input
+              type="hidden"
+              id="xxTrustedFormPingUrl"
+              name="xxTrustedFormPingUrl"
+              value={pingUrl}
+            />
+
             {/* Form Fields Grid */}
             <div className={getFormLayout()}>
               {/* Name */}
@@ -290,7 +622,7 @@ function HomeTwo() {
                 <TextField
                   id="firstName"
                   name="firstName"
-                  label="Name"
+                  label="Full name"
                   variant="standard"
                   fullWidth
                   value={formData.firstName}
@@ -299,7 +631,7 @@ function HomeTwo() {
                   helperText={errors.firstName}
                   sx={{
                     ...getTextFieldStyle(),
-                    marginBottom: isMobile ? '0px' : '60px',
+                    marginBottom: isMobile ? '0px' : '40px',
                     marginTop: isMobile ? '40px' : '0px'
                   }}
                 />
@@ -310,7 +642,7 @@ function HomeTwo() {
                 <TextField
                   id="phoneNumber"
                   name="phoneNumber"
-                  label="Phone Number"
+                  label="Phone"
                   variant="standard"
                   fullWidth
                   value={formData.phoneNumber}
@@ -319,7 +651,7 @@ function HomeTwo() {
                   helperText={errors.phoneNumber}
                   sx={{
                     ...getTextFieldStyle(),
-                    marginBottom: isMobile ? '0px' : '60px'
+                    marginBottom: isMobile ? '0px' : '40px'
                   }}
                 />
               </div>
@@ -329,7 +661,7 @@ function HomeTwo() {
                 <TextField
                   id="emailId"
                   name="emailId"
-                  label="Email ID"
+                  label="Email"
                   variant="standard"
                   fullWidth
                   value={formData.emailId}
@@ -377,7 +709,7 @@ function HomeTwo() {
             </div>
 
             {/* Case History - Full Width */}
-            <div className="w-full mt-6">
+            <div className={`w-full ${isMobile ? 'mt-8' : 'mt-12'}`}>
               <TextField
                 id="caseHistory"
                 name="caseHistory"
@@ -395,7 +727,7 @@ function HomeTwo() {
                   marginBottom: '30px',
                   '& .MuiInputLabel-root': {
   fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
-  color: 'white',
+  color: '#023437',
   fontWeight: 'bold',
   // Remove or reduce transform
   transform: 'translate(0, 80px) scale(1)',
@@ -403,34 +735,34 @@ function HomeTwo() {
 
                   '& .MuiInputLabel-shrink': {
                     transform: 'translate(0, -10px) scale(0.75)',
-                    color: "white"
+                    color: "#023437"
                   },
                   '& .MuiInput-root': {
                     marginTop: '10px',
-                    color: "white",
+                    color: "#023437",
                     '&:before': {
-                      borderBottom: '1px solid white',
+                      borderBottom: '1px solid #023437',
                       marginTop: '20px'
                     },
                     '&:hover:not(.Mui-disabled):before': {
-                      borderBottom: '2px solid white'
+                      borderBottom: '2px solid #023437'
                     },
                     '&:after': {
-                      borderBottom: '2px solid white'
+                      borderBottom: '2px solid #023437'
                     }
                   },
                   '& .MuiInput-input': {
-                    color: "white"
+                    color: "#023437"
                   },
                   '& .MuiFormHelperText-root': {
-                    color: "white"
+                    color: "#023437"
                   }
                 }}
               />
             </div>
 
             {/* Checkboxes */}
-            <div className={`mt-8 space-y-6 text-white ${isMobile ? 'text-sm' : 'text-base'} leading-relaxed`}>
+            <div className={`mt-8 space-y-6 text-[#023437] ${isMobile ? 'text-sm space-y-4' : 'text-base'} leading-relaxed`}>
 
               {/* Privacy Consent */}
               <div className="flex items-start">
@@ -441,23 +773,23 @@ function HomeTwo() {
                     name="privacyConsent"
                     checked={formData.privacyConsent}
                     onChange={handleChange}
-                    className="h-5 w-5 rounded border-white bg-transparent text-indigo-600 focus:ring-indigo-500 accent-[#C09F53]"
-                    style={{ backgroundColor: 'transparent', borderColor: '#fff' }}
+                    className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'} rounded border-[#023437] bg-transparent text-indigo-600 focus:ring-indigo-500 accent-[#C09F53]`}
+                    style={{ backgroundColor: 'transparent', borderColor: '#023437' }}
                     required
                   />
                 </div>
-                <label htmlFor="privacyConsent" className="ml-3 block text-white text-left">
+                <label htmlFor="privacyConsent" className="ml-3 block text-[#023437] text-left">
                   {!isMobile ? (
                     <>
                       <span className="block">
                         I agree to the{' '}
-                        <a href="/PrivacyPolicy" className=" hover:text-blue-200">
+                        <a href="/PrivacyPolicy" className=" text-[#C09F53] hover:text-yellow-500">
                           privacy policy
                         </a>{' '}
                         and{' '}
-                        <a href="/Disclaimer" className=" hover:text-blue-200">
-                          disclaimer and give my express written consent, affiliates and/or lawyer to contact you atthe number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
-                        </a>.
+                        <a href="/Disclaimer" className=" text-[#C09F53] hover:text-yellow-500">
+                          disclaimer
+                          </a>{' '} and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
                       </span>
                     
                     </>
@@ -470,36 +802,83 @@ function HomeTwo() {
                 )}
               </div>
 
-             
+              {/* Human Verification with Captcha */}
+              <div className="w-full">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">
+                    <input
+                      type="checkbox"
+                      id="captchaEnabled"
+                      name="captchaEnabled"
+                      checked={formData.captchaEnabled}
+                      onChange={handleChange}
+                      className={`${isMobile ? 'h-4 w-4' : 'h-5 w-5'} rounded border-[#023437] bg-transparent text-indigo-600 focus:ring-indigo-500 accent-[#C09F53]`}
+                      style={{ backgroundColor: 'transparent', borderColor: '#023437' }}
+                    />
+                  </div>
+                  <label htmlFor="captchaEnabled" className="ml-3 block text-[#023437] text-left">
+                    Please click this box so we know you're a person and not a computer
+                  </label>
+                </div>
+                {formData.captchaEnabled && (
+                  <CustomCaptcha 
+                    onCaptchaChange={handleCaptchaChange} 
+                    resetTrigger={captchaResetTrigger} 
+                  />
+                )}
+                {errors.captcha && (
+                  <p className="mt-2 text-sm text-red-300">{errors.captcha}</p>
+                )}
+              </div>
             </div>
 
              {/* Submit Button - below privacy consent, left aligned, smaller width and reduced height on all screens */}
-            <div className="flex mt-4 justify-start w-full">
+            <div className={`flex mt-8 ${isMobile ? 'justify-center' : 'justify-start'} w-full`}>
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className={`
-                  inline-flex
-                  h-[56px]
-                  px-[32px]
-                  justify-start
-                  items-center
-                  gap-[10px]
-                  flex-shrink-0
-                  rounded-[60px]
-                  bg-[#023437]
-                  text-[#FFFBF3]
-                  border
-                  border-[#FFFBF3]
-                  font-open-sans
-                  text-[22px]
-                  font-bold
-                  leading-normal
-                  hover:bg-[#374A67]
+                  ${isMobile ? `
+                    inline-flex
+                    w-full
+                    h-[50px]
+                    px-6
+                    justify-center
+                    items-center
+                    rounded-[30px]
+                    bg-transparent
+                    text-[#023437]
+                    border-2
+                    border-[#023437]
+                    font-sans
+                    text-[16px]
+                    font-semibold
+                    hover:bg-[#023437]
+                    hover:text-[#FFFBF3]
+                  ` : `
+                    inline-flex
+                    h-[56px]
+                    w-[280px]
+                    px-[32px]
+                    justify-start
+                    items-center
+                    gap-[10px]
+                    flex-shrink-0
+                    rounded-[60px]
+                    bg-[#023437]
+                    text-[#FFFBF3]
+                    border
+                    border-[#FFFBF3]
+                    font-open-sans
+                    text-[22px]
+                    font-medium
+                    leading-normal
+                    hover:bg-[#374A67]
+                    text-center
+                  `}
                   disabled:opacity-70
                   transition-colors
                   duration-200
-                  ml-0
                 `}
               >
                 {isSubmitting ? 'Submitting...' : 'Submit'}

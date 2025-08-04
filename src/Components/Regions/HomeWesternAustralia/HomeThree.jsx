@@ -51,7 +51,6 @@ const contentConfig = {
     imgAlt: "Rideshare Service",
   },
 };
-
 // Mobile Version - Same structure, no changes
 const HomeThreeMobile = () => {
   const [activeTag, setActiveTag] = useState("Mesothelioma Lawsuits");
@@ -74,7 +73,7 @@ const HomeThreeMobile = () => {
         >
           <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-serif font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
@@ -83,19 +82,19 @@ const HomeThreeMobile = () => {
             </p>
             {/* Lawsuit Type */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
+              <h4 className="font-bold  font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl ">
                 {data.lawsuitTypeTitle}
               </h4>
-              <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+              <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
                 {data.lawsuitTypeDesc}
               </p>
             </div>
             {/* Industries */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
+              <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl ">
                 {data.industriesTitle}
               </h4>
-              <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+              <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
                 {data.industriesDesc}
               </p>
             </div>
@@ -128,7 +127,7 @@ const HomeThreeMobile = () => {
         <div className="w-full max-w-full mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 3xl:px-32 4xl:px-48 5xl:px-64">
         
           <h1 className="text-[#FFFBF3] font-playfair font-extrabold leading-tight mb-6 sm:mb-8 text-3xl sm:text-4xl md:text-5xl lg:text-[86px] xl:text-[125px] 2xl:text-[190px] 3xl:text-[190px] 4xl:text-[190px] 5xl:text-[190px]">
-            Our Expertise in <span className="text-[#C09F53]">TAS</span>
+            Our Expertise in <span className="text-[#C09F53]">WA</span>
           </h1>
 
           {/* Mobile Tags - Horizontal Scroll */}
@@ -204,16 +203,16 @@ const HomeThreeDesktop = () => {
         >
           <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-serif font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
-            <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+            <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
               {data.description}
             </p>
             {/* Lawsuit Type */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
+              <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
                 {data.lawsuitTypeTitle}
               </h4>
               <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
@@ -222,10 +221,10 @@ const HomeThreeDesktop = () => {
             </div>
             {/* Industries */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
+              <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
                 {data.industriesTitle}
               </h4>
-              <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+              <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
                 {data.industriesDesc}
               </p>
             </div>

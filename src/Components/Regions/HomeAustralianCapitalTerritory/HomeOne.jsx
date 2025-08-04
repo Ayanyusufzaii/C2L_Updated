@@ -1,14 +1,14 @@
 import React from "react";
 import AustraliaMap from "../../../assets/ACTHERODESKTOP.png";
 import AustraliaMapMob from "../../../assets/ACTHEROMOBILE.png";
-import AustraliaMapTab from "../../../assets/ACTHEROTABLET.png";
+import AustraliaMapTab from "../../../assets/ACTHERODESKTOP.png";
 
 const HomeOneMobile = () => (
   <section className="block md:hidden w-full bg-white px-6 py-6 flex flex-col items-left justify-start gap-6 font-playfair">
     {/* Text Section */}
  <div className="w-full flex flex-col items-center px-4">
   <h1 className="text-left font-['Playfair_Display'] font-extrabold leading-snug text-[#023437] drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-[38px]  sm:text-[36px] md:text-[40px]">
-    Expert legal support <br /> for
+    Expert legal support <br /> for <br />
     <span className="text-[#C09F53] font-extrabold"> Australian Capital Territory </span>
   </h1>
   <div className="mt-4 w-full">
@@ -51,7 +51,7 @@ const HomeOneTablet = () => (
           <p className="text-[#023437] font-semibold text-base md:text-lg">
             Start your claim with no upfront fees.
           </p>
-          <p className="text-[#023437] mt-2 leading-relaxed max-w-[22rem] text-sm md:text-base">
+          <p className="text-[#023437] mt-2 leading-relaxed max-w-[22rem] text-[15px] md:text-[15px]">
 Our ACT-based lawyers are ready to review cases involving asbestos exposure, heavy vehicle accidents, and rideshare incidents - starting today. 
           </p>
         </div>
@@ -79,20 +79,30 @@ const HomeOneDesktop = () => (
             <div className="p-6 lg:p-8 xl:p-10 2xl:p-12 3xl:p-16 4xl:p-20 ">
               <h1 className="text-left font-serif font-semibold text-[#023437] leading-tight text-[32px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[72px] 4xl:text-[84px]">
                 Expert legal support <br />
-                for{" "}
+                for <span className="text-[#C9A74A] font-bold">
+                  Australian 
+                </span> <br />
                 <span className="text-[#C9A74A] font-bold">
-                  Australian Capital Territory
+                 Capital Territory
                 </span>
               </h1>
 
-              <div className="mt-8 lg:mt-10 xl:mt-12 2xl:mt-14 3xl:mt-16 4xl:mt-20 max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl 3xl:max-w-3xl 4xl:max-w-4xl">
-                <p className="text-[#023437] font-semibold font-playfair text-[16px] lg:text-[20px] xl:text-[24px] 2xl:text-[28px] 3xl:text-[32px] 4xl:text-[36px]">
-                  Start your claim with no upfront fees.
-                </p>
-                <p className="text-[#023437] font-opensans mt-2 leading-relaxed text-[16px] lg:text-[17px] xl:text-[20px] 2xl:text-[24px] 3xl:text-[28px] 4xl:text-[32px]">
-                 Our ACT-based lawyers are ready to review cases involving asbestos exposure, heavy vehicle accidents, and rideshare incidents - starting today. 
-                </p>
-              </div>
+             <div className="mt-8 lg:mt-10 xl:mt-12 2xl:mt-14 3xl:mt-16 4xl:mt-20 
+                max-w-[18rem] sm:max-w-[24rem] md:max-w-[28rem] 
+                lg:max-w-[30rem] xl:max-w-[36rem] 2xl:max-w-[42rem] 
+                3xl:max-w-[48rem] 4xl:max-w-[56rem]">
+  <p className="text-[#023437] font-semibold font-playfair 
+                text-[16px] lg:text-[20px] xl:text-[24px] 
+                2xl:text-[28px] 3xl:text-[32px] 4xl:text-[36px]">
+    Start your claim with no upfront fees.
+  </p>
+  <p className="text-[#023437] font-opensans mt-2 leading-relaxed 
+                text-[16px] lg:text-[17px] xl:text-[20px] 
+                2xl:text-[24px] 3xl:text-[28px] 4xl:text-[32px]">
+    Our ACT-based lawyers are ready to review cases involving asbestos exposure, heavy vehicle accidents, and rideshare incidents - starting today.
+  </p>
+</div>
+
             </div>
           </div>
         </div>

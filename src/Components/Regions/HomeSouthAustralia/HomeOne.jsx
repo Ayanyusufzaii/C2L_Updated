@@ -42,7 +42,7 @@ const HomeOneTablet = () => (
         alt="Australia Map"
         className="w-full h-auto object-cover min-h-[350px] max-h-[75vh] rounded-lg"
       />
-      <div className="absolute top-0 left-0 w-2/3 p-6 flex flex-col items-start rounded-tl-lg">
+      <div className="absolute top-0 left-0 w-2/3 p-4 flex flex-col items-start rounded-tl-lg">
         <h1 className="text-left font-serif font-semibold text-[#023437] leading-snug text-2xl md:text-3xl">
           Expert legal support <br />
           for <span className="text-[#C9A74A] font-bold">South Australia</span>
