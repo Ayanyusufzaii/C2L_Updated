@@ -2,16 +2,28 @@ import React from 'react';
 import Frame136 from "../../../assets/Frame 136.png";
 import Marquee from "../../../assets/Ellipse 13.png";
 import MesoOverview from "../../../assets/MesoOverview.png";
+import Marqueee from "../../../assets/manequelogo.png";
 
 function SubFour() {
     return (
-        <div className='bg-[rgba(192,159,83,0.25)]'>
+        <div className='bg-[#FFFBF3]'>
             {/* Desktop View */}
-       
+             <div className="w-full overflow-hidden py-2 bg-[#C09F53]">
+                        <div className="flex whitespace-nowrap animate-marquee">
+                            {[...Array(4)].map((_, index) => (
+                                <div key={index} className="flex items-center mr-32">
+                                    <span className="w-[795px] h-[121px] flex-shrink-0 text-[#EFE4CB] text-center font-['Playfair_Display'] text-[80px] font-[800] leading-none">
+                                        Get a free case review
+                                    </span>
+                                    <img src={Marqueee} alt="Banner" className="h-[100px] w-[100px] object-cover ml-16 justify-between mt-[-1%]" />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
         <div className="hidden md:block">
                 <div className="flex flex-col md:flex-row w-full">
             {/* Left Column */}
-            <div className="w-full md:w-6/12 lg:w-7/12 p-6 md:p-8 lg:p-12 bg-[#EFE4CB]">
+            <div className="w-full md:w-6/12 lg:w-7/12 p-6 md:p-8 lg:p-12 bg-[#FFFBF3]">
                 <h1 className="w-full text-[#C09F53] font-['Playfair_Display'] text-[40px] md:text-[64px] lg:text-[96px] font-extrabold leading-[48px] md:leading-[70px] lg:leading-[100px]">
                     Overview <br />
                 </h1>
@@ -30,7 +42,7 @@ function SubFour() {
                 </p>
             </div>
             {/* Middle Image - always visible, responsive */}
-            <div className="hidden md:flex flex-col items-center justify-center bg-[#023437] relative h-auto min-h-[500px] lg:min-h-[700px] xl:min-h-[900px] w-[56px] md:w-[70px] lg:w-[80px]">
+            <div className="hidden md:flex flex-col items-center justify-center bg-[#C09F53] relative h-auto min-h-[500px] lg:min-h-[700px] xl:min-h-[900px] w-[56px] md:w-[70px] lg:w-[80px]">
                 {/* Vertical marquee text animation - smaller, spaced, with dot */}
                 <div className="absolute left-1/2 bottom-0 -translate-x-1/2 w-full flex flex-col items-center z-20 overflow-hidden h-full">
                     <div
@@ -69,7 +81,7 @@ function SubFour() {
                                 </span>
                                 <span style={{height: '16px'}}></span>
                                 <span
-                                    className="block text-white font-['Playfair_Display'] font-extrabold"
+                                    className="block text-[#023437] font-['Playfair_Display'] font-extrabold"
                                     style={{
                                         writingMode: 'vertical-rl',
                                         transform: 'rotate(-180deg)',
@@ -92,36 +104,36 @@ function SubFour() {
                 `}</style>
             </div>
             {/* Right Column */}
-            <div className="w-full md:w-5/12 lg:w-6/12 p-6 md:p-8 lg:p-16 mt-6 md:mt-10 bg-[#EFE4CB]">
+            <div className="w-full md:w-5/12 lg:w-6/12 p-6 md:p-8 lg:p-16 mt-6 md:mt-10 bg-[#FFFBF3]">
                 <h3 className="text-[#C09F53] font-['Playfair_Display'] text-2xl md:text-3xl lg:text-4xl font-bold not-italic leading-normal mb-6">Types of Mesothelioma <br />and Symptoms </h3>
                 {/* Card 1 */}
-                <div className="mb-8 inline-flex p-4 md:p-6 lg:p-10 flex-col justify-end items-start gap-2 border border-[rgba(2,52,55,0.41)] md:-ml-[2%]">
+                <div className="mb-8 inline-flex p-4 md:p-6 lg:p-10 flex-col justify-end items-start gap-2 border border-[rgba(2,52,55,0.41)] md:-ml-[2%] bg-[#023437]">
                     <ul className="list-disc pl-4 w-full">
-                        <li className="text-base md:text-[18px] lg:text-[24px] font-['Playfair_Display'] font-extrabold leading-6 md:leading-[32px] lg:leading-[44px] text-[#023437] mb-0">Pleural Mesothelioma</li>
+                        <li className="text-base md:text-[18px] lg:text-[24px] font-['Playfair_Display'] font-extrabold leading-6 md:leading-[32px] lg:leading-[44px] text-[#ffffff] mb-0">Pleural Mesothelioma</li>
                     </ul>
-                    <span className="text-xs md:text-base text-[#023437] font-semibold mb-1 mt-0">(lungs’ lining)</span>
-                    <p className="w-full text-[#023437] font-open-sans text-sm md:text-[16px] lg:text-[20px] font-normal leading-normal">
-                        <span className="font-bold">Symptoms:</span> abdominal pain, swelling, fluid buildup, constipation, nausea, weight loss, fever, and fatigue.
+                    <span className="text-xs md:text-base text-[#ffffff] font-semibold mb-1 mt-0">(lungs’ lining)</span>
+                    <p className="w-full text-[#ffffff] font-open-sans text-sm md:text-[16px] lg:text-[20px] font-normal leading-normal">
+                        <span className="text-[#C09F53] font-bold">Symptoms:</span> abdominal pain, swelling, fluid buildup, constipation, nausea, weight loss, fever, and fatigue.
                     </p>
                 </div>
                 {/* Card 2 */}
-                <div className="mb-8 inline-flex p-4 md:p-6 lg:p-10 flex-col justify-end items-start gap-2 border border-[rgba(2,52,55,0.41)] md:-ml-[2%]">
+                <div className="mb-8 inline-flex p-4 md:p-6 lg:p-10 flex-col justify-end items-start gap-2 border border-[rgba(2,52,55,0.41)] md:-ml-[2%] bg-[#023437]">
                     <ul className="list-disc pl-4 w-full">
-                        <li className="text-base md:text-[18px] lg:text-[24px] font-['Playfair_Display'] font-extrabold leading-6 md:leading-[32px] lg:leading-[44px] text-[#023437] mb-0">Peritoneal Mesothelioma</li>
+                        <li className="text-base md:text-[18px] lg:text-[24px] font-['Playfair_Display'] font-extrabold leading-6 md:leading-[32px] lg:leading-[44px] text-[#ffffff] mb-0">Peritoneal Mesothelioma</li>
                     </ul>
-                    <span className="text-xs md:text-base text-[#023437] font-semibold mb-1 mt-0">(abdominal lining)</span>
-                    <p className="w-full text-[#023437] font-open-sans text-sm md:text-[16px] lg:text-[20px] font-normal leading-normal">
-                        <span className="font-bold">Symptoms:</span> abdominal pain, swelling, fluid buildup, constipation, nausea, weight loss, fever, and fatigue.
+                    <span className="text-xs md:text-base text-[#ffffff] font-semibold mb-1 mt-0">(abdominal lining)</span>
+                    <p className="w-full text-[#ffffff] font-open-sans text-sm md:text-[16px] lg:text-[20px] font-normal leading-normal">
+                        <span className="text-[#C09F53] font-bold">Symptoms:</span> abdominal pain, swelling, fluid buildup, constipation, nausea, weight loss, fever, and fatigue.
                     </p>
                 </div>
                 {/* Card 3 */}
-                <div className="mb-8 inline-flex p-4 md:p-6 lg:p-10 flex-col justify-end items-start gap-2 border border-[rgba(2,52,55,0.41)] md:-ml-[2%]">
+                <div className="mb-8 inline-flex p-4 md:p-6 lg:p-10 flex-col justify-end items-start gap-2 border border-[rgba(2,52,55,0.41)] md:-ml-[2%] bg-[#023437]">
                     <ul className="list-disc pl-4 w-full">
-                        <li className="text-base md:text-[18px] lg:text-[24px] font-['Playfair_Display'] font-extrabold leading-6 md:leading-[32px] lg:leading-[44px] text-[#023437] mb-0">Testicular Mesothelioma</li>
+                        <li className="text-base md:text-[18px] lg:text-[24px] font-['Playfair_Display'] font-extrabold leading-6 md:leading-[32px] lg:leading-[44px] text-[#ffffff] mb-0">Testicular Mesothelioma</li>
                     </ul>
-                    <span className="text-xs md:text-base text-[#023437] font-semibold mb-1 mt-0">(testes lining, very rare)</span>
-                    <p className="w-full text-[#023437] font-open-sans text-sm md:text-[16px] lg:text-[20px] font-normal leading-normal">
-                        <span className="font-bold">Symptoms:</span> lumps or swelling in the scrotum, testicular pain, hydrocele, and hernia.
+                    <span className="text-xs md:text-base text-[#ffffff] font-semibold mb-1 mt-0">(testes lining, very rare)</span>
+                    <p className="w-full text-[#ffffff] font-open-sans text-sm md:text-[16px] lg:text-[20px] font-normal leading-normal">
+                        <span className=" text-[#C09F53] font-bold">Symptoms:</span> lumps or swelling in the scrotum, testicular pain, hydrocele, and hernia.
                     </p>
                 </div>
             </div>
