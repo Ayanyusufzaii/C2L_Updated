@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import "./SubThree.css"
-import card1 from '../../../assets/Cardd1.png'
-import card2 from '../../../assets/Cardd1.png'  
-import card3 from '../../../assets/Card3.png'
-import card4 from '../../../assets/Card4.png'
+import card1 from '../../../assets/searchimg.png'
+import card2 from '../../../assets/ridesharecomp.png'  
+import card3 from '../../../assets/simplifyprocessimg.png'
+import card4 from '../../../assets/dedicatedimg.png'
 
 const cardData = [
   {

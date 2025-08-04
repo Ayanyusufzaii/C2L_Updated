@@ -4,13 +4,15 @@ import Frames from "../../../assets/herobgmeso.png";
 import MobileFrames from "../../../assets/mobileherobg.png"; 
 import backimg from "../../../assets/backimg.png"; 
 import { useRef } from 'react';
+
 function SubOne() {
   const navigate = useNavigate();
+  const currentSectionRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
- const currentSectionRef = useRef(null);
+
   const handleConsultationClick = () => {
     const next = currentSectionRef.current?.nextElementSibling;
     if (next) {
@@ -18,13 +20,12 @@ function SubOne() {
     }
   };
 
-
   const handleBackClick = () => {
     navigate(-1); // Goes back to the previous page in history
   };
 
   return (
-    <div>
+    <div ref={currentSectionRef}>
       {/* Desktop Version */}
       <div
         className="hidden md:flex w-full min-h-[100vh] h-screen flex-shrink-0 items-end justify-between p-6 md:p-8 lg:p-12 xl:p-16 2xl:p-20 relative bg-cover bg-center"
@@ -32,22 +33,21 @@ function SubOne() {
       >
         {/* Back Button - Top Left */}
         <div className="absolute top-4 left-4 md:top-6 md:left-6 lg:top-8 lg:left-8 xl:top-10 xl:left-10 z-20">
-    <button
-  onClick={handleBackClick}
-  style={{ outline: 'none', cursor: 'pointer' }}
-  className="transition-transform duration-300 group"
->
-  <img
-    src={backimg}
-    alt="Back"
-    className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain group-hover:scale-110 transition-transform duration-300"
-  />
-</button>
-
+          <button
+            onClick={handleBackClick}
+            style={{ outline: 'none', cursor: 'pointer' }}
+            className="transition-transform duration-300 group"
+          >
+            <img
+              src={backimg}
+              alt="Back"
+              className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+            />
+          </button>
         </div>
 
         {/* Left Side: Hero Text + Subheading */}
-        <div className="flex flex-col justify-end items-start max-w-[90%] lg:max-w-[900px] xl:max-w-[1000px] 2xl:max-w-[1100px] h-full pb-16 md:pb-20 lg:pb-24 xl:pb-28 2xl:pb-32">
+        <div className="flex flex-col justify-end items-start max-w-[90%] lg:max-w-[900px] xl:max-w-[1000px] 2xl:max-w-[1100px] h-full pb-16 md:pb-20 lg:pb-24 xl:pb-28 2xl:pb-32 mt-8">
           <h1 className="text-[#FFFBF3] font-['Playfair_Display'] text-[32px] md:text-[42px] lg:text-[60px] xl:text-[80px] 2xl:text-[100px] font-extrabold leading-[1.1] md:leading-[1.2] mb-4 md:mb-6 lg:mb-8 text-left">
             Mesothelioma <br></br><span className='text-[#C09F53]'>Lawsuit</span>
           </h1>
@@ -95,18 +95,17 @@ function SubOne() {
       >
         {/* Back Button - Top Left Mobile */}
         <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20">
-         <button
-  onClick={handleBackClick}
-  style={{ outline: 'none', cursor: 'pointer' }}
-  className="group transition-transform duration-300"
->
-  <img
-    src={backimg}
-    alt="Back"
-    className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain group-hover:scale-110 transition-transform duration-300"
-  />
-</button>
-
+          <button
+            onClick={handleBackClick}
+            style={{ outline: 'none', cursor: 'pointer' }}
+            className="group transition-transform duration-300"
+          >
+            <img
+              src={backimg}
+              alt="Back"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain group-hover:scale-110 transition-transform duration-300"
+            />
+          </button>
         </div>
 
         {/* Content positioned at bottom */}
@@ -117,7 +116,7 @@ function SubOne() {
           <p className="text-[#C09F53] font-open-sans text-[16px] sm:text-[18px] font-bold leading-normal mb-3 sm:mb-4 text-left">
             Helping Mesothelioma Patients Get the Justice They Deserve
           </p>
-          <div className="border-t border-teal-700 my-3 sm:my-4 w-[60%] sm:w-[70%]"></div>
+
           <p className="text-[#FFFBF3] font-open-sans text-[13px] sm:text-[14px] font-normal leading-relaxed text-left max-w-[90%] sm:max-w-[85%]">
             We stand by individuals and families affected by mesothelioma due to asbestos exposure,
             offering legal support and expert guidance. With deep legal expertise and a client-first approach,
