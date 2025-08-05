@@ -15,10 +15,10 @@ function HomeNewSouthWales() {
       <HomeOne/>
       <HomeThree />
       <HomeFour/>
-      {/* <HomeTwo /> */}
+      <HomeTwo />
       <HomeFive />
-      {/* <HomeSeven />
-      <Footer /> */}
+      <HomeSeven />
+      <Footer />
     </div>
   )
 }

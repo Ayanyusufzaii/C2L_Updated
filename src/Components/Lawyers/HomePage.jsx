@@ -5,7 +5,7 @@ import HomeTwo from './HomeTwo'
 import HomeThree from './HomeThree'
 import HomeFour from './HomeFour'
 import HomeFive from './HomeFive'
-import HomeSeven from '../Home/HomeSeven'
+import HomeSeven from '../Home/HomeSeven';
 import Footer from '../Footer'
 const HomePage = () => {
   return (

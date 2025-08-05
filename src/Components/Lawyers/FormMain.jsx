@@ -6,7 +6,7 @@ import React, {
   useMemo,
 } from "react";
 import { ChevronDown } from "lucide-react";
-// import { sendAdminEmail, sendUserEmail } from './emailService'; // Import the EmailJS service
+import { LawyerSendAdminEmail, LawyerSendUserEmail } from '../../emailJsService.js';
 
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const [captchaText, setCaptchaText] = useState('');
@@ -70,9 +70,10 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
       setIsSpeaking(true);
  
       const voices = window.speechSynthesis.getVoices();
-      const maleUsVoice = voices.find(voice =>
-        voice.lang === 'en-US' &&
-        voice.name.toLowerCase().includes('david')
+      const australianVoice = voices.find(voice =>
+        voice.lang === 'en-AU'
+      ) || voices.find(voice =>
+        voice.lang === 'en-GB'
       ) || voices.find(voice =>
         voice.lang === 'en-US'
       );
@@ -85,10 +86,10 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           utterance.rate = 0.5;
           utterance.pitch = 0.9;
           utterance.volume = 1.0;
-          utterance.lang = 'en-US';
+          utterance.lang = 'en-AU';
          
-          if (maleUsVoice) {
-            utterance.voice = maleUsVoice;
+          if (australianVoice) {
+            utterance.voice = australianVoice;
           }
  
           utterance.onend = () => {
@@ -215,6 +216,65 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
       </div>
     </div>
   );
+};
+
+// Function to format Australian phone number as user types
+const formatAustralianPhone = (value) => {
+  if (!value) return value;
+  
+  // Remove all non-digits
+  const digits = value.replace(/\D/g, '');
+  
+  // Handle very long numbers by taking relevant digits
+  let workingDigits = digits;
+  
+  // If it's a very long number like 22222222222222, take the last 10 digits
+  if (digits.length > 12) {
+    workingDigits = digits.slice(-10);
+  }
+  
+  // If starts with 61 (country code), remove it for formatting
+  if (workingDigits.startsWith('61') && workingDigits.length > 11) {
+    workingDigits = '0' + workingDigits.substring(2);
+  }
+  
+  // If doesn't start with 0, add it
+  if (workingDigits.length >= 9 && !workingDigits.startsWith('0')) {
+    // For mobile numbers, try to detect if it should be 04
+    if (workingDigits.startsWith('4') || workingDigits.length === 9) {
+      workingDigits = '04' + workingDigits.substring(1);
+    } else {
+      workingDigits = '0' + workingDigits;
+    }
+  }
+  
+  // Format based on length and pattern
+  if (workingDigits.length <= 4) {
+    return workingDigits;
+  } else if (workingDigits.length <= 7) {
+    if (workingDigits.startsWith('04')) {
+      // Mobile format: 04XX XXX
+      return `${workingDigits.slice(0, 4)} ${workingDigits.slice(4)}`;
+    } else {
+      // Landline format: 0X XXXX
+      return `${workingDigits.slice(0, 2)} ${workingDigits.slice(2)}`;
+    }
+  } else if (workingDigits.length <= 10) {
+    if (workingDigits.startsWith('04')) {
+      // Mobile format: 04XX XXX XXX
+      return `${workingDigits.slice(0, 4)} ${workingDigits.slice(4, 7)} ${workingDigits.slice(7, 10)}`;
+    } else {
+      // Landline format: 0X XXXX XXXX
+      return `${workingDigits.slice(0, 2)} ${workingDigits.slice(2, 6)} ${workingDigits.slice(6, 10)}`;
+    }
+  }
+  
+  // If longer than 10, still format the first 10 digits
+  if (workingDigits.startsWith('04')) {
+    return `${workingDigits.slice(0, 4)} ${workingDigits.slice(4, 7)} ${workingDigits.slice(7, 10)}`;
+  } else {
+    return `${workingDigits.slice(0, 2)} ${workingDigits.slice(2, 6)} ${workingDigits.slice(6, 10)}`;
+  }
 };
 
 // Constants moved outside component to prevent recreating on each render
@@ -352,9 +412,16 @@ const useFormValidation = () => {
     if (!formData.phone.trim()) {
       errors.phone = "Phone number is required";
     } else {
-      const phoneRegex = /^(\+1\s?)?(\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
-      if (!phoneRegex.test(formData.phone)) {
-        errors.phone = "Invalid US phone number format (e.g. +1 561-555-7689)";
+      // Validate Australian phone number
+      const phoneDigits = formData.phone.replace(/\D/g, '');
+      
+      // Check for valid Australian mobile (04XX XXX XXX) or landline (0X XXXX XXXX)
+      const isMobileValid = phoneDigits.length >= 10 && phoneDigits.startsWith('04');
+      const isLandlineValid = phoneDigits.length >= 10 && phoneDigits.startsWith('0') && !phoneDigits.startsWith('04');
+      const isInternationalValid = phoneDigits.length >= 11 && phoneDigits.startsWith('61');
+      
+      if (!isMobileValid && !isLandlineValid && !isInternationalValid) {
+        errors.phone = "Please enter a valid Australian phone number (e.g., 04XX XXX XXX or 0X XXXX XXXX)";
       }
     }
 
@@ -459,10 +526,16 @@ const FormMain = ({ isMobile = false, className = "" }) => {
   const handleChange = useCallback(
     (e) => {
       const { name, value, type, checked } = e.target;
+      let processedValue = value;
+
+      // Special handling for phone number formatting
+      if (name === 'phone' && type !== 'checkbox') {
+        processedValue = formatAustralianPhone(value);
+      }
 
       setFormData((prev) => ({
         ...prev,
-        [name]: type === "checkbox" ? checked : value,
+        [name]: type === "checkbox" ? checked : processedValue,
       }));
 
       // Clear error when user starts typing
@@ -497,10 +570,12 @@ const FormMain = ({ isMobile = false, className = "" }) => {
     return {
       // Map form fields to EmailJS expected names
       firstName: formData.name,
-      emailId: formData.email,
-      phoneNumber: formData.phone,
+      name: formData.name, // Keep both for compatibility
+      email: formData.email,
+      emailId: formData.email, // Keep both for compatibility  
+      phone: formData.phone,
+      phoneNumber: formData.phone, // Keep both for compatibility
       concern: formData.concern,
-      caseHistory: '', // This field doesn't exist in the form, so we'll leave it empty
       
       // Consent and verification
       privacyConsent: formData.privacyConsent,
@@ -547,8 +622,8 @@ const FormMain = ({ isMobile = false, className = "" }) => {
 
         // Send both admin and user emails simultaneously
         const [adminResult, userResult] = await Promise.allSettled([
-          // sendAdminEmail(emailData),
-          // sendUserEmail(emailData)
+          LawyerSendAdminEmail(emailData),
+          LawyerSendUserEmail(emailData)
         ]);
 
         // Check if at least one email was sent successfully
@@ -597,16 +672,15 @@ const FormMain = ({ isMobile = false, className = "" }) => {
     () => (
       <div className="text-xs text-[#023437] leading-tight font-opensans">
         I agree to the{" "}
-        <a href="/disclaimer" className="underline text-[#C09F53]  ">
+        <a href="/disclaimer" className="underline text-[#C09F53]">
           privacy policy
         </a>{" "}
         and{" "}
-        <a href="/privacy-policy" className="underline text-[#C09F53]  ">
+        <a href="/privacy-policy" className="underline text-[#C09F53]">
           disclaimer
         </a>
-         , and give my express written consent, affiliates and/or lawyer to
-        contact you at the number provided above, even if this number is a
-        wireless number or if I am presently listed on a Do Not Call list. I
+        , and give my express written consent to contact me at the number provided above, 
+        even if this number is a wireless number or if I am presently listed on a Do Not Call list. I
         understand that I may be contacted by telephone, email, text message or
         mail regarding case options and that I may be called using automatic
         dialing equipment. Message & data rates may apply. My consent does not
@@ -789,7 +863,7 @@ const FormMain = ({ isMobile = false, className = "" }) => {
 
         {/* Form Status */}
         <div className="text-center text-xs text-gray-600">
-          {!trustedForm.ready && <p>Initializing secure form...</p>}
+          {!trustedForm.ready && <p>Initialising secure form...</p>}
           {formData.humanVerification && !captchaValid && trustedForm.ready && (
             <p className="text-orange-600">Please complete the CAPTCHA verification</p>
           )}
