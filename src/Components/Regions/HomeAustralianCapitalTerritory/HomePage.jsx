@@ -17,8 +17,8 @@ function HomeNewSouthWales() {
       <HomeFour/>
       <HomeTwo />
       <HomeFive />
-      {/* <HomeSeven />
-      <Footer /> */}
+      <HomeSeven />
+      <Footer />
     </div>
   )
 }
