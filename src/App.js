@@ -13,7 +13,7 @@ import Service from "./Components/ServiceOverview/ServiceOverview"
 import SubService from "./Components/Sub-Services/Meso/SubService"
 import About from './Components/AboutUs/About';
 import ContactUs from "./Components/ContactUs/ContactUs"
-import MassTort from './Components/Services/MassTort';
+import MassTort from './Components/Services/MassTort/MassTort';
 import PIService from './Components/PersonalInjury/PIService';
 import ClassService from './Components/ClassAction/ClassService';
 import { ParallaxProvider } from 'react-scroll-parallax';
@@ -35,8 +35,8 @@ import HomeState4 from './Components/HomeState4/HomePage';
 import HomeState5 from './Components/HomeState5/HomePage';
 import HomeState6 from './Components/HomeState6/HomePage';
 import HomeState7 from './Components/HomeState7/HomePage';
-import PersonalInjury from './Components/Services/PersonalInjury';
-import ClassAction from './Components/Services/ClassAction';
+import PersonalInjury from './Components/Services/PersonalInjury/PersonalInjury';
+import ClassAction from './Components/Services/ClassAction/ClassAction';
 import SubService18Wheeler from './Components/Sub-Services/18-wheeler/SubService';
 import SubServiceRideshare from './Components/Sub-Services/Rideshare/SubService';
 function App() {

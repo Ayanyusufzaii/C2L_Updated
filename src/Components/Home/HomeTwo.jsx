@@ -280,17 +280,14 @@ function HomeTwo() {
           // Check if this is a TrustedForm field
           if (target.name === "xxTrustedFormCertUrl" && target.value) {
             setCertId(target.value);
-            console.log("TrustedForm Cert ID:", target.value);
           }
 
           if (target.name === "xxTrustedFormPingUrl" && target.value) {
             setPingUrl(target.value);
-            console.log("TrustedForm Ping URL:", target.value);
           }
 
           if (target.name === "xxTrustedFormCertToken" && target.value) {
             setTokenUrl(target.value);
-            console.log("TrustedForm Cert Token:", target.value);
           }
         }
       });
