@@ -57,27 +57,19 @@ const ContactUsHero = () => {
     {
       icon: Linkedin,
       href: "https://www.linkedin.com/company/connect2lawyer/",
-      bg: "bg-blue-600",
-      hover: "hover:bg-blue-700",
     },
     {
       icon: Facebook,
       href: "https://www.facebook.com/profile.php?id=61570446132760",
-      bg: "bg-blue-500",
-      hover: "hover:bg-blue-600",
     },
-    { icon: Youtube, href: "#", bg: "bg-red-500", hover: "hover:bg-red-600" },
+    { icon: Youtube, href: "#" },
     {
       icon: Instagram,
       href: "https://www.instagram.com/connect2lawyer/",
-      bg: "bg-pink-500",
-      hover: "hover:bg-pink-600",
     },
     {
       icon: MessageSquare,
       href: "#",
-      bg: "bg-gray-800",
-      hover: "hover:bg-gray-900",
     },
   ];
 
@@ -198,7 +190,7 @@ const ContactUsHero = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${social.bg} ${social.hover} rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95`}
+                className="bg-[#FFF] border-2 border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 group"
                 style={{
                   width: `clamp(40px, ${
                     (48 / dimensions.baseWidth) * 100
@@ -210,7 +202,7 @@ const ContactUsHero = () => {
                 aria-label={`Visit our ${social.icon.name} page`}
               >
                 <social.icon
-                  className="text-white"
+                  className="text-[#023437] group-hover:text-[#FFFBF3]"
                   style={{
                     width: `clamp(20px, ${
                       (24 / dimensions.baseWidth) * 100
@@ -353,10 +345,10 @@ const ContactUsHero = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-12 h-12 ${social.bg} ${social.hover} rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105`}
+                  className="w-12 h-12 bg-[#FFFBF3] border-2 border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 group"
                   aria-label={`Visit our ${social.icon.name} page`}
                 >
-                  <social.icon className="w-6 h-6 text-white" />
+                  <social.icon className="w-6 h-6 text-[#023437] group-hover:text-[#FFFBF3]" />
                 </a>
               ))}
             </div>
@@ -367,7 +359,7 @@ const ContactUsHero = () => {
             <img
               src={map}
               alt="Australia Map showing Point Cook, Melbourne"
-              className="w-full h-auto rounded-lg shadow-xl"
+              className="w-full h-auto"
               loading="lazy"
             />
           </div>

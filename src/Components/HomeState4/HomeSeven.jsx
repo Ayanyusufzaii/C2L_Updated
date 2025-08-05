@@ -6,6 +6,11 @@ import Frame2 from "../../assets/Group 33.png";
 function HomeSeven() {
     const navigate = useNavigate();
 
+    // Single navigation handler function
+    const handleNavigation = (path) => {
+        navigate(path);
+    };
+
     return (
         <div className="bg-[#023437] py-8 px-4 sm:px-6 md:py-16 lg:py-20 xl:py-24 w-full overflow-hidden">
 
@@ -20,14 +25,14 @@ function HomeSeven() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center w-full px-2 max-w-md sm:max-w-lg mx-auto">
                     <button
-                        className="inline-flex h-[44px] px-6 py-[10px] justify-center items-center rounded-[40px] text-[#FFFBF3] font-open-sans text-sm sm:text-base font-bold bg-[#C09F53] hover:bg-amber-600 transition-colors whitespace-nowrap w-full sm:flex-1"
-                        onClick={() => navigate("/About")}
+                        className="inline-flex h-[44px] px-6 py-[10px] justify-center items-center rounded-[40px] text-[#FFFBF3] font-open-sans text-sm sm:text-base font-bold bg-[#C09F53] hover:bg-yellow-400 transition-colors whitespace-nowrap w-full sm:flex-1"
+                        onClick={() => handleNavigation("/Lawyers")}
                     >
                         Join Us
                     </button>
                     <button
                         className="inline-flex h-[44px] px-6 py-[10px] justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.8)] text-[#FFFBF3] font-open-sans text-sm sm:text-base font-bold not-italic leading-none hover:bg-gray-700 transition-colors whitespace-nowrap w-full sm:flex-1"
-                        onClick={() => navigate("/ContactUs")}
+                        onClick={() => handleNavigation("/ContactUs")}
                     >
                         Let's talk
                     </button>
@@ -66,8 +71,8 @@ function HomeSeven() {
                                     </p>
                                 </div>
                                 <button
-                                    className="flex h-[48px] lg:h-[52px] xl:h-[48px] 2xl:h-[52px] px-6 lg:px-8 py-2 justify-center items-center rounded-[60px] bg-[#C09F53] hover:bg-amber-600 text-white text-center font-open-sans text-base lg:text-lg xl:text-base 2xl:text-lg font-semibold leading-normal transition-colors whitespace-nowrap w-full max-w-[160px] lg:max-w-[180px]"
-                                    onClick={() => navigate("/ContactUs")}
+                                    className="flex h-[48px] lg:h-[52px] xl:h-[48px] 2xl:h-[52px] px-6 lg:px-8 py-2 justify-center items-center rounded-[60px] bg-[#C09F53] hover:bg-yellow-600 text-white text-center font-open-sans text-base lg:text-lg xl:text-base 2xl:text-lg font-semibold leading-normal transition-colors whitespace-nowrap w-full max-w-[160px] lg:max-w-[180px]"
+                                    onClick={() => handleNavigation("/Lawyers")}
                                 >
                                     Let's Talk
                                 </button>
@@ -81,8 +86,8 @@ function HomeSeven() {
                                     </p>
                                 </div>
                                 <button
-                                    className="flex h-[48px] lg:h-[52px] xl:h-[48px] 2xl:h-[52px] px-6 lg:px-8 py-2 justify-center items-center rounded-[60px] bg-[#C09F53] hover:bg-amber-600 text-white text-center font-open-sans text-base lg:text-lg xl:text-base 2xl:text-lg font-semibold leading-normal transition-colors whitespace-nowrap w-full max-w-[160px] lg:max-w-[180px]"
-                                    onClick={() => navigate("/About")}
+                                    className="flex h-[48px] lg:h-[52px] xl:h-[48px] 2xl:h-[52px] px-6 lg:px-8 py-2 justify-center items-center rounded-[60px] bg-[#C09F53] hover:bg-yellow-600 text-white text-center font-open-sans text-base lg:text-lg xl:text-base 2xl:text-lg font-semibold leading-normal transition-colors whitespace-nowrap w-full max-w-[160px] lg:max-w-[180px]"
+                                    onClick={() => handleNavigation("/ContactUs")}
                                 >
                                     Join Us
                                 </button>

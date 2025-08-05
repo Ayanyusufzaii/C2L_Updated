@@ -33,8 +33,8 @@ function HomeSeven() {
       </p>
     </div>
     <button
-      className="mt-4 flex h-[44px] px-6 py-2 justify-center items-center bg-[#C09F53] hover:bg-amber-600 text-white font-semibold text-sm sm:text-base transition-colors w-full max-w-[160px] rounded-3xl"
-      onClick={() => navigate("/ContactUs")}
+      className="mt-4 flex h-[44px] px-6 py-2 justify-center items-center bg-[#C09F53] text-white font-semibold text-sm sm:text-base transition-colors w-full max-w-[160px] rounded-3xl"
+      onClick={() => navigate("/Lawyers")}
     >
       Let’s Talk
     </button>
@@ -51,7 +51,7 @@ function HomeSeven() {
       </p>
     </div>
     <button
-      className="mt-4 flex h-[44px] px-6 py-2 justify-center items-center bg-[#C09F53] hover:bg-amber-600 text-white font-semibold text-sm sm:text-base transition-colors w-full max-w-[180px] rounded-3xl"
+      className="mt-4 flex h-[44px] px-6 py-2 justify-center items-center bg-[#C09F53] text-white font-semibold text-sm sm:text-base transition-colors w-full max-w-[180px] rounded-3xl"
       onClick={() => navigate("/ContactUs")}
     >
       Start Your Claim
