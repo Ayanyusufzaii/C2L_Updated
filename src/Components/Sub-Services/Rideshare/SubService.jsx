@@ -8,7 +8,7 @@ import SubFive from './SubFive'
 
 import NavBar from "../../NavBar"
 import HomeSeven from '../../Home/HomeSeven'
-import Faqmeso from '../../FAQmeso'
+import Faqmeso from '../../faqrideshare'
 
 function SubServiceRideshare() {
   return (

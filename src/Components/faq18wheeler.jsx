@@ -4,36 +4,36 @@ function FaqClassAction() {
   const faqItems = [
     {
       id: 1,
-      question: 'Why should I hire a mesothelioma lawyer?',
-      answer: 'A mesothelioma lawyer specializes in asbestos cases, understands complex laws, and helps secure maximum compensation while guiding you through the legal process.',
+      question: 'Why should I hire a lawyer for accidents involving 18-wheelers and heavy vehicles?',
+      answer: 'Specialized lawyers understand the complexities of these cases and can help secure the maximum compensation while guiding you through the legal process.',
       category: 'law',
       expanded: false
     },
     {
       id: 2,
       question: 'What compensation can I receive?',
-      answer: 'Victims may be entitled to medical expenses, lost wages, pain and suffering, and punitive damages. Compensation can come from lawsuits, asbestos trust funds, or veterans\' benefits.',
+      answer: 'Victims may be entitled to medical expenses, lost wages, pain and suffering, and punitive damages.',
       category: 'law',
       expanded: false
     },
     {
       id: 3,
       question: 'How long does a lawsuit take?',
-      answer: 'Settlements typically conclude within 12 to 18 months, while trial verdicts may take longer depending on the case complexity.',
+      answer: 'Settlements typically resolve within 12 to 18 months; trials may take longer depending on case details.',
       category: 'law',
       expanded: false
     },
     {
       id: 4,
-      question: 'How can Connect2Lawyer assist me in a mesothelioma lawsuit?',
-      answer: 'We connect you with experienced legal teams, guide you through every step, and work to secure the best possible compensation for your case.',
+      question: 'How can Connect2Lawyer assist me?',
+      answer: 'We connect you with experienced attorneys who guide you step-by-step to secure fair compensation.',
       category: 'law',
       expanded: false
     },
     {
       id: 5,
-      question: 'How much does it cost to initiate a mesothelioma lawsuit with Connect2Lawyer?',
-      answer: 'Our No Win No Fee policy means you pay nothing unless we win your case, making legal help accessible without upfront costs.',
+      question: 'What does it cost to start?',
+      answer: 'Our No Win No Fee policy means no upfront costs; you pay only if we win.',
       category: 'law',
       expanded: false
     }
