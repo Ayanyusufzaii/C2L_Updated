@@ -1,412 +1,698 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import { ChevronDown } from "lucide-react";
+// import { sendAdminEmail, sendUserEmail } from './emailService'; // Import the EmailJS service
 
-const FormMain = ({ isMobile = false, className = "" }) => {
-  const formRef = useRef();
-  
-  // Enhanced form state
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    concern: "",
-    caseHistory: "",
-    privacyConsent: false,
-    humanVerification: false,
-    captchaEnabled: false
+const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
+  const [captchaText, setCaptchaText] = useState('');
+  const [userInput, setUserInput] = useState('');
+  const [isValid, setIsValid] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(false);
+  const [charOffsets, setCharOffsets] = useState([]);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+ 
+  const generateCaptcha = useCallback(() => {
+    // Stop any ongoing speech when generating new CAPTCHA
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
+   
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    let offsets = [];
+    for (let i = 0; i < 6; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+      offsets.push((Math.random() * 10 - 5).toFixed(2));
+    }
+    setCaptchaText(result);
+    setCharOffsets(offsets);
+    setUserInput('');
+    setIsValid(false);
+    onCaptchaChange && onCaptchaChange(false);
+  }, [isSpeaking, onCaptchaChange]);
+ 
+  // Generate CAPTCHA immediately when component mounts
+  useEffect(() => {
+    generateCaptcha();
+  }, [generateCaptcha]);
+
+  // Reset captcha when resetTrigger changes
+  useEffect(() => {
+    if (resetTrigger > 0) {
+      generateCaptcha();
+    }
+  }, [resetTrigger, generateCaptcha]);
+ 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      generateCaptcha();
+    }, 60000);
+ 
+    return () => {
+      clearInterval(timer);
+      // Stop any ongoing speech when component unmounts
+      if (isSpeaking) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, [generateCaptcha, isSpeaking]);
+ 
+  const speakCaptcha = () => {
+    if ('speechSynthesis' in window) {
+      // Stop any ongoing speech before starting new one
+      window.speechSynthesis.cancel();
+      setIsSpeaking(true);
+ 
+      const voices = window.speechSynthesis.getVoices();
+      const maleUsVoice = voices.find(voice =>
+        voice.lang === 'en-US' &&
+        voice.name.toLowerCase().includes('david')
+      ) || voices.find(voice =>
+        voice.lang === 'en-US'
+      );
+ 
+      let currentIndex = 0;
+      const speakNextChar = () => {
+        if (currentIndex < captchaText.length) {
+          const char = captchaText[currentIndex];
+          const utterance = new SpeechSynthesisUtterance(char);
+          utterance.rate = 0.5;
+          utterance.pitch = 0.9;
+          utterance.volume = 1.0;
+          utterance.lang = 'en-US';
+         
+          if (maleUsVoice) {
+            utterance.voice = maleUsVoice;
+          }
+ 
+          utterance.onend = () => {
+            currentIndex++;
+            speakNextChar();
+          };
+ 
+          window.speechSynthesis.speak(utterance);
+        } else {
+          setIsSpeaking(false);
+        }
+      };
+ 
+      speakNextChar();
+    }
+  };
+ 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setUserInput(value);
+    const valid = value === captchaText;
+    setIsValid(valid);
+    onCaptchaChange && onCaptchaChange(valid);
+  };
+ 
+  const handleAudioToggle = (e) => {
+    setAudioEnabled(e.target.checked);
+  };
+   
+  return (
+    <div className="mt-4">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        <div className="bg-gray-100 p-3 rounded font-mono text-lg tracking-wider select-none relative overflow-hidden">
+          <div 
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage: `repeating-linear-gradient(
+                0deg,
+                #ccc,
+                #ccc 1px,
+                transparent 1px,
+                transparent 5px
+              )`,
+              backgroundSize: '100% 10px',
+              backgroundPosition: '0 50%'
+            }}
+          />
+          <div className="relative z-10">
+            {captchaText.split('').map((char, index) => (
+              <span
+                key={index}
+                style={{ 
+                  transform: `translateY(${charOffsets[index]}px)`, 
+                  display: 'inline-block',
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+                }}
+                className="mx-0.5"
+              >
+                {char}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="flex gap-2 items-center justify-left sm:justify-start">
+          <button
+            type="button"
+            onClick={generateCaptcha}
+            className="px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0"
+            title="Refresh CAPTCHA"
+          >
+            ↻
+          </button>
+          {audioEnabled && (
+            <button
+              type="button"
+              onClick={speakCaptcha}
+              disabled={isSpeaking}
+              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${
+                isSpeaking ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              title="Listen to CAPTCHA"
+            >
+              {isSpeaking ? '🔊🎵' : '🔊'}
+            </button>
+          )}
+        </div>
+      </div>
+      
+      <div className="flex items-center mt-2">
+        <input
+          type="checkbox"
+          id="enableAudio"
+          checked={audioEnabled}
+          onChange={handleAudioToggle}
+          className="mr-2"
+        />
+        <label htmlFor="enableAudio" className="text-sm text-gray-700">
+          Enable Audio
+        </label>
+      </div>
+      
+      <div className="mt-3">
+        <input
+          type="text"
+          value={userInput}
+          onChange={handleInputChange}
+          placeholder="Enter CAPTCHA"
+          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            userInput !== '' && !isValid 
+              ? 'border-red-500 focus:ring-red-500' 
+              : 'border-gray-300'
+          }`}
+        />
+        {userInput !== '' && !isValid && (
+          <p className="text-red-500 text-sm mt-1">
+            CAPTCHA does not match
+          </p>
+        )}
+        {isValid && (
+          <p className="text-green-500 text-sm mt-1">
+            ✓ CAPTCHA verified successfully
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Constants moved outside component to prevent recreating on each render
+const FORM_FIELDS = [
+  { field: "name", type: "text", placeholder: "Full Name", required: true },
+  { field: "phone", type: "tel", placeholder: "Phone Number", required: true },
+  {
+    field: "email",
+    type: "email",
+    placeholder: "Email Address",
+    required: true,
+  },
+];
+
+const CONCERN_OPTIONS = [
+  { value: "", label: "Select your concern", disabled: true },
+  { value: "Mesothelioma Lawsuit", label: "Mesothelioma Lawsuit" },
+  { value: "Truck Accident Claims", label: "Truck Accident Claims" },
+  { value: "Rideshare Class Action Lawsuits", label: "Rideshare Class Action Lawsuits" },
+  { value: "other", label: "Other" },
+];
+
+const INITIAL_FORM_DATA = {
+  name: "",
+  phone: "",
+  email: "",
+  concern: "",
+  privacyConsent: false,
+  humanVerification: false,
+  captchaEnabled: false,
+};
+
+const TRUSTEDFORM_TIMEOUT = 10000;
+const TRUSTEDFORM_CHECK_INTERVAL = 500;
+
+// Custom hook for TrustedForm integration
+const useTrustedForm = () => {
+  const [state, setState] = useState({
+    pingUrl: "",
+    certId: "",
+    tokenUrl: "",
+    ready: false,
   });
 
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successDialogOpen, setSuccessDialogOpen] = useState(false);
-  
-  // Captcha states
-  const [captchaValid, setCaptchaValid] = useState(false);
-  const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
-  
-  // TrustedForm and tracking states
-  const [pingUrl, setPingUrl] = useState("");
-  const [certId, setCertId] = useState("");
-  const [tokenUrl, setTokenUrl] = useState("");
-  const [pageUrl, setPageUrl] = useState("");
-  const [ipAddress, setIpAddress] = useState("");
-  const [trustedFormReady, setTrustedFormReady] = useState(false);
+  const updateTrustedFormField = useCallback((name, value) => {
+    if (!value) return;
 
-  // Capture page URL and IP on mount
-  useEffect(() => {
-    // Set page URL
-    setPageUrl(window.location.href);
-    
-    // Get IP address - you can integrate with an IP service
-    // Example: fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => setIpAddress(data.ip));
-    
-    // For now, we'll use a placeholder or leave empty
-    setIpAddress(""); // You can implement IP detection here
+    setState((prev) => {
+      const key =
+        name === "xxTrustedFormCertUrl"
+          ? "certId"
+          : name === "xxTrustedFormPingUrl"
+          ? "pingUrl"
+          : name === "xxTrustedFormCertToken"
+          ? "tokenUrl"
+          : null;
+
+      if (!key || prev[key] === value) return prev;
+
+      console.log(`TrustedForm ${key}:`, value);
+      return { ...prev, [key]: value, ready: true };
+    });
   }, []);
 
-  // Enhanced TrustedForm integration
   useEffect(() => {
-    let timeoutId;
-    let intervalId;
-
-    // Function to check and update TrustedForm values
-    const checkTrustedFormFields = () => {
-      const certField = document.querySelector('input[name="xxTrustedFormCertUrl"]');
-      const pingField = document.querySelector('input[name="xxTrustedFormPingUrl"]');
-      const tokenField = document.querySelector('input[name="xxTrustedFormCertToken"]');
-
-      let hasUpdates = false;
-
-      if (certField && certField.value && certField.value !== certId) {
-        setCertId(certField.value);
-        console.log("TrustedForm Cert ID:", certField.value);
-        hasUpdates = true;
-      }
-
-      if (pingField && pingField.value && pingField.value !== pingUrl) {
-        setPingUrl(pingField.value);
-        console.log("TrustedForm Ping URL:", pingField.value);
-        hasUpdates = true;
-      }
-
-      if (tokenField && tokenField.value && tokenField.value !== tokenUrl) {
-        setTokenUrl(tokenField.value);
-        console.log("TrustedForm Cert Token:", tokenField.value);
-        hasUpdates = true;
-      }
-
-      // Mark as ready if we have any TrustedForm data or after timeout
-      if (hasUpdates || certField?.value || pingField?.value || tokenField?.value) {
-        setTrustedFormReady(true);
-      }
-
-      return hasUpdates;
-    };
-
-    // MutationObserver to watch for DOM changes
+    let timeoutId, intervalId, fallbackTimeoutId;
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.type === "attributes" && mutation.attributeName === "value") {
-          const target = mutation.target;
-
-          // Check if this is a TrustedForm field
-          if (target.name === "xxTrustedFormCertUrl" && target.value) {
-            setCertId(target.value);
-            console.log("TrustedForm Cert ID:", target.value);
-            setTrustedFormReady(true);
-          }
-
-          if (target.name === "xxTrustedFormPingUrl" && target.value) {
-            setPingUrl(target.value);
-            console.log("TrustedForm Ping URL:", target.value);
-          }
-
-          if (target.name === "xxTrustedFormCertToken" && target.value) {
-            setTokenUrl(target.value);
-            console.log("TrustedForm Cert Token:", target.value);
-          }
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "value" &&
+          mutation.target.name?.startsWith("xxTrustedForm")
+        ) {
+          updateTrustedFormField(mutation.target.name, mutation.target.value);
         }
       });
     });
 
-    // Start monitoring after a delay
-    timeoutId = setTimeout(() => {
-      const certField = document.querySelector('[name="xxTrustedFormCertUrl"]');
-      const pingField = document.querySelector('[name="xxTrustedFormPingUrl"]');
-      const tokenField = document.querySelector('[name="xxTrustedFormCertToken"]');
+    const checkTrustedFormFields = () => {
+      const fields = [
+        {
+          name: "xxTrustedFormCertUrl",
+          selector: '[name="xxTrustedFormCertUrl"]',
+        },
+        {
+          name: "xxTrustedFormPingUrl",
+          selector: '[name="xxTrustedFormPingUrl"]',
+        },
+        {
+          name: "xxTrustedFormCertToken",
+          selector: '[name="xxTrustedFormCertToken"]',
+        },
+      ];
 
-      [certField, pingField, tokenField].forEach((field) => {
-        if (field) observer.observe(field, { attributes: true });
+      fields.forEach(({ name, selector }) => {
+        const field = document.querySelector(selector);
+        if (field?.value) {
+          updateTrustedFormField(name, field.value);
+          observer.observe(field, { attributes: true });
+        }
       });
+    };
 
-      // Check if values are already populated
-      if (certField?.value) setCertId(certField.value);
-      if (pingField?.value) setPingUrl(pingField.value);
-      if (tokenField?.value) setTokenUrl(tokenField.value);
-
-      // Start periodic checking
-      intervalId = setInterval(checkTrustedFormFields, 500);
-      
-      // Initial check
+    timeoutId = setTimeout(() => {
       checkTrustedFormFields();
+      intervalId = setInterval(
+        checkTrustedFormFields,
+        TRUSTEDFORM_CHECK_INTERVAL
+      );
     }, 1000);
 
-    // Fallback: Allow form submission after timeout
-    const fallbackTimeoutId = setTimeout(() => {
-      setTrustedFormReady(true);
+    fallbackTimeoutId = setTimeout(() => {
+      setState((prev) => ({ ...prev, ready: true }));
       console.warn("TrustedForm timeout - allowing form submission");
-    }, 10000);
+    }, TRUSTEDFORM_TIMEOUT);
 
     return () => {
-      clearTimeout(timeoutId);
-      clearTimeout(fallbackTimeoutId);
-      clearInterval(intervalId);
+      [timeoutId, intervalId, fallbackTimeoutId].forEach(clearTimeout);
       observer.disconnect();
     };
-  }, [certId, pingUrl, tokenUrl]);
+  }, [updateTrustedFormField]);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+  return state;
+};
 
-    // Clear errors when user starts typing
-    if (errors[name]) {
-      setErrors(prevErrors => ({
-        ...prevErrors,
-        [name]: ''
-      }));
-    }
-  };
-
-  const handleCaptchaChange = (isValid) => {
-    setCaptchaValid(isValid);
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
+// Custom hook for form validation
+const useFormValidation = () => {
+  const validate = useCallback((formData, captchaValid, showCaptcha) => {
+    const errors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    } else if (formData.name.length < 1) {
-      newErrors.name = 'Name must be at least 1 character';
+      errors.name = "Name is required";
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
+      errors.phone = "Phone number is required";
     } else {
       const phoneRegex = /^(\+1\s?)?(\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
       if (!phoneRegex.test(formData.phone)) {
-        newErrors.phone = 'Invalid US phone number format (e.g. +1 561-555-7689)';
+        errors.phone = "Invalid US phone number format (e.g. +1 561-555-7689)";
       }
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      errors.email = "Email is required";
     } else {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(formData.email)) {
-        newErrors.email = 'Please enter a valid email address';
+        errors.email = "Please enter a valid email address";
       }
     }
 
     if (!formData.concern) {
-      newErrors.concern = 'Please select your concern';
+      errors.concern = "Please select your concern";
     }
 
     if (!formData.privacyConsent) {
-      newErrors.privacyConsent = 'You must agree to the privacy policy';
+      errors.privacyConsent = "You must agree to the privacy policy";
     }
 
     if (!formData.humanVerification) {
-      newErrors.humanVerification = 'Please verify you are human';
+      errors.humanVerification = "Please verify you are human";
     }
 
-    // Add captcha validation if enabled
-    if (formData.captchaEnabled && !captchaValid) {
-      newErrors.captcha = 'Please complete the CAPTCHA verification';
+    // Add CAPTCHA validation only if CAPTCHA is shown
+    if (showCaptcha && !captchaValid) {
+      errors.captcha = "Please complete the CAPTCHA verification";
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+    return errors;
+  }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  return { validate };
+};
 
-    if (!validateForm()) {
-      alert('Please correct the errors in the form');
-      return;
-    }
+const FormMain = ({ isMobile = false, className = "" }) => {
+  const formRef = useRef();
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [captchaValid, setCaptchaValid] = useState(false);
+  const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState(null); // 'success', 'error', null
+  const [pageData] = useState(() => ({
+    pageUrl: window.location.href,
+    userAgent: navigator.userAgent,
+    referrer: document.referrer,
+  }));
 
-    if (!trustedFormReady) {
-      alert('Please wait for the form to load completely');
-      return;
-    }
+  const trustedForm = useTrustedForm();
+  const { validate } = useFormValidation();
 
-    setIsSubmitting(true);
-
-    // Get fresh TrustedForm data at submission time
-    let finalCertUrl = certId;
-    let finalPingUrl = pingUrl;
-    let finalTokenUrl = tokenUrl;
-
-    const certField = document.querySelector('input[name="xxTrustedFormCertUrl"]');
-    const pingField = document.querySelector('input[name="xxTrustedFormPingUrl"]');
-    const tokenField = document.querySelector('input[name="xxTrustedFormCertToken"]');
-
-    if (certField && certField.value) finalCertUrl = certField.value;
-    if (pingField && pingField.value) finalPingUrl = pingField.value;
-    if (tokenField && tokenField.value) finalTokenUrl = tokenField.value;
-
-    // Create comprehensive payload
-    const payload = {
-      ...formData,
-      // TrustedForm data
-      xxTrustedFormCertUrl: finalCertUrl,
-      xxTrustedFormPingUrl: finalPingUrl,
-      xxTrustedFormCertToken: finalTokenUrl,
-      // Tracking data
-      pageUrl: pageUrl,
-      ipAddress: ipAddress,
-      submissionTime: new Date().toISOString(),
-      trustedFormReady: trustedFormReady,
-      userAgent: navigator.userAgent,
-      referrer: document.referrer
-    };
-
-    console.log("Form submitted with comprehensive payload:", payload);
-
-    try {
-      // Replace with your actual API endpoint or EmailJS integration
-      // Example EmailJS integration:
-      /*
-      const serviceId = 'your_service_id';
-      const templateId = 'your_template_id';
-      const publicKey = 'your_public_key';
-
-      const templateParams = {
-        from_name: formData.name,
-        email: formData.email,
-        phone_number: formData.phone,
-        concern: formData.concern,
-        case_history: formData.caseHistory,
-        xxTrustedFormCertUrl: finalCertUrl,
-        xxTrustedFormPingUrl: finalPingUrl,
-        xxTrustedFormCertToken: finalTokenUrl,
-        pageUrl: pageUrl,
-        ipAddress: ipAddress
-      };
-
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
-      */
-
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Reset form on success
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        concern: "",
-        caseHistory: "",
-        privacyConsent: false,
-        humanVerification: false,
-        captchaEnabled: false
-      });
-
-      // Reset captcha
-      setCaptchaValid(false);
-      setCaptchaResetTrigger(prev => prev + 1);
-
-      setSuccessDialogOpen(true);
-      alert("Form submitted successfully!");
-
-      // Optional: Redirect after delay
-      // setTimeout(() => {
-      //   window.location.href = '/thank-you';
-      // }, 2000);
-
-    } catch (error) {
-      console.error("Submission error:", error);
-      alert("There was an error submitting the form. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleCloseDialog = () => {
-    setSuccessDialogOpen(false);
-  };
-
-  // Form configuration
-  const sharedFields = [
-    { field: "name", type: "text", placeholder: "Full Name", required: true },
-    { field: "phone", type: "tel", placeholder: "Phone Number", required: true },
-    { field: "email", type: "email", placeholder: "Email Address", required: true },
-  ];
-
-  const concernOptions = [
-    { value: "", label: "Select your concern", disabled: true },
-    { value: "personal-injury", label: "Personal Injury" },
-    { value: "family-law", label: "Family Law" },
-    { value: "criminal-defense", label: "Criminal Defense" },
-    { value: "business-law", label: "Business Law" },
-    { value: "real-estate", label: "Real Estate" },
-    { value: "other", label: "Other" },
-  ];
-
-  const consentText = (
-    <>
-      I agree to the{" "}
-      <a href="#" className="underline text-[#C09F53] hover:text-[#C09F53]/80">
-        privacy policy
-      </a>{" "}
-      and{" "}
-      <a href="#" className="underline text-[#C09F53] hover:text-[#C09F53]/80">
-        disclaimer
-      </a>
-      , and give my express written consent.
-    </>
-  );
-
-  const humanText = <>Please check this box to confirm you're human.</>;
-  
-  const baseInputStyle = `w-full border-b-2 transition-colors duration-300 ${
-    isMobile ? "py-2 bg-[#FFFBF3]" : "py-3 font-opensans bg-transparent"
-  }`;
-
-  const getInputStyle = (fieldName) => {
-    const hasError = errors[fieldName];
-    return `${baseInputStyle} ${
-      hasError 
-        ? "border-red-500 focus:border-red-500" 
-        : "border-gray-300 focus:border-[#C09F53]"
+  // Memoized styles to prevent recalculation
+  const styles = useMemo(() => {
+    const baseInputStyle = `w-full border-b-2 transition-colors duration-300 ${
+      isMobile ? "py-2 bg-[#FFFBF3]" : "py-3 font-opensans bg-transparent"
     } focus:outline-none placeholder:text-[#023437]/70`;
-  };
 
-  return (
-    <div
-      className={`${
+    return {
+      container: `${
         isMobile
           ? "bg-[#FFFBF3] text-[#023437] rounded-lg shadow-lg p-6 font-opensans border border-gray-200"
           : "bg-[#FFFBF3]/95 backdrop-blur-sm text-[#023437] rounded-xl shadow-2xl p-8 md:p-10 border border-white/20"
-      } ${className}`}
-    >
-      <h2
-        className={`text-center font-playfair font-semibold ${
-          isMobile ? "text-[24px] md:text-[34px] mb-4" : "text-[30px] md:text-[32px] mb-6"
-        }`}
-      >
-        Ready to Grow? Let's Talk
-      </h2>
+      } ${className}`,
+      title: `text-center font-playfair font-semibold ${
+        isMobile
+          ? "text-[24px] md:text-[34px] mb-4"
+          : "text-[30px] md:text-[32px] mb-6"
+      }`,
+      input: (fieldName) =>
+        `${baseInputStyle} ${
+          errors[fieldName]
+            ? "border-red-500 focus:border-red-500"
+            : "border-gray-300 focus:border-[#C09F53]"
+        }`,
+      baseInput: baseInputStyle,
+    };
+  }, [isMobile, className, errors]);
+
+  const handleCaptchaChange = useCallback((isValid) => {
+    setCaptchaValid(isValid);
+    // Clear CAPTCHA error when it becomes valid
+    if (isValid && errors.captcha) {
+      setErrors(prev => ({ ...prev, captcha: '' }));
+    }
+  }, [errors.captcha]);
+
+  const handleHumanVerificationClick = useCallback(() => {
+    if (!formData.humanVerification) {
+      // Show CAPTCHA when checkbox is clicked (before it's checked)
+      setShowCaptcha(true);
+      setCaptchaResetTrigger(prev => prev + 1);
+    } else {
+      // Hide CAPTCHA when unchecking
+      setShowCaptcha(false);
+      setCaptchaValid(false);
+      setCaptchaResetTrigger(prev => prev + 1);
+    }
+  }, [formData.humanVerification]);
+
+  const handleChange = useCallback(
+    (e) => {
+      const { name, value, type, checked } = e.target;
+
+      setFormData((prev) => ({
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+
+      // Clear error when user starts typing
+      if (errors[name]) {
+        setErrors((prev) => ({ ...prev, [name]: "" }));
+      }
+
+      // Clear submission status when user makes changes
+      if (submissionStatus) {
+        setSubmissionStatus(null);
+      }
+    },
+    [errors, submissionStatus]
+  );
+
+  // Function to map form data to EmailJS expected format
+  const mapFormDataForEmailJS = useCallback((formData, trustedForm, captchaValid) => {
+    const getFreshTrustedFormData = () => {
+      const certField = document.querySelector('input[name="xxTrustedFormCertUrl"]');
+      const pingField = document.querySelector('input[name="xxTrustedFormPingUrl"]');
+      const tokenField = document.querySelector('input[name="xxTrustedFormCertToken"]');
+
+      return {
+        xxTrustedFormCertUrl: certField?.value || trustedForm.certId || '',
+        xxTrustedFormPingUrl: pingField?.value || trustedForm.pingUrl || '',
+        xxTrustedFormCertToken: tokenField?.value || trustedForm.tokenUrl || '',
+      };
+    };
+
+    const trustedFormData = getFreshTrustedFormData();
+
+    return {
+      // Map form fields to EmailJS expected names
+      firstName: formData.name,
+      emailId: formData.email,
+      phoneNumber: formData.phone,
+      concern: formData.concern,
+      caseHistory: '', // This field doesn't exist in the form, so we'll leave it empty
+      
+      // Consent and verification
+      privacyConsent: formData.privacyConsent,
+      captchaEnabled: captchaValid,
+      
+      // TrustedForm data
+      ...trustedFormData,
+      
+      // Additional metadata
+      submissionTime: new Date().toISOString(),
+      trustedFormReady: trustedForm.ready,
+      pageUrl: pageData.pageUrl,
+      userAgent: pageData.userAgent,
+      referrer: pageData.referrer,
+    };
+  }, [pageData]);
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+
+      const validationErrors = validate(formData, captchaValid, showCaptcha);
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        setSubmissionStatus('error');
+        // Don't show alert, let the inline errors display
+        return;
+      }
+
+      if (!trustedForm.ready) {
+        setSubmissionStatus('error');
+        setErrors({ form: "Please wait for the form to load completely" });
+        return;
+      }
+
+      setIsSubmitting(true);
+      setSubmissionStatus(null);
+
+      try {
+        // Map form data to EmailJS expected format
+        const emailData = mapFormDataForEmailJS(formData, trustedForm, captchaValid);
+        
+        console.log("Sending emails with data:", emailData);
+
+        // Send both admin and user emails simultaneously
+        const [adminResult, userResult] = await Promise.allSettled([
+          // sendAdminEmail(emailData),
+          // sendUserEmail(emailData)
+        ]);
+
+        // Check if at least one email was sent successfully
+        const adminSuccess = adminResult.status === 'fulfilled';
+        const userSuccess = userResult.status === 'fulfilled';
+
+        if (adminSuccess || userSuccess) {
+          // Reset form on success
+          setFormData(INITIAL_FORM_DATA);
+          setErrors({});
+          setCaptchaValid(false);
+          setShowCaptcha(false);
+          setCaptchaResetTrigger(prev => prev + 1);
+          setSubmissionStatus('success');
+          
+          console.log('Email submission results:', {
+            admin: adminSuccess ? 'Success' : adminResult.reason,
+            user: userSuccess ? 'Success' : userResult.reason
+          });
+
+          // Log any partial failures
+          if (!adminSuccess) {
+            console.error('Admin email failed:', adminResult.reason);
+          }
+          if (!userSuccess) {
+            console.error('User email failed:', userResult.reason);
+          }
+        } else {
+          throw new Error('Both email sends failed');
+        }
+      } catch (error) {
+        console.error("Email submission error:", error);
+        setSubmissionStatus('error');
+        setErrors({ 
+          form: "There was an error sending your information. Please try again or contact us directly." 
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [formData, validate, trustedForm, captchaValid, showCaptcha, mapFormDataForEmailJS]
+  );
+
+  // Memoized consent text to prevent recreation
+  const consentText = useMemo(
+    () => (
+      <div className="text-xs text-[#023437] leading-tight font-opensans">
+        I agree to the{" "}
+        <a href="/disclaimer" className="underline text-[#C09F53]  ">
+          privacy policy
+        </a>{" "}
+        and{" "}
+        <a href="/privacy-policy" className="underline text-[#C09F53]  ">
+          disclaimer
+        </a>
+         , and give my express written consent, affiliates and/or lawyer to
+        contact you at the number provided above, even if this number is a
+        wireless number or if I am presently listed on a Do Not Call list. I
+        understand that I may be contacted by telephone, email, text message or
+        mail regarding case options and that I may be called using automatic
+        dialing equipment. Message & data rates may apply. My consent does not
+        require purchase. This is Legal advertising.
+      </div>
+    ),
+    []
+  );
+
+  const checkboxFields = useMemo(
+    () => [
+      {
+        name: "privacyConsent",
+        text: consentText,
+        error: errors.privacyConsent,
+      },
+      {
+        name: "humanVerification",
+        text: "Please check this box to confirm you're human.",
+        error: errors.humanVerification,
+      },
+    ],
+    [consentText, errors.privacyConsent, errors.humanVerification]
+  );
+
+  const isFormValid = useMemo(() => {
+    const basicValidation = (
+      formData.name.trim() &&
+      formData.phone.trim() &&
+      formData.email.trim() &&
+      formData.concern &&
+      formData.privacyConsent &&
+      formData.humanVerification &&
+      trustedForm.ready
+    );
+
+    // If CAPTCHA is shown, it must also be valid
+    if (showCaptcha) {
+      return basicValidation && captchaValid;
+    }
+
+    return basicValidation;
+  }, [formData, captchaValid, trustedForm.ready, showCaptcha]);
+
+  return (
+    <div className={styles.container}>
+      <h2 className={styles.title}>Ready to Grow? Let's Talk</h2>
+
+      {/* Success Message */}
+      {submissionStatus === 'success' && (
+        <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md">
+          <h3 className="font-semibold mb-2">Thank you for your submission!</h3>
+          <p className="text-sm">
+            We have received your information and will contact you shortly. Please check your email for a confirmation message.
+          </p>
+        </div>
+      )}
+
+      {/* Error Message */}
+      {submissionStatus === 'error' && errors.form && (
+        <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md">
+          <h3 className="font-semibold mb-2">Submission Error</h3>
+          <p className="text-sm">{errors.form}</p>
+        </div>
+      )}
 
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
         {/* Hidden TrustedForm fields */}
         <input
           type="hidden"
-          id="xxTrustedFormCertUrl"
           name="xxTrustedFormCertUrl"
-          value={certId}
+          value={trustedForm.certId}
         />
         <input
           type="hidden"
-          id="xxTrustedFormCertToken"
           name="xxTrustedFormCertToken"
-          value={tokenUrl}
+          value={trustedForm.tokenUrl}
         />
         <input
           type="hidden"
-          id="xxTrustedFormPingUrl"
           name="xxTrustedFormPingUrl"
-          value={pingUrl}
+          value={trustedForm.pingUrl}
         />
 
         {/* Form Fields */}
-        {sharedFields.map(({ field, type, placeholder, required }) => (
+        {FORM_FIELDS.map(({ field, type, placeholder, required }) => (
           <div key={field} className="w-full">
             <input
               type={type}
@@ -414,11 +700,13 @@ const FormMain = ({ isMobile = false, className = "" }) => {
               placeholder={placeholder}
               value={formData[field]}
               onChange={handleChange}
-              className={getInputStyle(field)}
+              className={styles.input(field)}
               required={required}
             />
             {errors[field] && (
-              <p className="text-red-500 text-xs mt-1 font-opensans">{errors[field]}</p>
+              <p className="text-red-500 text-xs mt-1 font-opensans">
+                {errors[field]}
+              </p>
             )}
           </div>
         ))}
@@ -429,47 +717,35 @@ const FormMain = ({ isMobile = false, className = "" }) => {
             name="concern"
             value={formData.concern}
             onChange={handleChange}
-            className={`${getInputStyle('concern')} pr-10 appearance-none cursor-pointer`}
+            className={`${styles.input(
+              "concern"
+            )} pr-10 appearance-none cursor-pointer`}
             required
           >
-            {concernOptions.map(({ value, label, disabled }) => (
+            {CONCERN_OPTIONS.map(({ value, label, disabled }) => (
               <option key={value} value={value} disabled={disabled}>
                 {label}
               </option>
             ))}
           </select>
-          <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2">
-            <ChevronDown className="w-5 h-5 text-[#023437]" />
-          </span>
+          <ChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 text-[#023437]" />
           {errors.concern && (
-            <p className="text-red-500 text-xs mt-1 font-opensans">{errors.concern}</p>
+            <p className="text-red-500 text-xs mt-1 font-opensans">
+              {errors.concern}
+            </p>
           )}
         </div>
 
-        {/* Case History Textarea */}
-        <div className="w-full">
-          <textarea
-            name="caseHistory"
-            placeholder="Please describe your case or legal matter (optional)"
-            value={formData.caseHistory}
-            onChange={handleChange}
-            rows={4}
-            className={`${baseInputStyle} border-gray-300 focus:border-[#C09F53] focus:outline-none placeholder:text-[#023437]/70 resize-none`}
-          />
-        </div>
-
         {/* Checkboxes */}
-        {[
-          { name: "privacyConsent", text: consentText, error: errors.privacyConsent },
-          { name: "humanVerification", text: humanText, error: errors.humanVerification }
-        ].map(({ name, text, error }) => (
+        {checkboxFields.map(({ name, text, error }) => (
           <div key={name} className="w-full">
-            <label className="flex items-start text-xs gap-2 leading-tight">
+            <label className="flex items-start text-xs gap-2 leading-tight font-opensans">
               <input
                 type="checkbox"
                 name={name}
                 checked={formData[name]}
                 onChange={handleChange}
+                onClick={name === "humanVerification" ? handleHumanVerificationClick : undefined}
                 className="mt-1 w-4 h-4 accent-[#C09F53]"
                 required
               />
@@ -481,21 +757,43 @@ const FormMain = ({ isMobile = false, className = "" }) => {
           </div>
         ))}
 
+        {/* Custom CAPTCHA - Only show when human verification is clicked */}
+        {showCaptcha && (
+          <div className="w-full">
+            <CustomCaptcha 
+              onCaptchaChange={handleCaptchaChange}
+              resetTrigger={captchaResetTrigger}
+            />
+            {errors.captcha && (
+              <p className="text-red-500 text-xs mt-1 font-opensans">
+                {errors.captcha}
+              </p>
+            )}
+          </div>
+        )}
+
         {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-[#C09F53] hover:bg-[#C09F53]/90 text-[#023437] font-semibold py-4 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl text-base disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={isSubmitting || !trustedFormReady}
+          disabled={isSubmitting || !isFormValid}
         >
-          {isSubmitting ? 'Submitting...' : trustedFormReady ? 'Submit' : 'Loading...'}
+          {isSubmitting
+            ? "Sending..."
+            : !trustedForm.ready
+            ? "Loading..."
+            : formData.humanVerification && !captchaValid
+            ? "Complete CAPTCHA to Submit"
+            : "Submit"}
         </button>
 
         {/* Form Status */}
         <div className="text-center text-xs text-gray-600">
-          {!trustedFormReady && (
-            <p>Initializing secure form...</p>
+          {!trustedForm.ready && <p>Initializing secure form...</p>}
+          {formData.humanVerification && !captchaValid && trustedForm.ready && (
+            <p className="text-orange-600">Please complete the CAPTCHA verification</p>
           )}
-          {Object.keys(errors).length > 0 && (
+          {Object.keys(errors).length > 0 && !errors.form && (
             <p className="text-red-500 mt-2">Please correct the errors above</p>
           )}
         </div>
