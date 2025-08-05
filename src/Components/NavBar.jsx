@@ -805,7 +805,6 @@ export default NavBar;
 
 
 
-
 // import React, { useState, useRef } from 'react';
 // import Frame from "../../src/assets/logoo.png";
 // import Searchbar from "../../src/assets/Group 39.png";
