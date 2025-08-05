@@ -190,7 +190,7 @@ const ContactUsHero = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#FFF] border-2 border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 group"
+                className="bg-[#FFFBF3] border-2 border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 group"
                 style={{
                   width: `clamp(40px, ${
                     (48 / dimensions.baseWidth) * 100
@@ -294,74 +294,78 @@ const ContactUsHero = () => {
 
       {/* Mobile Layout */}
       <div className="block md:hidden px-6 py-12">
-        <div className="flex flex-col items-center justify-center min-h-[calc(100vh-5rem)] space-y-8">
-          {/* Mobile Info Section */}
-          <div className="w-full max-w-sm text-center">
-            <h1 className="font-playfair font-bold text-5xl xs:text-6xl leading-[0.95] mb-8 text-[#023437]">
+        <div className="flex flex-col min-h-[calc(100vh-5rem)] space-y-8">
+          {/* Mobile Heading - Left Aligned */}
+          <div className="w-full">
+            <h1 className="font-playfair font-bold text-5xl xs:text-6xl leading-[0.95] mb-6 text-[#023437] text-left">
               We're here <br />
               <span className="text-[#C09F53]">to help</span>
             </h1>
 
-            <div className="space-y-6 mb-8">
-              {/* Mobile Contact Items */}
-              <div className="flex items-center justify-center gap-3">
-                <div className="w-10 h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-lg font-semibold text-[#023437]">
-                  +61 470 695 167
-                </span>
+            {/* Business Hours - Left Aligned and Sized Down */}
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-8 h-8 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
+                <Clock className="w-4 h-4 text-white" />
               </div>
-
-              <div className="flex items-center justify-center gap-3">
-                <div className="w-10 h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-5 h-5 text-white" />
+              <div>
+                <div className="text-base font-bold text-[#023437]">
+                  9:00-19:00
                 </div>
-                <span className="text-lg font-semibold text-[#023437] break-words max-w-[250px]">
-                  teamup@connect2lawyer.com.au
-                </span>
-              </div>
-
-              <div className="flex items-center justify-center gap-3">
-                <div className="w-10 h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
-                  <Clock className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <div className="text-lg font-bold text-[#023437]">
-                    9:00-19:00
-                  </div>
-                  <div className="text-sm text-[#023437] font-medium">
-                    Mon - Fri
-                  </div>
+                <div className="text-sm text-[#023437] font-medium">
+                  Mon - Fri
                 </div>
               </div>
-            </div>
-
-            {/* Mobile Social Icons */}
-            <div className="flex justify-center gap-3 mb-8">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-[#FFFBF3] border-2 border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 group"
-                  aria-label={`Visit our ${social.icon.name} page`}
-                >
-                  <social.icon className="w-6 h-6 text-[#023437] group-hover:text-[#FFFBF3]" />
-                </a>
-              ))}
             </div>
           </div>
 
           {/* Mobile Map */}
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-md mx-auto">
             <img
               src={map}
               alt="Australia Map showing Point Cook, Melbourne"
               className="w-full h-auto"
               loading="lazy"
             />
+          </div>
+
+          {/* Mobile Contact Info */}
+          <div className="w-full space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
+                <Phone className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-lg font-semibold text-[#023437]">
+                +61 470 695 167
+              </span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
+                <Mail className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-lg font-semibold text-[#023437] break-words">
+                teamup@connect2lawyer.com.au
+              </span>
+            </div>
+          </div>
+
+          {/* Line Separator */}
+          <div className="h-[1px] w-[250px] bg-[#023437] opacity-29"></div>
+
+          {/* Mobile Social Icons */}
+          <div className="flex gap-3">
+            {socialLinks.map((social, index) => (
+              <a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-[#FFFBF3] border-2 border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 group"
+                aria-label={`Visit our ${social.icon.name} page`}
+              >
+                <social.icon className="w-6 h-6 text-[#023437] group-hover:text-[#FFFBF3]" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
