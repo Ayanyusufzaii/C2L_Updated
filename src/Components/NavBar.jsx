@@ -38,6 +38,33 @@ const NavBar = () => {
   const [scrollDirection, setScrollDirection] = useState('up');
   const [isScrolling, setIsScrolling] = useState(false);
 
+  // Add this useEffect to detect region from URL
+  useEffect(() => {
+    const currentPath = location.pathname;
+    
+    // Skip if it's a menu link path
+    const isMenuPath = menuLinks.some(link => link.path === currentPath);
+    if (isMenuPath) {
+      return;
+    }
+    
+    // Extract region from URL (remove leading slash and replace hyphens with spaces)
+    const pathWithoutSlash = currentPath.substring(1);
+    const regionFromUrl = pathWithoutSlash.replace(/-/g, ' ');
+    
+    // Check if this matches any of our regions
+    const matchedRegion = regions.find(region => 
+      region.toLowerCase() === regionFromUrl.toLowerCase()
+    );
+    
+    if (matchedRegion) {
+      setSelectedRegion(matchedRegion);
+    } else if (currentPath === '/') {
+      // Reset to default when on home page
+      setSelectedRegion('Select Region');
+    }
+  }, [location.pathname]);
+
   useEffect(() => {
     let lastScrollY = window.scrollY;
     let scrollTimeout;
@@ -299,6 +326,7 @@ const NavBar = () => {
       };
     }, []);
 
+    
     return (
       <div 
         ref={dropdownRef}
