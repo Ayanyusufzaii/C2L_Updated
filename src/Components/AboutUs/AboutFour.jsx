@@ -1,7 +1,7 @@
 import React from 'react';
 import cardDesktop from "../../assets/abCard.png";
-import quoteTopDesktop from "../../assets/lqt.png";
-import quoteBottomDesktop from "../../assets/rqt.png";
+import quoteTopDesktop from "../../assets/abqtL.png";
+import quoteBottomDesktop from "../../assets/abqtR.png";
 import cardMobile from "../../assets/abCardmob.png";
 import quoteTopMobile from "../../assets/sqtL.png";
 import quoteBottomMobile from "../../assets/sqtR.png";
@@ -23,7 +23,7 @@ const AboutFour = () => {
           
           {/* Subheading */}
           <div className="flex-1 lg:max-w-2xl lg:pb-2 xl:pb-4">
-            <p className="text-white font-['Open_Sans'] text-base md:text-lg lg:text-xl font-medium leading-normal text-center lg:text-right">
+            <p className="text-white font-['Open_Sans'] text-base md:text-lg lg:text-xl font-medium leading-normal text-center lg:text-left">
               Take a moment to explore our website today and connect with a dedicated attorney who will protect your rights.
             </p>
           </div>
@@ -31,7 +31,7 @@ const AboutFour = () => {
 
         {/* Desktop Layout */}
         <div className="hidden lg:block">
-          <div className="relative w-full max-w-6xl mx-auto">
+          <div className="relative w-full max-w-5xl md:max-w-6xl mx-auto">
             {/* Desktop Card Background */}
             <div className="relative w-full">
               <img 
@@ -41,17 +41,17 @@ const AboutFour = () => {
               />
               
               {/* Content Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center p-8 xl:p-12">
+              <div className="absolute inset-0 flex items-start justify-center pt-16 lg:pt-20 xl:pt-24 2xl:pt-20 p-8 xl:p-12">
                 <div className="relative max-w-4xl w-full">
                   {/* Top Left Quote */}
                   <img 
                     src={quoteTopDesktop}
                     alt="Opening quote"
-                    className="absolute -top-4 -left-4 lg:-top-6 lg:-left-6 xl:-top-8 xl:-left-8 w-12 h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 z-10"
+                    className="absolute -top-6 -left-6 lg:-top-8 lg:-left-8 xl:-top-10 xl:-left-10 2xl:-top-12 2xl:-left-12 w-12 h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 z-10"
                   />
                   
                   {/* Main Text */}
-                  <p className="text-[#fff] font-['Open_Sans'] text-lg md:text-xl lg:text-2xl xl:text-3xl font-medium leading-relaxed italic text-center px-8 lg:px-12 xl:px-16">
+                  <p className="text-[#023437] font-['Open_Sans'] text-lg md:text-xl lg:text-2xl xl:text-3xl font-medium leading-relaxed italic text-center px-8 lg:px-12 xl:px-16">
                     We envision a future where legal assistance is accessible, efficient, & tailored to individual needs. Connect2Lawyer strives to be the cornerstone of that future, ensuring that every Australian can confidently navigate their legal challenges with the right support.
                   </p>
                   
@@ -59,7 +59,7 @@ const AboutFour = () => {
                   <img 
                     src={quoteBottomDesktop}
                     alt="Closing quote"
-                    className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 xl:-bottom-8 xl:-right-8 w-12 h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 z-10"
+                    className="absolute -bottom-6 -right-6 lg:-bottom-8 lg:-right-8 xl:-bottom-10 xl:-right-10 2xl:-bottom-12 2xl:-right-12 w-12 h-12 lg:w-16 lg:h-16 xl:w-[88px] xl:h-[55px] z-10"
                   />
                 </div>
               </div>
@@ -89,7 +89,7 @@ const AboutFour = () => {
                   />
                   
                   {/* Main Text - Mobile */}
-                  <p className="text-[#023437] font-['Open_Sans'] text-sm sm:text-base font-medium leading-relaxed italic text-center px-4 sm:px-6">
+                  <p className="text-[#023437] text-sm sm:text-base font-medium leading-relaxed italic text-center px-4 sm:px-6">
                     We envision a future where legal assistance is accessible, efficient, & tailored to individual needs. Connect2Lawyer strives to be the cornerstone of that future, ensuring that every Australian can confidently navigate their legal challenges with the right support.
                   </p>
                   
