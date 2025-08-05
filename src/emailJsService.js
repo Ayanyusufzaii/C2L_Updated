@@ -218,9 +218,9 @@ export const testEmailConfiguration = async () => {
 //   };
  
 //   return emailjs.send(SERVICE_ID, LAWYER_ADMIN_TEMPLATE_ID, templateParams);
-// };
+// };LawyerSendAdminEmail
  
-export const LawyerSendUserEmail = async (formData) => {
+export const LawyerSendAdminEmail = async (formData) => {
   const ipAddress = await getIPAddress();
  
   const templateParams = {
@@ -254,7 +254,7 @@ alternateNumber: sanitize(formData.alternateNumber),
   return emailjs.send(SERVICE_ID, LAWYER_TEMPLATE_ID, templateParams);
 };
 
-export const LawyerSendAdminEmail = async (formData) => {
+export const LawyerSendUserEmail = async (formData) => {
   const ipAddress = await getIPAddress();
   const submissionDate = new Date().toLocaleString();
 
