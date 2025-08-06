@@ -1,7 +1,5 @@
 import React from 'react';
 import cardDesktop from "../../assets/abCard.png";
-import quoteTopDesktop from "../../assets/abqtL.png";
-import quoteBottomDesktop from "../../assets/abqtR.png";
 import cardMobile from "../../assets/abCardmob.png";
 import quoteTopMobile from "../../assets/sqtL.png";
 import quoteBottomMobile from "../../assets/sqtR.png";
