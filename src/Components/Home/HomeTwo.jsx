@@ -388,7 +388,7 @@ function HomeTwo() {
     } else {
       const phoneRegex = /^(\+1\s?)?(\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
       if (!phoneRegex.test(formData.phoneNumber)) {
-        newErrors.phoneNumber = 'Invalid US phone number format (e.g. +1 561-555-7689)';
+        newErrors.phoneNumber = 'Invalid AUS phone number format (e.g. +1 561-555-7689)';
       }
     }
 
@@ -529,7 +529,7 @@ function HomeTwo() {
   
 
   return (
-    <div className="w-full overflow-x-hidden" style={{
+    <div  id="form-section" className="w-full overflow-x-hidden" style={{
       backgroundImage: `url(${isMobile ? mobFormBG : FormBG})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',

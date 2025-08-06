@@ -114,9 +114,15 @@ function LegalHeroSection() {
             We match you with the right legal expertise to ensure your rights are protected and your voice is heard.
           </p>
           <div className="flex justify-center sm:justify-start">
-            <button className="px-6 py-3 sm:px-8 sm:py-4 bg-[#C09F53] text-white rounded-full font-semibold text-base sm:text-lg hover:bg-yellow-700 transition-colors mb-12 sm:mb-16">
-              Start Your Free Case Review Now
-            </button>
+            <button
+  onClick={() => {
+    document.getElementById("form-section")?.scrollIntoView({ behavior: "smooth" });
+  }}
+  className="px-6 py-3 sm:px-8 sm:py-4 bg-[#C09F53] text-white rounded-full font-semibold text-base sm:text-lg hover:bg-yellow-700 transition-colors mb-12 sm:mb-16"
+>
+  Start Your Free Case Review Now
+</button>
+
           </div>
         </div>
       </div>
@@ -147,17 +153,17 @@ function LegalHeroSection() {
 
                 {/* Dropdown */}
                 {isLocationDropdownOpen && (
-                  <div className="absolute top-full mt-2 w-full bg-[#023437] border-2 border-white shadow-xl z-50 rounded-lg overflow-hidden">
-                    {regions.map((region, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleLocationSelect(region)}
-                        className="w-full px-4 py-3 text-white text-left text-sm sm:text-base border-b border-white hover:bg-teal-800 transition-colors first:rounded-t-lg last:rounded-b-lg"
-                      >
-                        {region}
-                      </button>
-                    ))}
-                  </div>
+                 <div className="absolute top-full mt-2 h-[200px] w-full bg-[#023437] border-2 border-white shadow-xl z-50 rounded-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+  {regions.map((region, index) => (
+    <button
+      key={index}
+      onClick={() => handleLocationSelect(region)}
+      className="w-full px-4 py-3 text-white text-left text-sm sm:text-base border-b border-white hover:bg-teal-800 transition-colors first:rounded-t-lg last:rounded-b-lg"
+    >
+      {region}
+    </button>
+  ))}
+</div>
                 )}
               </div>
 

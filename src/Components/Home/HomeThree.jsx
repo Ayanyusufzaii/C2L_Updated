@@ -8,7 +8,10 @@ import personallap from "../../assets/personallap.png";
 import ClassAction from "../../assets/classactionbg.png";
 import bPersonalInjury from "../../assets/personalinjurybg.png";
 import MassTort from "../../assets/masstortbg.png";
+
+import { useNavigate } from "react-router-dom";
 function HomeThree() {
+    const navigate = useNavigate();
     const targetRef = useRef(null);
     // Add state for active tab
     const [activeTab, setActiveTab] = useState('Mass Tort');
@@ -21,15 +24,12 @@ function HomeThree() {
         });
     };
 
-    const handleLearnMoreClick = () => {
-        console.log('Learn More clicked');
-    };
+  
 
     const expertiseTags = [
         { text: 'Mass Tort' },
         { text: 'Class Action' },
         { text: 'Personal Injury' },
-        { text: 'See All'}
     ];
 
     const steps = [
@@ -62,25 +62,46 @@ function HomeThree() {
                 </div>
 
                 {/* Expertise Tags */}
-                <div className="flex flex-wrap gap-2 md:gap-4 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mb-4 md:mb-8">
-                    {expertiseTags.map((tag, index) => (
-                        <button
-                            key={index}
-                            className={`
-                                rounded-full px-4 md:px-6 py-2 md:py-3
-                                font-['Open_Sans'] text-sm md:text-base font-semibold
-                                transition-all duration-300
-                                ${activeTab === tag.text
-                                    ? 'bg-[#C09F53] text-[#023437]'
-                                    : 'border border-[#FFFBF3] text-[#FFFBF3] bg-transparent hover:bg-[#FFFBF3] hover:text-[#023437]'
-                                }
-                            `}
-                            onClick={() => setActiveTab(tag.text)}
-                        >
-                            {tag.text}
-                        </button>
-                    ))}
-                </div>
+               <div className="flex flex-wrap gap-2 md:gap-4 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mb-4 md:mb-8 items-center justify-between">
+    <div className="flex flex-wrap gap-2 md:gap-4">
+        {expertiseTags.map((tag, index) => (
+            <button
+                key={index}
+                className={`
+                    rounded-full px-4 md:px-6 py-2 md:py-3
+                    font-['Open_Sans'] text-sm md:text-base font-semibold
+                    transition-all duration-300
+                    ${activeTab === tag.text
+                        ? 'bg-[#C09F53] text-[#023437]'
+                        : 'border border-[#FFFBF3] text-[#FFFBF3] bg-transparent hover:bg-[#C09F53] hover:text-[#023437]'
+                    }
+                `}
+                onClick={() => setActiveTab(tag.text)}
+            >
+                {tag.text}
+            </button>
+        ))}
+    </div>
+
+    {/* Arrow Button */}
+    <button
+        onClick={() => window.location.href = '/service'}
+        className="flex items-center gap-2 rounded-full px-4 md:px-6 py-2 md:py-3 border border-[#FFFBF3]  bg-[#023437] text-[#ffffff] font-['Open_Sans'] text-sm md:text-base font-semibold transition-all duration-300 hover:bg-[#C09F53] hover:text-[#023437]"
+    >
+        <span>See All</span>
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            className="w-5 h-5"
+        >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+    </button>
+</div>
+
 
                 {/* Main Content Area */}
                 <div>
@@ -103,8 +124,8 @@ function HomeThree() {
                                      We help victims file claims for asbestos-related diseases, secure financial compensation for medical expenses and hold companies accountable for toxic exposure.
                                   </p>
                                   <button
-                                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
-                                      onClick={handleLearnMoreClick}
+                                      className="rounded-full border-2 border-[#ffffff] px-6 md:px-8 py-3 md:py-4 text-[#ffffff] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
+                                      onClick={() => navigate("/SubServicemeso")}
                                   >
                                       Learn More
                                   </button>
@@ -128,10 +149,12 @@ function HomeThree() {
                                   <button
                                       className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                                       style={{fontSize: '20px'}}
-                                      onClick={handleLearnMoreClick}
+                                      onClick={() => navigate("/SubServicemeso")}
                                   >
                                       Learn More
                                   </button>
+
+
                               </div>
                           </div>
                       </div>
@@ -156,7 +179,7 @@ function HomeThree() {
                             </p>
                             <button
                               className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-[#023437] hover:text-[#C09F53] cursor-pointer drop-shadow-md"
-                              onClick={handleLearnMoreClick}
+                              onClick={() => navigate("/SubServiceRideshare")}
                             >
                               Learn More
                             </button>
@@ -178,7 +201,7 @@ function HomeThree() {
                             <button
                               className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                               style={{fontSize: '20px'}}
-                              onClick={handleLearnMoreClick}
+                              onClick={() => navigate("/SubServiceRideshare")}
                             >
                               Learn More
                             </button>
@@ -206,7 +229,7 @@ function HomeThree() {
                             </p>
                             <button
                               className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
-                              onClick={handleLearnMoreClick}
+                             onClick={() => navigate("/SubService18Wheeler")}
                             >
                               Learn More
                             </button>
@@ -228,7 +251,7 @@ function HomeThree() {
                             <button
                               className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                               style={{fontSize: '20px'}}
-                              onClick={handleLearnMoreClick}
+                             onClick={() => navigate("/SubService18Wheeler")}
                             >
                               Learn More
                             </button>
@@ -279,7 +302,7 @@ function HomeThree() {
                                 ${index < steps.length - 1 ? 'lg:border-r-0' : ''}
                                 lg:rounded-none rounded-lg
                             `}
-                            onClick={handleConsultationClick}
+                             onClick={() => navigate("/about")}
                         >
                             <p className="text-[#FFFBF3] font-['Open_Sans'] text-lg md:text-xl lg:text-2xl font-semibold">
                                 {step.number}
