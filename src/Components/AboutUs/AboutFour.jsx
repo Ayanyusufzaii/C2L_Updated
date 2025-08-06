@@ -5,7 +5,8 @@ import quoteBottomDesktop from "../../assets/abqtR.png";
 import cardMobile from "../../assets/abCardmob.png";
 import quoteTopMobile from "../../assets/sqtL.png";
 import quoteBottomMobile from "../../assets/sqtR.png";
-
+import lqt from "../../assets/lqt.png";
+import rqt from "../../assets/rqt.png";
 
 const AboutFour = () => {
   return (
@@ -42,26 +43,49 @@ const AboutFour = () => {
               
               {/* Content Overlay */}
               <div className="absolute inset-0 flex items-start justify-center pt-16 lg:pt-20 xl:pt-24 2xl:pt-20 p-8 xl:p-12">
-                <div className="relative max-w-4xl w-full">
-                  {/* Top Left Quote */}
-                  <img 
-                    src={quoteTopDesktop}
-                    alt="Opening quote"
-                    className="absolute -top-6 -left-6 lg:-top-8 lg:-left-8 xl:-top-10 xl:-left-10 2xl:-top-12 2xl:-left-12 w-12 h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 z-10"
-                  />
-                  
-                  {/* Main Text */}
-                  <p className="text-[#023437] font-['Open_Sans'] text-lg md:text-xl lg:text-2xl xl:text-3xl font-medium leading-relaxed italic text-center px-8 lg:px-12 xl:px-16">
+                
+
+                <div className="relative">
+          {/* Left quote - positioned at top left of text box */}
+          <img
+            src={lqt}
+            alt="opening quote"
+            className="
+              absolute -top-14 -left-8
+              w-[30px] h-[20px]
+              sm:w-[45px] sm:h-[30px]
+              md:w-[61px] md:h-[40px]
+              lg:w-[80px] lg:h-[54px]
+              xl:w-[97px] xl:h-[65px]
+            "
+            style={{ aspectRatio: '96.98/65.33' }}
+          />
+
+          {/* Text container */}
+          <div className="relative z-10 max-w-[83vw]">
+            {/* Main Text */}
+                  <p className="text-[#fff] font-['Open_Sans'] text-[18px] md:text-[20px] lg:text-[24px] xl:text-[28px] font-medium leading-tight italic text-center px-8 lg:px-12 xl:px-16">
                     We envision a future where legal assistance is accessible, efficient, & tailored to individual needs. Connect2Lawyer strives to be the cornerstone of that future, ensuring that every Australian can confidently navigate their legal challenges with the right support.
                   </p>
-                  
-                  {/* Bottom Right Quote */}
-                  <img 
-                    src={quoteBottomDesktop}
-                    alt="Closing quote"
-                    className="absolute -bottom-6 -right-6 lg:-bottom-8 lg:-right-8 xl:-bottom-10 xl:-right-10 2xl:-bottom-12 2xl:-right-12 w-12 h-12 lg:w-16 lg:h-16 xl:w-[88px] xl:h-[55px] z-10"
-                  />
-                </div>
+          </div>
+
+          {/* Right quote - positioned at bottom right of text box */}
+          <img
+            src={rqt}
+            alt="closing quote"
+            className="
+              absolute -bottom-14 -right-3
+              w-[30px] h-[20px]
+              sm:w-[45px] sm:h-[30px]
+              md:w-[61px] md:h-[40px]
+              lg:w-[80px] lg:h-[54px]
+              xl:w-[97px] xl:h-[65px]
+            "
+            style={{ aspectRatio: '96.98/65.33' }}
+          />
+        </div>
+
+
               </div>
             </div>
           </div>
