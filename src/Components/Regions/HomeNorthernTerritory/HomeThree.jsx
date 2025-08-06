@@ -130,7 +130,7 @@ const HomeThreeMobile = () => {
         >
           <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-playfair font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
@@ -263,7 +263,7 @@ const HomeThreeDesktop = () => {
         >
           <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-playfair font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}

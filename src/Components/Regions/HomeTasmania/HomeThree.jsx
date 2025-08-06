@@ -126,7 +126,7 @@ const navigate = useNavigate();
 
     return (
       <div
-        className={`w-full flex flex-col md:flex-row  items-stretch min-h-[350px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] 2xl:min-h-[800px] 3xl:min-h-[900px] 4xl:min-h-[1000px] 5xl:min-h-[1200px]`}
+        className={`w-full flex flex-col md:flex-row  items-stretch min-h-[350px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[578px] xl:min-h-[700px] 2xl:min-h-[800px] 3xl:min-h-[900px] 4xl:min-h-[1000px] 5xl:min-h-[1200px]`}
         style={{ backgroundColor: data.bgColor }}
       >
         {/* Text Section */}
@@ -136,7 +136,7 @@ const navigate = useNavigate();
         >
           <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-playfair font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
@@ -258,7 +258,7 @@ const navigate = useNavigate();
 
     return (
       <div
-        className={`w-full flex flex-col md:flex-row  items-stretch min-h-[350px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] 2xl:min-h-[800px] 3xl:min-h-[900px] 4xl:min-h-[1000px] 5xl:min-h-[1200px]`}
+        className={`w-full flex flex-col md:flex-row  items-stretch min-h-[350px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[578px] xl:min-h-[700px] 2xl:min-h-[800px] 3xl:min-h-[900px] 4xl:min-h-[1000px] 5xl:min-h-[1200px]`}
         style={{ backgroundColor: data.bgColor }}
       >
         {/* Text Section */}
@@ -268,7 +268,7 @@ const navigate = useNavigate();
         >
           <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-playfair font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
