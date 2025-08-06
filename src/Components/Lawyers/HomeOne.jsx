@@ -5,7 +5,7 @@ import LawyerHeroMob2 from "../../assets/LawyerHeroMob2.png";
 import icon1 from "../../assets/lawyericon1.png";
 import icon2 from "../../assets/lawyericon2.png";
 import icon3 from "../../assets/lawyericon3.png";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight } from "react-icons/fa";
 import FormMain from "./FormMain"; 
 
 const obj = [

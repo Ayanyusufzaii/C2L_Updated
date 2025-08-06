@@ -4,36 +4,36 @@ function FaqClassAction() {
   const faqItems = [
     {
       id: 1,
-      question: 'What is a class action lawsuit?    ',
-      answer: 'A class action is a legal case where one or more individuals represent a larger group of people who have experienced similar harm caused by the same company, product, or action.',
+      question: 'Why should I hire a lawyer for accidents involving 18-wheelers and heavy vehicles?',
+      answer: 'Specialized lawyers understand the complexities of these cases and can help secure the maximum compensation while guiding you through the legal process.',
       category: 'law',
       expanded: false
     },
     {
       id: 2,
-      question: 'How is a class action different from a mass tort?   ',
-      answer: 'In a class action, all plaintiffs are treated as one group and share a single outcome. In a mass tort, each plaintiff files an individual claim, allowing for different compensation based on personal circumstances.',
+      question: 'What compensation can I receive?',
+      answer: 'Victims may be entitled to medical expenses, lost wages, pain and suffering, and punitive damages.',
       category: 'law',
       expanded: false
     },
     {
       id: 3,
-      question: 'Who can join a class action lawsuit?  ',
-      answer: 'You can join if you’ve been affected in a similar way as others in an approved class. There’s usually no need to file your own case - you become part of the group automatically or by opting in.',
+      question: 'How long does a lawsuit take?',
+      answer: 'Settlements typically resolve within 12 to 18 months; trials may take longer depending on case details.',
       category: 'law',
       expanded: false
     },
     {
       id: 4,
-      question: 'Do I have to pay to join a class action?',
-      answer: 'No, Class action participants typically do not pay legal fees unless the case is won. Any fees are taken from the settlement or award.',
+      question: 'How can Connect2Lawyer assist me?',
+      answer: 'We connect you with experienced attorneys who guide you step-by-step to secure fair compensation.',
       category: 'law',
       expanded: false
     },
     {
       id: 5,
-      question: 'Does Connect2Lawyer handle class action cases?',
-      answer: 'Yes, we handle class action cases and help individuals join ongoing lawsuits by connecting them with experienced legal professionals.',
+      question: 'What does it cost to start?',
+      answer: 'Our No Win No Fee policy means no upfront costs; you pay only if we win.',
       category: 'law',
       expanded: false
     }

@@ -15,11 +15,10 @@ function SubService() {
     <div className='overflow-hidden'>
         <NavBar />
         <SubOne />
-        {/* <SubTwo /> */}
+        <SubTwo />
         <SubThree />
         <SubFour />
         <SubFive />
- 
         <Faqmeso />
         <HomeSeven />
         <Footer />

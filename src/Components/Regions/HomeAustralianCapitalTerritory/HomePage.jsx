@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from "../../NavBar"
 import HomeTwo from "./HomeTwo"
-import HomeSeven from './HomeSeven'
+import HomeSeven from '../../Home/HomeSeven'
 import Footer from '../../Footer'
 import HomeThree from './HomeThree'
 import HomeOne from './HomeOne'
@@ -17,8 +17,8 @@ function HomeNewSouthWales() {
       <HomeFour/>
       <HomeTwo />
       <HomeFive />
-      {/* <HomeSeven />
-      <Footer /> */}
+      <HomeSeven />
+      <Footer />
     </div>
   )
 }

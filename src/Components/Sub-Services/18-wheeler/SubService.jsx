@@ -8,7 +8,7 @@ import SubFive from './SubFive'
 
 import NavBar from "../../NavBar"
 import HomeSeven from '../../Home/HomeSeven'
-import Faqmeso from '../../FAQmeso'
+import Faqmeso from '../../faq18wheeler'
 
 function SubService18Wheeler() {
   return (
@@ -19,8 +19,7 @@ function SubService18Wheeler() {
         <SubThree />
         <SubFour />
         <SubFive />
-
-        <Faqmeso />
+        <Faqmeso/>
         <HomeSeven />
         <Footer />
     </div>

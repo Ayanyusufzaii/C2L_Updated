@@ -2,8 +2,11 @@ import React from "react";
 import combinedCard from "../../../assets/combinedCards.png";
 import greenCardMobile from "../../../assets/greenCard.png";
 import yellowCardMobile from "../../../assets/yellowCard.png";
+import { useNavigate } from "react-router-dom";
 
 const PersonalInjuryTwo = () => {
+  const navigate = useNavigate();
+  
   return (
     <section className="px-4 py-8 lg:px-16 lg:py-12">
       {/* Desktop layout: combined image with two overlays */}
@@ -35,7 +38,10 @@ const PersonalInjuryTwo = () => {
             Seeks the compensation you deserve for injuries caused by accidents
             involving large commercial trucks.
           </p>
-          <button className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition">
+          <button
+            className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition"
+            onClick={() => navigate("/SubService18Wheeler")}
+          >
             Learn More
           </button>
         </div>
