@@ -8,51 +8,13 @@ import {
   Linkedin,
   Youtube,
   MessageSquare,
+  TikTok,
 } from "lucide-react";
+
 import map from "../../assets/contactUsHeroMap.png";
+import mapMob from "../../assets/mapMob.png";
 
 const ContactUsHero = () => {
-  // Precise calculations based on 1440x840 viewport
-  const dimensions = {
-    // Base viewport
-    baseWidth: 1440,
-    baseHeight: 840,
-
-    // Map dimensions
-    mapWidth: 806.6,
-    mapHeight: 738.17,
-    mapPaddingRight: 50,
-
-    // Info section dimensions
-    infoWidth: 694,
-    infoHeight: 797,
-    infoPaddingLeft: 44,
-
-    // Typography
-    headingSize: 128,
-    textSize: 28,
-    smallTextSize: 18,
-
-    // Icons
-    iconSize: 40,
-    iconInner: 20,
-  };
-
-  // Calculate percentages for responsive scaling
-  const calc = {
-    mapWidthPercent: (dimensions.mapWidth / dimensions.baseWidth) * 100,
-    mapHeightPercent: (dimensions.mapHeight / dimensions.baseHeight) * 100,
-    infoWidthPercent: (dimensions.infoWidth / dimensions.baseWidth) * 100,
-    infoHeightPercent: (dimensions.infoHeight / dimensions.baseHeight) * 100,
-    mapPaddingPercent:
-      (dimensions.mapPaddingRight / dimensions.baseWidth) * 100,
-    infoPaddingPercent:
-      (dimensions.infoPaddingLeft / dimensions.baseWidth) * 100,
-    headingPercent: (dimensions.headingSize / dimensions.baseWidth) * 100,
-    textPercent: (dimensions.textSize / dimensions.baseWidth) * 100,
-    iconPercent: (dimensions.iconSize / dimensions.baseWidth) * 100,
-  };
-
   const socialLinks = [
     {
       icon: Linkedin,
@@ -74,188 +36,122 @@ const ContactUsHero = () => {
   ];
 
   return (
-    <section className="relative w-full min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden pt-20 md:pt-24">
-      {/* Desktop Layout */}
-      <div
-        className="hidden md:block relative w-full"
-        style={{ minHeight: "840px", height: "90vh" }}
-      >
+    <section className="relative w-full bg-[#ffffff] overflow-hidden pt-0">
+      {/* Desktop/Tablet Layout */}
+      <div className="hidden md:flex relative w-full h-[92.8vh]">
         {/* Info Section - Left Side */}
-        <div
-          className="absolute left-0 top-0 flex flex-col justify-center"
-          style={{
-            width: `${calc.infoWidthPercent}%`,
-            maxWidth: `${dimensions.infoWidth}px`,
-            height: `${calc.infoHeightPercent}%`,
-            maxHeight: `${dimensions.infoHeight}px`,
-            paddingLeft: `${calc.infoPaddingPercent}%`,
-            minPaddingLeft: "44px",
-            paddingRight: "2%",
-            paddingTop: "3%",
-            paddingBottom: "3%",
-          }}
-        >
-          {/* Main Heading */}
-          <h1
-            className="font-playfair font-bold leading-tight mb-8 text-[#023437]"
-            style={{
-              fontSize: `clamp(64px, ${calc.headingPercent}vw, ${dimensions.headingSize}px)`,
-              lineHeight: "0.95",
-              letterSpacing: "-0.02em",
-            }}
-          >
+        <div className="absolute left-0 top-0 h-full flex flex-col justify-start items-start w-[48%] max-w-[694px] 
+                        pl-[3%] pr-[2%] 
+                        lg:pl-[44px] lg:pr-8
+                        md:py-8
+                        lg:py-12
+                        xl:py-16"
+             style={{ paddingTop: '6%' }}>
+          {/* Main Heading - Smaller for tablets */}
+          <h1 className="font-playfair font-bold leading-[0.95] mb-4 md:mb-5 lg:mb-6 xl:mb-8 text-[#023437] tracking-[-0.02em]
+                         md:text-4xl
+                         lg:text-6xl
+                         xl:text-7xl
+                         2xl:text-[128px]">
             We're here <br />
             <span className="text-[#C09F53]">to help</span>
           </h1>
 
-          {/* Contact Information */}
-          <div className="space-y-6 mb-12">
+          {/* Contact Information - Significantly smaller for tablets */}
+          <div >
             {/* Phone */}
-            <div className="flex items-center gap-4">
-              <div
-                className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0"
-                style={{
-                  width: `max(${calc.iconPercent}vw, ${dimensions.iconSize}px)`,
-                  height: `max(${calc.iconPercent}vw, ${dimensions.iconSize}px)`,
-                  minWidth: "40px",
-                  minHeight: "40px",
-                }}
-              >
-                <Phone
-                  className="text-white"
-                  style={{
-                    width: `max(${calc.iconPercent * 0.5}vw, ${
-                      dimensions.iconInner
-                    }px)`,
-                    height: `max(${calc.iconPercent * 0.5}vw, ${
-                      dimensions.iconInner
-                    }px)`,
-                  }}
-                />
+            <div className="flex items-center gap-2 md:gap-2 lg:gap-3 xl:gap-4 group">
+              <div className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0
+                              md:w-7 md:h-7
+                              lg:w-9 lg:h-9
+                              xl:w-10 xl:h-10
+                              mb-2">
+                <Phone className="text-white md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
               </div>
-              <span
-                className="font-semibold text-[#023437]"
-                style={{
-                  fontSize: `clamp(20px, ${calc.textPercent}vw, ${dimensions.textSize}px)`,
-                }}
-              >
+              <span className="font-semibold text-[#023437] 
+                               md:text-base
+                               lg:text-xl
+                               xl:text-2xl
+                               2xl:text-[28px]
+                               underline decoration-[#023437] decoration-1 underline-offset-4">
                 +61 470 695 167
               </span>
             </div>
 
             {/* Email */}
-            <div className="flex items-center gap-4">
-              <div
-                className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0"
-                style={{
-                  width: `max(${calc.iconPercent}vw, ${dimensions.iconSize}px)`,
-                  height: `max(${calc.iconPercent}vw, ${dimensions.iconSize}px)`,
-                  minWidth: "40px",
-                  minHeight: "40px",
-                }}
-              >
-                <Mail
-                  className="text-white"
-                  style={{
-                    width: `max(${calc.iconPercent * 0.5}vw, ${
-                      dimensions.iconInner
-                    }px)`,
-                    height: `max(${calc.iconPercent * 0.5}vw, ${
-                      dimensions.iconInner
-                    }px)`,
-                  }}
-                />
+            <div className="flex items-center gap-2 md:gap-2 lg:gap-3 xl:gap-4 group">
+              <div className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0
+                              md:w-7 md:h-7
+                              lg:w-9 lg:h-9
+                              xl:w-10 xl:h-10">
+                <Mail className="text-white md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
               </div>
-              <span
-                className="font-semibold text-[#023437] break-words"
-                style={{
-                  fontSize: `clamp(20px, ${calc.textPercent}vw, ${dimensions.textSize}px)`,
-                }}
-              >
+              <span className="font-semibold text-[#023437] break-words
+                               md:text-base
+                               lg:text-xl
+                               xl:text-2xl
+                               2xl:text-[28px]
+                               underline decoration-[#023437] decoration-1 underline-offset-4">
                 teamup@connect2lawyer.com.au
               </span>
             </div>
           </div>
 
-          <div
-            className="h-[1px] w-[250.357px] xl:h-[2px] xl:w-[250.357px]"
-            style={{ backgroundColor: "rgba(2, 52, 55, 0.29)" }}
-          ></div>
+          <div className="h-[1px] xl:h-[2px] w-[200px] md:w-[220px] lg:w-[250px] xl:w-[280px] bg-[#023437] opacity-30 mt-6 md:mt-6 lg:mt-8 xl:mt-12"></div>
 
-          {/* Social Media Icons */}
-          <div className="flex gap-3 mt-12">
+          {/* Social Media Icons - Smaller for tablets */}
+          <div className="flex gap-2 md:gap-2 lg:gap-3 mt-6 md:mt-6 lg:mt-8 xl:mt-12">
             {socialLinks.map((social, index) => (
               <a
                 key={index}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#FFFBF3] border-2 border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 group"
-                style={{
-                  width: `clamp(40px, ${
-                    (48 / dimensions.baseWidth) * 100
-                  }vw, 48px)`,
-                  height: `clamp(40px, ${
-                    (48 / dimensions.baseWidth) * 100
-                  }vw, 48px)`,
-                }}
+                className="bg-transparent border-2 border-[#023437] hover:bg-[#023437] rounded-full 
+                           flex items-center justify-center transition-all duration-300 shadow-lg 
+                           hover:shadow-xl transform hover:scale-105 active:scale-95 group
+                           md:w-9 md:h-9
+                           lg:w-10 lg:h-10
+                           xl:w-11 xl:h-11
+                           2xl:w-12 2xl:h-12"
                 aria-label={`Visit our ${social.icon.name} page`}
               >
-                <social.icon
-                  className="text-[#023437] group-hover:text-[#FFFBF3]"
-                  style={{
-                    width: `clamp(20px, ${
-                      (24 / dimensions.baseWidth) * 100
-                    }vw, 24px)`,
-                    height: `clamp(20px, ${
-                      (24 / dimensions.baseWidth) * 100
-                    }vw, 24px)`,
-                  }}
-                />
+                <social.icon className="text-[#023437] group-hover:text-white 
+                                        md:w-4 md:h-4
+                                        lg:w-5 lg:h-5
+                                        xl:w-6 xl:h-6" />
               </a>
             ))}
           </div>
 
-          {/* Business Hours */}
-          <div className="flex col-2 items-center gap-2 mt-12">
-            <div
-              className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0"
-              style={{
-                width: `max(${calc.iconPercent}vw, ${dimensions.iconSize}px)`,
-                height: `max(${calc.iconPercent}vw, ${dimensions.iconSize}px)`,
-                minWidth: "70px",
-                minHeight: "70px",
-              }}
-            >
-              <Clock
-                className="text-white"
-                style={{
-                  width: `max(${calc.iconPercent * 0.9}vw, ${
-                    dimensions.iconInner
-                  }px)`,
-                  height: `max(${calc.iconPercent * 0.9}vw, ${
-                    dimensions.iconInner
-                  }px)`,
-                }}
-              />
+          {/* Business Hours - Smaller for tablets */}
+          <div className="flex items-center gap-2 md:gap-2 lg:gap-2 xl:gap-3 mt-6 md:mt-6 lg:mt-8 xl:mt-12">
+            <div className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0 relative overflow-hidden
+                            md:w-12 md:h-12
+                            lg:w-14 lg:h-14
+                            xl:w-16 xl:h-16
+                            2xl:w-[70px] 2xl:h-[70px]">
+              {/* Ring effect for clock - same color as bg */}
+              <div className="absolute inset-[2px] md:inset-[2px] lg:inset-[3px] xl:inset-[4px] bg-[#fff] rounded-full"></div>
+              <Clock className="text-[#023437] relative z-10 -scale-x-100
+                                md:w-6 md:h-6
+                                lg:w-7 lg:h-7
+                                xl:w-8 xl:h-8
+                                2xl:w-9 2xl:h-9" />
             </div>
             <div>
-              <div
-                className="font-medium text-[#023437] items-center justify-center"
-                style={{
-                  fontSize: `clamp(20px, ${calc.textPercent*1.5}vw, ${dimensions.textSize*1.5}px)`,
-                }}
-              >
+              <div className="font-medium text-[#023437]
+                              md:text-xl
+                              lg:text-2xl
+                              xl:text-3xl
+                              2xl:text-[42px]">
                 9:00-19:00
               </div>
-              <div
-                className="text-[#023437] font-medium"
-                style={{
-                  fontSize: `clamp(14px, ${
-                    (dimensions.smallTextSize / dimensions.baseWidth) * 100
-                  }vw, ${dimensions.smallTextSize}px)`,
-                }}
-              >
+              <div className="text-[#023437] font-medium
+                              md:text-xs
+                              lg:text-sm
+                              xl:text-base
+                              2xl:text-lg">
                 Mon - Fri
               </div>
             </div>
@@ -263,25 +159,11 @@ const ContactUsHero = () => {
         </div>
 
         {/* Map Section - Right Side */}
-        <div
-          className="absolute right-0 top-0 flex items-center justify-end"
-          style={{
-            width: `${calc.mapWidthPercent}%`,
-            maxWidth: `${dimensions.mapWidth}px`,
-            height: "100%",
-            paddingRight: `${calc.mapPaddingPercent}%`,
-            minPaddingRight: "50px",
-          }}
-        >
-          <div
-            className="relative"
-            style={{
-              width: "100%",
-              height: `${calc.mapHeightPercent}%`,
-              maxHeight: `${dimensions.mapHeight}px`,
-              aspectRatio: `${dimensions.mapWidth} / ${dimensions.mapHeight}`,
-            }}
-          >
+        <div className="absolute right-0 top-0 h-full flex items-center justify-end 
+                        w-[56%] max-w-[806px] 
+                        pr-[3%]
+                        lg:pr-[50px]">
+          <div className="relative w-full max-h-[88%] aspect-[806/738]">
             <img
               src={map}
               alt="Australia Map showing Point Cook, Melbourne"
@@ -294,38 +176,42 @@ const ContactUsHero = () => {
 
       {/* Mobile Layout */}
       <div className="block md:hidden px-6 py-12">
-        <div className="flex flex-col min-h-[calc(100vh-5rem)] space-y-8">
-          {/* Mobile Heading - Left Aligned */}
-          <div className="w-full">
-            <h1 className="font-playfair font-bold text-5xl xs:text-6xl leading-[0.95] mb-6 text-[#023437] text-left">
-              We're here <br />
-              <span className="text-[#C09F53]">to help</span>
-            </h1>
+        <div className="flex flex-col min-h-[calc(100vh-5rem)]">
+          {/* Mobile Heading and Map Container - Overlapping */}
+          <div className="relative w-full">
+            {/* Mobile Heading - Left Aligned */}
+            <div className="relative z-10">
+              <h1 className="font-playfair font-bold text-5xl xs:text-6xl leading-[0.95] mb-6 text-[#023437] text-left">
+                We're here <br />
+                <span className="text-[#C09F53]">to help</span>
+              </h1>
 
-            {/* Business Hours - Left Aligned and Sized Down */}
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-8 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
-                <Clock className="w-4 h-4 text-white" />
-              </div>
-              <div>
-                <div className="text-base font-bold text-[#023437]">
-                  9:00-19:00
+              {/* Business Hours - Left Aligned and Sized Down */}
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0 relative overflow-hidden">
+                  <div className="absolute inset-[2px] bg-gradient-to-br from-slate-50 to-blue-50 rounded-full"></div>
+                  <Clock className="w-4 h-4 text-[#023437] relative z-10 -scale-x-100" />
                 </div>
-                <div className="text-sm text-[#023437] font-medium">
-                  Mon - Fri
+                <div>
+                  <div className="text-base font-bold text-[#023437]">
+                    9:00-19:00
+                  </div>
+                  <div className="text-sm text-[#023437] font-medium">
+                    Mon - Fri
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Mobile Map */}
-          <div className="w-full max-w-md mx-auto">
-            <img
-              src={map}
-              alt="Australia Map showing Point Cook, Melbourne"
-              className="w-full h-auto"
-              loading="lazy"
-            />
+            {/* Mobile Map - Positioned to overlap */}
+            <div className="w-full max-w-md ml-auto -mt-14 relative">
+              <img
+                src={mapMob}
+                alt="Australia Map showing Point Cook, Melbourne"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
           </div>
 
           {/* Mobile Contact Info */}
@@ -334,7 +220,8 @@ const ContactUsHero = () => {
               <div className="w-10 h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
                 <Phone className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg font-semibold text-[#023437]">
+              <span className="text-lg font-semibold text-[#023437] 
+                               underline decoration-[#023437] decoration-1 underline-offset-4">
                 +61 470 695 167
               </span>
             </div>
@@ -343,27 +230,33 @@ const ContactUsHero = () => {
               <div className="w-10 h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
                 <Mail className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg font-semibold text-[#023437] break-words">
+              <span className="text-lg font-semibold text-[#023437] break-words
+                               underline decoration-[#023437] decoration-1 underline-offset-4">
                 teamup@connect2lawyer.com.au
               </span>
             </div>
           </div>
 
-          {/* Line Separator */}
-          <div className="h-[1px] w-[250px] bg-[#023437] opacity-29"></div>
+          {/* Line Separator - Centered and matching icon container width */}
+          <div className="flex justify-center px-2">
+            <div className="h-[1px] w-full bg-[#023437] opacity-30 mt-8 mb-8"></div>
+          </div>
 
-          {/* Mobile Social Icons */}
-          <div className="flex gap-3">
+          {/* Mobile Social Icons - Spanning full width */}
+          <div className="flex justify-between items-center w-full px-2">
             {socialLinks.map((social, index) => (
               <a
                 key={index}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-[#FFFBF3] border-2 border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 group"
+                className="bg-transparent border-2 border-[#023437] hover:bg-[#023437] rounded-full 
+                           flex items-center justify-center transition-all duration-300 shadow-lg 
+                           hover:shadow-xl transform hover:scale-105 group
+                           w-12 h-12 flex-shrink-0"
                 aria-label={`Visit our ${social.icon.name} page`}
               >
-                <social.icon className="w-6 h-6 text-[#023437] group-hover:text-[#FFFBF3]" />
+                <social.icon className="w-6 h-6 text-[#023437] group-hover:text-white" />
               </a>
             ))}
           </div>
