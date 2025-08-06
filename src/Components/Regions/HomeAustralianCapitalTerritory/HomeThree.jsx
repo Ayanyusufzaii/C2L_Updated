@@ -20,7 +20,7 @@ const contentConfig = {
       "Construction, public service, education, and home renovation sectors.",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
-    link: "/sub-service",
+    link:"/SubServicemeso",
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
@@ -71,7 +71,7 @@ const contentConfigMob = {
       "Construction, public service, education, and home renovation sectors.",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
-    link: "/sub-service",
+    link:"/SubServicemeso",
   },
   "Rideshare Accident Claims": {
     bgColor: "#023437",

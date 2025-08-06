@@ -20,7 +20,7 @@ const contentConfig = {
       "Construction, Shipbuilding, Mining, Manufacturing, Renovation, Infrastructure. ",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
-    link: "/sub-service",
+    link:"/SubServicemeso",
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
@@ -71,7 +71,7 @@ const contentConfigMob = {
       "Construction, Shipbuilding, Mining, Manufacturing, Renovation, Infrastructure. ",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
-    link: "/sub-service",
+    link:"/SubServicemeso",
   },
   "Rideshare Sexual Assault": {
     bgColor: "#023437",

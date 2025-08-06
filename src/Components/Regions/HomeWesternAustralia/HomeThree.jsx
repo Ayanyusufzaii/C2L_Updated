@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const contentConfig = {
   "Mesothelioma Lawsuits": {
     bgColor: "#023437",
-     link: "/sub-service",
+     link:"/SubServicemeso",
 
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",
@@ -62,7 +62,7 @@ const contentConfig = {
 const contentConfigMob = {
   "Mesothelioma Lawsuits": {
     bgColor: "#023437",
-     link: "/sub-service",
+     link:"/SubServicemeso",
 
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",
