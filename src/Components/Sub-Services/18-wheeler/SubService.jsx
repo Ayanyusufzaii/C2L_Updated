@@ -5,22 +5,21 @@ import SubThree from './SubThree'
 import SubFour from './SubFour'
 import Footer from '../../Footer'
 import SubFive from './SubFive'
-import SubSix from './SubSix'
+
 import NavBar from "../../NavBar"
 import HomeSeven from '../../Home/HomeSeven'
-import Faqmeso from '../../FAQmeso'
+import Faqmeso from '../../faq18wheeler'
 
 function SubService18Wheeler() {
   return (
     <div className='overflow-hidden'>
         <NavBar />
         <SubOne />
-        <SubTwo />
+        {/* <SubTwo /> */}
         <SubThree />
         <SubFour />
         <SubFive />
-        <SubSix />
-        <Faqmeso />
+        <Faqmeso/>
         <HomeSeven />
         <Footer />
     </div>

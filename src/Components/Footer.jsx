@@ -15,7 +15,7 @@ function Footer() {
 
         {/* Desktop and Tablet Layout - hidden on screens smaller than md */}
         <div className="hidden md:block lg:ml-[-3%]"> {/* Adjusted margin for larger screens, ensures content aligns well */}
-          <div className="flex flex-col lg:flex-row justify-between items-center border-b border-teal-800 pb-4">
+          <div className="flex flex-col lg:flex-row justify-between items-center border-b border-teal-800 pb-4 px-4">
             {/* Contact Information */}
             <div className="flex flex-col space-y-2 mb-4 lg:mb-0"> {/* Added margin-bottom for tablet layout before flex-row kicks in */}
               <div className="flex items-center">
@@ -106,7 +106,7 @@ function Footer() {
           </div>
 
           {/* Connect2Lawyer Title for Desktop/Tablet */}
-          <div className="py-6 lg:py-8 w-full">
+          <div className="py-6 lg:py-8 w-full flex justify-center lg:pl-4 xl:pl-10">
             {/* For 4K/laptop/tab: show a full-width image, for mobile: keep previous layout */}
             <div className="hidden md:block w-full">
               <img src={FooterGroup} alt="Connect2Lawyer Logo" className="w-full h-auto object-contain max-h-[180px] xl:max-h-[260px] 2xl:max-h-[320px] mx-auto" />

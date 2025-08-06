@@ -6,8 +6,6 @@ import heroBgMob from "../../../assets/massTortHeroBgmob.png";
 const MassTortHero = () => {
   return (
     <>
-      {/* Spacer for navbar - adjust height based on your navbar */}
-      <div className="h-16 sm:h-20 md:h-24"></div>
       
       <section className="relative w-full h-[365px] bg-black overflow-hidden">
         {/* Desktop/Tablet Background */}

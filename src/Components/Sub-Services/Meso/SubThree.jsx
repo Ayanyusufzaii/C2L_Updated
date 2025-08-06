@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import "./SubThree.css"
-import card1 from '../../../assets/Cardd1.png'
-import card2 from '../../../assets/Cardd1.png'  
-import card3 from '../../../assets/Card3.png'
-import card4 from '../../../assets/Card4.png'
+import card1 from '../../../assets/searchimg.png'
+import card2 from '../../../assets/ridesharecomp.png'  
+import card3 from '../../../assets/simplifyprocessimg.png'
+import card4 from '../../../assets/dedicatedimg.png'
 
 const cardData = [
   {
@@ -38,20 +38,31 @@ function SubThree() {
   return (
     <div>
       {/* Desktop Version */}
-      <div className="hidden lg:block mt-[30rem] xl:mt-[40rem] 2xl:mt-[56rem] px-2 sm:px-6 md:px-10">
-        <div className="flex flex-row items-start gap-8 xl:gap-32 p-4 sm:p-8 md:p-12 lg:p-20">
-          <div className="mt-8 md:mt-8 lg:mt-0 xl:mt-0 flex-1 min-w-[220px]">
-            <h1 className="text-[#023437] font-['Playfair_Display'] text-2xl md:text-4xl lg:text-[40px] xl:text-[56px] 2xl:text-[72px] font-extrabold italic leading-tight xl:leading-[80px] w-full max-w-[420px]">See how we can help</h1>
-          </div>
-          <div className="mt-8 md:mt-8 lg:mt-0 xl:mt-0 flex-1 min-w-[220px]">
-            <h4 className="text-[#023437] text-left font-sans text-base md:text-lg lg:text-xl xl:text-2xl font-bold normal-case mb-2 md:mb-4">
-              How We Help
-            </h4>
-            <p className="text-[#023437] font-sans text-sm md:text-base lg:text-lg xl:text-2xl font-semibold leading-normal w-full max-w-[350px]">
-              At Connect2Lawyer, our experienced mesothelioma lawyers are dedicated to guiding you every step of the way.
-            </p>
-          </div>
-        </div>
+      <div className="hidden lg:block  px-2 sm:px-6 md:px-10">
+ <div className="flex flex-row items-stretch gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mb-16 mt-16">
+  {/* LEFT SIDE */}
+  <div className="flex-1 flex items-start">
+    <h1 className="text-[#023437] font-['Playfair_Display'] font-extrabold leading-tight
+                   text-4xl md:text-5xl lg:text-[80px] xl:text-[100px] 2xl:text-[120px]">
+      See how we <span className="block text-[#C09F53]">can help</span>
+    </h1>
+  </div>
+
+  {/* RIGHT SIDE - Smaller + bottom-aligned */}
+  <div className="w-[180px] sm:w-[200px] md:w-[220px] lg:w-[240px] xl:w-[260px] flex flex-col justify-end">
+    <div className="mt-auto">
+      <h4 className="text-[#C09F53] font-sans text-sm md:text-base lg:text-lg font-bold mb-2">
+        How We Help
+      </h4>
+      <p className="text-[#023437] font-sans text-xs md:text-sm lg:text-base font-medium leading-normal">
+       At Connect2Lawyer, our experienced Mesothelioma Lawyers are dedicated to guiding you every step of the way.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
 
         <div className="flex flex-row justify-center gap-4 md:gap-6 lg:gap-8 max-w-7xl mx-auto mb-8 sm:mb-12 md:mb-16 px-2 sm:px-4 md:px-0">
           {cardData.map((card) => (
@@ -98,15 +109,18 @@ function SubThree() {
       {/* Mobile & Tablet Version */}
       <div className="lg:hidden p-6">
         <div className="mb-12">
-          <h1 className="text-[#023437] font-['Playfair_Display'] text-5xl font-extrabold italic leading-tight mb-6">
-            See how we can help
-          </h1>
+         <h1 className="text-[#023437] font-['Playfair_Display'] font-extrabold leading-tight mb-6 
+               text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+  See how we <br />
+  <span className="text-[#C09F53]">can help</span>
+</h1>
+
           <div className="mb-8">
-            <h4 className="text-[#023437] text-left font-sans text-xl font-bold normal-case mb-3">
+            <h4 className="text-[#C09F53] text-left font-sans text-xl font-bold normal-case mb-3">
               How We Help
             </h4>
             <p className="text-[#023437] font-sans text-lg font-semibold leading-normal">
-            At Connect 2 Lawyer, our experienced mesothelioma experts are committed to supporting you at every stage of your journey.
+         At Connect2Lawyer, our experienced Mesothelioma Lawyers are dedicated to guiding you every step of the way.
             </p>
           </div>
         </div>

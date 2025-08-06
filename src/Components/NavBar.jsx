@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Frame from '../../src/assets/LogoNavbar.png';
 import frame1 from '../../src/assets/logoo.png';
@@ -7,7 +7,6 @@ import callIcon from '../../src/assets/calllogoheader.png';
 import SearchbarIcon1 from '../../src/assets/MobileSearch.png';
 import locationIcon from '../../src/assets/locationlogo.png';
 import closeIcon from '../../src/assets/logoo.png';
-
 
 const regions = [
   'New South Wales',
@@ -35,26 +34,148 @@ const NavBar = () => {
   const [showFullNavbar, setShowFullNavbar] = useState(true);
   const [searchActive, setSearchActive] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [navbarHeight, setNavbarHeight] = useState(0);
+  const [scrollDirection, setScrollDirection] = useState('up');
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  // Add this useEffect to detect region from URL
+  useEffect(() => {
+    const currentPath = location.pathname;
+    
+    // Skip if it's a menu link path
+    const isMenuPath = menuLinks.some(link => link.path === currentPath);
+    if (isMenuPath) {
+      return;
+    }
+    
+    // Extract region from URL (remove leading slash and replace hyphens with spaces)
+    const pathWithoutSlash = currentPath.substring(1);
+    const regionFromUrl = pathWithoutSlash.replace(/-/g, ' ');
+    
+    // Check if this matches any of our regions
+    const matchedRegion = regions.find(region => 
+      region.toLowerCase() === regionFromUrl.toLowerCase()
+    );
+    
+    if (matchedRegion) {
+      setSelectedRegion(matchedRegion);
+    } else if (currentPath === '/') {
+      // Reset to default when on home page
+      setSelectedRegion('Select Region');
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
+    let scrollTimeout;
+    
     const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      setShowFullNavbar(currentScroll < 80 || currentScroll < lastScrollY);
-      lastScrollY = currentScroll;
+      const currentScrollY = window.scrollY;
+      const scrollDifference = currentScrollY - lastScrollY;
+      
+      // Clear any existing timeout
+      clearTimeout(scrollTimeout);
+      setIsScrolling(true);
+      
+      // Simple logic: Full navbar only at top, minimized everywhere else
+      if (Math.abs(scrollDifference) > 1) {
+        if (currentScrollY <= 10) {
+          // Only show full navbar when at the very top (0-10px)
+          setShowFullNavbar(true);
+        } else {
+          // Minimize navbar for any scroll position below top
+          setShowFullNavbar(false);
+        }
+        
+        lastScrollY = currentScrollY;
+      }
+      
+      // Debounce to prevent rapid state changes
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+        // Final state check - ensure full navbar only at top
+        if (currentScrollY <= 10) {
+          setShowFullNavbar(true);
+        } else {
+          setShowFullNavbar(false);
+        }
+      }, 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    // Use passive listener for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, []);
+
+  // Calculate navbar height for body padding
+  useEffect(() => {
+    const calculateNavbarHeight = () => {
+      if (searchActive) {
+        setNavbarHeight(64); // Search overlay height
+      } else if (showFullNavbar) {
+        // Full navbar height - desktop: ~120px, tablet: ~120px, mobile: ~100px
+        setNavbarHeight(window.innerWidth >= 1024 ? 120 : window.innerWidth >= 768 ? 120 : 100);
+      } else {
+        // Collapsed navbar height - desktop: ~60px, tablet: ~60px, mobile: ~50px
+        setNavbarHeight(window.innerWidth >= 1024 ? 60 : window.innerWidth >= 768 ? 60 : 50);
+      }
+    };
+
+    // Use requestAnimationFrame for smooth height transitions
+    requestAnimationFrame(calculateNavbarHeight);
+    
+    const handleResize = () => {
+      requestAnimationFrame(calculateNavbarHeight);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [showFullNavbar, searchActive]);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.region-dropdown')) {
+        setRegionDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
 
   const isActive = (path) => location.pathname === path;
 
+  const handleRegionSelect = (region) => {
+    setSelectedRegion(region);
+    setRegionDropdownOpen(false);
+    navigate(`/${region.replace(/\s+/g, '-')}`);
+  };
+
   // Hamburger Icon Component
-  
   const HamburgerIcon = ({ isOpen, onClick }) => (
     <button
       onClick={onClick}
       className="flex flex-col justify-center items-center w-8 h-8 space-y-1"
+      aria-label="Toggle menu"
     >
       <span
         className={`w-6 h-0.5 bg-[#023437] transition-all duration-300 ${
@@ -77,7 +198,7 @@ const NavBar = () => {
   // Mobile Menu Overlay
   const MobileMenu = () => (
     <div
-      className={`fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out ${
+      className={`fixed inset-0 z-[9999] transform transition-transform duration-300 ease-in-out ${
         mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
       }`}
     >
@@ -87,12 +208,16 @@ const NavBar = () => {
         onClick={() => setMobileMenuOpen(false)}
       />
       
-      {/* Menu Panel - Full Screen */}
+      {/* Menu Panel */}
       <div className="absolute right-0 top-0 h-full w-full bg-white shadow-lg">
         {/* Menu Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <img src={frame1} alt="Logo" className="h-10" />
-          <button onClick={() => setMobileMenuOpen(false)} className="p-2">
+          <button 
+            onClick={() => setMobileMenuOpen(false)} 
+            className="p-2"
+            aria-label="Close menu"
+          >
             <svg className="w-8 h-8 text-[#023437]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -133,16 +258,335 @@ const NavBar = () => {
     </div>
   );
 
+  // Search Overlay Component
+  const SearchOverlay = () => (
+    <div className="fixed top-0 left-0 w-full h-16 bg-white z-[60] flex items-center justify-between px-4 shadow-md">
+      <img src={frame1} alt="Logo" className="h-8 md:h-10" />
+      <input
+        type="text"
+        placeholder="I'm searching for..."
+        className="flex-1 mx-4 px-4 py-2 border border-[#023437] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#C09F53]"
+        autoFocus
+      />
+      <button 
+        onClick={() => setSearchActive(false)}
+        className="p-1"
+        aria-label="Close search"
+      >
+        <svg className="w-6 h-6 text-[#023437]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  );
+
+  // Region Dropdown Component
+  const RegionDropdown = ({ isMobile = false, buttonClassName, dropdownClassName, forceClose = false }) => {
+    const [localDropdownOpen, setLocalDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+    const timeoutRef = useRef(null);
+
+    // Close dropdown when parent forces close or when another dropdown opens
+    useEffect(() => {
+      if (forceClose) {
+        setLocalDropdownOpen(false);
+      }
+    }, [forceClose]);
+
+    const handleMouseEnter = () => {
+      if (!isMobile && window.innerWidth >= 768) {
+        clearTimeout(timeoutRef.current);
+        setLocalDropdownOpen(true);
+        // Close other dropdowns
+        setRegionDropdownOpen(false);
+      }
+    };
+
+    const handleMouseLeave = () => {
+      if (!isMobile && window.innerWidth >= 768) {
+        timeoutRef.current = setTimeout(() => {
+          setLocalDropdownOpen(false);
+        }, 200);
+      }
+    };
+
+    const handleClick = (e) => {
+      e.stopPropagation();
+      if (isMobile || window.innerWidth < 768) {
+        setLocalDropdownOpen(!localDropdownOpen);
+      }
+    };
+
+    // Clean up timeout on unmount
+    useEffect(() => {
+      return () => {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      };
+    }, []);
+
+    
+    return (
+      <div 
+        ref={dropdownRef}
+        className={`relative region-dropdown ${isMobile ? 'flex-1 mr-4' : ''}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <button
+          onClick={handleClick}
+          className={buttonClassName}
+          aria-expanded={localDropdownOpen}
+          aria-haspopup="true"
+        >
+          <div className="flex items-center gap-2">
+            <img src={locationIcon} alt="Location" className={`${isMobile ? 'w-5 h-5' : 'w-6 h-6'} m-0 p-0`} />
+            <span className={isMobile ? 'truncate' : ''}>{selectedRegion}</span>
+          </div>
+          <svg className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${localDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        
+        {/* Dropdown Menu */}
+        {localDropdownOpen && (
+          <div className={`${dropdownClassName} animate-fade-in`}>
+            {regions.map((region) => (
+              <div
+                key={region}
+                onClick={() => {
+                  handleRegionSelect(region);
+                  setLocalDropdownOpen(false);
+                }}
+                className="px-4 py-2 text-sm text-[#023437] hover:bg-[#C09F53] hover:text-white cursor-pointer transition-colors duration-200"
+              >
+                {region}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <>
+      {/* Add CSS for animations */}
+      <style jsx>{`
+        .animate-fade-in {
+          animation: fadeIn 0.2s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+
+      {/* Body Padding for Fixed Navbar */}
+      <div style={{ paddingTop: `${navbarHeight}px` }} />
+
       {/* Mobile Menu Overlay */}
       <MobileMenu />
 
-      {/* Sticky Floating Logo Nav When Scrolled */}
-      {!showFullNavbar && (
-        <div className="fixed top-0 w-full bg-white shadow-md z-50 transition-transform duration-500 ease-in-out">
-          {/* Desktop Collapsed Nav */}
-          <div className="hidden md:flex items-center justify-between px-4 py-2">
+      {/* ONLY ONE NAVBAR RENDERS AT A TIME */}
+      
+      {/* Search Overlay - Highest Priority */}
+      {searchActive ? (
+        <SearchOverlay />
+      ) : showFullNavbar ? (
+        /* Full NavBar */
+        <div className="fixed w-full z-40 top-0 bg-white shadow-md transition-all duration-200 ease-out">
+          {/* Desktop Full Navbar (lg and above) */}
+          <div className="hidden lg:block">
+            {/* Top Section */}
+            <div className="flex flex-wrap items-center justify-between px-4 py-3 border-b border-gray-200">
+              <img
+                src={Frame}
+                alt="Logo"
+                className="w-88 h-10 cursor-pointer"
+                onClick={() => navigate('/')}
+              />
+
+              {/* Call and Button Container */}
+              <div className="flex items-center gap-2">
+                {/* Call Capsule */}
+                <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full">
+                  <img src={callIcon} alt="Call" className="h-8" />
+                  <div className="flex flex-col">
+                    <span className="text-[10px] text-[#023437]">Toll Free Number</span>
+                    <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
+                  </div>
+                </div>
+
+                {/* Free Consultation Button */}
+                <button
+                  onClick={() => navigate('/ContactUs')}
+                  className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
+                >
+                  Free Consultation
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom Nav Section */}
+            <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-2">
+              {/* Select Region with hover */}
+              <RegionDropdown
+                buttonClassName="flex items-center gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 cursor-pointer transition-colors duration-200"
+                dropdownClassName="absolute top-12 left-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+              />
+
+              {/* Menu Links */}
+              <div className="flex flex-wrap gap-12 justify-center lg:justify-start">
+                {menuLinks.map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => navigate(item.path)}
+                    className={`text-sm font-semibold transition-colors duration-200 ${
+                      isActive(item.path) ? 'text-[#023437] font-extrabold' : 'text-gray-500 hover:text-[#C09F53]'
+                    }`}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+
+              {/* Search */}
+              <div className="relative">
+                <img
+                  src={SearchbarIcon}
+                  alt="Search"
+                  className="w-30 h-10 cursor-pointer"
+                  onClick={() => setSearchActive(true)}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Tablet Full Navbar (md to lg) - Same as Desktop */}
+          <div className="hidden md:block lg:hidden">
+            {/* Top Section */}
+            <div className="flex flex-wrap items-center justify-between px-4 py-3 border-b border-gray-200">
+              <img
+                src={Frame}
+                alt="Logo"
+                className="w-72 h-8 cursor-pointer"
+                onClick={() => navigate('/')}
+              />
+
+              {/* Call and Button Container */}
+              <div className="flex items-center gap-2">
+                {/* Call Capsule */}
+                <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full">
+                  <img src={callIcon} alt="Call" className="h-8" />
+                  <div className="flex flex-col">
+                    <span className="text-[10px] text-[#023437]">Toll Free Number</span>
+                    <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
+                  </div>
+                </div>
+
+                {/* Free Consultation Button */}
+                <button
+                  onClick={() => navigate('/ContactUs')}
+                  className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
+                >
+                  Free Consultation
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom Nav Section */}
+            <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-2">
+              {/* Select Region with hover */}
+              <RegionDropdown
+                buttonClassName="flex items-center gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 cursor-pointer transition-colors duration-200"
+                dropdownClassName="absolute top-12 left-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+              />
+
+              {/* Menu Links */}
+              <div className="flex flex-wrap gap-12 justify-center md:justify-start">
+                {menuLinks.map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => navigate(item.path)}
+                    className={`text-sm font-semibold transition-colors duration-200 ${
+                      isActive(item.path) ? 'text-[#023437] font-extrabold' : 'text-gray-500 hover:text-[#C09F53]'
+                    }`}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+
+              {/* Search */}
+              <div className="relative">
+                <img
+                  src={SearchbarIcon1}
+                  alt="Search"
+                  className="w-30 h-10 cursor-pointer"
+                  onClick={() => setSearchActive(true)}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Full Navbar */}
+          <div className="md:hidden">
+            {/* Mobile Top Section */}
+            <div className="flex items-center justify-between px-4 py-3">
+              <img
+                src={Frame}
+                alt="Logo"
+                className="h-5 cursor-pointer"
+                onClick={() => navigate('/')}
+              />
+
+              <div className="flex items-center gap-3">
+                {/* Call Icon Only */}
+                <img src={callIcon} alt="Call" className="h-7" />
+
+                {/* Hamburger Menu */}
+                <HamburgerIcon 
+                  isOpen={mobileMenuOpen} 
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+                />
+              </div>
+            </div>
+
+            {/* Mobile Region Section */}
+            <div className="px-4 pb-3">
+              <div className="flex items-center justify-between">
+                {/* Region Selector */}
+                <RegionDropdown
+                  isMobile={true}
+                  buttonClassName="flex items-center justify-between gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 w-full transition-colors duration-200"
+                  dropdownClassName="absolute top-12 left-0 right-0 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+                />
+
+                {/* Search Icon */}
+                <img
+                  src={SearchbarIcon1}
+                  alt="Search"
+                  className="w-10 h-10 cursor-pointer flex-shrink-0"
+                  onClick={() => setSearchActive(true)}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* Collapsed Navbar When Scrolled */
+        <div className="fixed top-0 w-full bg-white shadow-md z-50 transition-all duration-200 ease-out transform translate-y-0">
+          {/* Desktop Collapsed Nav (lg and above) */}
+          <div className="hidden lg:flex items-center justify-between px-4 py-2">
             {/* Left Section: Logo + Region Selector */}
             <div className="flex items-center gap-4">
               <img
@@ -151,35 +595,10 @@ const NavBar = () => {
                 className="w-88 h-10 cursor-pointer"
                 onClick={() => navigate('/')}
               />
-              <div className="relative">
-                <button
-                  onClick={() => setRegionDropdownOpen(!regionDropdownOpen)}
-                  className="flex items-center gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100"
-                >
-                  <img src={locationIcon} alt="loc" className="w-6 h-6" />
-                  {selectedRegion}
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {regionDropdownOpen && (
-                  <div className="absolute top-12 left-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10">
-                    {regions.map((region) => (
-                      <div
-                        key={region}
-                        onClick={() => {
-                          setSelectedRegion(region);
-                          setRegionDropdownOpen(false);
-                          navigate(`/region/${region.replace(/\s+/g, '-')}`);
-                        }}
-                        className="px-4 py-2 text-sm text-[#023437] hover:bg-[#C09F53] hover:text-white cursor-pointer"
-                      >
-                        {region}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <RegionDropdown
+                buttonClassName="flex items-center gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 transition-colors duration-200"
+                dropdownClassName="absolute top-12 left-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+              />
             </div>
 
             {/* Center Section: Menu Links */}
@@ -188,7 +607,7 @@ const NavBar = () => {
                 <button
                   key={item.name}
                   onClick={() => navigate(item.path)}
-                  className={`text-sm font-semibold ${
+                  className={`text-sm font-semibold transition-colors duration-200 ${
                     isActive(item.path) ? 'text-[#023437] font-extrabold' : 'text-gray-500 hover:text-[#C09F53]'
                   }`}
                 >
@@ -199,30 +618,54 @@ const NavBar = () => {
 
             {/* Right Section: Search */}
             <div className="relative">
-              {searchActive ? (
-                <div className="fixed top-0 left-0 w-full h-16 bg-white z-50 flex items-center justify-between px-4">
-                  <img src={frame1} alt="Logo" className="h-10" />
-                  <input
-                    type="text"
-                    placeholder="I'm searching for..."
-                    className="flex-1 mx-4 px-4 py-2 border border-[#023437] rounded-full text-sm focus:outline-none"
-                    autoFocus
-                  />
-                  <img
-                    src={closeIcon}
-                    alt="Close"
-                    className="w-6 h-6 cursor-pointer"
-                    onClick={() => setSearchActive(false)}
-                  />
-                </div>
-              ) : (
-                <img
-                  src={SearchbarIcon}
-                  alt="Search"
-                  className="w-30 h-10 cursor-pointer"
-                  onClick={() => setSearchActive(true)}
-                />
-              )}
+              <img
+                src={SearchbarIcon}
+                alt="Search"
+                className="w-30 h-10 cursor-pointer"
+                onClick={() => setSearchActive(true)}
+              />
+            </div>
+          </div>
+
+          {/* Tablet Collapsed Nav (md to lg) - Same as Desktop */}
+          <div className="hidden md:flex lg:hidden items-center justify-between px-4 py-2">
+            {/* Left Section: Logo + Region Selector */}
+            <div className="flex items-center gap-4">
+              <img
+                src={frame1}
+                alt="Logo"
+                className="w-88 h-10 cursor-pointer"
+                onClick={() => navigate('/')}
+              />
+              <RegionDropdown
+                buttonClassName="flex items-center gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 transition-colors duration-200"
+                dropdownClassName="absolute top-12 left-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+              />
+            </div>
+
+            {/* Center Section: Menu Links */}
+            <div className="flex flex-wrap gap-12 justify-center">
+              {menuLinks.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => navigate(item.path)}
+                  className={`text-sm font-semibold transition-colors duration-200 ${
+                    isActive(item.path) ? 'text-[#023437] font-extrabold' : 'text-gray-500 hover:text-[#C09F53]'
+                  }`}
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
+
+            {/* Right Section: Search */}
+            <div className="relative">
+              <img
+                src={SearchbarIcon1}
+                alt="Search"
+                className="w-30 h-10 cursor-pointer"
+                onClick={() => setSearchActive(true)}
+              />
             </div>
           </div>
 
@@ -237,251 +680,27 @@ const NavBar = () => {
             
             <div className="flex items-center gap-3">
               {/* Region Selector Capsule */}
-              <div className="relative">
-                <button
-                  onClick={() => setRegionDropdownOpen(!regionDropdownOpen)}
-                  className="flex items-center gap-2 border border-[#023437] px-3 py-1.5 rounded-full text-xs font-bold text-[#023437] hover:bg-gray-100"
-                >
-                  <img src={locationIcon} alt="loc" className="w-4 h-4" />
-                  <span className="hidden xs:inline truncate max-w-20">{selectedRegion}</span>
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {regionDropdownOpen && (
-                  <div className="absolute top-8 right-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10">
-                    {regions.map((region) => (
-                      <div
-                        key={region}
-                        onClick={() => {
-                          setSelectedRegion(region);
-                          setRegionDropdownOpen(false);
-                          navigate(`/region/${region.replace(/\s+/g, '-')}`);
-                        }}
-                        className="px-4 py-2 text-sm text-[#023437] hover:bg-[#C09F53] hover:text-white cursor-pointer"
-                      >
-                        {region}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <RegionDropdown
+                isMobile={false}
+                buttonClassName="flex items-center gap-2 border border-[#023437] px-3 py-1.5 rounded-full text-xs font-bold text-[#023437] hover:bg-gray-100 transition-colors duration-200"
+                dropdownClassName="absolute top-8 right-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+              />
 
               {/* Search Icon */}
               <img
-                src={SearchbarIcon}
-                alt="Search"
-                className="w-6 h-6 cursor-pointer"
-                onClick={() => setSearchActive(true)}
-              />
-
-              {/* Hamburger Menu */}
-              <HamburgerIcon 
-                isOpen={mobileMenuOpen} 
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Full NavBar */}
-      <div className={`fixed w-full z-40 transition-all duration-500 ease-in-out ${showFullNavbar ? 'top-0' : '-top-[200px]'} bg-white shadow-md`}>
-        {/* Desktop Full Navbar */}
-        <div className="hidden md:block">
-          {/* Top Section */}
-          <div className="flex flex-wrap items-center justify-between px-4 py-3 border-b border-gray-200">
-            <img
-              src={Frame}
-              alt="Logo"
-              className="w-88 h-10 cursor-pointer"
-              onClick={() => navigate('/')}
-            />
-
-            {/* Combine Call and Button in One Flex Container */}
-            <div className="flex items-center gap-2">
-              {/* Call Capsule */}
-              <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full">
-                <img src={callIcon} alt="Call" className="h-8" />
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-[#023437]">Toll Free Number</span>
-                  <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
-                </div>
-              </div>
-
-              {/* Free Consultation Button */}
-              <button
-                onClick={() => navigate('/ContactUs')}
-                className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold"
-              >
-                <div className="flex items-center gap-2">
-                  Free Consultation
-                </div>
-              </button>
-            </div>
-          </div>
-
-          {/* Bottom Nav Section */}
-          <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-2">
-            {/* Select Region with hover */}
-            <div className="relative group">
-              <div className="flex items-center gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 cursor-pointer">
-                <img src={locationIcon} alt="loc" className="w-6 h-6 m-0 p-0" />
-                {selectedRegion}
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-
-              {/* Dropdown on hover */}
-              <div className="absolute top-12 left-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10 hidden group-hover:block">
-                {regions.map((region) => (
-                  <div
-                    key={region}
-                    onClick={() => {
-                      setSelectedRegion(region);
-                      navigate(`/region/${region.replace(/\s+/g, '-')}`);
-                    }}
-                    className="px-4 py-2 text-sm text-[#023437] hover:bg-[#C09F53] hover:text-white cursor-pointer"
-                  >
-                    {region}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Menu Links - with more spacing */}
-            <div className="flex flex-wrap gap-12 justify-center md:justify-start">
-              {menuLinks.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => navigate(item.path)}
-                  className={`text-sm font-semibold ${
-                    isActive(item.path) ? 'text-[#023437] font-extrabold' : 'text-gray-500 hover:text-[#C09F53]'
-                  }`}
-                >
-                  {item.name}
-                </button>
-              ))}
-            </div>
-
-            {/* Search Capsule */}
-            <div className="relative">
-              {searchActive ? (
-                <div className="fixed top-0 left-0 w-full h-16 bg-white z-50 flex items-center justify-between px-4">
-                  <img src={frame1} alt="Logo" className="h-10" />
-                  <input
-                    type="text"
-                    placeholder="I'm searching for..."
-                    className="flex-1 mx-4 px-4 py-2 border border-[#023437] rounded-full text-sm focus:outline-none"
-                    autoFocus
-                  />
-                  <img
-                    src={closeIcon}
-                    alt="Close"
-                    className="w-6 h-6 cursor-pointer"
-                    onClick={() => setSearchActive(false)}
-                  />
-                </div>
-              ) : (
-                <img
-                  src={SearchbarIcon}
-                  alt="Search"
-                  className="w-30 h-10 cursor-pointer"
-                  onClick={() => setSearchActive(true)}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Full Navbar */}
-        <div className="md:hidden">
-          {/* Mobile Top Section */}
-          <div className="flex items-center justify-between px-4 py-3">
-            <img
-              src={Frame}
-              alt="Logo"
-              className="h-5 cursor-pointer"
-              onClick={() => navigate('/')}
-            />
-
-            <div className="flex items-center gap-3">
-              {/* Call Icon Only (no text) */}
-              <img src={callIcon} alt="Call" className="h-7" />
-
-              {/* Hamburger Menu */}
-              <HamburgerIcon 
-                isOpen={mobileMenuOpen} 
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-              />
-            </div>
-          </div>
-
-          {/* Mobile Region Section */}
-          <div className="px-4 pb-3">
-            <div className="flex items-center justify-between">
-              {/* Region Selector on Left */}
-              <div className="relative flex-1 mr-4">
-                <button
-                  onClick={() => setRegionDropdownOpen(!regionDropdownOpen)}
-                  className="flex items-center justify-between gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 w-full"
-                >
-                  <div className="flex items-center gap-2">
-                    <img src={locationIcon} alt="loc" className="w-5 h-5" />
-                    <span className="truncate">{selectedRegion}</span>
-                  </div>
-                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {regionDropdownOpen && (
-                  <div className="absolute top-12 left-0 right-0 bg-white border border-[#023437] rounded-lg shadow-md z-10">
-                    {regions.map((region) => (
-                      <div
-                        key={region}
-                        onClick={() => {
-                          setSelectedRegion(region);
-                          setRegionDropdownOpen(false);
-                          navigate(`/region/${region.replace(/\s+/g, '-')}`);
-                        }}
-                        className="px-4 py-2 text-sm text-[#023437] hover:bg-[#C09F53] hover:text-white cursor-pointer"
-                      >
-                        {region}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Search Icon on Right */}
-              <img
                 src={SearchbarIcon1}
                 alt="Search"
-                className="w-10 h-10 cursor-pointer flex-shrink-0"
+                className="w-10 h-10 cursor-pointer"
                 onClick={() => setSearchActive(true)}
+              />
+
+              {/* Hamburger Menu */}
+              <HamburgerIcon 
+                isOpen={mobileMenuOpen} 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
               />
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Mobile Search Overlay */}
-      {searchActive && (
-        
-        <div className="fixed top-0 left-0 w-full h-16 bg-white z-50 flex items-center justify-between px-4">
-          <img src={frame1} alt="Logo" className="h-8" />
-          <input
-            type="text"
-            placeholder="I'm searching for..."
-            className="flex-1 mx-4 px-4 py-2 border border-[#023437] rounded-full text-sm focus:outline-none"
-            autoFocus
-          />
-          <button onClick={() => setSearchActive(false)}>
-            <svg className="w-6 h-6 text-[#023437]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
         </div>
       )}
     </>
@@ -489,9 +708,6 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-
-
 
 
 

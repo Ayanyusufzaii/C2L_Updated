@@ -1,45 +1,180 @@
 import React from 'react';
-import Frame from "../../../assets/xray.png";
+import Frame from "../../../assets/sec5img.png";
 
-function SubFive() {
-    return (
-        <div className="relative">
-            {/* Desktop View */}
-            <div className="hidden md:flex overflow-hidden h-[420px] md:h-[480px] lg:h-[540px] xl:h-[600px] items-stretch">
-                <div className="absolute z-10 left-[5vw] md:left-[8vw] lg:left-[12vw] xl:left-[15%] top-1/2 -translate-y-1/2 flex flex-col justify-center h-auto">
-                    <div className="text-[#023437] font-['Playfair_Display'] font-extrabold
-                        text-[32px] md:text-[48px] lg:text-[64px] xl:text-[86px]
-                        leading-tight md:leading-[70px] lg:leading-[100px] xl:leading-[120px]
-                        w-[80vw] md:w-[500px] lg:w-[700px] xl:w-[960px]">
-                        Who Can File a Claim?
-                    </div>
-                    <div className="text-[#023437] font-open-sans font-normal
-                        text-base md:text-xl lg:text-2xl xl:text-3xl
-                        leading-snug md:leading-normal lg:leading-relaxed
-                        w-[70vw] md:w-[350px] lg:w-[420px] xl:w-[504px] mt-4">
-                        Claims can be filed by individuals directly exposed to asbestos in the workplace and by family members affected through secondary exposure.
-                    </div>
-                </div>
-                <div className="w-[40vw] md:w-[350px] lg:w-[500px] xl:w-[619px] h-full ml-auto">
-                    <img src={Frame} alt="Frame" className="w-full h-full object-contain" />
-                </div>
-            </div>
+const TILE_DATA = [
+  {
+    id: 1,
+    number: "1",
+    title: "Victims",
+    description: "Individuals who experienced sexual abuse or assault by a rideshare driver, including passengers or users of the platform, regardless of gender or age. "
+  },
+  {
+    id: 2,
+    number: "2", 
+    title: "Survivors of Trauma",
+    description: "Those who may not have been physically assaulted but were subjected to threatening behavior, harassment, or unsafe conditions that caused significant emotional or psychological harm. "
+  }
+];
 
-            {/* Mobile View */}
-            <div className="md:hidden flex flex-col items-center px-3 pt-8 pb-8 overflow-hidden"> 
-                <div className="text-[#023437] text-center font-['Playfair_Display'] text-3xl font-extrabold leading-tight mb-6">
-               Who Can File a Claim? 
-                </div>
-                <div className="text-[#023437] font-open-sans text-lg font-normal leading-relaxed text-center">
-                Claims can be filed by individuals directly exposed to asbestos in the workplace and by family members affected through secondary exposure. 
-                </div>
-                <div className="w-full mb-8">
-                    <img src={Frame} alt="Frame" className="w-full h-auto object-contain" />
-                </div>
+const TileComponent = ({ number, title, description, className = "" }) => (
+  <div className={`flex items-stretch mt-12 gap-4 md:gap-6 lg:gap-8 bg-transparent min-h-[120px] md:min-h-[140px] lg:min-h-[160px] ${className}`}>
+    <div className="flex items-center justify-center flex-shrink-0">
+      <span className="text-[#C09F53] font-opensans font-normal text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-none opacity-80">
+        {number}
+      </span>
+    </div>
+    <div className="flex-1 flex flex-col justify-center py-2">
+      <h3 className="text-white font-['Playfair_Display'] font-semibold text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-3 md:mb-4 leading-tight">
+        {title}
+      </h3>
+      <p className="text-[#EFE4CB] font-open-sans font-normal text-base md:text-sm lg:text-sm leading-relaxed opacity-90">
+        {description}
+      </p>
+    </div>
+  </div>
+);
+
+const SubFive = () => {
+  return (
+    <section className="bg-[#023437] min-h-relative relative overflow-hidden ">
+      <div className="w-full max-w-7xl mx-auto relative">
+        
+        {/* Desktop View */}
+        <div className="hidden lg:block px-0 py-0 xl:py-0">
+          
+          {/* Header and Image Section */}
+          <div className="grid grid-cols-2 items-start  mb-16 xl:mb-20">
             
+            {/* Left Content Section */}
+            <div className="px-4 md:px-6 lg:px-8 pr-8 lg:pr-12 xl:pr-16">
+              <div className="space-y-6 lg:space-y-8 max-w-2xl">
+                <h1 className="text-white font-['Playfair_Display'] mt-16 font-extrabold text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl leading-tight">
+                  Who Can <span className='text-[#C09F53]'>File a Claim?</span>
+                </h1>
+                <p className="text-[#C09F53] font-open-sans font-normal text-sm lg:text-md xl:text-l leading-relaxed opacity-90">
+                Claims can be filed by individuals who were directly assaulted during or after a rideshare trip, as well as by survivors who suffered trauma because of the incident. 
+                </p>
+              </div>
             </div>
+
+            {/* Right Image Section - No padding, aligned to top-right */}
+            <div className="relative h-full">
+              <div className="absolute top-0 right-0 w-full max-w-lg lg:max-w-xl xl:max-w-2xl">
+                <img 
+                  src={Frame} 
+                  alt="Medical X-ray illustration showing asbestos exposure effects" 
+                  className="w-full h-auto object-contain ml-auto block"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Tiles Section - Grid Layout */}
+          <div className="px-4 md:px-6 lg:px-8">
+            <div className="grid grid-cols-2 gap-12 lg:gap-16 xl:gap-20">
+              {TILE_DATA.map((tile) => (
+                <TileComponent
+                  key={tile.id}
+                  number={tile.number}
+                  title={tile.title}
+                  description={tile.description}
+                />
+              ))}
+            </div>
+          </div>
         </div>
-    );
-}
+
+        {/* Tablet View */}
+        <div className="hidden md:block lg:hidden py-0">
+          
+          {/* Header and Image Section */}
+          <div className="grid grid-cols-2 items-start gap-6 mb-12">
+            
+            {/* Left Content Section */}
+            <div className="px-4 md:px-6">
+              <div className="space-y-5 max-w-xl py-16">
+                <h1 className="text-white font-['Playfair_Display'] font-extrabold text-4xl md:text-5xl leading-tight">
+                  Who Can File a Claim?
+                </h1>
+                <p className="text-white font-open-sans font-normal text-sm md:text-sm leading-relaxed opacity-90">
+                  Claims can be filed by individuals directly exposed to asbestos in the workplace and by family members affected through secondary exposure.
+                </p>
+              </div>
+            </div>
+
+            {/* Right Image Section - No padding, aligned to top-right */}
+            <div className="relative">
+              <div className="absolute top-0 right-0 w-full max-w-sm md:max-w-md">
+                <img 
+                  src={Frame} 
+                  alt="Medical X-ray illustration showing asbestos exposure effects" 
+                  className="w-full h-auto object-contain ml-auto block"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Tiles Section - Grid Layout */}
+          <div className="px-4 md:px-6 mt-0 md:mt-0">
+            <div className="grid grid-cols-1 gap-8 md:gap-10">
+              {TILE_DATA.map((tile) => (
+                <TileComponent
+                  key={tile.id}
+                  number={tile.number}
+                  title={tile.title}
+                  description={tile.description}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile View */}
+        <div className="md:hidden py-1 relative">
+          
+          {/* Image Section - No padding, aligned to top-right */}
+          <div className="relative mb-8">
+            <div className="absolute top-0 right-0 w-3/4 max-w-xs">
+              <img 
+                src={Frame} 
+                alt="Medical X-ray illustration showing asbestos exposure effects" 
+                className="w-full h-auto object-contain ml-auto block"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          {/* Header Content */}
+          <div className="px-4 mt-64 mb-10">
+            <div className="space-y-4 max-w-sm">
+              <h1 className="text-white font-['Playfair_Display'] font-extrabold text-5xl sm:text-6xl leading-tight">
+                Who Can <span className='text-[#C09F53]'> File <br></br>a Claim?</span>
+              </h1>
+              <p className="text-white font-open-sans font-normal text-sm sm:text-base leading-relaxed opacity-90">
+                Claims can be filed by individuals directly exposed to asbestos in the workplace and by family members affected through secondary exposure.
+              </p>
+            </div>
+          </div>
+
+          {/* Tiles Section */}
+          <div className="px-4">
+            <div className="space-y-6">
+              {TILE_DATA.map((tile) => (
+                <TileComponent
+                  key={tile.id}
+                  number={tile.number}
+                  title={tile.title}
+                  description={tile.description}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default SubFive;
