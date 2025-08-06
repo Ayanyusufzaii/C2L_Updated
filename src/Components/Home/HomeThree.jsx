@@ -24,8 +24,6 @@ function HomeThree() {
         });
     };
 
-  
-
     const expertiseTags = [
         { text: 'Mass Tort' },
         { text: 'Class Action' },
@@ -36,17 +34,20 @@ function HomeThree() {
         {
             number: "Step 1",
             title: "Submit your claim",
-            description: "Get a free case review from experienced professionals."
+            description: "Get a free case review from experienced professionals.",
+            route: "/ContactUs"
         },
         {
             number: "Step 2", 
             title: "We take action",
-            description: "We will begin a detailed review of your case as soon as your claim is received."
+            description: "We will begin a detailed review of your case as soon as your claim is received.",
+            route: "/about"
         },
         {
             number: "Step 3",
             title: "Justice drives us", 
-            description: "If we represent you, our team works tirelessly to secure the results you're entitled to."
+            description: "If we represent you, our team works tirelessly to secure the results you're entitled to.",
+            route: "/about"
         }
     ];
 
@@ -302,7 +303,9 @@ function HomeThree() {
                                 ${index < steps.length - 1 ? 'lg:border-r-0' : ''}
                                 lg:rounded-none rounded-lg
                             `}
-                             onClick={() => navigate("/about")}
+                            onClick={() => {
+        if (step.route) navigate(step.route);
+      }}
                         >
                             <p className="text-[#FFFBF3] font-['Open_Sans'] text-lg md:text-xl lg:text-2xl font-semibold">
                                 {step.number}
