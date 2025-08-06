@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import oldladyimg from "../../../assets/lawyer talking with old couple.png";
 import truck from "../../../assets/truck.png";
 import rideshare from "../../../assets/rideshare.png";
+import { useNavigate } from "react-router-dom";
 
 // Configuration object for each expertise section
 const contentConfig = {
   "Mesothelioma Lawsuits": {
+    link: "/sub-service",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",
@@ -21,6 +23,7 @@ const contentConfig = {
     imgAlt: "Mesothelioma Consultation",
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
+    link: "/SubService18Wheeler",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "18-Wheeler & Heavy Vehicle Accidents",
@@ -35,7 +38,8 @@ const contentConfig = {
     imgSrc: truck,
     imgAlt: "18-Wheeler Accident",
   },
-  "Rideshare Accident Claims": {
+  "Rideshare Sexual Assault": {
+    link: "/SubServiceRideshare",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "Rideshare Sexual Assault",
@@ -51,15 +55,67 @@ const contentConfig = {
     imgAlt: "Rideshare Service",
   },
 };
+const contentConfigMob = {
+  "Mesothelioma Lawsuits": {
+    link: "/sub-service",
+    bgColor: "#023437",
+    textBg: "#C09F53",
+    title: "Asbestos Exposure and Mesothelioma",
+    description:
+      "If you've been diagnosed with mesothelioma, you may be entitled to compensation through asbestos exposure claims.",
+    lawsuitTypeTitle: "Lawsuit Type",
+    lawsuitTypeDesc:
+      "Dust Diseases Tribunal claims (NSW-specific tribunal for asbestos and silica-related diseases) ",
+    industriesTitle: "Industries",
+    industriesDesc:
+      "Construction, Shipbuilding, Power Plants, Railway Workshops, Renovation, Manufacturing",
+    imgSrc: oldladyimg,
+    imgAlt: "Mesothelioma Consultation",
+  },
+    "Rideshare Sexual Assault": {
+    link: "/SubServiceRideshare",
+    bgColor: "#023437",
+    textBg: "#C09F53",
+    title: "Rideshare Sexual Assault",
+    description:
+      "Legal support is available for survivors of sexual assault involving rideshare services like Uber or Lyft.",
+    lawsuitTypeTitle: "Lawsuit Type",
+    lawsuitTypeDesc:
+      "CTP claims, Third Party Property Damage, Personal Injury claims (under NSW Motor Accidents Injuries Act).",
+    industriesTitle: "Industries",
+    industriesDesc:
+      "Gig Economy, Rideshare Platforms, Food Delivery Platforms, Private Transport.",
+    imgSrc: rideshare,
+    imgAlt: "Rideshare Service",
+  },
+  "18-Wheeler & Heavy Vehicle Accidents": {
+    link: "/SubService18Wheeler",
+    bgColor: "#023437",
+    textBg: "#C09F53",
+    title: "18-Wheeler & Heavy Vehicle Accidents",
+    description:
+      "Victims of heavy vehicle or 18-wheeler crashes can pursue legal claims for serious injuries, lost wages, and damages.",
+    lawsuitTypeTitle: "Lawsuit Type",
+    lawsuitTypeDesc:
+      "Compulsory Third Party (CTP) claims, Common Law Personal Injury claims, Workers Compensation (if driving for work).",
+    industriesTitle: "Industries",
+    industriesDesc:
+      "Freight & Logistics, Mining Transport, Agriculture Haulage, Construction, Interstate Trucking, Delivery Services.",
+    imgSrc: truck,
+    imgAlt: "18-Wheeler Accident",
+  },
 
+};
 // Mobile Version - Same structure, no changes
 const HomeThreeMobile = () => {
+  const navigate = useNavigate();
+
   const [activeTag, setActiveTag] = useState("Mesothelioma Lawsuits");
-  const expertiseTags = Object.keys(contentConfig);
+  const expertiseTags = Object.keys(contentConfigMob);
 
   // Renders the section for the current activeTag
   const renderContent = () => {
-    const data = contentConfig[activeTag];
+    const data = contentConfigMob[activeTag];
     if (!data) return null;
 
     return (
@@ -111,6 +167,7 @@ const HomeThreeMobile = () => {
           />
           <button
             className={`absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-4 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 xl:px-12 xl:py-5 2xl:px-14 2xl:py-6 3xl:px-16 3xl:py-8 4xl:px-20 4xl:py-10 5xl:px-24 5xl:py-12 border border-white text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl rounded-full shadow-md transition duration-300 hover:bg-white hover:text-[#023437]`}
+            onClick={() => navigate(data.link)}
           >
             Learn More
           </button>
@@ -184,6 +241,7 @@ const HomeThreeMobile = () => {
 
 // Desktop Version - Same structure, no changes
 const HomeThreeDesktop = () => {
+  const navigate = useNavigate();
   const [activeTag, setActiveTag] = useState("Mesothelioma Lawsuits");
   const expertiseTags = Object.keys(contentConfig);
 
@@ -241,6 +299,7 @@ const HomeThreeDesktop = () => {
           />
           <button
             className={`absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-4 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 xl:px-12 xl:py-5 2xl:px-14 2xl:py-6 3xl:px-16 3xl:py-8 4xl:px-20 4xl:py-10 5xl:px-24 5xl:py-12 border border-white text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl rounded-full shadow-md transition duration-300 hover:bg-white hover:text-[#023437]`}
+            onClick={() => navigate(data.link)}
           >
             Learn More
           </button>

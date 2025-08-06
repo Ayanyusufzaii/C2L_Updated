@@ -7,7 +7,7 @@ const HomeOneMobile = () => (
   <section className="block md:hidden w-full bg-white px-6 py-6 flex flex-col items-left justify-start gap-6 font-playfair">
     {/* Text Section */}
  <div className="w-full flex flex-col items-center px-4">
-  <h1 className="text-left font-['Playfair_Display'] font-extrabold leading-snug text-[#023437] drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)] text-[38px]  sm:text-[36px] md:text-[40px]">
+  <h1 className="text-left font-['Playfair_Display'] font-extrabold leading-snug text-[#023437] text-[36px]  sm:text-[36px] md:text-[40px]">
     Expert legal support <br /> for <br />
     <span className="text-[#C09F53] font-extrabold"> Australian Capital Territory </span>
   </h1>
