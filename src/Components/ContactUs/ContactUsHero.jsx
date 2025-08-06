@@ -74,7 +74,7 @@ const ContactUsHero = () => {
   ];
 
   return (
-    <section className="relative w-full min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden pt-20 md:pt-24">
+    <section className="relative w-full min-h-screen bg-[#ffffff] overflow-hidden pt-20 md:pt-24">
       {/* Desktop Layout */}
       <div
         className="hidden md:block relative w-full"
