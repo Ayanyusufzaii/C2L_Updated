@@ -4,7 +4,7 @@ import Frame from '../../src/assets/LogoNavbar.png';
 import frame1 from '../../src/assets/logoo.png';
 import SearchbarIcon from '../../src/assets/searchlogo.png';
 import callIcon from '../../src/assets/calllogoheader.png';
-import SearchbarIcon1 from '../../src/assets/MobileSearch.png';
+import SearchbarIcon1 from '../../src/assets/searchlogo1.png';
 import locationIcon from '../../src/assets/locationlogo.png';
 import closeIcon from '../../src/assets/logoo.png';
 
