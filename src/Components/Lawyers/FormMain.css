@@ -1,8 +1,13 @@
-@keyframes marquee {
+/* @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
   
   .animate-marquee {
     animation: marquee 100s linear infinite;
-  }
+  } */
+  input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #FFFBF3 inset; /* Match your form background */
+  box-shadow: 0 0 0px 1000px #FFFBF3 inset;
+  -webkit-text-fill-color: #023437; /* Match your text color */
+}
