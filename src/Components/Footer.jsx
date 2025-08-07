@@ -4,8 +4,15 @@ import phone from "../assets/Group 40.png";
 import mail from "../assets/Frame 173.png";
 import twitter from "../assets/twitter.png"; // Note: 'twitter' is imported but 'Frame7' is used for the Twitter icon
 import Frame7 from "../assets/Frame 7.png";
-import logoo from "../assets/logoo.png";
 import FooterGroup from "../assets/FooterGroup.png"; // Note: 'FooterGroup' is imported but not used in the component
+import dialer from "../assets/dialicon.png";
+import sms from "../assets/msgicon.png";
+import yt from "../assets/yticon.png";
+import insta from "../assets/instaicon.png";
+import linkedin from "../assets/linkicon.png";
+import tiktok from "../assets/tiktokicon.png";
+import fb from "../assets/fbicon.png";
+import x from "../assets/xicon.png";
 
 
 function Footer() {
@@ -15,91 +22,96 @@ function Footer() {
 
         {/* Desktop and Tablet Layout - hidden on screens smaller than md */}
         <div className="hidden md:block lg:ml-[-3%]"> {/* Adjusted margin for larger screens, ensures content aligns well */}
-          <div className="flex flex-col lg:flex-row justify-between items-center border-b border-teal-800 pb-4 px-4">
+          <div className="flex flex-col md:flex-row justify-between items-start border-b border-teal-800 pb-4 px-4">
             {/* Contact Information */}
-            <div className="flex flex-col space-y-2 mb-4 lg:mb-0"> {/* Added margin-bottom for tablet layout before flex-row kicks in */}
+            <div className="flex flex-col lg:flex-row lg:gap-10 space-y-2 lg:space-y-0 mb-4 md:mb-0">
               <div className="flex items-center">
-                <img className="mr-2 w-8 h-8 md:w-10 md:h-10 lg:w-[50px] lg:h-[50px]" src={phone} alt="Phone Icon" /> {/* Responsive image size */}
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold leading-normal"> {/* Responsive font size for phone number */}
+                <img className="mr-2 w-8 h-8 md:w-10 md:h-10 lg:w-[50px] lg:h-[50px]" src={dialer} alt="Phone Icon" />
+                <span className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold">
                   +61 470 695 167
                 </span>
               </div>
               <div className="flex items-center">
-                <img className="mr-2 w-8 h-8 md:w-10 md:h-10 lg:w-[50px] lg:h-[50px]" src={mail} alt="Mail Icon" /> {/* Responsive image size */}
-                <span className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold"> {/* Responsive font size for email */}
+                <img className="mr-2 w-8 h-8 md:w-10 md:h-10 lg:w-[50px] lg:h-[50px]" src={sms} alt="Mail Icon" />
+                <span className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold">
                   info@connect2lawyer.com.au
                 </span>
               </div>
             </div>
 
             {/* Social Media Icons */}
-<div className="grid grid-cols-3 gap-2 sm:gap-4 mt-4 lg:mt-0">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-4 md:mt-0">
   {/* First row */}
-  <div className="rounded-full border border-white p-2 flex items-center justify-center">
-    <a
-      href="https://www.linkedin.com/company/connect2lawyer/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block text-white"
-    >
-      <Linkedin size={18} /> {/* Consistent icon size */}
-    </a>
-  </div>
-  <div className="rounded-full border border-white p-2 flex items-center justify-center">
-    <a
-      href="https://x.com/Connect2Lawyer"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block text-white"
-    >
-      <img src={Frame7} alt="Twitter Icon" className="w-4 h-4" /> {/* Consistent icon size */}
-    </a>
-  </div>
-  <div className="rounded-full border border-white p-2 flex items-center justify-center">
-    <a
-      href="https://www.facebook.com/profile.php?id=61570446132760"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block text-white"
-    >
-      <Facebook size={18} /> {/* Consistent icon size */}
-    </a>
-  </div>
-  
-  {/* Second row */}
-  <div className="rounded-full border border-white p-2 flex items-center justify-center">
-    <a
-      href="https://www.instagram.com/connect2lawyer/"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block text-white"
-    >
-      <Instagram size={18} /> {/* Consistent icon size */}
-    </a>
-  </div>
-  <div className="rounded-full border border-white p-2 flex items-center justify-center">
-    <a
-      href="https://www.youtube.com/@connect2lawyer"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block text-white"
-    >
-      {/* YouTube SVG Icon */}
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M23.498 6.186a2.994 2.994 0 0 0-2.108-2.12C19.19 3.5 12 3.5 12 3.5s-7.19 0-9.39.566A2.994 2.994 0 0 0 .502 6.186C0 8.39 0 12 0 12s0 3.61.502 5.814a2.994 2.994 0 0 0 2.108 2.12C4.81 20.5 12 20.5 12 20.5s7.19 0 9.39-.566a2.994 2.994 0 0 0 2.108-2.12C24 15.61 24 12 24 12s0-3.61-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-      </svg>
-    </a>
-  </div>
-  <div className="rounded-full border border-white p-2 flex items-center justify-center">
+  {/* TikTok */}
+  <div className="flex items-center justify-center">
     <a
       href="https://www.tiktok.com/@connect2lawyer"
       target="_blank"
       rel="noopener noreferrer"
-      className="block text-white"
+      className="block"
     >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 8.306c-.48.045-.97.07-1.47.07-1.98 0-3.02-.9-3.02-2.68V2.5h-2.13v12.13c0 1.13-.92 2.05-2.05 2.05s-2.05-.92-2.05-2.05c0-1.13.92-2.05 2.05-2.05.13 0 .26.01.38.03V10.3c-.13-.01-.25-.02-.38-.02-2.25 0-4.08 1.83-4.08 4.08 0 2.25 1.83 4.08 4.08 4.08 2.25 0 4.08-1.83 4.08-4.08V9.98c.86.38 1.81.59 2.8.59.5 0 .99-.05 1.46-.14V8.306z" />
-      </svg>
+      <img src={tiktok} alt="TikTok" className="w-[42px] h-[42px]" />
+    </a>
+  </div>
+  
+  {/* LinkedIn */}
+  <div className="flex items-center justify-center">
+    <a
+      href="https://www.linkedin.com/company/connect2lawyer/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block"
+    >
+      <img src={linkedin} alt="LinkedIn" className="w-[42px] h-[42px]" />
+    </a>
+  </div>
+  
+  {/* X (Twitter) */}
+  <div className="flex items-center justify-center">
+    <a
+      href="https://x.com/Connect2Lawyer"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block"
+    >
+      <img src={x} alt="X" className="w-[42px] h-[42px]" />
+    </a>
+  </div>
+  
+  {/* Second row */}
+  {/* Facebook */}
+  <div className="flex items-center justify-center">
+    <a
+      href="https://www.facebook.com/profile.php?id=61570446132760"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block"
+    >
+      <img src={fb} alt="Facebook" className="w-[42px] h-[42px]" />
+    </a>
+  </div>
+  
+  {/* Instagram */}
+  <div className="flex items-center justify-center">
+    <a
+      href="https://www.instagram.com/connect2lawyer/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block"
+    >
+      <img src={insta} alt="Instagram" className="w-[42px] h-[42px]" />
+    </a>
+  </div>
+  
+  {/* YouTube */}
+  <div className="flex items-center justify-center">
+    <a
+      href="https://www.youtube.com/@connect2lawyer"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block"
+    >
+      <img src={yt} alt="YouTube" className="w-[42px] h-[42px]" />
     </a>
   </div>
 </div>

@@ -3,6 +3,7 @@ import AboutOne from './AboutOne'
 import AboutTwo from './AboutTwo'
 import AboutThree from './AboutThree'
 import AboutFour from './AboutFour'
+import AboutFive from './AboutFive'
 import HomeSeven from '../Home/HomeSeven'
 import NavBar from '../NavBar'
 import Footer from '../Footer'
@@ -15,6 +16,7 @@ function About() {
       <AboutTwo />
       <AboutThree />
       <AboutFour />
+      <AboutFive />
       <HomeSeven />
       <Footer />
     </div>
