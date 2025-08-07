@@ -1,30 +1,24 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo,
-} from "react";
-import { ChevronDown } from "lucide-react";
-import { LawyerSendAdminEmail, LawyerSendUserEmail } from '../../emailJsService.js';
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import './FormMain.css';
 
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
-  const [captchaText, setCaptchaText] = useState('');
-  const [userInput, setUserInput] = useState('');
+  const [captchaText, setCaptchaText] = useState("");
+  const [userInput, setUserInput] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [charOffsets, setCharOffsets] = useState([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
- 
-  const generateCaptcha = useCallback(() => {
+
+  const generateCaptcha = () => {
     // Stop any ongoing speech when generating new CAPTCHA
     if (isSpeaking) {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
     }
-   
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
+
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
     let offsets = [];
     for (let i = 0; i < 6; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -32,28 +26,28 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     }
     setCaptchaText(result);
     setCharOffsets(offsets);
-    setUserInput('');
+    setUserInput("");
     setIsValid(false);
     onCaptchaChange && onCaptchaChange(false);
-  }, [isSpeaking, onCaptchaChange]);
- 
+  };
+
   // Generate CAPTCHA immediately when component mounts
   useEffect(() => {
     generateCaptcha();
-  }, [generateCaptcha]);
+  }, []);
 
   // Reset captcha when resetTrigger changes
   useEffect(() => {
-    if (resetTrigger > 0) {
+    if (resetTrigger) {
       generateCaptcha();
     }
-  }, [resetTrigger, generateCaptcha]);
- 
+  }, [resetTrigger]);
+
   useEffect(() => {
     const timer = setInterval(() => {
       generateCaptcha();
     }, 60000);
- 
+
     return () => {
       clearInterval(timer);
       // Stop any ongoing speech when component unmounts
@@ -61,23 +55,21 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
         window.speechSynthesis.cancel();
       }
     };
-  }, [generateCaptcha, isSpeaking]);
- 
+  }, [isSpeaking]);
+
   const speakCaptcha = () => {
-    if ('speechSynthesis' in window) {
+    if ("speechSynthesis" in window) {
       // Stop any ongoing speech before starting new one
       window.speechSynthesis.cancel();
       setIsSpeaking(true);
- 
+
       const voices = window.speechSynthesis.getVoices();
-      const australianVoice = voices.find(voice =>
-        voice.lang === 'en-AU'
-      ) || voices.find(voice =>
-        voice.lang === 'en-GB'
-      ) || voices.find(voice =>
-        voice.lang === 'en-US'
-      );
- 
+      const maleUsVoice =
+        voices.find(
+          (voice) =>
+            voice.lang === "en-US" && voice.name.toLowerCase().includes("david")
+        ) || voices.find((voice) => voice.lang === "en-US");
+
       let currentIndex = 0;
       const speakNextChar = () => {
         if (currentIndex < captchaText.length) {
@@ -86,27 +78,27 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           utterance.rate = 0.5;
           utterance.pitch = 0.9;
           utterance.volume = 1.0;
-          utterance.lang = 'en-AU';
-         
-          if (australianVoice) {
-            utterance.voice = australianVoice;
+          utterance.lang = "en-US";
+
+          if (maleUsVoice) {
+            utterance.voice = maleUsVoice;
           }
- 
+
           utterance.onend = () => {
             currentIndex++;
             speakNextChar();
           };
- 
+
           window.speechSynthesis.speak(utterance);
         } else {
           setIsSpeaking(false);
         }
       };
- 
+
       speakNextChar();
     }
   };
- 
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     setUserInput(value);
@@ -114,16 +106,16 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     setIsValid(valid);
     onCaptchaChange && onCaptchaChange(valid);
   };
- 
+
   const handleAudioToggle = (e) => {
     setAudioEnabled(e.target.checked);
   };
-   
+
   return (
     <div className="mt-4">
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <div className="bg-gray-100 p-3 rounded font-mono text-lg tracking-wider select-none relative overflow-hidden">
-          <div 
+          <div
             className="absolute inset-0 opacity-30"
             style={{
               backgroundImage: `repeating-linear-gradient(
@@ -133,18 +125,18 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
                 transparent 1px,
                 transparent 5px
               )`,
-              backgroundSize: '100% 10px',
-              backgroundPosition: '0 50%'
+              backgroundSize: "100% 10px",
+              backgroundPosition: "0 50%",
             }}
           />
           <div className="relative z-10">
-            {captchaText.split('').map((char, index) => (
+            {captchaText.split("").map((char, index) => (
               <span
                 key={index}
-                style={{ 
-                  transform: `translateY(${charOffsets[index]}px)`, 
-                  display: 'inline-block',
-                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+                style={{
+                  transform: `translateY(${charOffsets[index]}px)`,
+                  display: "inline-block",
+                  textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
                 }}
                 className="mx-0.5"
               >
@@ -168,16 +160,16 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
               onClick={speakCaptcha}
               disabled={isSpeaking}
               className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${
-                isSpeaking ? 'opacity-50 cursor-not-allowed' : ''
+                isSpeaking ? "opacity-50 cursor-not-allowed" : ""
               }`}
               title="Listen to CAPTCHA"
             >
-              {isSpeaking ? '🔊🎵' : '🔊'}
+              {isSpeaking ? "🔊🎵" : "🔊"}
             </button>
           )}
         </div>
       </div>
-      
+
       <div className="flex items-center mt-2">
         <input
           type="checkbox"
@@ -190,7 +182,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           Enable Audio
         </label>
       </div>
-      
+
       <div className="mt-3">
         <input
           type="text"
@@ -198,15 +190,13 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           onChange={handleInputChange}
           placeholder="Enter CAPTCHA"
           className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            userInput !== '' && !isValid 
-              ? 'border-red-500 focus:ring-red-500' 
-              : 'border-gray-300'
+            userInput !== "" && !isValid
+              ? "border-red-500 focus:ring-red-500"
+              : "border-gray-300"
           }`}
         />
-        {userInput !== '' && !isValid && (
-          <p className="text-red-500 text-sm mt-1">
-            CAPTCHA does not match
-          </p>
+        {userInput !== "" && !isValid && (
+          <p className="text-red-500 text-sm mt-1">CAPTCHA does not match</p>
         )}
         {isValid && (
           <p className="text-green-500 text-sm mt-1">
@@ -218,246 +208,533 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   );
 };
 
-// Function to format Australian phone number as user types
-const formatAustralianPhone = (value) => {
-  if (!value) return value;
+
+const formatAusMobile = (input) => {
+  // Remove all non-digit characters
+  const digits = input.replace(/\D/g, "");
   
-  // Remove all non-digits
-  const digits = value.replace(/\D/g, '');
+  // Immediately limit to 10 digits maximum - prevent excessive input
+  const limited = digits.slice(0, 10);
   
-  // Handle very long numbers by taking relevant digits
-  let workingDigits = digits;
+  // Check if it's a valid Australian mobile number
+  if (limited.length === 0) return "";
+  if (!limited.startsWith("04")) return null;
   
-  // If it's a very long number like 22222222222222, take the last 10 digits
-  if (digits.length > 12) {
-    workingDigits = digits.slice(-10);
+  // Format based on length
+  if (limited.length <= 4) {
+    return limited;
+  } else if (limited.length <= 7) {
+    return `${limited.slice(0, 4)} ${limited.slice(4)}`;
+  } else if (limited.length <= 10) {
+    return `${limited.slice(0, 4)} ${limited.slice(4, 7)} ${limited.slice(7)}`;
   }
   
-  // If starts with 61 (country code), remove it for formatting
-  if (workingDigits.startsWith('61') && workingDigits.length > 11) {
-    workingDigits = '0' + workingDigits.substring(2);
-  }
-  
-  // If doesn't start with 0, add it
-  if (workingDigits.length >= 9 && !workingDigits.startsWith('0')) {
-    // For mobile numbers, try to detect if it should be 04
-    if (workingDigits.startsWith('4') || workingDigits.length === 9) {
-      workingDigits = '04' + workingDigits.substring(1);
-    } else {
-      workingDigits = '0' + workingDigits;
-    }
-  }
-  
-  // Format based on length and pattern
-  if (workingDigits.length <= 4) {
-    return workingDigits;
-  } else if (workingDigits.length <= 7) {
-    if (workingDigits.startsWith('04')) {
-      // Mobile format: 04XX XXX
-      return `${workingDigits.slice(0, 4)} ${workingDigits.slice(4)}`;
-    } else {
-      // Landline format: 0X XXXX
-      return `${workingDigits.slice(0, 2)} ${workingDigits.slice(2)}`;
-    }
-  } else if (workingDigits.length <= 10) {
-    if (workingDigits.startsWith('04')) {
-      // Mobile format: 04XX XXX XXX
-      return `${workingDigits.slice(0, 4)} ${workingDigits.slice(4, 7)} ${workingDigits.slice(7, 10)}`;
-    } else {
-      // Landline format: 0X XXXX XXXX
-      return `${workingDigits.slice(0, 2)} ${workingDigits.slice(2, 6)} ${workingDigits.slice(6, 10)}`;
-    }
-  }
-  
-  // If longer than 10, still format the first 10 digits
-  if (workingDigits.startsWith('04')) {
-    return `${workingDigits.slice(0, 4)} ${workingDigits.slice(4, 7)} ${workingDigits.slice(7, 10)}`;
-  } else {
-    return `${workingDigits.slice(0, 2)} ${workingDigits.slice(2, 6)} ${workingDigits.slice(6, 10)}`;
-  }
+  return limited;
 };
 
-// Constants moved outside component to prevent recreating on each render
-const FORM_FIELDS = [
-  { field: "name", type: "text", placeholder: "Name", required: true },
-  { field: "phone", type: "tel", placeholder: "Phone", required: true },
-  {
-    field: "email",
-    type: "email",
-    placeholder: "Email",
-    required: true,
-  },
-];
+// Updated form component with better phone validation
+// Updated form component with better phone validation
+const FormMainDesktop = ({
+  formData,
+  handleChange,
+  showCaptcha,
+  onCaptchaChange,
+  resetTrigger,
+  handleSubmit,
+  isFormValid,
+  phoneError,
+  certId,
+  tokenUrl,
+  pingUrl,
+}) => (
+  <div className="hidden md:block bg-[#FFFBF3] backdrop-blur-sm text-[#023437] rounded-xl shadow-2xl p-8 md:p-10 border border-white/20">
+                      <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                      value={certId}
+                    />
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertToken"
+                      name="xxTrustedFormCertToken"
+                      value={tokenUrl}
+                    />
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormPingUrl"
+                      name="xxTrustedFormPingUrl"
+                      value={pingUrl}
+                    />
+    <h2 className="text-center font-playfair font-semibold text-[32px] mb-6">
+      Ready to Grow? Let's Talk
+    </h2>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {[
+        { name: "name", type: "text", placeholder: "Name" },
+        { name: "phone", type: "tel", placeholder: "Phone" },
+        { name: "email", type: "email", placeholder: "Email" },
+      ].map(({ name, type, placeholder }) => (
+        <div key={name}>
+          <input
+            name={name}
+            type={type}
+            placeholder={placeholder}
+            value={formData[name]}
+            onChange={handleChange}
+            className="w-full border-b-2 py-3 font-opensans bg-transparent transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53]"
+          />
+          {name === "phone" && phoneError && (
+            <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+          )}
+        </div>
+      ))}
 
-const CONCERN_OPTIONS = [
-  { value: "", label: "Select your concern", disabled: true },
-  { value: "Mesothelioma Lawsuit", label: "Mesothelioma Lawsuit" },
-  { value: "Truck Accident Claims", label: "Truck Accident Claims" },
-  { value: "Rideshare Class Action Lawsuits", label: "Rideshare Class Action Lawsuits" },
-  { value: "other", label: "Other" },
-];
+      <select
+        name="category"
+        value={formData.category}
+        onChange={handleChange}
+        className="w-full border-b-2 py-3 font-opensans bg-transparent transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53] pr-10 appearance-none cursor-pointer"
+      >
+        <option value="" disabled>
+          Select your concern
+        </option>
+        <option>Personal Injury</option>
+        <option>Family Law</option>
+        <option>Criminal Defense</option>
+      </select>
 
-const INITIAL_FORM_DATA = {
-  name: "",
-  phone: "",
-  email: "",
-  concern: "",
-  privacyConsent: false,
-  humanVerification: false,
-  captchaEnabled: false,
-};
+      <div className="flex items-start text-xs gap-2 leading-tight font-opensans">
+        <input
+          id="consent"
+          name="consent"
+          type="checkbox"
+          checked={formData.consent}
+          onChange={handleChange}
+          className="mt-1 w-4 h-4 accent-[#C09F53]"
+        />
+        <label htmlFor="consent">
+          I agree to the <a href="privacy-policy" className="underline text-[#C09F53]">privacy policy</a> and{" "}
+              <a href="disclaimer" className="underline text-[#C09F53]">disclaimer</a> and give my express written consent, affiliates and/or lawyer to contact me via the number provided even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that my call may be recorded and/or monitored. Message & data rates may apply. My consent does not require purchase. This is legal advertising.
+            
+        </label>
+      </div>
 
-const TRUSTEDFORM_TIMEOUT = 10000;
+      <div className="flex items-start text-xs gap-2 leading-tight font-opensans">
+        <input
+          id="captcha-check"
+          name="captchaCheck"
+          type="checkbox"
+          checked={showCaptcha}
+          onChange={handleChange}
+          className="mt-1 w-4 h-4 accent-[#C09F53]"
+        />
+        <label htmlFor="captcha-check">
+          Please check this box so we know you're a person and not a computer
+        </label>
+      </div>
 
-const TRUSTEDFORM_CHECK_INTERVAL = 500;
+      {showCaptcha && (
+        <CustomCaptcha
+          onCaptchaChange={onCaptchaChange}
+          resetTrigger={resetTrigger}
+        />
+      )}
 
-// Custom hook for TrustedForm integration
-const useTrustedForm = () => {
-  const [state, setState] = useState({
-    pingUrl: "",
-    certId: "",
-    tokenUrl: "",
-    ready: false,
-  });
+      <button
+        type="submit"
+        disabled={!isFormValid}
+        className="w-full bg-[#C09F53] hover:bg-[#C09F53]/90 text-[#023437] font-semibold py-4 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl text-base disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+);
 
-  const updateTrustedFormField = useCallback((name, value) => {
-    if (!value) return;
+const FormMainMobile = ({
+  formData,
+  handleChange,
+  showCaptcha,
+  onCaptchaChange,
+  resetTrigger,
+  handleSubmit,
+  isFormValid,
+  phoneError,
+  certId,
+  tokenUrl,
+  pingUrl,
+}) => (
+  <div className="md:hidden bg-[#FFFBF3] text-[#023437] rounded-lg shadow-lg p-6 font-opensans border border-gray-200">
+                         <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                      value={certId}
+                    />
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertToken"
+                      name="xxTrustedFormCertToken"
+                      value={tokenUrl}
+                    />
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormPingUrl"
+                      name="xxTrustedFormPingUrl"
+                      value={pingUrl}
+                    />
+    <h2 className="text-center font-playfair font-semibold text-[24px] mb-4">
+      Ready to Grow? Let's Talk
+    </h2>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {[
+        { name: "name", type: "text", placeholder: "Name" },
+        { name: "phone", type: "tel", placeholder: "Phone" },
+        { name: "email", type: "email", placeholder: "Email" },
+      ].map(({ name, type, placeholder }) => (
+        <div key={name}>
+          <input
+            name={name}
+            type={type}
+            placeholder={placeholder}
+            value={formData[name]}
+            onChange={handleChange}
+            className="w-full border-b-2 py-2 bg-[#FFFBF3] transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53]"
+          />
+          {name === "phone" && phoneError && (
+            <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+          )}
+        </div>
+      ))}
 
-    setState((prev) => {
-      const key =
-        name === "xxTrustedFormCertUrl"
-          ? "certId"
-          : name === "xxTrustedFormPingUrl"
-          ? "pingUrl"
-          : name === "xxTrustedFormCertToken"
-          ? "tokenUrl"
-          : null;
+      <select
+        name="category"
+        value={formData.category}
+        onChange={handleChange}
+        className="w-full border-b-2 py-2 bg-[#FFFBF3] transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53] pr-10 appearance-none cursor-pointer"
+      >
+        <option value="" disabled>
+          Select your concern
+        </option>
+        <option>Personal Injury</option>
+        <option>Family Law</option>
+        <option>Criminal Defense</option>
+      </select>
 
-      if (!key || prev[key] === value) return prev;
+      <div className="flex items-start text-xs gap-2 leading-tight font-opensans">
+        <input
+          id="consent-mobile"
+          name="consent"
+          type="checkbox"
+          checked={formData.consent}
+          onChange={handleChange}
+          className="mt-1 w-4 h-4 accent-[#C09F53]"
+        />
+        <label htmlFor="consent-mobile">
+          I agree to the <a href="privacy-policy" className="underline text-[#C09F53]">privacy policy</a> and{" "}
+              <a href="disclaimer" className="underline text-[#C09F53]">disclaimer</a> and give my express written consent, affiliates and/or lawyer to contact me via the number provided even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that my call may be recorded and/or monitored. Message & data rates may apply. My consent does not require purchase. This is legal advertising.
+        </label>
+      </div>
 
-      console.log(`TrustedForm ${key}:`, value);
-      return { ...prev, [key]: value, ready: true };
-    });
-  }, []);
+      <div className="flex items-start text-xs gap-2 leading-tight font-opensans">
+        <input
+          id="captcha-mobile"
+          name="captchaCheck"
+          type="checkbox"
+          checked={showCaptcha}
+          onChange={handleChange}
+          className="mt-1 w-4 h-4 accent-[#C09F53]"
+        />
+        <label htmlFor="captcha-mobile">
+          Please check this box so we know you're a person and not a computer
+        </label>
+      </div>
+
+      {showCaptcha && (
+        <CustomCaptcha
+          onCaptchaChange={onCaptchaChange}
+          resetTrigger={resetTrigger}
+        />
+      )}
+
+      <button
+        type="submit"
+        disabled={!isFormValid}
+        className="w-full bg-[#C09F53] hover:bg-[#C09F53]/90 text-[#023437] font-semibold py-4 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl text-base disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+);
+
+const FormMain = () => {
+  const initialData = { name: "", phone: "", email: "", category: "", consent: false };
+  const [formData, setFormData] = useState(initialData);
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const [captchaValid, setCaptchaValid] = useState(false);
+  const [resetTrigger, setResetTrigger] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
+  const [pingUrl, setPingUrl] = useState("");
+  const [certId, setCertId] = useState("");
+  const [tokenUrl, settokenUrl] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (name === "captchaCheck") {
+      setShowCaptcha(checked);
+      setCaptchaValid(false);
+      setResetTrigger((t) => !t);
+      return;
+    }
+
+    if (name === "phone") {
+      // First limit the input to prevent excessive digits
+      const rawDigits = value.replace(/\D/g, "").slice(0, 10);
+      const formatted = formatAusMobile(rawDigits);
+      
+      // Validation logic
+      if (value.trim() === "") {
+        setPhoneError("");
+      } else if (formatted === null) {
+        setPhoneError("Phone number must start with 04");
+      } else if (rawDigits.length > 0 && rawDigits.length < 10) {
+        setPhoneError("Phone number must be 10 digits");
+      } else if (rawDigits.length === 10) {
+        setPhoneError("");
+      }
+      
+      // Always use formatted value if valid, otherwise use limited raw digits
+      setFormData((prev) => ({ 
+        ...prev, 
+        phone: formatted !== null ? formatted : rawDigits 
+      }));
+      return;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const onCaptchaChange = (valid) => {
+    setCaptchaValid(valid);
+  };
+
+  // Check if phone is valid (exactly 10 digits starting with 04)
+  const rawPhone = formData.phone.replace(/\D/g, "");
+  const isPhoneValid = rawPhone.length === 10 && rawPhone.startsWith("04");
+  
+  const isFormFilled =
+    formData.name.trim() &&
+    isPhoneValid &&
+    formData.email.trim() &&
+    formData.category &&
+    formData.consent;
+  const isFormValid = isFormFilled && captchaValid;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!isFormValid) return;
+    
+    // Submit with clean phone number
+    const submitData = {
+      ...formData,
+      phone: rawPhone // Submit raw digits or keep formatted - your choice
+    };
+    
+    console.log("Form submitted", submitData);
+    setFormData(initialData);
+    setShowCaptcha(false);
+    setCaptchaValid(false);
+    setResetTrigger((t) => !t);
+    setPhoneError("");
+  };
+
 
   useEffect(() => {
-    let timeoutId, intervalId, fallbackTimeoutId;
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "value" &&
-          mutation.target.name?.startsWith("xxTrustedForm")
-        ) {
-          updateTrustedFormField(mutation.target.name, mutation.target.value);
+  // Simple observer to capture TrustedForm data when it's populated
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === "attributes" && mutation.attributeName === "value") {
+        const target = mutation.target;
+        
+        // Check if this is a TrustedForm field
+        if (target.name === "xxTrustedFormCertUrl" && target.value) {
+          console.log("✅ TrustedForm Cert URL:", target.value);
+          setCertId(target.value);
         }
-      });
+        
+        if (target.name === "xxTrustedFormPingUrl" && target.value) {
+          console.log("✅ TrustedForm Ping URL:", target.value);
+          setPingUrl(target.value);
+        }
+        
+        if (target.name === "xxTrustedFormCertToken" && target.value) {
+          console.log("✅ TrustedForm Token:", target.value);
+          settokenUrl(target.value);
+        }
+      }
     });
+  });
 
-    const checkTrustedFormFields = () => {
-      const fields = [
-        {
-          name: "xxTrustedFormCertUrl",
-          selector: '[name="xxTrustedFormCertUrl"]',
-        },
-        {
-          name: "xxTrustedFormPingUrl",
-          selector: '[name="xxTrustedFormPingUrl"]',
-        },
-        {
-          name: "xxTrustedFormCertToken",
-          selector: '[name="xxTrustedFormCertToken"]',
-        },
-      ];
+  // Start observing after a short delay to ensure TrustedForm script has loaded
+  const timeoutId = setTimeout(() => {
+    const certField = document.querySelector('[name="xxTrustedFormCertUrl"]');
+    const pingField = document.querySelector('[name="xxTrustedFormPingUrl"]');
+    const tokenField = document.querySelector('[name="xxTrustedFormCertToken"]');
 
-      fields.forEach(({ name, selector }) => {
-        const field = document.querySelector(selector);
-        if (field?.value) {
-          updateTrustedFormField(name, field.value);
-          observer.observe(field, { attributes: true });
-        }
-      });
-    };
+    if (certField) {
+      observer.observe(certField, { attributes: true });
+    }
+    if (pingField) {
+      observer.observe(pingField, { attributes: true });
+    }
+    if (tokenField) {
+      observer.observe(tokenField, { attributes: true });
+    }
 
-    timeoutId = setTimeout(() => {
-      checkTrustedFormFields();
-      intervalId = setInterval(
-        checkTrustedFormFields,
-        TRUSTEDFORM_CHECK_INTERVAL
-      );
-    }, 1000);
+    // Also check if values are already populated
+    if (certField?.value) {
+      setCertId(certField.value);
+      
+    }
+    if (pingField?.value) {
+      setPingUrl(pingField.value);
+      
+    }
+    if (tokenField?.value) {
+      settokenUrl(tokenField.value);
+      
+    }
+  }, 1000);
 
-    fallbackTimeoutId = setTimeout(() => {
-      setState((prev) => ({ ...prev, ready: true }));
-      console.warn("TrustedForm timeout - allowing form submission");
-    }, TRUSTEDFORM_TIMEOUT);
+  return () => {
+    clearTimeout(timeoutId);
+    observer.disconnect();
+  };
+}, []);
 
-    return () => {
-      [timeoutId, intervalId, fallbackTimeoutId].forEach(clearTimeout);
-      observer.disconnect();
-    };
-  }, [updateTrustedFormField]);
-
-  return state;
+  return (
+    <>
+      <FormMainDesktop
+        formData={formData}
+        handleChange={handleChange}
+        showCaptcha={showCaptcha}
+        onCaptchaChange={onCaptchaChange}
+        resetTrigger={resetTrigger}
+        handleSubmit={handleSubmit}
+        isFormValid={isFormValid}
+        phoneError={phoneError}
+        certId={certId}
+        tokenUrl={tokenUrl}
+        pingUrl={pingUrl}
+      />
+      <FormMainMobile
+        formData={formData}
+        handleChange={handleChange}
+        showCaptcha={showCaptcha}
+        onCaptchaChange={onCaptchaChange}
+        resetTrigger={resetTrigger}
+        handleSubmit={handleSubmit}
+        isFormValid={isFormValid}
+        phoneError={phoneError}
+        certId={certId}
+        tokenUrl={tokenUrl}
+        pingUrl={pingUrl}
+      />
+    </>
+  );
 };
 
-// Custom hook for form validation
-const useFormValidation = () => {
-  const validate = useCallback((formData, captchaValid, showCaptcha) => {
-    const errors = {};
+export default FormMain;
 
-    if (!formData.name.trim()) {
-      errors.name = "Name is required";
-    }
 
-    if (!formData.phone.trim()) {
-      errors.phone = "Phone number is required";
-    } else {
-      // Validate Australian phone number
-      const phoneDigits = formData.phone.replace(/\D/g, '');
-      
-      // Check for valid Australian mobile (04XX XXX XXX) or landline (0X XXXX XXXX)
-      const isMobileValid = phoneDigits.length >= 10 && phoneDigits.startsWith('04');
-      const isLandlineValid = phoneDigits.length >= 10 && phoneDigits.startsWith('0') && !phoneDigits.startsWith('04');
-      const isInternationalValid = phoneDigits.length >= 11 && phoneDigits.startsWith('61');
-      
-      if (!isMobileValid && !isLandlineValid && !isInternationalValid) {
-        errors.phone = "Please enter a valid Australian phone number (e.g., 04XX XXX XXX or 0X XXXX XXXX)";
-      }
-    }
 
-    if (!formData.email.trim()) {
-      errors.email = "Email is required";
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email)) {
-        errors.email = "Please enter a valid email address";
-      }
-    }
 
-    if (!formData.concern) {
-      errors.concern = "Please select your concern";
-    }
 
-    if (!formData.privacyConsent) {
-      errors.privacyConsent = "You must agree to the privacy policy";
-    }
 
-    if (!formData.humanVerification) {
-      errors.humanVerification = "Please verify you are human";
-    }
 
-    // Add CAPTCHA validation only if CAPTCHA is shown
-    if (showCaptcha && !captchaValid) {
-      errors.captcha = "Please complete the CAPTCHA verification";
-    }
 
-    return errors;
-  }, []);
 
-  return { validate };
-};
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, {
+//   useState,
+//   useEffect,
+//   useRef,
+//   useCallback,
+//   useMemo,
+// } from "react";
+// import { ChevronDown } from "lucide-react";
+// import { LawyerSendAdminEmail, LawyerSendUserEmail } from '../../emailJsService.js';
 // const FormMain = ({ isMobile = false, className = "" }) => {
 //   const formRef = useRef();
 //   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
@@ -573,18 +850,18 @@ const useFormValidation = () => {
 //       firstName: formData.name,
 //       name: formData.name, // Keep both for compatibility
 //       email: formData.email,
-//       emailId: formData.email, // Keep both for compatibility  
+//       emailId: formData.email, // Keep both for compatibility
 //       phone: formData.phone,
 //       phoneNumber: formData.phone, // Keep both for compatibility
 //       concern: formData.concern,
-      
+
 //       // Consent and verification
 //       privacyConsent: formData.privacyConsent,
 //       captchaEnabled: captchaValid,
-      
+
 //       // TrustedForm data
 //       ...trustedFormData,
-      
+
 //       // Additional metadata
 //       submissionTime: new Date().toISOString(),
 //       trustedFormReady: trustedForm.ready,
@@ -618,7 +895,7 @@ const useFormValidation = () => {
 //       try {
 //         // Map form data to EmailJS expected format
 //         const emailData = mapFormDataForEmailJS(formData, trustedForm, captchaValid);
-        
+
 //         console.log("Sending emails with data:", emailData);
 
 //         // Send both admin and user emails simultaneously
@@ -639,7 +916,7 @@ const useFormValidation = () => {
 //           setShowCaptcha(false);
 //           setCaptchaResetTrigger(prev => prev + 1);
 //           setSubmissionStatus('success');
-          
+
 //           console.log('Email submission results:', {
 //             admin: adminSuccess ? 'Success' : adminResult.reason,
 //             user: userSuccess ? 'Success' : userResult.reason
@@ -658,8 +935,8 @@ const useFormValidation = () => {
 //       } catch (error) {
 //         console.error("Email submission error:", error);
 //         setSubmissionStatus('error');
-//         setErrors({ 
-//           form: "There was an error sending your information. Please try again or contact us directly." 
+//         setErrors({
+//           form: "There was an error sending your information. Please try again or contact us directly."
 //         });
 //       } finally {
 //         setIsSubmitting(false);
@@ -667,7 +944,6 @@ const useFormValidation = () => {
 //     },
 //     [formData, validate, trustedForm, captchaValid, showCaptcha, mapFormDataForEmailJS]
 //   );
-
 
 //   const consentText = useMemo(
 //     () => (
@@ -680,7 +956,7 @@ const useFormValidation = () => {
 //         <a href="/privacy-policy" className="underline text-[#C09F53]">
 //           disclaimer
 //         </a>
-//         , and give my express written consent to contact me at the number provided above, 
+//         , and give my express written consent to contact me at the number provided above,
 //         even if this number is a wireless number or if I am presently listed on a Do Not Call list. I
 //         understand that I may be contacted by telephone, email, text message or
 //         mail regarding case options and that I may be called using automatic
@@ -835,7 +1111,7 @@ const useFormValidation = () => {
 //         {/* Custom CAPTCHA - Only show when human verification is clicked */}
 //         {showCaptcha && (
 //           <div className="w-full">
-//             <CustomCaptcha 
+//             <CustomCaptcha
 //               onCaptchaChange={handleCaptchaChange}
 //               resetTrigger={captchaResetTrigger}
 //             />
@@ -877,225 +1153,92 @@ const useFormValidation = () => {
 //   );
 // };
 
+// {/* Desktop Section - Contact Form */}
+//       <div className="bg-white text-teal-900 rounded-lg shadow-lg p-10">
+//         <h2 className="text-2xl font-semibold mb-6">Ready to Grow? Let’s Talk</h2>
+//         <form className="space-y-4">
+//           {["Name", "Phone", "Email"].map((ph) => (
+//             <input
+//               key={ph}
+//               type={ph === "Email" ? "email" : ph === "Phone" ? "tel" : "text"}
+//               placeholder={ph}
+//               className="w-full border-b border-gray-300 focus:outline-none py-2 placeholder:text-teal-900"
+//             />
+//           ))}
 
+//           <select
+//             className="w-full border-b border-gray-300 focus:outline-none py-2 text-teal-900"
+//             defaultValue=""
+//           >
+//             <option value="" disabled>Select your concern</option>
+//             <option>Personal Injury</option>
+//             <option>Family Law</option>
+//             <option>Criminal Defense</option>
+//           </select>
 
+//           <label className="flex items-start text-xs gap-2 leading-tight">
+//             <input type="checkbox" className="mt-1 shrink-0" />
+//             <span>
+//               I agree to the <a href="#" className="underline">privacy policy</a> and{" "}
+//               <a href="#" className="underline">disclaimer</a> and give my express written consent, affiliates and/or lawyer to contact me via the number provided even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that my call may be recorded and/or monitored. Message & data rates may apply. My consent does not require purchase. This is legal advertising.
+//             </span>
+//           </label>
 
+//           <label className="flex items-start text-xs gap-2 leading-tight">
+//             <input type="checkbox" className="mt-1 shrink-0" />
+//             <span>Please check this box so we know you're a person and not a computer</span>
+//           </label>
 
-    // {/* Desktop Section - Contact Form */}
-    //       <div className="bg-white text-teal-900 rounded-lg shadow-lg p-10">
-    //         <h2 className="text-2xl font-semibold mb-6">Ready to Grow? Let’s Talk</h2>
-    //         <form className="space-y-4">
-    //           {["Name", "Phone", "Email"].map((ph) => (
-    //             <input
-    //               key={ph}
-    //               type={ph === "Email" ? "email" : ph === "Phone" ? "tel" : "text"}
-    //               placeholder={ph}
-    //               className="w-full border-b border-gray-300 focus:outline-none py-2 placeholder:text-teal-900"
-    //             />
-    //           ))}
+//           <button
+//             type="submit"
+//             className="w-full bg-yellow-400 hover:bg-yellow-500 text-teal-900 font-semibold py-3 rounded mt-2"
+//           >
+//             Submit
+//           </button>
+//         </form>
+//       </div>
 
-    //           <select
-    //             className="w-full border-b border-gray-300 focus:outline-none py-2 text-teal-900"
-    //             defaultValue=""
-    //           >
-    //             <option value="" disabled>Select your concern</option>
-    //             <option>Personal Injury</option>
-    //             <option>Family Law</option>
-    //             <option>Criminal Defense</option>
-    //           </select>
+// {/* Mobile Section - Contact Form */}
+//     <div className="bg-white text-teal-900 rounded-lg shadow-lg p-6">
+//       <h2 className="text-xl font-semibold mb-4">Ready to Grow? Let’s Talk</h2>
+//       <form className="space-y-4">
+//         {["Name", "Phone", "Email"].map((ph) => (
+//           <input
+//             key={ph}
+//             type={ph === "Email" ? "email" : ph === "Phone" ? "tel" : "text"}
+//             placeholder={ph}
+//             className="w-full border-b border-gray-300 focus:outline-none py-2 placeholder:text-teal-900"
+//           />
+//         ))}
 
-    //           <label className="flex items-start text-xs gap-2 leading-tight">
-    //             <input type="checkbox" className="mt-1 shrink-0" />
-    //             <span>
-    //               I agree to the <a href="#" className="underline">privacy policy</a> and{" "}
-    //               <a href="#" className="underline">disclaimer</a> and give my express written consent, affiliates and/or lawyer to contact me via the number provided even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that my call may be recorded and/or monitored. Message & data rates may apply. My consent does not require purchase. This is legal advertising.
-    //             </span>
-    //           </label>
+//         <select
+//           className="w-full border-b border-gray-300 focus:outline-none py-2 text-teal-900"
+//           defaultValue=""
+//         >
+//           <option value="" disabled>Select your concern</option>
+//           <option>Personal Injury</option>
+//           <option>Family Law</option>
+//           <option>Criminal Defense</option>
+//         </select>
 
-    //           <label className="flex items-start text-xs gap-2 leading-tight">
-    //             <input type="checkbox" className="mt-1 shrink-0" />
-    //             <span>Please check this box so we know you're a person and not a computer</span>
-    //           </label>
+//         <label className="flex items-start text-xs gap-2 leading-tight">
+//           <input type="checkbox" className="mt-1 shrink-0" />
+//           <span>
+//             I agree to the <a href="#" className="underline">privacy policy</a> and{" "}
+//             disclaimer and give my express written consent, affiliates and/or lawyer to contact me via the number provided even if this number is a wireless number or if I am presently listed on a Do Not Call list. Message & data rates may apply. My consent does not require purchase. This is legal advertising.
+//           </span>
+//         </label>
 
-    //           <button
-    //             type="submit"
-    //             className="w-full bg-yellow-400 hover:bg-yellow-500 text-teal-900 font-semibold py-3 rounded mt-2"
-    //           >
-    //             Submit
-    //           </button>
-    //         </form>
-    //       </div>
+//         <label className="flex items-start text-xs gap-2 leading-tight">
+//           <input type="checkbox" className="mt-1 shrink-0" />
+//           <span>Please check this box so we know you're a person and not a computer</span>
+//         </label>
 
-
-
-    // {/* Mobile Section - Contact Form */}
-    //     <div className="bg-white text-teal-900 rounded-lg shadow-lg p-6">
-    //       <h2 className="text-xl font-semibold mb-4">Ready to Grow? Let’s Talk</h2>
-    //       <form className="space-y-4">
-    //         {["Name", "Phone", "Email"].map((ph) => (
-    //           <input
-    //             key={ph}
-    //             type={ph === "Email" ? "email" : ph === "Phone" ? "tel" : "text"}
-    //             placeholder={ph}
-    //             className="w-full border-b border-gray-300 focus:outline-none py-2 placeholder:text-teal-900"
-    //           />
-    //         ))}
-
-    //         <select
-    //           className="w-full border-b border-gray-300 focus:outline-none py-2 text-teal-900"
-    //           defaultValue=""
-    //         >
-    //           <option value="" disabled>Select your concern</option>
-    //           <option>Personal Injury</option>
-    //           <option>Family Law</option>
-    //           <option>Criminal Defense</option>
-    //         </select>
-
-      
-    //         <label className="flex items-start text-xs gap-2 leading-tight">
-    //           <input type="checkbox" className="mt-1 shrink-0" />
-    //           <span>
-    //             I agree to the <a href="#" className="underline">privacy policy</a> and{" "}
-    //             disclaimer and give my express written consent, affiliates and/or lawyer to contact me via the number provided even if this number is a wireless number or if I am presently listed on a Do Not Call list. Message & data rates may apply. My consent does not require purchase. This is legal advertising.
-    //           </span>
-    //         </label>
-
-    //         <label className="flex items-start text-xs gap-2 leading-tight">
-    //           <input type="checkbox" className="mt-1 shrink-0" />
-    //           <span>Please check this box so we know you're a person and not a computer</span>
-    //         </label>
-
-    //         <button
-    //           type="submit"
-    //           className="w-full bg-yellow-400 hover:bg-yellow-500 text-teal-900 font-semibold py-3 rounded mt-2"
-    //         >
-    //           Submit
-    //         </button>
-    //       </form>
-    //     </div>
-
-
-
-const FormMainDesktop = () => {
-  return (
-    <div className="bg-[#FFFBF3]/95 backdrop-blur-sm text-[#023437] rounded-xl shadow-2xl p-8 md:p-10 border border-white/20">
-      <h2 className="text-center font-playfair font-semibold text-[30px] md:text-[32px] mb-6">
-        Ready to Grow? Let’s Talk
-      </h2>
-      <form className="space-y-4">
-        {["Name", "Phone", "Email"].map((ph) => (
-          <input
-            key={ph}
-            name={ph.toLowerCase()}
-            required
-            type={ph === "Email" ? "email" : ph === "Phone" ? "tel" : "text"}
-            placeholder={ph}
-            className="w-full border-b-2 py-3 font-opensans bg-transparent transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53]"
-          />
-        ))}
-
-        <select
-          name="category"
-          required
-          defaultValue=""
-          className="w-full border-b-2 py-3 font-opensans bg-transparent transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53] pr-10 appearance-none cursor-pointer"
-        >
-          <option value="" disabled hidden>Select your concern</option>
-          <option>Personal Injury</option>
-          <option>Family Law</option>
-          <option>Criminal Defense</option>
-        </select>
-
-        <div className="flex items-start text-xs gap-2 leading-tight font-opensans">
-          <input id="consent" type="checkbox" className="mt-1 w-4 h-4 accent-[#C09F53]" required aria-label="Consent to terms" />
-          <label htmlFor="consent">
-            I agree to the{" "}
-            <a href="#" className="underline text-[#C09F53]">privacy policy</a> and{" "}
-            <a href="#" className="underline text-[#C09F53]">disclaimer</a> and give my express written consent, affiliates and/or lawyer to contact me via the number provided even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that my call may be recorded and/or monitored. Message & data rates may apply. My consent does not require purchase. This is legal advertising.
-          </label>
-        </div>
-
-        <div className="flex items-start text-xs gap-2 leading-tight font-opensans">
-          <input id="captcha-check" type="checkbox" className="mt-1 w-4 h-4 accent-[#C09F53]" required aria-label="Captcha verification" />
-          <label htmlFor="captcha-check">Please check this box so we know you're a person and not a computer</label>
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-[#C09F53] hover:bg-[#C09F53]/90 text-[#023437] font-semibold py-4 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl text-base disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Submit
-        </button>
-      </form>
-    </div>
-  );
-};
-
-const FormMainMobile = () => {
-  return (
-    <div className="md:hidden bg-[#FFFBF3] text-[#023437] rounded-lg shadow-lg p-6 font-opensans border border-gray-200">
-      <h2 className="text-center font-playfair font-semibold text-[24px] md:text-[34px] mb-4">
-        Ready to Grow? Let’s Talk
-      </h2>
-      <form className="space-y-4">
-        {["Name", "Phone", "Email"].map((ph) => (
-          <input
-            key={ph}
-            name={ph.toLowerCase()}
-            required
-            type={ph === "Email" ? "email" : ph === "Phone" ? "tel" : "text"}
-            placeholder={ph}
-            className="w-full border-b-2 py-2 bg-[#FFFBF3] transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53]"
-          />
-        ))}
-
-        <select
-          name="category"
-          required
-          defaultValue=""
-          className="w-full border-b-2 py-2 bg-[#FFFBF3] transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53] pr-10 appearance-none cursor-pointer text-[#023437]"
-        >
-          <option value="" disabled hidden>Select your concern</option>
-          <option>Personal Injury</option>
-          <option>Family Law</option>
-          <option>Criminal Defense</option>
-        </select>
-
-        <div className="flex items-start text-xs gap-2 leading-tight font-opensans">
-          <input id="consent-mobile" type="checkbox" className="mt-1 w-4 h-4 accent-[#C09F53]" required aria-label="Consent to terms" />
-          <label htmlFor="consent-mobile">
-            I agree to the{" "}
-            <a href="#" className="underline text-[#C09F53]">privacy policy</a> and{" "}
-            <a href="#" className="underline text-[#C09F53]">disclaimer</a> and give my express written consent, affiliates and/or lawyer to contact me via the number provided even if this number is a wireless number or if I am presently listed on a Do Not Call list. Message & data rates may apply. My consent does not require purchase. This is legal advertising.
-          </label>
-        </div>
-
-        <div className="flex items-start text-xs gap-2 leading-tight font-opensans">
-          <input id="captcha-mobile" type="checkbox" className="mt-1 w-4 h-4 accent-[#C09F53]" required aria-label="Captcha verification" />
-          <label htmlFor="captcha-mobile">Please check this box so we know you're a person and not a computer</label>
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-[#C09F53] hover:bg-[#C09F53]/90 text-[#023437] font-semibold py-4 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl text-base disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Submit
-        </button>
-      </form>
-    </div>
-  );
-};
-
-
-
-const FormMain = () => {
-  return (
-    <div>
-      <FormMainDesktop />
-      <FormMainMobile />
-    </div>
-  )
-}
-
-
-export default FormMain;
+//         <button
+//           type="submit"
+//           className="w-full bg-yellow-400 hover:bg-yellow-500 text-teal-900 font-semibold py-3 rounded mt-2"
+//         >
+//           Submit
+//         </button>
+//       </form>
+//     </div>
