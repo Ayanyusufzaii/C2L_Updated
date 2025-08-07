@@ -15,7 +15,7 @@ function SubService18Wheeler() {
     <div className='overflow-hidden'>
         <NavBar />
         <SubOne />
-        {/* <SubTwo /> */}
+        <SubTwo />
         <SubThree />
         <SubFour />
         <SubFive />
