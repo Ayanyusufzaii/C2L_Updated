@@ -33,8 +33,8 @@ function AboutThree() {
   {/* Feature Cards Overlay - 2x2 grid with alternating colors */}
   <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-4 md:gap-8 lg:gap-12 xl:gap-16 p-4 md:p-8 lg:p-12 xl:p-16 pb-6">
     {/* Expert Network - Top Left */}
-    <div className="flex flex-col justify-start pt-2 md:pt-4 lg:pt-6 bg-[#023437] text-[#FFFBF3] rounded-2xl p-6 md:p-8 ">
-      <h3 className="font-['Playfair_Display'] text-[28px] md:text-[38px] lg:text-[48px] xl:text-[56px] font-medium leading-[1.1] mb-2 md:mb-4">
+    <div className="flex flex-col justify-start bg-[#023437] text-[#FFFBF3] pt-2 md:pt-3 lg:pt-6  rounded-2xl p-6 md:p-8 ">
+      <h3 className="font-['Playfair_Display'] text-[#EFE4CB] text-[28px] md:text-[38px] lg:text-[48px] xl:text-[56px] font-medium leading-[1.1] mb-2 md:mb-4">
         Expert<br /> Network
       </h3>
       <p className="font-['Open Sans'] text-sm md:text-[14px] lg:text-[16px] xl:text-[20px] leading-relaxed max-w-md">
@@ -52,7 +52,7 @@ function AboutThree() {
     </div>
     {/* Seamless Connection - Bottom Left */}
     <div className="flex flex-col justify-start pt-2 md:pt-4 lg:pt-6 bg-[#EFE4CB] text-[#023437] rounded-2xl p-6 md:p-8 ">
-      <h3 className="font-['Playfair_Display'] text-[28px] md:text-[40px] lg:text-[52px] xl:text-[64px] font-[800] leading-[1.1] mb-2 md:mb-4">
+      <h3 className="font-['Playfair_Display'] text-[#EFE4CB] text-[28px] md:text-[40px] lg:text-[52px] xl:text-[64px] font-[800] leading-[1.1] mb-2 md:mb-4">
         Seamless Connection
       </h3>
       <p className="font-['Open Sans'] text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">

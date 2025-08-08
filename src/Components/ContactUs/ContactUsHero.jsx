@@ -176,7 +176,7 @@ const ContactUsHero = () => {
 
       {/* Mobile Layout */}
       <div className="block md:hidden px-6 py-12">
-        <div className="flex flex-col min-h-[calc(100vh-5rem)]">
+        <div className="flex flex-col">
           {/* Mobile Heading and Map Container - Overlapping */}
           <div className="relative w-full">
             {/* Mobile Heading - Left Aligned */}
