@@ -9,7 +9,7 @@ import Frame2 from "../../assets/Group 88.png";
 import { useMediaQuery, MenuItem } from '@mui/material';
 import FormBG from "../../assets/hFormBG.png";
 import mobFormBG from "../../assets/MobileFormBG.png";
-
+import thankyou from "../../assets/thankyouimng.png"
 import { sendBothEmails, testEmailJSConnection, setInitialLandingUrl } from './emailJsService'; // <- service we just created
 
 // Custom Captcha Component (kept same UI, minor safe fixes)
@@ -908,22 +908,19 @@ function HomeTwo() {
            
            
            
-           
-            {showModal && (
-              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                <div className="bg-white rounded-lg p-8 max-w-md w-full">
-                  <h2 className="text-2xl font-bold text-[#023437] mb-4">Thank You!</h2>
-                  <p className="text-gray-700 mb-6">
-                    Your submission has been received. We'll get back to you soon.
-                  </p>
-                  <button
-                    onClick={closeModal}
-                    className="w-full h-[50px] justify-center items-center gap-[10px] flex-shrink-0 rounded-[60px] bg-[#023437] text-[#FFFBF3] border border-[#023437] font-open-sans text-[16px] font-bold leading-normal hover:bg-[#374A67] transition-colors duration-200"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
+         {showModal && (
+  <div
+    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+    onClick={closeModal} // makes background click close too
+  >
+    <img
+      src={thankyou}
+      alt="Thank you"
+      className="max-w-[90vw] max-h-[90vh] w-auto h-auto object-contain cursor-pointer hover:opacity-90 transition-opacity duration-200"
+    />
+  </div>
+)}
+
 
 
 
