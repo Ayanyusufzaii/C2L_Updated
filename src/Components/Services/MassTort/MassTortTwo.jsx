@@ -39,12 +39,13 @@ const MassTortTwo = () => {
             Seeks justice for individuals diagnosed with mesothelioma due to
             asbestos exposure, often decades ago.
           </p>
-          <button
-            className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition"
-            onClick={() => navigate("/SubServicemeso")}
-          >
-            Learn More
-          </button>
+        <button
+  className="mt-6 xl:mt-8 inline-flex items-center justify-center px-3 py-3 bg-[#023437] text-white rounded-full text-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition whitespace-nowrap"
+  onClick={() => navigate("/SubServicemeso")}
+>
+  Learn More
+</button>
+
         </div>
       </div>
 

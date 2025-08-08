@@ -3,6 +3,7 @@ import NavBar from "../../NavBar";
 import Footer from '../../Footer';
 import FaqMassTort from '../../FAQMassTort';
 import MassTortHero from './MassTortHero';
+import Homeseven from '../../Home/HomeSeven'
 import MassTortTwo from './MassTortTwo';
 
 
@@ -20,6 +21,7 @@ function MassTort() {
                 <MassTortHero />
                 <MassTortTwo /> 
                 <FaqMassTort />
+                <Homeseven/>
                 <Footer />
             </div>
         </div>
