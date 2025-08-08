@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import './FormMain.css';
+import "./FormMain.css";
+import { sendFormAdmin, sendFormUser } from "../../emailJsService"; // Adjust path as needed
 
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const [captchaText, setCaptchaText] = useState("");
@@ -208,18 +209,17 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   );
 };
 
-
 const formatAusMobile = (input) => {
   // Remove all non-digit characters
   const digits = input.replace(/\D/g, "");
-  
+
   // Immediately limit to 10 digits maximum - prevent excessive input
   const limited = digits.slice(0, 10);
-  
+
   // Check if it's a valid Australian mobile number
   if (limited.length === 0) return "";
   if (!limited.startsWith("04")) return null;
-  
+
   // Format based on length
   if (limited.length <= 4) {
     return limited;
@@ -228,12 +228,10 @@ const formatAusMobile = (input) => {
   } else if (limited.length <= 10) {
     return `${limited.slice(0, 4)} ${limited.slice(4, 7)} ${limited.slice(7)}`;
   }
-  
+
   return limited;
 };
 
-// Updated form component with better phone validation
-// Updated form component with better phone validation
 const FormMainDesktop = ({
   formData,
   handleChange,
@@ -246,29 +244,45 @@ const FormMainDesktop = ({
   certId,
   tokenUrl,
   pingUrl,
+  isSubmitting,
+  submitMessage,
 }) => (
   <div className="hidden md:block bg-[#FFFBF3] backdrop-blur-sm text-[#023437] rounded-xl shadow-2xl p-8 md:p-10 border border-white/20">
-                      <input
-                      type="hidden"
-                      id="xxTrustedFormCertUrl"
-                      name="xxTrustedFormCertUrl"
-                      value={certId}
-                    />
-                    <input
-                      type="hidden"
-                      id="xxTrustedFormCertToken"
-                      name="xxTrustedFormCertToken"
-                      value={tokenUrl}
-                    />
-                    <input
-                      type="hidden"
-                      id="xxTrustedFormPingUrl"
-                      name="xxTrustedFormPingUrl"
-                      value={pingUrl}
-                    />
+    <input
+      type="hidden"
+      id="xxTrustedFormCertUrl_desktop"
+      name="xxTrustedFormCertUrl"
+      value={certId}
+    />
+    <input
+      type="hidden"
+      id="xxTrustedFormCertToken_desktop"
+      name="xxTrustedFormCertToken"
+      value={tokenUrl}
+    />
+    <input
+      type="hidden"
+      id="xxTrustedFormPingUrl_desktop"
+      name="xxTrustedFormPingUrl"
+      value={pingUrl}
+    />
+
     <h2 className="text-center font-playfair font-semibold text-[32px] mb-6">
       Ready to Grow? Let's Talk
     </h2>
+
+    {submitMessage && (
+      <div
+        className={`mb-4 p-4 rounded-md ${
+          submitMessage.type === "success"
+            ? "bg-green-100 border border-green-400 text-green-700"
+            : "bg-red-100 border border-red-400 text-red-700"
+        }`}
+      >
+        {submitMessage.text}
+      </div>
+    )}
+
     <form onSubmit={handleSubmit} className="space-y-4">
       {[
         { name: "name", type: "text", placeholder: "Name" },
@@ -282,7 +296,8 @@ const FormMainDesktop = ({
             placeholder={placeholder}
             value={formData[name]}
             onChange={handleChange}
-            className="w-full border-b-2 py-3 font-opensans bg-transparent transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53]"
+            disabled={isSubmitting}
+            className="w-full border-b-2 py-3 font-opensans bg-transparent transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53] disabled:opacity-50"
           />
           {name === "phone" && phoneError && (
             <p className="text-red-500 text-sm mt-1">{phoneError}</p>
@@ -294,7 +309,8 @@ const FormMainDesktop = ({
         name="category"
         value={formData.category}
         onChange={handleChange}
-        className="w-full border-b-2 py-3 font-opensans bg-transparent transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53] pr-10 appearance-none cursor-pointer"
+        disabled={isSubmitting}
+        className="w-full border-b-2 py-3 font-opensans bg-transparent transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53] pr-10 appearance-none cursor-pointer disabled:opacity-50"
       >
         <option value="" disabled>
           Select your concern
@@ -311,12 +327,25 @@ const FormMainDesktop = ({
           type="checkbox"
           checked={formData.consent}
           onChange={handleChange}
-          className="mt-1 w-4 h-4 accent-[#C09F53]"
+          disabled={isSubmitting}
+          className="mt-1 w-4 h-4 accent-[#C09F53] disabled:opacity-50"
         />
-        <label htmlFor="consent">
-          I agree to the <a href="privacy-policy" className="underline text-[#C09F53]">privacy policy</a> and{" "}
-              <a href="disclaimer" className="underline text-[#C09F53]">disclaimer</a> and give my express written consent, affiliates and/or lawyer to contact me via the number provided even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that my call may be recorded and/or monitored. Message & data rates may apply. My consent does not require purchase. This is legal advertising.
-            
+        <label htmlFor="consent" className={isSubmitting ? "opacity-50" : ""}>
+          I agree to the{" "}
+          <a href="privacy-policy" className="underline text-[#C09F53]">
+            privacy policy
+          </a>{" "}
+          and{" "}
+          <a href="disclaimer" className="underline text-[#C09F53]">
+            disclaimer
+          </a>{" "}
+          and give my express written consent, affiliates and/or lawyer to
+          contact me via the number provided even if this number is a wireless
+          number or if I am presently listed on a Do Not Call list. I understand
+          that I may be contacted by telephone, email, text message or mail
+          regarding case options and that my call may be recorded and/or
+          monitored. Message & data rates may apply. My consent does not require
+          purchase. This is legal advertising.
         </label>
       </div>
 
@@ -327,9 +356,13 @@ const FormMainDesktop = ({
           type="checkbox"
           checked={showCaptcha}
           onChange={handleChange}
-          className="mt-1 w-4 h-4 accent-[#C09F53]"
+          disabled={isSubmitting}
+          className="mt-1 w-4 h-4 accent-[#C09F53] disabled:opacity-50"
         />
-        <label htmlFor="captcha-check">
+        <label
+          htmlFor="captcha-check"
+          className={isSubmitting ? "opacity-50" : ""}
+        >
           Please check this box so we know you're a person and not a computer
         </label>
       </div>
@@ -338,15 +371,42 @@ const FormMainDesktop = ({
         <CustomCaptcha
           onCaptchaChange={onCaptchaChange}
           resetTrigger={resetTrigger}
+          disabled={isSubmitting}
         />
       )}
 
       <button
         type="submit"
-        disabled={!isFormValid}
+        disabled={!isFormValid || isSubmitting}
         className="w-full bg-[#C09F53] hover:bg-[#C09F53]/90 text-[#023437] font-semibold py-4 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl text-base disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Submit
+        {isSubmitting ? (
+          <span className="flex items-center justify-center">
+            <svg
+              className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#023437]"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            Submitting...
+          </span>
+        ) : (
+          "Submit"
+        )}
       </button>
     </form>
   </div>
@@ -364,29 +424,45 @@ const FormMainMobile = ({
   certId,
   tokenUrl,
   pingUrl,
+  isSubmitting,
+  submitMessage,
 }) => (
   <div className="md:hidden bg-[#FFFBF3] text-[#023437] rounded-lg shadow-lg p-6 font-opensans border border-gray-200">
-                         <input
-                      type="hidden"
-                      id="xxTrustedFormCertUrl"
-                      name="xxTrustedFormCertUrl"
-                      value={certId}
-                    />
-                    <input
-                      type="hidden"
-                      id="xxTrustedFormCertToken"
-                      name="xxTrustedFormCertToken"
-                      value={tokenUrl}
-                    />
-                    <input
-                      type="hidden"
-                      id="xxTrustedFormPingUrl"
-                      name="xxTrustedFormPingUrl"
-                      value={pingUrl}
-                    />
+    <input
+      type="hidden"
+      id="xxTrustedFormCertUrl_mobile"
+      name="xxTrustedFormCertUrl"
+      value={certId}
+    />
+    <input
+      type="hidden"
+      id="xxTrustedFormCertToken_mobile"
+      name="xxTrustedFormCertToken"
+      value={tokenUrl}
+    />
+    <input
+      type="hidden"
+      id="xxTrustedFormPingUrl_mobile"
+      name="xxTrustedFormPingUrl"
+      value={pingUrl}
+    />
+
     <h2 className="text-center font-playfair font-semibold text-[24px] mb-4">
       Ready to Grow? Let's Talk
     </h2>
+
+    {submitMessage && (
+      <div
+        className={`mb-4 p-3 rounded-md text-sm ${
+          submitMessage.type === "success"
+            ? "bg-green-100 border border-green-400 text-green-700"
+            : "bg-red-100 border border-red-400 text-red-700"
+        }`}
+      >
+        {submitMessage.text}
+      </div>
+    )}
+
     <form onSubmit={handleSubmit} className="space-y-4">
       {[
         { name: "name", type: "text", placeholder: "Name" },
@@ -400,7 +476,8 @@ const FormMainMobile = ({
             placeholder={placeholder}
             value={formData[name]}
             onChange={handleChange}
-            className="w-full border-b-2 py-2 bg-[#FFFBF3] transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53]"
+            disabled={isSubmitting}
+            className="w-full border-b-2 py-2 bg-[#FFFBF3] transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53] disabled:opacity-50"
           />
           {name === "phone" && phoneError && (
             <p className="text-red-500 text-sm mt-1">{phoneError}</p>
@@ -412,7 +489,8 @@ const FormMainMobile = ({
         name="category"
         value={formData.category}
         onChange={handleChange}
-        className="w-full border-b-2 py-2 bg-[#FFFBF3] transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53] pr-10 appearance-none cursor-pointer"
+        disabled={isSubmitting}
+        className="w-full border-b-2 py-2 bg-[#FFFBF3] transition-colors duration-300 focus:outline-none placeholder:text-[#023437]/70 border-gray-300 focus:border-[#C09F53] pr-10 appearance-none cursor-pointer disabled:opacity-50"
       >
         <option value="" disabled>
           Select your concern
@@ -429,11 +507,28 @@ const FormMainMobile = ({
           type="checkbox"
           checked={formData.consent}
           onChange={handleChange}
-          className="mt-1 w-4 h-4 accent-[#C09F53]"
+          disabled={isSubmitting}
+          className="mt-1 w-4 h-4 accent-[#C09F53] disabled:opacity-50"
         />
-        <label htmlFor="consent-mobile">
-          I agree to the <a href="privacy-policy" className="underline text-[#C09F53]">privacy policy</a> and{" "}
-              <a href="disclaimer" className="underline text-[#C09F53]">disclaimer</a> and give my express written consent, affiliates and/or lawyer to contact me via the number provided even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that my call may be recorded and/or monitored. Message & data rates may apply. My consent does not require purchase. This is legal advertising.
+        <label
+          htmlFor="consent-mobile"
+          className={isSubmitting ? "opacity-50" : ""}
+        >
+          I agree to the{" "}
+          <a href="privacy-policy" className="underline text-[#C09F53]">
+            privacy policy
+          </a>{" "}
+          and{" "}
+          <a href="disclaimer" className="underline text-[#C09F53]">
+            disclaimer
+          </a>{" "}
+          and give my express written consent, affiliates and/or lawyer to
+          contact me via the number provided even if this number is a wireless
+          number or if I am presently listed on a Do Not Call list. I understand
+          that I may be contacted by telephone, email, text message or mail
+          regarding case options and that my call may be recorded and/or
+          monitored. Message & data rates may apply. My consent does not require
+          purchase. This is legal advertising.
         </label>
       </div>
 
@@ -444,9 +539,13 @@ const FormMainMobile = ({
           type="checkbox"
           checked={showCaptcha}
           onChange={handleChange}
-          className="mt-1 w-4 h-4 accent-[#C09F53]"
+          disabled={isSubmitting}
+          className="mt-1 w-4 h-4 accent-[#C09F53] disabled:opacity-50"
         />
-        <label htmlFor="captcha-mobile">
+        <label
+          htmlFor="captcha-mobile"
+          className={isSubmitting ? "opacity-50" : ""}
+        >
           Please check this box so we know you're a person and not a computer
         </label>
       </div>
@@ -455,22 +554,56 @@ const FormMainMobile = ({
         <CustomCaptcha
           onCaptchaChange={onCaptchaChange}
           resetTrigger={resetTrigger}
+          disabled={isSubmitting}
         />
       )}
 
       <button
         type="submit"
-        disabled={!isFormValid}
+        disabled={!isFormValid || isSubmitting}
         className="w-full bg-[#C09F53] hover:bg-[#C09F53]/90 text-[#023437] font-semibold py-4 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl text-base disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Submit
+        {isSubmitting ? (
+          <span className="flex items-center justify-center">
+            <svg
+              className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#023437]"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            Submitting...
+          </span>
+        ) : (
+          "Submit"
+        )}
       </button>
     </form>
   </div>
 );
 
 const FormMain = () => {
-  const initialData = { name: "", phone: "", email: "", category: "", consent: false };
+  const initialData = {
+    name: "",
+    phone: "",
+    email: "",
+    category: "",
+    consent: false,
+  };
+  
   const [formData, setFormData] = useState(initialData);
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [captchaValid, setCaptchaValid] = useState(false);
@@ -478,10 +611,14 @@ const FormMain = () => {
   const [phoneError, setPhoneError] = useState("");
   const [pingUrl, setPingUrl] = useState("");
   const [certId, setCertId] = useState("");
-  const [tokenUrl, settokenUrl] = useState("");
+  const [tokenUrl, setTokenUrl] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    if (submitMessage) setSubmitMessage(null);
 
     if (name === "captchaCheck") {
       setShowCaptcha(checked);
@@ -491,25 +628,22 @@ const FormMain = () => {
     }
 
     if (name === "phone") {
-      // First limit the input to prevent excessive digits
       const rawDigits = value.replace(/\D/g, "").slice(0, 10);
       const formatted = formatAusMobile(rawDigits);
-      
-      // Validation logic
-      if (value.trim() === "") {
+
+      if (!rawDigits) {
         setPhoneError("");
-      } else if (formatted === null) {
+      } else if (!formatted) {
         setPhoneError("Phone number must start with 04");
-      } else if (rawDigits.length > 0 && rawDigits.length < 10) {
+      } else if (rawDigits.length < 10) {
         setPhoneError("Phone number must be 10 digits");
-      } else if (rawDigits.length === 10) {
+      } else {
         setPhoneError("");
       }
-      
-      // Always use formatted value if valid, otherwise use limited raw digits
-      setFormData((prev) => ({ 
-        ...prev, 
-        phone: formatted !== null ? formatted : rawDigits 
+
+      setFormData((prev) => ({
+        ...prev,
+        phone: formatted ?? rawDigits,
       }));
       return;
     }
@@ -520,14 +654,10 @@ const FormMain = () => {
     }));
   };
 
-  const onCaptchaChange = (valid) => {
-    setCaptchaValid(valid);
-  };
+  const onCaptchaChange = (valid) => setCaptchaValid(valid);
 
-  // Check if phone is valid (exactly 10 digits starting with 04)
   const rawPhone = formData.phone.replace(/\D/g, "");
   const isPhoneValid = rawPhone.length === 10 && rawPhone.startsWith("04");
-  
   const isFormFilled =
     formData.name.trim() &&
     isPhoneValid &&
@@ -536,87 +666,131 @@ const FormMain = () => {
     formData.consent;
   const isFormValid = isFormFilled && captchaValid;
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    let observerInstance = null;
+    let timeoutId = null;
+
+    const initializeTrustedFormObserver = () => {
+      // Create observer to watch for TrustedForm field updates
+      observerInstance = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === "attributes" && mutation.attributeName === "value") {
+            const target = mutation.target;
+
+            try {
+              if (target.name === "xxTrustedFormCertUrl" && target.value) {
+                setCertId(target.value);
+              }
+
+              if (target.name === "xxTrustedFormPingUrl" && target.value) {
+                setPingUrl(target.value);
+              }
+
+              if (target.name === "xxTrustedFormCertToken" && target.value) {
+                setTokenUrl(target.value);
+              }
+            } catch (error) {
+              console.warn("TrustedForm observer error:", error);
+            }
+          }
+        });
+      });
+
+      // Start observing TrustedForm fields
+      const startObserving = () => {
+        const trustedFormFields = document.querySelectorAll(
+          '[name="xxTrustedFormCertUrl"], [name="xxTrustedFormPingUrl"], [name="xxTrustedFormCertToken"]'
+        );
+
+        trustedFormFields.forEach((field) => {
+          if (field && observerInstance) {
+            observerInstance.observe(field, { 
+              attributes: true, 
+              attributeFilter: ['value'] 
+            });
+
+            // Check if values are already populated
+            if (field.value) {
+              switch (field.name) {
+                case "xxTrustedFormCertUrl":
+                  setCertId(field.value);
+                  break;
+                case "xxTrustedFormPingUrl":
+                  setPingUrl(field.value);
+                  break;
+                case "xxTrustedFormCertToken":
+                  setTokenUrl(field.value);
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+        });
+      };
+
+      // Wait for TrustedForm script to load and populate fields
+      timeoutId = setTimeout(startObserving, 1000);
+    };
+
+    initializeTrustedFormObserver();
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      if (observerInstance) {
+        observerInstance.disconnect();
+      }
+    };
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isFormValid) return;
-    
-    // Submit with clean phone number
+    if (!isFormValid || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmitMessage(null);
+
     const submitData = {
       ...formData,
-      phone: rawPhone // Submit raw digits or keep formatted - your choice
+      phone: rawPhone,
+      certId: certId,
+      tokenUrl: tokenUrl,
+      pingUrl: pingUrl,
     };
-    
-    console.log("Form submitted", submitData);
-    setFormData(initialData);
-    setShowCaptcha(false);
-    setCaptchaValid(false);
-    setResetTrigger((t) => !t);
-    setPhoneError("");
-  };
 
-
-  useEffect(() => {
-  // Simple observer to capture TrustedForm data when it's populated
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === "attributes" && mutation.attributeName === "value") {
-        const target = mutation.target;
-        
-        // Check if this is a TrustedForm field
-        if (target.name === "xxTrustedFormCertUrl" && target.value) {
-          console.log("✅ TrustedForm Cert URL:", target.value);
-          setCertId(target.value);
-        }
-        
-        if (target.name === "xxTrustedFormPingUrl" && target.value) {
-          console.log("✅ TrustedForm Ping URL:", target.value);
-          setPingUrl(target.value);
-        }
-        
-        if (target.name === "xxTrustedFormCertToken" && target.value) {
-          console.log("✅ TrustedForm Token:", target.value);
-          settokenUrl(target.value);
-        }
+    try {
+      await Promise.all([sendFormAdmin(submitData), sendFormUser(submitData)]);
+      setFormData(initialData);
+      setShowCaptcha(false);
+      setCaptchaValid(false);
+      setResetTrigger((t) => !t);
+      setPhoneError("");
+      setSubmitMessage({
+        type: "success",
+        text: "Form submitted successfully! You should receive a confirmation email shortly.",
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      console.error(err);
+      try {
+        await sendFormAdmin(submitData);
+        setSubmitMessage({
+          type: "success",
+          text: "Form submitted successfully! Confirmation email failed, but we have received your inquiry.",
+        });
+      } catch {
+        setSubmitMessage({
+          type: "error",
+          text: "There was an error submitting your form. Please try again or contact us directly.",
+        });
       }
-    });
-  });
-
-  // Start observing after a short delay to ensure TrustedForm script has loaded
-  const timeoutId = setTimeout(() => {
-    const certField = document.querySelector('[name="xxTrustedFormCertUrl"]');
-    const pingField = document.querySelector('[name="xxTrustedFormPingUrl"]');
-    const tokenField = document.querySelector('[name="xxTrustedFormCertToken"]');
-
-    if (certField) {
-      observer.observe(certField, { attributes: true });
+    } finally {
+      setIsSubmitting(false);
     }
-    if (pingField) {
-      observer.observe(pingField, { attributes: true });
-    }
-    if (tokenField) {
-      observer.observe(tokenField, { attributes: true });
-    }
-
-    // Also check if values are already populated
-    if (certField?.value) {
-      setCertId(certField.value);
-      
-    }
-    if (pingField?.value) {
-      setPingUrl(pingField.value);
-      
-    }
-    if (tokenField?.value) {
-      settokenUrl(tokenField.value);
-      
-    }
-  }, 1000);
-
-  return () => {
-    clearTimeout(timeoutId);
-    observer.disconnect();
+    setIsSubmitting(false);
   };
-}, []);
 
   return (
     <>
@@ -632,6 +806,8 @@ const FormMain = () => {
         certId={certId}
         tokenUrl={tokenUrl}
         pingUrl={pingUrl}
+        isSubmitting={isSubmitting}
+        submitMessage={submitMessage}
       />
       <FormMainMobile
         formData={formData}
@@ -645,12 +821,24 @@ const FormMain = () => {
         certId={certId}
         tokenUrl={tokenUrl}
         pingUrl={pingUrl}
+        isSubmitting={isSubmitting}
+        submitMessage={submitMessage}
       />
     </>
   );
 };
 
 export default FormMain;
+
+
+
+
+
+
+
+
+
+
 
 
 

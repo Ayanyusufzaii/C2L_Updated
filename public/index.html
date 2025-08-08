@@ -107,8 +107,6 @@
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
-
-
     <!-- TrustedForm - Single Implementation -->
     <script type="text/javascript">
       (function () {
@@ -117,7 +115,7 @@
         tf.async = true;
         tf.src =
           ("https:" == document.location.protocol ? "https" : "http") +
-          "://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&ping_field=xxTrustedFormPingUrl&l=" +
+          "://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&ping_field=xxTrustedFormPingUrl&token_field=xxTrustedFormCertToken&l=" +
           new Date().getTime() +
           Math.random();
         var s = document.getElementsByTagName("script")[0];

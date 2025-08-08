@@ -1,6 +1,9 @@
-// emailService.js
-
 import emailjs from '@emailjs/browser';
+
+const SERVICE_ID = 'service_brjo5qt';
+const PUBLIC_KEY = 'DyDZ85E9uwzwSyUoD';
+const LAWYER_ADMIN_TEMPLATE_ID = 'template_0z0lfrg';
+const LAWYER_TEMPLATE_ID = 'template_98w5g2n';
 
 const sanitize = (value) => {
   if (typeof value === 'string') {
@@ -12,42 +15,10 @@ const sanitize = (value) => {
   return value;
 };
 
-
 emailjs.init(PUBLIC_KEY);
-  
-// SubService template IDs
-const LAWYER_ADMIN_TEMPLATE_ID = 'template_0yxv4ra';
-const LAWYER_TEMPLATE_ID = 'template_145waea';  
 
-
-// emailService.js
- 
-import emailjs from '@emailjs/browser';
-
-  const sanitize = (value) => {
-  if (typeof value === 'string') {
-    return value.trim() === '' ? 'N/A' : value;
-  }
-  if (value === undefined || value === null) {
-    return 'N/A';
-  }
-  return value;
-};
- 
- 
-
-// Replace these with your actual EmailJS credentials
-const SERVICE_ID = 'service_brjo5qt';
-const ADMIN_TEMPLATE_ID = 'template_0yxv4ra';
-const USER_TEMPLATE_ID = 'template_145waea';
-const PUBLIC_KEY = 'DyDZ85E9uwzwSyUoD';
- 
- 
-emailjs.init(PUBLIC_KEY);
- 
-// Function to get the initial landing URL
 let initialLandingUrl = null;
- 
+
 const getSourceUrl = () => {
   if (typeof window === "undefined") return "Unknown";
  
@@ -58,8 +29,7 @@ const getSourceUrl = () => {
  
   return initialLandingUrl;
 };
- 
-// Function to get IP address
+
 const getIPAddress = async () => {
   try {
     const response = await fetch("https://api.ipify.org?format=json");
@@ -70,132 +40,70 @@ const getIPAddress = async () => {
     return "IP address not available";
   }
 };
- 
-// Original functions (keeping your existing ones)
-export const sendAdminEmail = async (formData) => {
-  const ipAddress = await getIPAddress();
- 
-  const templateParams = {
-    name: formData.name,
-    email: formData.email,
-    phone: formData.phone,
-alternateNumber: sanitize(formData.alternateNumber),
-    category: formData.category,
-    streetAddress: formData.streetAddress,
-    city: formData.city,
-    state: formData.state,
-    zipCode: formData.zipCode,
-    fullAddress: `${formData.streetAddress}, ${formData.city}, ${formData.state} ${formData.zipCode}`,
-    message: `New legal service request from ${formData.name}`,
-    submissionDate: new Date().toLocaleString(),
-    ip_address: ipAddress,
-    page_source: getSourceUrl(),
-   
-    // TrustedForm data
-    trustedFormCertUrl: formData.xxTrustedFormCertUrl || 'Not available',
-    trustedFormPingUrl: formData.xxTrustedFormPingUrl || 'Not available',
-    trustedFormToken: formData.xxTrustedFormCertToken || 'Not available',
-  };
- 
-  return emailjs.send(SERVICE_ID, ADMIN_TEMPLATE_ID, templateParams);
-};
- 
-export const sendUserEmail = async (formData) => {
-  const ipAddress = await getIPAddress();
- 
-  const templateParams = {
-    name: formData.name,
-    email: formData.email,
-    phone: formData.phone,
-alternateNumber: sanitize(formData.alternateNumber),
-    category: formData.category,
-    streetAddress: formData.streetAddress,
-    city: formData.city,
-    state: formData.state,
-    zipCode: formData.zipCode,
-    fullAddress: `${formData.streetAddress}, ${formData.city}, ${formData.state} ${formData.zipCode}`,
-    date: new Date().toLocaleDateString(),
-    ip_address: ipAddress,
-    submissionDate: new Date().toLocaleString(),
-    page_source: getSourceUrl(),
-   
-    // TrustedForm data
-    trustedFormCertUrl: formData.xxTrustedFormCertUrl || 'Not available',
-    trustedFormPingUrl: formData.xxTrustedFormPingUrl || 'Not available',
-    trustedFormToken: formData.xxTrustedFormCertToken || 'Not available',
-  };
- 
-  return emailjs.send(SERVICE_ID, USER_TEMPLATE_ID, templateParams);
-};
- 
-// NEW SubService functions
-export const SubServiceSendAdminEmail = async (formData) => {
-  const ipAddress = await getIPAddress();
- 
-  const templateParams = {
-    // Handle both desktop and mobile form field names
-    firstName: formData.firstName || formData.fist_name || '',
-    lastName: formData.lastName || '',
-    full_name: `${formData.firstName || formData.fist_name || ''} ${formData.lastName || ''}`.trim(),
-    email: formData.email,
-    phone: formData.phone,
-alternateNumber: sanitize(formData.alternateNumber),
-    streetAddress: formData.streetAddress,
-    city: formData.city,
-    state: formData.state,
-    zipCode: formData.zipCode,
-    fullAddress: `${formData.streetAddress || ''}, ${formData.city || ''}, ${formData.state || ''} ${formData.zipCode || ''}`.replace(/^,\s*/, '').trim(),
-    message: `New SubService case review request from ${formData.firstName || formData.fist_name || ''} ${formData.lastName || ''}`,
-    submissionDate: new Date().toLocaleString(),
-    ip_address: ipAddress,
-    page_source: getSourceUrl(),
-   
-    // TrustedForm data
-    trustedFormCertUrl: formData.xxTrustedFormCertUrl || 'Not available',
-    trustedFormPingUrl: formData.xxTrustedFormPingUrl || 'Not available',
-    trustedFormToken: formData.xxTrustedFormCertToken || 'Not available',
-   
-    // Additional fields for better tracking
-    form_type: 'SubService Case Review',
-    captcha_verified: 'Yes',
-    terms_accepted: formData.termsAccepted ? 'Yes' : 'No',
-  };
- 
-  return emailjs.send(SERVICE_ID, SUBSERVICE_ADMIN_TEMPLATE_ID, templateParams);
-};
- 
-export const SubServiceSendUserEmail = async (formData) => {
-  const ipAddress = await getIPAddress();
- 
-  const templateParams = {
-    // Handle both desktop and mobile form field names
-    firstName: formData.firstName || formData.firstName || '',
-    lastName: formData.lastName || '',
-    full_name: `${formData.firstName || formData.firstName || ''} ${formData.lastName || ''}`.trim(),
-    email: formData.email,
-alternateNumber: sanitize(formData.alternateNumber),
 
-    phone: formData.phone,
-    streetAddress: formData.streetAddress,
-    city: formData.city,
-    state: formData.state,
-    zipCode: formData.zipCode,
-    fullAddress: `${formData.streetAddress || ''}, ${formData.city || ''}, ${formData.state || ''} ${formData.zipCode || ''}`.replace(/^,\s*/, '').trim(),
-    date: new Date().toLocaleDateString(),
-    submissionDate: new Date().toLocaleString(),
-    ip_address: ipAddress,
-    page_source: getSourceUrl(),
-   
-    // TrustedForm data
-    trustedFormCertUrl: formData.xxTrustedFormCertUrl || 'Not available',
-    trustedFormPingUrl: formData.xxTrustedFormPingUrl || 'Not available',
-    trustedFormToken: formData.xxTrustedFormCertToken || 'Not available',
-   
-    // Additional fields for personalization
-    form_type: 'SubService Case Review',
-  };
- 
-  return emailjs.send(SERVICE_ID, SUBSERVICE_USER_TEMPLATE_ID, templateParams);
+const getTimestamp = () => {
+  return new Date().toLocaleString('en-AU', {
+    timeZone: 'Australia/Sydney',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
 };
- 
- 
+
+// Comprehensive admin email with all tracking data
+export const sendFormAdmin = async (formData) => {
+  try {
+    const ipAddress = await getIPAddress();
+    const sourceUrl = getSourceUrl();
+    const timestamp = getTimestamp();
+
+    const templateParams = {
+      // Main contact details - matching admin template variables
+      full_name: sanitize(formData.name),
+      email: sanitize(formData.email),
+      phone: sanitize(formData.phone),
+      concern: sanitize(formData.category),
+      
+      // Tracking and verification data
+      submission_date: timestamp,
+      ip_address: ipAddress,
+      page_source: sourceUrl,
+      
+      // TrustedForm certification data
+      trusted_form_cert_url: sanitize(formData.certId),
+      trusted_form_ping_url: sanitize(formData.pingUrl),
+      trusted_form_token: sanitize(formData.tokenUrl)
+    };
+
+    const response = await emailjs.send(SERVICE_ID, LAWYER_ADMIN_TEMPLATE_ID, templateParams);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Minimal user confirmation email
+export const sendFormUser = async (formData) => {
+  try {
+    const timestamp = getTimestamp();
+    const currentYear = new Date().getFullYear();
+
+    const templateParams = {
+      // Basic user information - matching user template variables
+      full_name: sanitize(formData.name),
+      email: sanitize(formData.email),
+      phone: sanitize(formData.phone),
+      concern: sanitize(formData.category),
+      submission_date: timestamp,
+      year: currentYear
+    };
+
+    const response = await emailjs.send(SERVICE_ID, LAWYER_TEMPLATE_ID, templateParams);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
