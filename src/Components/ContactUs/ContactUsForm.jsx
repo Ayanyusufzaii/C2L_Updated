@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import popup from "../../assets/SubmitPopup.png";
 import { sendBothEmails, testEmailJSConnection } from "./ContactUsEmail"; 
-
+import imageSrc from "../../assets/thankyouimng.png"
 // Custom Captcha Component (keeping exactly as is)
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const [captchaText, setCaptchaText] = useState("");
@@ -210,81 +210,21 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   );
 };
 
-// Success Popup Component (keeping exactly as is)
 const SuccessPopup = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <>
-      <div 
-        className="fixed inset-0 bg-black bg-opacity-50 z-[9998] transition-opacity duration-300"
+    <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-[9999]">
+      <img
+        src={imageSrc}
+        alt="Success"
         onClick={onClose}
+        className="w-full h-full object-contain cursor-pointer hover:opacity-90 transition-opacity duration-200"
       />
-      
-      <div className="fixed inset-0 flex items-center justify-center z-[9999] p-4">
-        <div className="bg-white rounded-lg shadow-2xl max-w-lg w-full max-h-[90vh] overflow-auto relative transform transition-all duration-300 scale-100">
-          
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors z-10"
-            aria-label="Close"
-          >
-            <svg 
-              className="w-5 h-5 text-gray-600" 
-              fill="none" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth="2" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-
-          <div className="p-6 sm:p-8">
-            {/* <div className="mb-6 flex justify-center">
-              <div className="w-full h-48 sm:h-64 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
-                <img 
-                src={popup} 
-                alt="Success" 
-                className="w-full h-auto rounded-lg object-cover"
-              />
-              </div>
-            </div> */}
-
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
-                Submission Successful!
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Thank you for submitting your case. We have received your information and will review it promptly.
-              </p>
-              
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-                <p className="text-green-800 text-sm">
-                  ✓ A confirmation email has been sent to your email address
-                </p>
-                <p className="text-green-800 text-sm mt-2">
-                  ✓ Our team will contact you within 24-48 hours
-                </p>
-              </div>
-
-              <div className="flex justify-center">
-                <button
-                  onClick={onClose}
-                  className="px-6 py-2 bg-[#C09F53] text-white rounded-lg hover:bg-[#a08545] transition-colors"
-                >
-                  Continue
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
+
 
 // Australian Phone number formatting function (keeping exactly as is)
 const formatPhoneNumber = (value) => {
@@ -661,8 +601,7 @@ const ContactUsForm = () => {
           });
         }
         
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: "smooth" });
+    
         
       } else {
         // Both emails failed
@@ -906,10 +845,11 @@ const ContactUsForm = () => {
             </button>
           </form>
 
-          <SuccessPopup 
-            isOpen={successDialogOpen} 
-            onClose={() => setSuccessDialogOpen(false)} 
-          />
+<SuccessPopup
+  isOpen={successDialogOpen}
+  onClose={() => setSuccessDialogOpen(false)}
+/>
+
         </div>
       </>
     );
@@ -1206,10 +1146,10 @@ const ContactUsForm = () => {
           </form>
         </div>
 
-        <SuccessPopup 
-          isOpen={successDialogOpen} 
-          onClose={() => setSuccessDialogOpen(false)} 
-        />
+<SuccessPopup
+  isOpen={successDialogOpen}
+  onClose={() => setSuccessDialogOpen(false)}
+/>
       </div>
     </>
   );
