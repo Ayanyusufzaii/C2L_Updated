@@ -13,24 +13,40 @@ import {
 
 import map from "../../assets/contactUsHeroMap.png";
 import mapMob from "../../assets/mapMob.png";
+import fb from "../../assets/fbiconn.png";
+import linkedin from "../../assets/linkiconn.png";
+import yt from "../../assets/yticonn.png";
+import insta from "../../assets/instaiconn.png";
+import x from "../../assets/xiconn.png";
+import tiktok from "../../assets/TikTok.png";
+import mail from "../../assets/mailiconn.png";
+import clock from "../../assets/clockiconn.png";
+
+
+
+
 
 const ContactUsHero = () => {
   const socialLinks = [
     {
-      icon: Linkedin,
+      icon: linkedin,
       href: "https://www.linkedin.com/company/connect2lawyer/",
     },
     {
-      icon: Facebook,
+      icon: fb,
       href: "https://www.facebook.com/profile.php?id=61570446132760",
     },
-    { icon: Youtube, href: "#" },
+    { icon: yt, href: "#" },
     {
-      icon: Instagram,
+      icon: insta,
       href: "https://www.instagram.com/connect2lawyer/",
     },
     {
-      icon: MessageSquare,
+      icon: x,
+      href: "#",
+    },
+    {
+      icon: tiktok,
       href: "#",
     },
   ];
@@ -38,7 +54,7 @@ const ContactUsHero = () => {
   return (
     <section className="relative w-full bg-[#ffffff] overflow-hidden pt-0">
       {/* Desktop/Tablet Layout */}
-      <div className="hidden md:flex relative w-full h-[92.8vh]">
+      <div className="hidden md:flex relative w-full h-[80.8vh] md:h-[60.8vh] lg:h-[70.8vh] xl:h-[80.8vh] 2xl:h-[92.8vh]">
         {/* Info Section - Left Side */}
         <div className="absolute left-0 top-0 h-full flex flex-col justify-start items-start w-[48%] max-w-[694px] 
                         pl-[3%] pr-[2%] 
@@ -84,7 +100,7 @@ const ContactUsHero = () => {
                               md:w-7 md:h-7
                               lg:w-9 lg:h-9
                               xl:w-10 xl:h-10">
-                <Mail className="text-white md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
+                <img src={mail} alt="" className="md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
               </div>
               <span className="font-semibold text-[#023437] break-words
                                md:text-base
@@ -114,12 +130,15 @@ const ContactUsHero = () => {
                            lg:w-10 lg:h-10
                            xl:w-11 xl:h-11
                            2xl:w-12 2xl:h-12"
-                aria-label={`Visit our ${social.icon.name} page`}
+                aria-label={`Visit our social media page`}
               >
-                <social.icon className="text-[#023437] group-hover:text-white 
-                                        md:w-4 md:h-4
-                                        lg:w-5 lg:h-5
-                                        xl:w-6 xl:h-6" />
+                <img 
+                  src={social.icon} 
+                  alt=""
+                  className="md:w-4 md:h-4
+                             lg:w-5 lg:h-5
+                             xl:w-6 xl:h-6" 
+                />
               </a>
             ))}
           </div>
@@ -133,7 +152,7 @@ const ContactUsHero = () => {
                             2xl:w-[70px] 2xl:h-[70px]">
               {/* Ring effect for clock - same color as bg */}
               <div className="absolute inset-[2px] md:inset-[2px] lg:inset-[3px] xl:inset-[4px] bg-[#fff] rounded-full"></div>
-              <Clock className="text-[#023437] relative z-10 -scale-x-100
+              <img src={clock} alt="" className="relative z-10 
                                 md:w-6 md:h-6
                                 lg:w-7 lg:h-7
                                 xl:w-8 xl:h-8
@@ -175,8 +194,8 @@ const ContactUsHero = () => {
       </div>
 
       {/* Mobile Layout */}
-      <div className="block md:hidden px-6 py-12">
-        <div className="flex flex-col min-h-[calc(100vh-5rem)]">
+      <div className="block md:hidden px-3 xs:px-6 py-12">
+        <div className="flex flex-col">
           {/* Mobile Heading and Map Container - Overlapping */}
           <div className="relative w-full">
             {/* Mobile Heading - Left Aligned */}
@@ -189,8 +208,8 @@ const ContactUsHero = () => {
               {/* Business Hours - Left Aligned and Sized Down */}
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0 relative overflow-hidden">
-                  <div className="absolute inset-[2px] bg-gradient-to-br from-slate-50 to-blue-50 rounded-full"></div>
-                  <Clock className="w-4 h-4 text-[#023437] relative z-10 -scale-x-100" />
+                  <div className="absolute inset-[2px] bg-[#fff] rounded-full"></div>
+                  <img src={clock} alt="" className="w-4 h-4 relative z-10 " />
                 </div>
                 <div>
                   <div className="text-base font-bold text-[#023437]">
@@ -216,20 +235,20 @@ const ContactUsHero = () => {
           {/* Mobile Contact Info */}
           <div className="w-full space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
-                <Phone className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 xs:w-10 xs:h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
+                <Phone className="w-4 h-4 xs:w-5 xs:h-5 text-white" />
               </div>
-              <span className="text-lg font-semibold text-[#023437] 
+              <span className="text-base xs:text-lg font-semibold text-[#023437] 
                                underline decoration-[#023437] decoration-1 underline-offset-4">
                 +61 470 695 167
               </span>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
-                <Mail className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 xs:w-10 xs:h-10 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0">
+                <img src={mail} alt="" className="w-4 h-4 xs:w-5 xs:h-5" />
               </div>
-              <span className="text-lg font-semibold text-[#023437] break-words
+              <span className="text-base xs:text-lg font-semibold text-[#023437] break-words
                                underline decoration-[#023437] decoration-1 underline-offset-4">
                 teamup@connect2lawyer.com.au
               </span>
@@ -252,10 +271,14 @@ const ContactUsHero = () => {
                 className="bg-transparent border-2 border-[#023437] hover:bg-[#023437] rounded-full 
                            flex items-center justify-center transition-all duration-300 shadow-lg 
                            hover:shadow-xl transform hover:scale-105 group
-                           w-12 h-12 flex-shrink-0"
-                aria-label={`Visit our ${social.icon.name} page`}
+                           w-10 h-10 xs:w-12 xs:h-12 flex-shrink-0"
+                aria-label={`Visit our social media page`}
               >
-                <social.icon className="w-6 h-6 text-[#023437] group-hover:text-white" />
+                <img 
+                  src={social.icon} 
+                  alt=""
+                  className="w-5 h-5 xs:w-6 xs:h-6" 
+                />
               </a>
             ))}
           </div>
