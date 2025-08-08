@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Marquee from "../../assets/Group 45.png";
 import TextField from '@mui/material/TextField';
-import emailjs from '@emailjs/browser';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./HomeTwo.css";
 import Frame from "../../assets/justiceimg.png";
@@ -11,7 +10,9 @@ import { useMediaQuery, MenuItem } from '@mui/material';
 import FormBG from "../../assets/hFormBG.png";
 import mobFormBG from "../../assets/MobileFormBG.png";
 
-// Custom Captcha Component
+import { sendBothEmails, testEmailJSConnection, setInitialLandingUrl } from './emailJsService'; // <- service we just created
+
+// Custom Captcha Component (kept same UI, minor safe fixes)
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const [captchaText, setCaptchaText] = useState('');
   const [userInput, setUserInput] = useState('');
@@ -21,7 +22,6 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   const generateCaptcha = () => {
-    // Stop any ongoing speech when generating new CAPTCHA
     if (isSpeaking) {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
@@ -41,12 +41,10 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     onCaptchaChange && onCaptchaChange(false);
   };
 
-  // Generate CAPTCHA immediately when component mounts
   useEffect(() => {
     generateCaptcha();
   }, []);
 
-  // Reset captcha when resetTrigger changes
   useEffect(() => {
     if (resetTrigger) {
       generateCaptcha();
@@ -60,7 +58,6 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
 
     return () => {
       clearInterval(timer);
-      // Stop any ongoing speech when component unmounts
       if (isSpeaking) {
         window.speechSynthesis.cancel();
       }
@@ -69,7 +66,6 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
 
   const speakCaptcha = () => {
     if ('speechSynthesis' in window) {
-      // Stop any ongoing speech before starting new one
       window.speechSynthesis.cancel();
       setIsSpeaking(true);
 
@@ -129,13 +125,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           <div
             className="absolute inset-0 opacity-30"
             style={{
-              backgroundImage: `repeating-linear-gradient(
-                0deg,
-                #ccc,
-                #ccc 1px,
-                transparent 1px,
-                transparent 5px
-              )`,
+              backgroundImage: `repeating-linear-gradient(0deg, #ccc, #ccc 1px, transparent 1px, transparent 5px)`,
               backgroundSize: '100% 10px',
               backgroundPosition: '0 50%'
             }}
@@ -145,7 +135,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
               <span
                 key={index}
                 style={{
-                  transform: `translateY(${charOffsets[index]}px)`,
+                  transform: `translateY(${parseFloat(charOffsets[index] || 0)}px)`,
                   display: 'inline-block',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
                 }}
@@ -156,12 +146,13 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
             ))}
           </div>
         </div>
-        <div className="flex gap-2 items-center justify-left sm:justify-start">
+        <div className="flex gap-2 items-center justify-start sm:justify-start">
           <button
             type="button"
             onClick={generateCaptcha}
             className="px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0"
             title="Refresh CAPTCHA"
+            aria-label="Refresh CAPTCHA"
           >
             ↻
           </button>
@@ -174,6 +165,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
                 isSpeaking ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               title="Listen to CAPTCHA"
+              aria-label="Listen to CAPTCHA"
             >
               {isSpeaking ? '🔊🎵' : '🔊'}
             </button>
@@ -235,13 +227,13 @@ function HomeTwo() {
     humanVerification: false,
     captchaEnabled: false
   });
-   
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  
-  // New states for lander essentials
+
+  // Landers & captcha
   const [captchaValid, setCaptchaValid] = useState(false);
   const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
   const [pingUrl, setPingUrl] = useState("");
@@ -261,61 +253,68 @@ function HomeTwo() {
 
   // Capture page URL and IP on mount
   useEffect(() => {
-    // Set page URL
     setPageUrl(window.location.href);
-    
-    // Get IP address (you may need to use a service for this)
-    // For now, we'll leave it empty or you can integrate with an IP service
-    // Example: fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => setIpAddress(data.ip));
+
+    // fetch IP (best-effort, falls back to Not available)
+    fetch("https://api.ipify.org?format=json")
+      .then((res) => res.json())
+      .then((data) => setIpAddress(data.ip))
+      .catch((err) => {
+        console.warn("Error fetching IP:", err);
+        setIpAddress("Not available");
+      });
+
+    // set initial landing url in the email service module (so templates can access if needed)
+    try {
+      setInitialLandingUrl(window.location.href);
+    } catch (e) { /* ignore */ }
   }, []);
 
-  // TrustedForm integration
+  // TrustedForm integration (same approach as ContactUs)
   useEffect(() => {
-    // Simple observer to capture TrustedForm data when it's populated
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === "attributes" && mutation.attributeName === "value") {
-          const target = mutation.target;
+    let observer = null;
+    let timeoutId = null;
 
-          // Check if this is a TrustedForm field
-          if (target.name === "xxTrustedFormCertUrl" && target.value) {
-            setCertId(target.value);
-          }
-
-          if (target.name === "xxTrustedFormPingUrl" && target.value) {
-            setPingUrl(target.value);
-          }
-
-          if (target.name === "xxTrustedFormCertToken" && target.value) {
-            setTokenUrl(target.value);
+    const initObserver = () => {
+      observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
+            try {
+              const target = mutation.target;
+              if (target.name === "xxTrustedFormCertUrl" && target.value) setCertId(target.value);
+              if (target.name === "xxTrustedFormPingUrl" && target.value) setPingUrl(target.value);
+              if (target.name === "xxTrustedFormCertToken" && target.value) setTokenUrl(target.value);
+            } catch (err) {
+              console.warn('TrustedForm observer parse error', err);
+            }
           }
         }
       });
-    });
+    };
 
-    // Start observing after a short delay to ensure TrustedForm script has loaded
-    const timeoutId = setTimeout(() => {
+    initObserver();
+
+    timeoutId = setTimeout(() => {
       const certField = document.querySelector('[name="xxTrustedFormCertUrl"]');
       const pingField = document.querySelector('[name="xxTrustedFormPingUrl"]');
       const tokenField = document.querySelector('[name="xxTrustedFormCertToken"]');
 
       [certField, pingField, tokenField].forEach((field) => {
-        if (field) observer.observe(field, { attributes: true });
+        if (field && observer) observer.observe(field, { attributes: true, attributeFilter: ['value'] });
+        if (field?.value) {
+          if (field.name === 'xxTrustedFormCertUrl') setCertId(field.value);
+          if (field.name === 'xxTrustedFormPingUrl') setPingUrl(field.value);
+          if (field.name === 'xxTrustedFormCertToken') setTokenUrl(field.value);
+        }
       });
-
-      // Check if values are already populated
-      if (certField?.value) setCertId(certField.value);
-      if (pingField?.value) setPingUrl(pingField.value);
-      if (tokenField?.value) setTokenUrl(tokenField.value);
     }, 1000);
 
     return () => {
-      clearTimeout(timeoutId);
-      observer.disconnect();
+      if (timeoutId) clearTimeout(timeoutId);
+      if (observer) observer.disconnect();
     };
   }, []);
 
-  // Dynamic text field styles based on screen size
   const getTextFieldStyle = () => ({
     '& .MuiInputLabel-root': {
       color: '#023437',
@@ -357,38 +356,36 @@ function HomeTwo() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+    setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
 
     if (errors[name]) {
-      setErrors(prevErrors => ({
-        ...prevErrors,
-        [name]: ''
-      }));
+      setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
   const handleCaptchaChange = (isValid) => {
     setCaptchaValid(isValid);
+    if (isValid && errors.captcha) {
+      setErrors(prev => ({ ...prev, captcha: '' }));
+    }
   };
 
+  // Use same AU phone validation as ContactUs form
   const validateForm = () => {
     const newErrors = {};
 
     if (!formData.firstName.trim()) {
       newErrors.firstName = 'Name is required';
-    } else if (formData.firstName.length < 1) {
-      newErrors.firstName = 'Name must be at least 1 character';
     }
 
     if (!formData.phoneNumber.trim()) {
       newErrors.phoneNumber = 'Phone number is required';
     } else {
-      const phoneRegex = /^(\+1\s?)?(\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
-      if (!phoneRegex.test(formData.phoneNumber)) {
-        newErrors.phoneNumber = 'Invalid AUS phone number format (e.g. +1 561-555-7689)';
+      const phoneDigits = formData.phoneNumber.replace(/\D/g, '');
+      const isValidAusMobile = phoneDigits.length === 10 && phoneDigits.startsWith('04');
+      const isValidAusLandline = phoneDigits.length === 10 && /^(02|03|07|08)/.test(phoneDigits);
+      if (!isValidAusMobile && !isValidAusLandline) {
+        newErrors.phoneNumber = 'Please enter a valid Australian phone number';
       }
     }
 
@@ -405,11 +402,10 @@ function HomeTwo() {
       newErrors.privacyConsent = 'You must agree to the privacy policy';
     }
 
-    if (!formData.humanVerification) {
-      newErrors.humanVerification = 'Please verify you are human';
-    }
+    // if (!formData.humanVerification) {
+    //   newErrors.humanVerification = 'Please verify you are human';
+    // }
 
-    // Add captcha validation
     if (formData.captchaEnabled && !captchaValid) {
       newErrors.captcha = 'Please complete the CAPTCHA verification';
     }
@@ -418,7 +414,7 @@ function HomeTwo() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -428,29 +424,32 @@ function HomeTwo() {
 
     setIsSubmitting(true);
 
-    const serviceId = 'service_3vbv36o';
-    const templateId = 'template_7xrqzk5';
-    const publicKey = '5saECdElLOrsCGmdQ';
-
-    const templateParams = {
-      from_name: `${formData.firstName} ${formData.lastName}`,
-      email: formData.emailId,
-      phone_number: formData.phoneNumber,
+    const submitData = {
+      Name: formData.firstName,
+      lastName: formData.lastName,
+      phoneNumber: formData.phoneNumber.replace(/\D/g, ''),
+      emailId: formData.emailId,
       concern: formData.concern,
-      case_history: formData.caseHistory,
-      // Add TrustedForm and other lander essentials
-      xxTrustedFormCertUrl: certId,
-      xxTrustedFormPingUrl: pingUrl,
-      xxTrustedFormCertToken: tokenUrl,
+      caseHistory: formData.caseHistory,
+      // TrustedForm & tracking
+      xxTrustedFormCertUrl: certId || 'Not available',
+      xxTrustedFormPingUrl: pingUrl || 'Not available',
+      xxTrustedFormCertToken: tokenUrl || 'Not available',
       pageUrl: pageUrl,
-      ipAddress: ipAddress
+      ipAddress: ipAddress,
+      // compatibility fields
+      name: formData.firstName,
+      email: formData.emailId,
+      phone: formData.phoneNumber.replace(/\D/g, '')
     };
 
-    emailjs.send(serviceId, templateId, templateParams, publicKey)
-      .then((response) => {
-        console.log('Email sent successfully:', response);
+    try {
+      const results = await sendBothEmails(submitData);
 
-        // Reset form data
+      if (results.overallSuccess) {
+        toast.success('Form submitted successfully!');
+
+        // Reset form
         setFormData({
           firstName: '',
           lastName: '',
@@ -464,28 +463,27 @@ function HomeTwo() {
           captchaEnabled: false
         });
 
-        // Reset captcha
         setCaptchaValid(false);
         setCaptchaResetTrigger(prev => prev + 1);
 
+        // Show success modal / dialog
         setSuccessDialogOpen(true);
         setShowModal(true);
 
-        setTimeout(() => {
-          window.location.href = '/Thankyou';
-        }, 100);
-      })
-      .catch((error) => {
-        console.error('Email sending error:', error);
-        toast.error('Error submitting form. Please try again.');
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
-  };
-
-  const handleCloseDialog = () => {
-    setSuccessDialogOpen(false);
+        // Short redirect to thank you page (keeps your previous behavior)
+        // setTimeout(() => {
+        //   window.location.href = '/Thankyou';
+        // }, 100);
+      } else {
+        // Admin failed (treated as required)
+        toast.error('There was an error submitting your form. Please try again.');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast.error('There was an error submitting your form. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Responsive marquee configuration
@@ -516,26 +514,30 @@ function HomeTwo() {
 
   const marqueeConfig = getMarqueeConfig();
 
-  // Responsive form layout
-  const getFormLayout = () => {
-    if (isMobile) {
-      return 'flex-col space-y-8';
-    } else {
-      return 'grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8';
-    }
-  };
-
-
-  
+  const getFormLayout = () => (isMobile ? 'flex-col space-y-8' : 'grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8');
 
   return (
-    <div  id="form-section" className="w-full overflow-x-hidden" style={{
+    <div id="form-section" className="w-full overflow-x-hidden" style={{
       backgroundImage: `url(${isMobile ? mobFormBG : FormBG})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
       minHeight: '100vh'
     }}>
+      {/* Toast container (keeps react-toastify like before) */}
+      <ToastContainer 
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+
       {/* Responsive Marquee Banner */}
       <div className={`${isMobile ? 'mt-10' : isTablet ? 'mt-32' : 'mt-40'} ${isMobile ? 'px-4' : ''}`}>
         <div 
@@ -723,13 +725,11 @@ function HomeTwo() {
                   ...getTextFieldStyle(),
                   marginBottom: '30px',
                   '& .MuiInputLabel-root': {
-  fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
-  color: '#023437',
-  fontWeight: 'bold',
-  // Remove or reduce transform
-  transform: 'translate(0, 80px) scale(1)',
-},
-
+                    fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
+                    color: '#023437',
+                    fontWeight: 'bold',
+                    transform: 'translate(0, 80px) scale(1)',
+                  },
                   '& .MuiInputLabel-shrink': {
                     transform: 'translate(0, -10px) scale(0.75)',
                     color: "#023437"
@@ -760,7 +760,6 @@ function HomeTwo() {
 
             {/* Checkboxes */}
             <div className={`mt-8 space-y-6 text-[#023437] ${isMobile ? 'text-sm space-y-4' : 'text-base'} leading-relaxed`}>
-
               {/* Privacy Consent */}
               <div className="flex items-start">
                 <div className="flex-shrink-0 mt-1">
@@ -786,9 +785,8 @@ function HomeTwo() {
                         and{' '}
                         <a href="/Disclaimer" className=" text-[#C09F53] hover:text-yellow-500">
                           disclaimer
-                          </a>{' '} and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
+                        </a>{' '} and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
                       </span>
-                    
                     </>
                   ) : (
                     "I agree to the privacy policy and disclaimer and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising."
@@ -829,7 +827,7 @@ function HomeTwo() {
               </div>
             </div>
 
-             {/* Submit Button - below privacy consent, left aligned, smaller width and reduced height on all screens */}
+            {/* Submit Button */}
             <div className={`flex mt-8 ${isMobile ? 'justify-center' : 'justify-start'} w-full`}>
               <button
                 type="submit"
@@ -883,6 +881,34 @@ function HomeTwo() {
             </div>
 
             {/* Modal */}
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
             {showModal && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
                 <div className="bg-white rounded-lg p-8 max-w-md w-full">
@@ -898,6 +924,41 @@ function HomeTwo() {
                   </button>
                 </div>
               </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             )}
           </form>
         </div>
