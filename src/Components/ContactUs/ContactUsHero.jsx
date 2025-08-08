@@ -209,7 +209,6 @@ const ContactUsHero = () => {
                 src={mapMob}
                 alt="Australia Map showing Point Cook, Melbourne"
                 className="w-full h-auto"
-                loading="lazy"
               />
             </div>
           </div>

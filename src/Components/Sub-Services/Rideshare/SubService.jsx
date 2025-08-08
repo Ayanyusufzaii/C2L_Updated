@@ -15,7 +15,7 @@ function SubServiceRideshare() {
     <div className='overflow-hidden'>
         <NavBar />
         <SubOne />
-        {/* <SubTwo /> */}
+        <SubTwo />
         <SubThree />
         <SubFour />
         <SubFive />
