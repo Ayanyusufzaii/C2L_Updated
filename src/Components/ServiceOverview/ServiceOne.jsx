@@ -1,6 +1,7 @@
 import React from 'react';
 import hands from "../../assets/Hands_img.png";
 import Frame from "../../assets/heroframe.png";
+import Frame1 from "../../assets/heroframe.png";
 import { Parallax } from 'react-scroll-parallax';
 
 function ServiceOne() {
