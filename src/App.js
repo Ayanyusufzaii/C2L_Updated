@@ -32,6 +32,7 @@ import PersonalInjury from './Components/Services/PersonalInjury/PersonalInjury'
 import ClassAction from './Components/Services/ClassAction/ClassAction';
 import SubService18Wheeler from './Components/Sub-Services/18-wheeler/SubService';
 import SubServiceRideshare from './Components/Sub-Services/Rideshare/SubService';
+import { HeadProvider } from 'react-head';
 function App() {
 
 
@@ -148,7 +149,9 @@ function App() {
   ]);
 
   return (
+    <HeadProvider>
     <RouterProvider router={router} />
+    </HeadProvider>
   );
 }
 

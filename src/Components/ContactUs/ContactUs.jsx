@@ -5,6 +5,7 @@ import HomeSeven from '../Home/HomeSeven';
 import ContactUsHero from './ContactUsHero';
 import ContactUsTwo from './ContactUsTwo';
 import ContactUsForm from './ContactUsForm';
+import Seo from "../Seo/Seo"
 
 function ContactUs() {
     const [showModal, setShowModal] = useState(false);
@@ -15,6 +16,7 @@ function ContactUs() {
 
     return (
         <div>
+        <Seo pageKey="contact" />
             <NavBar />
             <div className="relative w-full">
                 <ContactUsHero />

@@ -6,6 +6,7 @@ import HomeSeven from './HomeSeven'
 import Footer from '../Footer'
 import HomeThree from './HomeThree'
 import { useState, useEffect, useRef } from 'react';
+import Seo from "../Seo/Seo"
 const TURNSTILE_SITE_KEY = process.env.REACT_APP_TURNSTILE_SITE_KEY;
 
 // function HomePage() {
@@ -178,6 +179,8 @@ const HomeMain = () => {
  
   return (
     <div className="relative">
+          <Seo pageKey="homepage" />
+
       <div className={`transition-all duration-300 ${!verified ? 'pointer-events-none blur-sm select-none' : ''}`}>
            <NavBar />
      <HomeOne />

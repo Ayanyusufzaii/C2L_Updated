@@ -7,6 +7,7 @@ import HomeFour from './HomeFour';
 import HomeFive from './HomeFive';
 import HomeSeven from '../Home/HomeSeven';
 import Footer from '../Footer';
+import Seo from "../Seo/Seo"
 
 const HomePage = () => {
   // Scroll to top when the component mounts
@@ -20,6 +21,7 @@ const HomePage = () => {
 
   return (
     <div>
+      <Seo pageKey="partner" />
       <Navbar />
       <HomeOne />
       <HomeTwo />

@@ -5,6 +5,7 @@ import FaqMassTort from '../../FAQMassTort';
 import MassTortHero from './MassTortHero';
 import Homeseven from '../../Home/HomeSeven'
 import MassTortTwo from './MassTortTwo';
+import Seo from "../../Seo/Seo"
 
 
 function MassTort() {
@@ -16,6 +17,8 @@ function MassTort() {
 
     return (
         <div>
+            <Seo pageKey="massTort" />
+
             <NavBar />
             <div className="relative w-full">
                 <MassTortHero />
