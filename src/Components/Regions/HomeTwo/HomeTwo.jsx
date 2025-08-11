@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Marquee from "../../assets/Group 45.png";
+import Marquee from "../../../assets/Group 45.png";
 import TextField from '@mui/material/TextField';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./HomeTwo.css";
-import Frame from "../../assets/justiceimg.png";
-import Frame2 from "../../assets/Group 88.png";
+import Frame from "../../../assets/justiceimg.png";
+import Frame2 from "../../../assets/Group 88.png";
 import { useMediaQuery, MenuItem } from '@mui/material';
-import FormBG from "../../assets/hFormBG.png";
-import mobFormBG from "../../assets/MobileFormBG.png";
-import thankyou from "../../assets/thankyouimng.png"
+import FormBG from "../../../assets/hFormBG.png";
+import mobFormBG from "../../../assets/MobileFormBG.png";
+import thankyou from "../../../assets/thankyouimng.png"
 import { sendBothEmails, testEmailJSConnection, setInitialLandingUrl } from './emailJsService'; // <- service we just created
 
 // Custom Captcha Component (kept same UI, minor safe fixes)
@@ -877,7 +877,7 @@ function HomeTwo() {
                     h-[56px]
                     w-[280px]
                     px-[32px]
-                    justify-center
+                    justify-start
                     items-center
                     gap-[10px]
                     flex-shrink-0
@@ -921,11 +921,11 @@ function HomeTwo() {
 
       {/* Responsive Footer Image */}
       <div className="mt-16 w-full">
-        <img
+        {/* <img
           src={isMobile ? Frame2 : Frame}
           alt="Footer"
           className="h-full w-full object-cover mt-3"
-        />
+        /> */}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import icon2 from "../../assets/lawyericon2.png";
 import icon3 from "../../assets/lawyericon3.png";
 import { FaArrowRight } from "react-icons/fa";
 import FormMain from "./FormMain"; 
-
+import { useNavigate } from "react-router-dom";
 const obj = [
   {
     img: icon1,
@@ -24,10 +24,11 @@ const obj = [
 ];
 
 const HomeOne = () => {
-  const handleJoinNetwork = () => {
-    // Handle join network button click
-    console.log('Join Network clicked');
-  };
+  const navigate = useNavigate();
+const handleJoinNetwork = () => {
+  navigate("/ContactUs");
+};
+
 
   return (
     <>

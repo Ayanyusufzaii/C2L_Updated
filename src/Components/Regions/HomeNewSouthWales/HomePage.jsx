@@ -1,6 +1,6 @@
 import React from 'react'
 import NavBar from "../../NavBar"
-import HomeTwo from "./HomeTwo"
+import HomeTwo from "../HomeTwo/HomeTwo"
 import HomeSeven from '../../Home/HomeSeven'
 import Footer from '../../Footer'
 import HomeThree from './HomeThree'

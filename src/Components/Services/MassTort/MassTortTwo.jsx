@@ -26,7 +26,7 @@ const MassTortTwo = () => {
           <p className="mt-4 text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px] leading-tight text-[#EFE4CB]">
             Connect2Lawyer helps you find the right legal support when you have
             been affected by dangerous products or corporate negligence - no
-            confusion, no delays, just the justice you deserve. 
+            confusion, no delays, just the justice you deserve.
           </p>
         </div>
 
@@ -40,11 +40,13 @@ const MassTortTwo = () => {
             asbestos exposure, often decades ago.
           </p>
           <button
-            className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition"
+            className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start"
             onClick={() => navigate("/SubServicemeso")}
           >
             Learn More
           </button>
+
+
         </div>
       </div>
 
@@ -66,7 +68,7 @@ const MassTortTwo = () => {
             <p className="mt-3 text-xs min-[420px]:text-sm sm:text-base leading-normal text-[#EFE4CB]">
               Connect2Lawyer helps you find the right legal support when you
               have been affected by dangerous products or corporate negligence -
-              no confusion, no delays, just the justice you deserve. 
+              no confusion, no delays, just the justice you deserve.
             </p>
           </div>
         </div>
@@ -86,9 +88,14 @@ const MassTortTwo = () => {
               Seeks justice for individuals diagnosed with mesothelioma due to
               asbestos exposure, often decades ago.
             </p>
-            <button className="mt-4 inline-flex items-center px-5 py-2 bg-[#023437] text-white rounded-full text-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition">
+            <button
+              className="mt-4 inline-flex items-center px-5 py-2 bg-[#023437] text-white rounded-full text-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start"
+              onClick={() => navigate("/SubServicemeso")}
+            >
               Learn More
             </button>
+
+
           </div>
         </div>
       </div>

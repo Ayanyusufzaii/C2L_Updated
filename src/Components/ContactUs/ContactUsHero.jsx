@@ -36,18 +36,18 @@ const ContactUsHero = () => {
       icon: fb,
       href: "https://www.facebook.com/profile.php?id=61570446132760",
     },
-    { icon: yt, href: "#" },
+    { icon: yt, href: "https://www.youtube.com/@connect2lawyer" },
     {
       icon: insta,
       href: "https://www.instagram.com/connect2lawyer/",
     },
     {
       icon: x,
-      href: "#",
+      href: "https://x.com/Connect2Lawyer",
     },
     {
       icon: tiktok,
-      href: "#",
+      href: "https://www.tiktok.com/@connect2lawyer",
     },
   ];
 

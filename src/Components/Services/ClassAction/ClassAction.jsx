@@ -4,6 +4,7 @@ import Footer from '../../Footer';
 import FaqClassAction from '../../FAQClassAction';
 import ClassActionHero from './ClassActionHero';
 import ClassActionTwo from './ClassActionTwo';
+import Homeseven from '../../Home/HomeSeven'
 import { Class } from 'leaflet';
 
 
@@ -21,6 +22,7 @@ function ClassAction() {
                 <ClassActionHero />
                 <ClassActionTwo /> 
                 <FaqClassAction />
+                <Homeseven/>
                 <Footer />
             </div>
         </div>

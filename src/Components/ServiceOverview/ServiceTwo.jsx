@@ -114,7 +114,7 @@ tailored to your needs.
                         alt="Service 3"
                         className=" w-[100%]  object-cover mb-6"
                     />
-                    <button className="mt-[-30%] ml-5 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.80)] text-[#FFFBF3] font-['Open Sans'] text-sm font-bold" onClick={() => navigate("/ClassAction")}>
+                    <button className="mt-[-25%] ml-5 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.80)] text-[#FFFBF3] font-['Open Sans'] text-sm font-bold" onClick={() => navigate("/ClassAction")}>
                         Learn more
                     </button>
                 </div>
