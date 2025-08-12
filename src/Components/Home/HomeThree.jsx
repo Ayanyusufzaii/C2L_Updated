@@ -7,7 +7,7 @@ import classactionlap from "../../assets/classactionlap.png";
 import personallap from "../../assets/personallap.png";
 import ClassAction from "../../assets/classactionbg.png";
 import bPersonalInjury from "../../assets/personalinjurybg.png";
-import MassTort from "../../assets/masstortlap.png";
+import MassTort from "../../assets/masstortbg.png";
 
 import { useNavigate } from "react-router-dom";
 function HomeThree() {
