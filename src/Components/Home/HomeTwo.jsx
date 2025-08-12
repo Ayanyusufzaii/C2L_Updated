@@ -5,7 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./HomeTwo.css";
 import Frame from "../../assets/justiceimg.png";
-import Frame2 from "../../assets/Group 88.png";
+import Frame2 from "../../assets/justiceemobbb.png";
 import { useMediaQuery, MenuItem } from '@mui/material';
 import FormBG from "../../assets/hFormBG.png";
 import mobFormBG from "../../assets/MobileFormBG.png";

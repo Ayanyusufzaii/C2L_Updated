@@ -9,10 +9,12 @@ import PISix from './PISix'
 import NavBar from "../NavBar"
 import HomeSeven from '../Home/HomeSeven'
 import FaqTruck from '../FAQTruck'
+import Seo from "../Seo/Seo"
 
 function PIService() {
   return (
     <div className='overflow-hidden'>
+       <Seo pageKey="homepage" />
         <NavBar />
         <PIOne />
         <PITwo />

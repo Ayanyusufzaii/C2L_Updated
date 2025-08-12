@@ -9,10 +9,12 @@ import ClassSix from './ClassSix'
 import NavBar from "../NavBar"
 import HomeSeven from '../Home/HomeSeven'
 import FaqClassAction from '../FAQClassAction'
+import Seo from "../Seo/Seo"
 
 function ClassService() {
   return (
     <div className='overflow-hidden'>
+       <Seo pageKey="homepage" />
         <NavBar />
         <ClassOne />
         <ClassTwo />
