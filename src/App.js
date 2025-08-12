@@ -86,15 +86,15 @@ function App() {
       ,
     },
     {
-      path: '/Service/Service/MassTort/Mesothelioma-Lawsuit',
+      path: 'Service/MassTort/Mesothelioma-Lawsuit',
       element: <SubService />
     },
     {
-      path : '/Service/Service/MassTort/18Wheeler-Lawsuit',
+      path : '/Service/MassTort/18Wheeler-Lawsuit',
       element: <SubService18Wheeler />
     },
     {
-      path : '/Service/Service/MassTort/Rideshare-Lawsuit',
+      path : '/Service/MassTort/Rideshare-Lawsuit',
       element: <SubServiceRideshare />
 
     },
