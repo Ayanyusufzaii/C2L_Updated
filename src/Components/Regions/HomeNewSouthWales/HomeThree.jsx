@@ -106,12 +106,10 @@ const contentConfigMob = {
   },
 
 };
-// Mobile Version - Same structure, no changes
 const HomeThreeMobile = () => {
-  const navigate = useNavigate();
-
   const [activeTag, setActiveTag] = useState("Mesothelioma Lawsuits");
   const expertiseTags = Object.keys(contentConfigMob);
+  const navigate = useNavigate();
 
   // Renders the section for the current activeTag
   const renderContent = () => {
@@ -128,30 +126,30 @@ const HomeThreeMobile = () => {
           className="flex-1 flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-14 3xl:p-16 4xl:p-20 5xl:p-24 text-white  "
           style={{ backgroundColor: data.textBg }}
         >
-          <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
+          <div className="space-y-4 sm:space-y-6 md:space-y-4 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-serif font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
-            <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+            <p className="leading-relaxed text-sm  font-opensans sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
               {data.description}
             </p>
             {/* Lawsuit Type */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
+              <h4 className="font-bold  font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl ">
                 {data.lawsuitTypeTitle}
               </h4>
-              <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+              <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
                 {data.lawsuitTypeDesc}
               </p>
             </div>
             {/* Industries */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
+              <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl ">
                 {data.industriesTitle}
               </h4>
-              <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+              <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
                 {data.industriesDesc}
               </p>
             </div>
@@ -240,10 +238,11 @@ const HomeThreeMobile = () => {
 };
 
 // Desktop Version - Same structure, no changes
+
 const HomeThreeDesktop = () => {
-  const navigate = useNavigate();
   const [activeTag, setActiveTag] = useState("Mesothelioma Lawsuits");
   const expertiseTags = Object.keys(contentConfig);
+  const navigate = useNavigate();
 
   // Renders the section for the current activeTag
   const renderContent = () => {
@@ -260,30 +259,30 @@ const HomeThreeDesktop = () => {
           className="flex-1 flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-14 3xl:p-16 4xl:p-20 5xl:p-24 text-white  "
           style={{ backgroundColor: data.textBg }}
         >
-          <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
+          <div className="space-y-4 sm:space-y-6 md:space-y-4 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-serif font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
-            <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+            <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
               {data.description}
             </p>
             {/* Lawsuit Type */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
+              <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
                 {data.lawsuitTypeTitle}
               </h4>
-              <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+              <p className="leading-relaxed text-sm  font-opensans sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
                 {data.lawsuitTypeDesc}
               </p>
             </div>
             {/* Industries */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
+              <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
                 {data.industriesTitle}
               </h4>
-              <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+              <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
                 {data.industriesDesc}
               </p>
             </div>
