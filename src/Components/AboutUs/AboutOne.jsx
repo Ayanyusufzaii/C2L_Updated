@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import home_main from "../../assets/homeMain.png";
+import home_main from "../../assets/AboutHeroMain.png";
 import aboutMobile from "../../assets/aboutUsHero.png"; // You'll need a mobile-optimized image
 import Frame from "../../assets/Frame 19.png";
 import Searchbar from "../../assets/Search bar.png";

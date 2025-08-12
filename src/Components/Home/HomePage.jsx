@@ -7,7 +7,7 @@ import Footer from '../Footer'
 import HomeThree from './HomeThree'
 import { useState, useEffect, useRef } from 'react';
 import Seo from "../Seo/Seo"
-const TURNSTILE_SITE_KEY = process.env.REACT_APP_TURNSTILE_SITE_KEY;
+const TURNSTILE_SITE_KEY = '0x4AAAAAABpnCnFP_lyxRtVO';
 
 // function HomePage() {
 //    const [verified, setVerified] = useState(false);
