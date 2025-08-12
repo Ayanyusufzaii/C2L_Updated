@@ -26,7 +26,7 @@ const obj = [
 const HomeOne = () => {
   const navigate = useNavigate();
 const handleJoinNetwork = () => {
-  navigate("/ContactUs");
+  navigate("/Contact-Us");
 };
 
 

@@ -35,19 +35,19 @@ function HomeThree() {
             number: "Step 1",
             title: "Submit your claim",
             description: "Get a free case review from experienced professionals.",
-            route: "/ContactUs"
+            route: "/Contact-Us"
         },
         {
             number: "Step 2", 
             title: "We take action",
             description: "We will begin a detailed review of your case as soon as your claim is received.",
-            route: "/About"
+            route: "/About-Us"
         },
         {
             number: "Step 3",
             title: "Justice drives us", 
             description: "If we represent you, our team works tirelessly to secure the results you're entitled to.",
-            route: "/About"
+            route: "/About-Us"
         }
     ];
 

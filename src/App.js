@@ -99,11 +99,11 @@ function App() {
 
     },
     {
-      path: '/About',
+      path: '/About-Us',
       element: <About />
     },
     {
-      path: '/ContactUs',
+      path: '/Contact-Us',
       element: <ContactUs />
     },
     {
@@ -111,11 +111,11 @@ function App() {
       element: <MassTort />
     },
     {
-      path: '/ClassAction',
+      path: '/Service/ClassAction',
       element: <ClassAction />
     },
     {
-      path: '/PersonalInjury',
+      path: 'Service/PersonalInjury',
       element: <PersonalInjury />
     },
     {
@@ -139,7 +139,7 @@ function App() {
       element: <ClassService />,
     },
     {
-      path:'/Lawyers',
+      path:'/Partner-With-Us',
       element:<LawyersPage />,
     },
     {

@@ -22,8 +22,8 @@ const regions = [
 const menuLinks = [
   { name: 'Home', path: '/' },
   { name: 'Services', path: '/Service' },
-  { name: 'About Us', path: '/About' },
-  { name: 'Contact Us', path: '/ContactUs' }
+  { name: 'About Us', path: '/About-Us' },
+  { name: 'Contact Us', path: '/Contact-Us' }
 ];
 
 const NavBar = () => {
@@ -246,7 +246,7 @@ const NavBar = () => {
           {/* Free Consultation Button in Mobile Menu */}
           <button
             onClick={() => {
-              navigate('/ContactUs');
+              navigate('/Contact-Us');
               setMobileMenuOpen(false);
             }}
             className="w-full bg-[#C09F53] text-white px-6 py-4 rounded-full text-xl font-semibold mt-8 hover:bg-[#a88a47] transition-colors duration-200"
@@ -428,7 +428,7 @@ const NavBar = () => {
 
                 {/* Free Consultation Button */}
                 <button
-                  onClick={() => navigate('/ContactUs')}
+                  onClick={() => navigate('/Contact-Us')}
                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
                 >
                   Free Consultation
@@ -495,7 +495,7 @@ const NavBar = () => {
 
                 {/* Free Consultation Button */}
                 <button
-                  onClick={() => navigate('/ContactUs')}
+                  onClick={() => navigate('/Contact-Us')}
                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
                 >
                   Free Consultation
@@ -839,7 +839,7 @@ export default NavBar;
 //     const targetRef = useRef(null);
 
 //     const handleConsultationClick = () => {
-//         navigate('/ContactUs');
+//         navigate('/Contact-Us');
 //     };
 
 //     const menuItems = [
@@ -850,8 +850,8 @@ export default NavBar;
 
 //         },
 //         // { name: 'Sub Services', path: '/SubService' },
-//         { name: 'About Us', path: '/About' },
-//         { name: 'Contact', path: '/ContactUs' },
+//         { name: 'About Us', path: '/About-Us' },
+//         { name: 'Contact', path: '/Contact-Us' },
 //         // { name: 'Masstort', path: '/Service/MassTort' }
 //     ];
 
@@ -1176,8 +1176,8 @@ export default NavBar;
 // const menuLinks = [
 //   { name: 'Home', path: '/' },
 //   { name: 'Services', path: '/Service' },
-//   { name: 'About Us', path: '/About' },
-//   { name: 'Contact Us', path: '/ContactUs' }
+//   { name: 'About Us', path: '/About-Us' },
+//   { name: 'Contact Us', path: '/Contact-Us' }
 // ];
 
 // const searchSuggestions = [
@@ -1481,7 +1481,7 @@ export default NavBar;
 //             </button>
 //           ))}
 //           <button
-//             onClick={() => { navigate('/ContactUs'); setMobileMenuOpen(false); }}
+//             onClick={() => { navigate('/Contact-Us'); setMobileMenuOpen(false); }}
 //             className="w-full bg-[#C09F53] text-white px-6 py-4 rounded-full text-xl font-semibold mt-8 hover:bg-[#a88a47] transition-colors duration-200"
 //           >
 //             Free Consultation
@@ -1742,7 +1742,7 @@ export default NavBar;
 //                   </div>
 //                 </div>
 //                 <button
-//                   onClick={() => navigate('/ContactUs')}
+//                   onClick={() => navigate('/Contact-Us')}
 //                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
 //                 >Free Consultation</button>
 //               </div>
@@ -1784,7 +1784,7 @@ export default NavBar;
 //                   </div>
 //                 </div>
 //                 <button
-//                   onClick={() => navigate('/ContactUs')}
+//                   onClick={() => navigate('/Contact-Us')}
 //                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
 //                 >Free Consultation</button>
 //               </div>

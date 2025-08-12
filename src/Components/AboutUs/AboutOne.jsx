@@ -13,8 +13,8 @@ function AboutOne() {
     { name: "Home", path: "/" },
     { name: "Services", path: "/Service" },
     { name: "Sub Services", path: "/SubService" },
-    { name: "About Us", path: "/About" },
-    { name: "Contact", path: "/ContactUs" },
+    { name: "About Us", path: "/About-Us" },
+    { name: "Contact", path: "/Contact-Us" },
   ];
 
   return (

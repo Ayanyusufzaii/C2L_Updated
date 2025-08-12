@@ -84,7 +84,7 @@ function AboutThree() {
                             </p>
                             <button 
                                 className="inline-flex justify-center items-center px-6 md:px-8 py-3 rounded-[60px] border border-[rgba(2,52,55,0.61)] text-[#023437] font-sans text-base md:text-lg font-medium whitespace-nowrap hover:bg-[rgba(2,52,55,0.05)] transition-colors duration-200" 
-                                onClick={() => navigate('/ContactUs')}
+                                onClick={() => navigate('/Contact-Us')}
                             >
                                 Contact Us
                             </button>
@@ -92,7 +92,7 @@ function AboutThree() {
                     </div> */}
 
                     {/* CTA Button */}
-                    {/* <div className="relative bg-[#023437] flex items-center justify-between rounded-[60px] h-[80px] md:h-[90px] lg:h-[100px] w-full max-w-6xl mx-auto cursor-pointer hover:bg-[#034448] transition-colors duration-200 px-6 md:px-8 lg:px-16" onClick={() => navigate('/ContactUs')}>
+                    {/* <div className="relative bg-[#023437] flex items-center justify-between rounded-[60px] h-[80px] md:h-[90px] lg:h-[100px] w-full max-w-6xl mx-auto cursor-pointer hover:bg-[#034448] transition-colors duration-200 px-6 md:px-8 lg:px-16" onClick={() => navigate('/Contact-Us')}>
                         <p className="text-[#EFE4CB] font-sans text-[20px] md:text-[28px] lg:text-[32px] xl:text-[36px] font-bold leading-tight flex-1">
                             Fill out the free case review form now!
                         </p>
@@ -166,14 +166,14 @@ function AboutThree() {
                         </p>
                         <button 
                             className="w-full text-center px-6 py-3 rounded-[60px] border border-[rgba(2,52,55,0.61)] text-[#023437] font-sans text-base sm:text-lg font-medium hover:bg-[rgba(2,52,55,0.05)] transition-colors duration-200" 
-                            onClick={() => navigate('/ContactUs')}
+                            onClick={() => navigate('/Contact-Us')}
                         >
                             Contact Us
                         </button>
                     </div>
                 </div> */}
 
-                {/* <div className="relative bg-[#023437] flex items-center justify-between rounded-[60px] h-[50px] sm:h-[60px] px-4 sm:px-5 cursor-pointer hover:bg-[#034448] transition-colors duration-200" onClick={() => navigate('/ContactUs')}>
+                {/* <div className="relative bg-[#023437] flex items-center justify-between rounded-[60px] h-[50px] sm:h-[60px] px-4 sm:px-5 cursor-pointer hover:bg-[#034448] transition-colors duration-200" onClick={() => navigate('/Contact-Us')}>
                     <p className="text-[#EFE4CB] font-sans text-[13px] sm:text-[15px] font-bold leading-tight flex-1 pr-2">
                         Fill out the free case review form now!
                     </p>
