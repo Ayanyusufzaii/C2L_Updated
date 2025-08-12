@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 // Configuration object for each expertise section
 const contentConfig = {
   "Mesothelioma Lawsuits": {
-    link:"Service/MassTort/Mesothelioma-Lawsuit",
+    link:"/Service/MassTort/Mesothelioma-Lawsuit",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",
@@ -57,7 +57,7 @@ const contentConfig = {
 };
 const contentConfigMob = {
   "Mesothelioma Lawsuits": {
-    link:"Service/MassTort/Mesothelioma-Lawsuit",
+    link:"/Service/MassTort/Mesothelioma-Lawsuit",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",

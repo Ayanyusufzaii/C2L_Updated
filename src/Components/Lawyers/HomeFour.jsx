@@ -1,5 +1,9 @@
 import React from 'react';
-import img from '../../assets/LawyersHomeFive1.jsx.png'; 
+import imgD from '../../assets/LawyersHomeFive2.png'; 
+import imgM from '../../assets/LawyersHomeFive3.png'; 
+
+
+
 import Scale from '../../assets/IconHl41.png';
 import File from '../../assets/IconHl42.png';
 import People from '../../assets/IconHl43.png';
@@ -56,7 +60,7 @@ const HomeFourMobile = () => (
     
     <div className="mt-8 flex justify-center">
       <img
-        src={img}
+        src={imgM}
         alt="Lawyers"
         className="w-full h-auto object-cover"
       />
@@ -102,7 +106,7 @@ const HomeFourDesktop = () => (
         <div className="flex items-center justify-center">
           <div className="w-full">
             <img
-              src={img}
+              src={imgD}
               alt="Professional lawyers working together"
               className="w-full h-auto object-cover"
             />
