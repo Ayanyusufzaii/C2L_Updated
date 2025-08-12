@@ -86,20 +86,20 @@ function App() {
       ,
     },
     {
-      path: '/SubServicemeso',
+      path: '/Service/Service/MassTort/Mesothelioma-Lawsuit',
       element: <SubService />
     },
     {
-      path : '/SubService18Wheeler',
+      path : '/Service/Service/MassTort/18Wheeler-Lawsuit',
       element: <SubService18Wheeler />
     },
     {
-      path : '/SubServiceRideshare',
+      path : '/Service/Service/MassTort/Rideshare-Lawsuit',
       element: <SubServiceRideshare />
 
     },
     {
-      path: '/about',
+      path: '/About',
       element: <About />
     },
     {
@@ -107,7 +107,7 @@ function App() {
       element: <ContactUs />
     },
     {
-      path: '/MassTort',
+      path: '/Service/MassTort',
       element: <MassTort />
     },
     {

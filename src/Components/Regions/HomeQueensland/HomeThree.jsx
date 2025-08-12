@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const contentConfig = {
   "Mesothelioma Lawsuits": {
     bgColor: "#023437",
-     link:"/SubServicemeso",
+     link:"/Service/Service/MassTort/Mesothelioma-Lawsuit",
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",
     description:
@@ -24,7 +24,7 @@ const contentConfig = {
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
-     link: "/SubService18Wheeler",
+     link: "/Service/Service/MassTort/18Wheeler-Lawsuit",
     textBg: "#C09F53",
     title: "18-Wheeler & Heavy Vehicle Accidents",
     description:
@@ -40,7 +40,7 @@ const contentConfig = {
   },
   "Rideshare Sexual Assault": {
     bgColor: "#023437",
-      link: "/SubServiceRideshare",
+      link: "/Service/Service/MassTort/Rideshare-Lawsuit",
     textBg: "#C09F53",
     title: "Rideshare Sexual Assault",
     description:
@@ -59,7 +59,7 @@ const contentConfig = {
 const contentConfigMob = {
   "Mesothelioma Lawsuits": {
     bgColor: "#023437",
-     link:"/SubServicemeso",
+     link:"/Service/Service/MassTort/Mesothelioma-Lawsuit",
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",
     description:
@@ -75,7 +75,7 @@ const contentConfigMob = {
   },
   "Rideshare Sexual Assault": {
     bgColor: "#023437",
-      link: "/SubServiceRideshare",
+      link: "/Service/Service/MassTort/Rideshare-Lawsuit",
     textBg: "#C09F53",
     title: "Rideshare Sexual Assault",
     description:
@@ -91,7 +91,7 @@ const contentConfigMob = {
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
-     link: "/SubService18Wheeler",
+     link: "/Service/Service/MassTort/18Wheeler-Lawsuit",
     textBg: "#C09F53",
     title: "18-Wheeler & Heavy Vehicle Accidents",
     description:

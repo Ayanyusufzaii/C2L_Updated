@@ -20,7 +20,7 @@ const contentConfig = {
       "Construction, Shipbuilding, Mining, Manufacturing, Renovation, Infrastructure. ",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
-    link:"/SubServicemeso",
+    link:"/Service/Service/MassTort/Mesothelioma-Lawsuit",
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
@@ -36,7 +36,7 @@ const contentConfig = {
       "Freight & Logistics, Agricultural Haulage, Mining Transport, Local Delivery Services.",
     imgSrc: truck,
     imgAlt: "18-Wheeler Accident",
-    link: "/SubService18Wheeler",
+    link: "/Service/Service/MassTort/18Wheeler-Lawsuit",
   },
   "Rideshare Sexual Assault": {
     bgColor: "#023437",
@@ -52,7 +52,7 @@ const contentConfig = {
       "Rideshare (Uber, Ola, DiDi), Food & Parcel Delivery (Uber Eats, Menulog, DoorDash), Private Transportation.",
     imgSrc: rideshare,
     imgAlt: "Rideshare Service",
-    link: "/SubServiceRideshare",
+    link: "/Service/Service/MassTort/Rideshare-Lawsuit",
   },
 };
 
@@ -71,7 +71,7 @@ const contentConfigMob = {
       "Construction, Shipbuilding, Mining, Manufacturing, Renovation, Infrastructure. ",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
-    link:"/SubServicemeso",
+    link:"/Service/Service/MassTort/Mesothelioma-Lawsuit",
   },
   "Rideshare Sexual Assault": {
     bgColor: "#023437",
@@ -87,7 +87,7 @@ const contentConfigMob = {
       "Rideshare (Uber, Ola, DiDi), Food & Parcel Delivery (Uber Eats, Menulog, DoorDash), Private Transportation.",
     imgSrc: rideshare,
     imgAlt: "Rideshare Service",
-    link: "/SubServiceRideshare",
+    link: "/Service/Service/MassTort/Rideshare-Lawsuit",
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
@@ -103,7 +103,7 @@ const contentConfigMob = {
       "Freight & Logistics, Agricultural Haulage, Mining Transport, Local Delivery Services.",
     imgSrc: truck,
     imgAlt: "18-Wheeler Accident",
-    link: "/SubService18Wheeler",
+    link: "/Service/Service/MassTort/18Wheeler-Lawsuit",
   },
 };
 

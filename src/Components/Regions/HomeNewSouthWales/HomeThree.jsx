@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 // Configuration object for each expertise section
 const contentConfig = {
   "Mesothelioma Lawsuits": {
-    link:"/SubServicemeso",
+    link:"/Service/Service/MassTort/Mesothelioma-Lawsuit",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",
@@ -23,7 +23,7 @@ const contentConfig = {
     imgAlt: "Mesothelioma Consultation",
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
-    link: "/SubService18Wheeler",
+    link: "/Service/Service/MassTort/18Wheeler-Lawsuit",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "18-Wheeler & Heavy Vehicle Accidents",
@@ -39,7 +39,7 @@ const contentConfig = {
     imgAlt: "18-Wheeler Accident",
   },
   "Rideshare Sexual Assault": {
-    link: "/SubServiceRideshare",
+    link: "/Service/Service/MassTort/Rideshare-Lawsuit",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "Rideshare Sexual Assault",
@@ -57,7 +57,7 @@ const contentConfig = {
 };
 const contentConfigMob = {
   "Mesothelioma Lawsuits": {
-    link:"/SubServicemeso",
+    link:"/Service/Service/MassTort/Mesothelioma-Lawsuit",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",
@@ -73,7 +73,7 @@ const contentConfigMob = {
     imgAlt: "Mesothelioma Consultation",
   },
     "Rideshare Sexual Assault": {
-    link: "/SubServiceRideshare",
+    link: "/Service/Service/MassTort/Rideshare-Lawsuit",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "Rideshare Sexual Assault",
@@ -89,7 +89,7 @@ const contentConfigMob = {
     imgAlt: "Rideshare Service",
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
-    link: "/SubService18Wheeler",
+    link: "/Service/Service/MassTort/18Wheeler-Lawsuit",
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "18-Wheeler & Heavy Vehicle Accidents",

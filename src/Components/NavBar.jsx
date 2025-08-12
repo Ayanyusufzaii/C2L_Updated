@@ -852,7 +852,7 @@ export default NavBar;
 //         // { name: 'Sub Services', path: '/SubService' },
 //         { name: 'About Us', path: '/About' },
 //         { name: 'Contact', path: '/ContactUs' },
-//         // { name: 'Masstort', path: '/Masstort' }
+//         // { name: 'Masstort', path: '/Service/MassTort' }
 //     ];
 
 //     return (

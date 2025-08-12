@@ -45,7 +45,7 @@ function ServiceTwo() {
                         alt="Service 1"
                         className="h-full w-[91%] object-cover mt-3 ml-12 mb-[5%]"
                     />
-                    <button className="mt-[-17%] ml-20 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[#023437] text-[#023437] font-['Open Sans'] text-sm font-bold" onClick={() => navigate("/MassTort")}>
+                    <button className="mt-[-17%] ml-20 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[#023437] text-[#023437] font-['Open Sans'] text-sm font-bold" onClick={() => navigate("/Service/MassTort")}>
                         Learn more
                     </button>
                 </div>
@@ -94,7 +94,7 @@ tailored to your needs.
                         alt="Service 1"
                         className=" w-[100%]  object-cover mb-6"
                     />
-                    <button className="mt-[-25%] ml-5 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.80)] text-[#FFFBF3] font-['Open Sans'] text-sm font-bold" onClick={() => navigate('/MassTort')}>
+                    <button className="mt-[-25%] ml-5 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.80)] text-[#FFFBF3] font-['Open Sans'] text-sm font-bold" onClick={() => navigate('/Service/MassTort')}>
                         Learn more
                     </button>
                 </div>

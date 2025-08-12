@@ -20,7 +20,7 @@ const contentConfig = {
       "Construction, public service, education, and home renovation sectors.",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
-    link:"/SubServicemeso",
+    link:"/Service/Service/MassTort/Mesothelioma-Lawsuit",
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
@@ -36,7 +36,7 @@ const contentConfig = {
       "Freight transport, logistics, and public works.",
     imgSrc: truck,
     imgAlt: "18-Wheeler Accident",
-    link: "/SubService18Wheeler",
+    link: "/Service/Service/MassTort/18Wheeler-Lawsuit",
   },
   "Rideshare Accident Claims": {
     bgColor: "#023437",
@@ -52,7 +52,7 @@ const contentConfig = {
       "Rideshare services (e.g., Uber, Ola), food delivery, and private hire vehicles.",
     imgSrc: rideshare,
     imgAlt: "Rideshare Service",
-    link: "/SubServiceRideshare",
+    link: "/Service/Service/MassTort/Rideshare-Lawsuit",
   },
 };
 
@@ -71,7 +71,7 @@ const contentConfigMob = {
       "Construction, public service, education, and home renovation sectors.",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
-    link:"/SubServicemeso",
+    link:"/Service/Service/MassTort/Mesothelioma-Lawsuit",
   },
   "Rideshare Accident Claims": {
     bgColor: "#023437",
@@ -87,7 +87,7 @@ const contentConfigMob = {
       "Rideshare services (e.g., Uber, Ola), food delivery, and private hire vehicles.",
     imgSrc: rideshare,
     imgAlt: "Rideshare Service",
-    link: "/SubServiceRideshare",
+    link: "/Service/Service/MassTort/Rideshare-Lawsuit",
   },
     "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
@@ -103,7 +103,7 @@ const contentConfigMob = {
       "Freight transport, logistics, and public works.",
     imgSrc: truck,
     imgAlt: "18-Wheeler Accident",
-    link: "/SubService18Wheeler",
+    link: "/Service/Service/MassTort/18Wheeler-Lawsuit",
   },
 };
 
