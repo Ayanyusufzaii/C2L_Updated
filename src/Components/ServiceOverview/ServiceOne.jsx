@@ -77,7 +77,7 @@ function ServiceOne() {
                     src={handss}
                     alt="hands"
                     className="relative z-20 h-auto w-full object-contain"
-                    style={{ margintop: '40px', maxHeight: '340px' }}
+                    style={{ marginTop: '40px', maxHeight: '340px' }}
                 />
             </Parallax>
         </div>

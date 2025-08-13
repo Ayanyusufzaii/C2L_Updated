@@ -63,9 +63,11 @@ function AboutOne() {
           <p className="text-[#C09F53] font-open-sans text-[14px] sm:text-[16px] font-bold normal-case mb-2">
             Who We Are
           </p>
-          <h1 className="text-[#ffffff] font-['Playfair_Display'] text-[32px] sm:text-[32px] font-extrabold leading-[1.2] sm:leading-[1.1]">
-            We connect you with the best legal minds in<span className="text-[#C09F53]"> Australia.</span>
-          </h1>
+        <h1 className="text-[#ffffff] font-['Playfair_Display'] text-[22px] sm:text-[26px] md:text-[28px] font-extrabold leading-[1.3] sm:leading-[1.2] md:leading-[1.1]">
+  We connect you with the best legal minds in
+  <span className="text-[#C09F53]"> Australia.</span>
+</h1>
+
         </div>
 
         {/* Background Image - Mobile (Super Responsive) */}
