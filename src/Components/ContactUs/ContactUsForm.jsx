@@ -1,15 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import { MenuItem, useMediaQuery } from "@mui/material";
-import emailjs from "@emailjs/browser";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import popup from "../../assets/subpopup.png";
-
-
-emailjs.init("DyDZ85E9uwzwSyUoD"); 
-
-// Custom Captcha Component
+import popup from "../../assets/SubmitPopup.png";
+import { sendBothEmails, testEmailJSConnection } from "./ContactUsEmail"; 
+import imageSrc from "../../assets/thankyouimng.png"
+// Custom Captcha Component (keeping exactly as is)
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const [captchaText, setCaptchaText] = useState("");
   const [userInput, setUserInput] = useState("");
@@ -19,7 +16,6 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   const generateCaptcha = () => {
-    // Stop any ongoing speech when generating new CAPTCHA
     if (isSpeaking) {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
@@ -40,12 +36,10 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     onCaptchaChange && onCaptchaChange(false);
   };
 
-  // Generate CAPTCHA immediately when component mounts
   useEffect(() => {
     generateCaptcha();
   }, []);
 
-  // Reset captcha when resetTrigger changes
   useEffect(() => {
     if (resetTrigger) {
       generateCaptcha();
@@ -59,7 +53,6 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
 
     return () => {
       clearInterval(timer);
-      // Stop any ongoing speech when component unmounts
       if (isSpeaking) {
         window.speechSynthesis.cancel();
       }
@@ -68,7 +61,6 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
 
   const speakCaptcha = () => {
     if ("speechSynthesis" in window) {
-      // Stop any ongoing speech before starting new one
       window.speechSynthesis.cancel();
       setIsSpeaking(true);
 
@@ -218,106 +210,30 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   );
 };
 
-// Success Popup Component
 const SuccessPopup = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <>
-      {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-black bg-opacity-50 z-[9998] transition-opacity duration-300"
+    <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-[9999]">
+      <img
+        src={imageSrc}
+        alt="Success"
         onClick={onClose}
+        className="w-full h-full object-contain cursor-pointer hover:opacity-90 transition-opacity duration-200"
       />
-      
-      {/* Popup Container */}
-      <div className="fixed inset-0 flex items-center justify-center z-[9999] p-4">
-        <div className="bg-white rounded-lg shadow-2xl max-w-lg w-full max-h-[90vh] overflow-auto relative transform transition-all duration-300 scale-100">
-          
-          {/* Close Button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors z-10"
-            aria-label="Close"
-          >
-            <svg 
-              className="w-5 h-5 text-gray-600" 
-              fill="none" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth="2" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor"
-            >
-              <path d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-
-          {/* Content Container */}
-          <div className="p-6 sm:p-8">
-            {/* Success Image Placeholder */}
-            <div className="mb-6 flex justify-center">
-              {/* Replace this div with your image when ready */}
-              <div className="w-full h-48 sm:h-64 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
-                <img 
-                src={popup} 
-                alt="Success" 
-                className="w-full h-auto rounded-lg object-cover"
-              />
-              </div>
-              
-            </div>
-
-            {/* Success Message */}
-            <div className="text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
-                Submission Successful!
-              </h2>
-              <p className="text-gray-600 mb-6">
-                Thank you for submitting your case. We have received your information and will review it promptly.
-              </p>
-              
-              {/* Additional Info */}
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-                <p className="text-green-800 text-sm">
-                  ✓ A confirmation email has been sent to your email address
-                </p>
-                <p className="text-green-800 text-sm mt-2">
-                  ✓ Our team will contact you within 24-48 hours
-                </p>
-              </div>
-
-              {/* Action Button */}
-              <div className="flex justify-center">
-                <button
-                  onClick={onClose}
-                  className="px-6 py-2 bg-[#C09F53] text-white rounded-lg hover:bg-[#a08545] transition-colors"
-                >
-                  Continue
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
 
-// Australian Phone number formatting function
-const formatPhoneNumber = (value) => {
-  // Remove all non-numeric characters
-  const phoneNumber = value.replace(/\D/g, "");
 
-  // Australian phone number formatting
-  // Mobile: 04XX XXX XXX (10 digits starting with 04)
-  // Landline: (0X) XXXX XXXX (10 digits starting with 02, 03, 07, 08)
+// Australian Phone number formatting function (keeping exactly as is)
+const formatPhoneNumber = (value) => {
+  const phoneNumber = value.replace(/\D/g, "");
   
   if (phoneNumber.length === 0) {
     return "";
   }
   
-  // Check if it's a mobile number (starts with 04)
   if (phoneNumber.startsWith("04")) {
     if (phoneNumber.length <= 4) {
       return phoneNumber;
@@ -326,11 +242,9 @@ const formatPhoneNumber = (value) => {
     } else if (phoneNumber.length <= 10) {
       return `${phoneNumber.slice(0, 4)} ${phoneNumber.slice(4, 7)} ${phoneNumber.slice(7, 10)}`;
     } else {
-      // Limit to 10 digits
       return `${phoneNumber.slice(0, 4)} ${phoneNumber.slice(4, 7)} ${phoneNumber.slice(7, 10)}`;
     }
   } 
-  // Check if it's a landline (starts with 02, 03, 07, 08)
   else if (phoneNumber.startsWith("02") || phoneNumber.startsWith("03") || 
            phoneNumber.startsWith("07") || phoneNumber.startsWith("08")) {
     if (phoneNumber.length <= 2) {
@@ -340,11 +254,9 @@ const formatPhoneNumber = (value) => {
     } else if (phoneNumber.length <= 10) {
       return `(${phoneNumber.slice(0, 2)}) ${phoneNumber.slice(2, 6)} ${phoneNumber.slice(6, 10)}`;
     } else {
-      // Limit to 10 digits
       return `(${phoneNumber.slice(0, 2)}) ${phoneNumber.slice(2, 6)} ${phoneNumber.slice(6, 10)}`;
     }
   }
-  // For any other input, just format as groups
   else {
     if (phoneNumber.length <= 4) {
       return phoneNumber;
@@ -378,8 +290,8 @@ const ContactUsForm = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(null);
 
-  // New states for lander essentials
   const [captchaValid, setCaptchaValid] = useState(false);
   const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
   const [pingUrl, setPingUrl] = useState("");
@@ -388,12 +300,18 @@ const ContactUsForm = () => {
   const [pageUrl, setPageUrl] = useState("");
   const [ipAddress, setIpAddress] = useState("");
 
+  // Test EmailJS on component mount (remove in production)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('test') === 'true') {
+      testEmailJSConnection();
+    }
+  }, []);
+
   // Capture page URL and IP on mount
   useEffect(() => {
-    // Set page URL
     setPageUrl(window.location.href);
 
-    // Get IP address
     if (window.userIP) {
       setIpAddress(window.userIP);
     } else {
@@ -404,63 +322,81 @@ const ContactUsForm = () => {
     }
   }, []);
 
-  // TrustedForm integration
+  // Improved TrustedForm integration (from working form)
   useEffect(() => {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "value"
-        ) {
-          const target = mutation.target;
+    let observerInstance = null;
+    let timeoutId = null;
 
-          if (target.name === "xxTrustedFormCertUrl" && target.value) {
-            setCertId(target.value);
+    const initializeTrustedFormObserver = () => {
+      observerInstance = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === "attributes" && mutation.attributeName === "value") {
+            const target = mutation.target;
+
+            try {
+              if (target.name === "xxTrustedFormCertUrl" && target.value) {
+                setCertId(target.value);
+              }
+              if (target.name === "xxTrustedFormPingUrl" && target.value) {
+                setPingUrl(target.value);
+              }
+              if (target.name === "xxTrustedFormCertToken" && target.value) {
+                setTokenUrl(target.value);
+              }
+            } catch (error) {
+              console.warn("TrustedForm observer error:", error);
+            }
           }
-
-          if (target.name === "xxTrustedFormPingUrl" && target.value) {
-            setPingUrl(target.value);
-          }
-
-          if (target.name === "xxTrustedFormCertToken" && target.value) {
-            setTokenUrl(target.value);
-          }
-        }
-      });
-    });
-
-    const timeoutId = setTimeout(() => {
-      const certField = document.querySelector('[name="xxTrustedFormCertUrl"]');
-      const pingField = document.querySelector('[name="xxTrustedFormPingUrl"]');
-      const tokenField = document.querySelector(
-        '[name="xxTrustedFormCertToken"]'
-      );
-
-      [certField, pingField, tokenField].forEach((field) => {
-        if (field) observer.observe(field, { attributes: true });
+        });
       });
 
-      if (certField?.value) setCertId(certField.value);
-      if (pingField?.value) setPingUrl(pingField.value);
-      if (tokenField?.value) setTokenUrl(tokenField.value);
-    }, 1000);
+      const startObserving = () => {
+        const trustedFormFields = document.querySelectorAll(
+          '[name="xxTrustedFormCertUrl"], [name="xxTrustedFormPingUrl"], [name="xxTrustedFormCertToken"]'
+        );
+
+        trustedFormFields.forEach((field) => {
+          if (field && observerInstance) {
+            observerInstance.observe(field, { 
+              attributes: true, 
+              attributeFilter: ['value'] 
+            });
+
+            if (field.value) {
+              switch (field.name) {
+                case "xxTrustedFormCertUrl":
+                  setCertId(field.value);
+                  break;
+                case "xxTrustedFormPingUrl":
+                  setPingUrl(field.value);
+                  break;
+                case "xxTrustedFormCertToken":
+                  setTokenUrl(field.value);
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+        });
+      };
+
+      timeoutId = setTimeout(startObserving, 1000);
+    };
+
+    initializeTrustedFormObserver();
 
     return () => {
-      clearTimeout(timeoutId);
-      observer.disconnect();
+      if (timeoutId) clearTimeout(timeoutId);
+      if (observerInstance) observerInstance.disconnect();
     };
   }, []);
 
+  // Text field styles (keeping exactly as is)
   const textFieldStyle = {
     "& .MuiInputLabel-root": {
       color: "white",
-      fontSize: isMobile
-        ? "16px"
-        : isTablet
-        ? "18px"
-        : isLaptop
-        ? "14px"
-        : "16px",
+      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
       fontFamily: "Helvetica",
       fontWeight: "normal",
       "&.Mui-focused": {
@@ -468,13 +404,7 @@ const ContactUsForm = () => {
       },
     },
     "& .MuiInput-root": {
-      fontSize: isMobile
-        ? "16px"
-        : isTablet
-        ? "18px"
-        : isLaptop
-        ? "14px"
-        : "16px",
+      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
       fontFamily: "Helvetica",
       color: "white",
       "&:before": {
@@ -492,35 +422,17 @@ const ContactUsForm = () => {
     },
     "& .MuiInputBase-input": {
       color: "white",
-      fontSize: isMobile
-        ? "16px"
-        : isTablet
-        ? "18px"
-        : isLaptop
-        ? "14px"
-        : "16px",
+      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
       fontWeight: "normal",
     },
     "& .MuiInput-input": {
       color: "white",
-      fontSize: isMobile
-        ? "16px"
-        : isTablet
-        ? "18px"
-        : isLaptop
-        ? "14px"
-        : "16px",
+      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
       fontWeight: "normal",
     },
     "& .MuiFormHelperText-root": {
       color: "white",
-      fontSize: isMobile
-        ? "12px"
-        : isTablet
-        ? "14px"
-        : isLaptop
-        ? "14px"
-        : "16px",
+      fontSize: isMobile ? "12px" : isTablet ? "14px" : isLaptop ? "14px" : "16px",
       fontFamily: "Helvetica",
     },
     "& .Mui-error": {
@@ -535,7 +447,11 @@ const ContactUsForm = () => {
     const { name, value, type, checked } = e.target;
     let processedValue = value;
 
-    // Format phone number
+    // Clear submit message when user makes changes
+    if (submitMessage) {
+      setSubmitMessage(null);
+    }
+
     if (name === "phoneNumber") {
       processedValue = formatPhoneNumber(value);
     }
@@ -555,6 +471,9 @@ const ContactUsForm = () => {
 
   const handleCaptchaChange = (isValid) => {
     setCaptchaValid(isValid);
+    if (isValid && errors.captcha) {
+      setErrors(prev => ({ ...prev, captcha: '' }));
+    }
   };
 
   const validateForm = () => {
@@ -562,23 +481,19 @@ const ContactUsForm = () => {
 
     if (!formData.Name.trim()) {
       newErrors.Name = "Name is required";
-    } else if (formData.Name.length < 1) {
-      newErrors.Name = "Name must be at least 1 character";
     }
 
     if (!formData.phoneNumber.trim()) {
       newErrors.phoneNumber = "Phone number is required";
     } else {
       const phoneDigits = formData.phoneNumber.replace(/\D/g, "");
-      
-      // Australian phone validation
       const isValidAusMobile = phoneDigits.length === 10 && phoneDigits.startsWith("04");
       const isValidAusLandline = phoneDigits.length === 10 && 
         (phoneDigits.startsWith("02") || phoneDigits.startsWith("03") || 
          phoneDigits.startsWith("07") || phoneDigits.startsWith("08"));
       
       if (!isValidAusMobile && !isValidAusLandline) {
-        newErrors.phoneNumber = "Please enter a valid Australian phone number (10 digits starting with 04 for mobile or 02/03/07/08 for landline)";
+        newErrors.phoneNumber = "Please enter a valid Australian phone number";
       }
     }
 
@@ -595,11 +510,6 @@ const ContactUsForm = () => {
       newErrors.privacyConsent = "You must agree to the privacy policy";
     }
 
-    // if (!formData.humanVerification) {
-    //   newErrors.humanVerification = "Please verify you are human";
-    // }
-
-    // Add captcha validation
     if (formData.captchaEnabled && !captchaValid) {
       newErrors.captcha = "Please complete the CAPTCHA verification";
     }
@@ -608,108 +518,116 @@ const ContactUsForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // ============= CRITICAL FIX #2: Fixed handleSubmit Function =============
+  // IMPROVED SUBMIT HANDLER (Using working logic)
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     if (!validateForm()) {
       toast.error("Please correct the errors in the form");
       return;
     }
 
     setIsSubmitting(true);
+    setSubmitMessage(null);
 
-    const serviceId = "service_brjo5qt";
-    const adminTemplateId = "template_ur9kzbh"; // Your existing template for admin
-    const userTemplateId = "template_ur9kzbh"; // Create this new template in EmailJS if it doesn't exist
-
-
-    const templateParams = {
-      from_name: `${formData.Name} ${formData.lastName}`,
-      user_email: formData.emailId,
-      email: formData.emailId,
-      phone_number: formData.phoneNumber,
-      concern: formData.concern || "Not specified",
-      case_history: formData.caseHistory || "Not provided",
-      // Add TrustedForm and other lander essentials with defaults
+    // Prepare form data with all fields
+    const submitData = {
+      Name: formData.Name,
+      lastName: formData.lastName,
+      phoneNumber: formData.phoneNumber.replace(/\D/g, ""), // Send raw phone digits
+      emailId: formData.emailId,
+      concern: formData.concern,
+      caseHistory: formData.caseHistory,
+      
+      // TrustedForm data
       xxTrustedFormCertUrl: certId || "Not available",
       xxTrustedFormPingUrl: pingUrl || "Not available",
       xxTrustedFormCertToken: tokenUrl || "Not available",
+      
+      // Additional metadata
       pageUrl: pageUrl,
-      ipAddress: ipAddress || "Not available",
-      to_email: formData.emailId, // For user template
-      user_name: formData.Name, // For user template
+      ipAddress: ipAddress,
+      
+      // For compatibility with service
+      name: formData.Name,
+      email: formData.emailId,
+      phone: formData.phoneNumber.replace(/\D/g, ""),
+      certId: certId,
+      tokenUrl: tokenUrl,
+      pingUrl: pingUrl,
     };
 
     try {
-      // Send email to Admin (NO publicKey parameter since we initialized at the top)
-      const adminResult = await emailjs.send(serviceId, adminTemplateId, templateParams);
-      console.log("Admin email sent successfully:", adminResult);
-
-      // Try to send confirmation email to User (optional - won't fail if template doesn't exist)
-      try {
-        const userResult = await emailjs.send(serviceId, userTemplateId, templateParams);
-        console.log("User confirmation email sent:", userResult);
-      } catch (userError) {
-        // If user template doesn't exist, just log warning but don't fail
-        console.warn("User confirmation email failed (non-critical):", userError);
-        // Continue anyway - admin email was sent successfully
-      }
-
-      // Show success
-      toast.success("Form submitted successfully!");
-
-      // Reset form data
-      setFormData({
-        Name: "",
-        lastName: "",
-        phoneNumber: "",
-        emailId: "",
-        concern: "",
-        caseHistory: "",
-        settlementHelp: false,
-        privacyConsent: false,
-        humanVerification: false,
-        captchaEnabled: false,
-      });
-
-      // Reset captcha
-      setCaptchaValid(false);
-      setCaptchaResetTrigger((prev) => prev + 1);
-
-      // Show success popup
-      setSuccessDialogOpen(true);
-
-    } catch (error) {
-      console.error("Email sending error:", error);
+      console.log("Submitting form with data:", submitData);
       
-      // Provide specific error messages
-      let errorMessage = "Error submitting form. ";
+      // Use the centralized email service
+      const results = await sendBothEmails(submitData);
       
-      if (error.status === 400) {
-        errorMessage += "Invalid EmailJS configuration. Please check service ID and template IDs.";
-      } else if (error.status === 401) {
-        errorMessage += "EmailJS authentication failed. Please check your public key.";
-      } else if (error.status === 404) {
-        errorMessage += "EmailJS template not found. Please verify template IDs.";
-      } else if (error.status === 422) {
-        errorMessage += "Invalid template parameters. Please check your EmailJS template configuration.";
-      } else if (error.text) {
-        errorMessage += error.text;
+      if (results.overallSuccess) {
+        // Success - at least admin email was sent
+        toast.success("Form submitted successfully!");
+        
+        // Reset form
+        setFormData({
+          Name: "",
+          lastName: "",
+          phoneNumber: "",
+          emailId: "",
+          concern: "",
+          caseHistory: "",
+          settlementHelp: false,
+          privacyConsent: false,
+          humanVerification: false,
+          captchaEnabled: false,
+        });
+        
+        // Reset captcha
+        setCaptchaValid(false);
+        setCaptchaResetTrigger((prev) => prev + 1);
+        
+        // Show success popup
+        setSuccessDialogOpen(true);
+        
+        // Set success message
+        if (results.user.success) {
+          setSubmitMessage({
+            type: "success",
+            text: "Form submitted successfully! You should receive a confirmation email shortly.",
+          });
+        } else {
+          setSubmitMessage({
+            type: "success",
+            text: "Form submitted successfully! We have received your inquiry.",
+          });
+        }
+        
+    
+        
       } else {
-        errorMessage += "Please try again later or contact support.";
+        // Both emails failed
+        throw new Error("Failed to send emails");
       }
       
-      toast.error(errorMessage);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      
+      // Show error message
+      toast.error("There was an error submitting your form. Please try again.");
+      
+      setSubmitMessage({
+        type: "error",
+        text: "There was an error submitting your form. Please try again or contact us directly.",
+      });
+      
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // MOBILE FORM
   if (isMobile) {
     return (
       <>
-        {/* ============= CRITICAL FIX #3: Add ToastContainer ============= */}
         <ToastContainer 
           position="top-right"
           autoClose={5000}
@@ -732,30 +650,31 @@ const ContactUsForm = () => {
             Take the first step toward justice—complete your free case evaluation
             today.
           </p>
+
+          {/* Success/Error Message Display */}
+          {submitMessage && (
+            <div className="w-full max-w-lg px-2 mb-4">
+              <div
+                className={`p-4 rounded-md ${
+                  submitMessage.type === "success"
+                    ? "bg-green-100 border border-green-400 text-green-700"
+                    : "bg-red-100 border border-red-400 text-red-700"
+                }`}
+              >
+                {submitMessage.text}
+              </div>
+            </div>
+          )}
+
           <form
             ref={formRef}
             onSubmit={handleSubmit}
             className="w-full max-w-lg space-y-6 px-2"
           >
             {/* Hidden TrustedForm fields */}
-            <input
-              type="hidden"
-              id="xxTrustedFormCertUrl"
-              name="xxTrustedFormCertUrl"
-              value={certId}
-            />
-            <input
-              type="hidden"
-              id="xxTrustedFormCertToken"
-              name="xxTrustedFormCertToken"
-              value={tokenUrl}
-            />
-            <input
-              type="hidden"
-              id="xxTrustedFormPingUrl"
-              name="xxTrustedFormPingUrl"
-              value={pingUrl}
-            />
+            <input type="hidden" id="xxTrustedFormCertUrl" name="xxTrustedFormCertUrl" value={certId} />
+            <input type="hidden" id="xxTrustedFormCertToken" name="xxTrustedFormCertToken" value={tokenUrl} />
+            <input type="hidden" id="xxTrustedFormPingUrl" name="xxTrustedFormPingUrl" value={pingUrl} />
 
             <TextField
               id="Name"
@@ -810,15 +729,9 @@ const ContactUsForm = () => {
               helperText={errors.concern}
               sx={textFieldStyle}
             >
-              <MenuItem value="Mesothelioma Lawsuit">
-                Mesothelioma Lawsuit
-              </MenuItem>
-              <MenuItem value="Truck Accident Claims">
-                Truck Accident Claims
-              </MenuItem>
-              <MenuItem value="Rideshare Class Action Lawsuits">
-                Rideshare Class Action Lawsuits
-              </MenuItem>
+              <MenuItem value="Mesothelioma Lawsuit">Mesothelioma Lawsuit</MenuItem>
+              <MenuItem value="Truck Accident Claims">Truck Accident Claims</MenuItem>
+              <MenuItem value="Rideshare Class Action Lawsuits">Rideshare Class Action Lawsuits</MenuItem>
               <MenuItem value="Other">Other</MenuItem>
             </TextField>
 
@@ -837,21 +750,7 @@ const ContactUsForm = () => {
               sx={textFieldStyle}
             />
 
-            {/* Checkbox Section */}
             <div className="space-y-4 text-white text-sm leading-relaxed">
-              {/* <div className="flex items-start">
-                <input
-                  type="checkbox"
-                  id="settlementHelp"
-                  name="settlementHelp"
-                  checked={formData.settlementHelp || false}
-                  onChange={handleChange}
-                  className="h-5 w-5 border-2 border-white bg-transparent checked:bg-[#C09F53] checked:border-[#C09F53] focus:ring-1 focus:ring-white appearance-none relative mt-1 cursor-pointer"
-                />
-                <label htmlFor="settlementHelp" className="ml-3 block">
-                  I would be needing help to file a settlement.
-                </label>
-              </div> */}
               <div className="flex items-start">
                 <input
                   type="checkbox"
@@ -865,17 +764,11 @@ const ContactUsForm = () => {
                 <label htmlFor="privacyConsent" className="ml-3 block text-left">
                   <span>
                     I agree to the{" "}
-                    <a
-                      href="/Privacypolicy"
-                      className="underline hover:text-blue-200"
-                    >
+                    <a href="/Privacypolicy" className="underline hover:text-blue-200">
                       privacy policy
                     </a>{" "}
                     and{" "}
-                    <a
-                      href="/Disclaimer"
-                      className="underline hover:text-blue-200"
-                    >
+                    <a href="/Disclaimer" className="underline hover:text-blue-200">
                       disclaimer
                     </a>{" "}
                     and give my express written consent, affiliates and/or lawyer
@@ -893,7 +786,6 @@ const ContactUsForm = () => {
                 </label>
               </div>
 
-              {/* Human Verification with Captcha */}
               <div className="flex items-start">
                 <input
                   type="checkbox"
@@ -904,8 +796,7 @@ const ContactUsForm = () => {
                   className="h-5 w-5 accent-[#C09F53] mt-1"
                 />
                 <label htmlFor="captchaEnabled" className="ml-3 block">
-                  Please click this box so we know you're a person and not a
-                  computer
+                  Please click this box so we know you're a person and not a computer
                 </label>
               </div>
               {formData.captchaEnabled && (
@@ -922,42 +813,51 @@ const ContactUsForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="
-                            inline-flex
-                            h-12
-                            px-6
-                            justify-center
-                            items-center
-                            rounded-[40px]
-                            bg-[#C09F53]
-                            text-[#FFFBF3]
-                            border
-                            border-[#FFFBF3]
-                            font-bold
-                            hover:bg-[#374A67]
-                            disabled:opacity-70
-                            w-full
-                            mt-8
-                        "
+              className="inline-flex h-12 px-6 justify-center items-center rounded-[40px] bg-[#C09F53] text-[#FFFBF3] border border-[#FFFBF3] font-bold hover:bg-[#374A67] disabled:opacity-70 w-full mt-8"
             >
-              {isSubmitting ? "Submitting..." : "Submit"}
+              {isSubmitting ? (
+                <span className="flex items-center justify-center">
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#FFFBF3]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Submitting...
+                </span>
+              ) : (
+                "Submit"
+              )}
             </button>
           </form>
 
-          {/* Success Popup */}
-          <SuccessPopup 
-            isOpen={successDialogOpen} 
-            onClose={() => setSuccessDialogOpen(false)} 
-          />
+<SuccessPopup
+  isOpen={successDialogOpen}
+  onClose={() => setSuccessDialogOpen(false)}
+/>
+
         </div>
       </>
     );
   }
 
-  // Desktop Form
+  // DESKTOP FORM (rest of the code remains exactly the same)
   return (
     <>
-      {/* ============= CRITICAL FIX #3: Add ToastContainer ============= */}
       <ToastContainer 
         position="top-right"
         autoClose={5000}
@@ -989,43 +889,35 @@ const ContactUsForm = () => {
           </div>
         </div>
 
-        <div
-          className="flex justify-end 
-    px-4 
-    sm:px-6 sm:pl-12 
-    md:px-8 md:pl-16 
-    lg:pl-32 lg:pr-6 
-    xl:pl-48 xl:pr-8 
-    2xl:pl-64 2xl:pr-8 
-    3xl:pl-80 3xl:pr-8
-    4xl:pl-96 4xl:pr-8 
-    5xl:pl-[48rem] 5xl:pr-12"
-        >
+        {/* Success/Error Message Display */}
+        {submitMessage && (
+          <div className="flex justify-end px-4 sm:px-6 sm:pl-12 md:px-8 md:pl-16 lg:pl-32 lg:pr-6 xl:pl-48 xl:pr-8 2xl:pl-64 2xl:pr-8 mb-4">
+            <div className="w-full max-w-[1200px] mx-auto md:pl-8 lg:pl-16 xl:pl-32 2xl:pl-48 px-0">
+              <div
+                className={`p-4 rounded-md ${
+                  submitMessage.type === "success"
+                    ? "bg-green-100 border border-green-400 text-green-700"
+                    : "bg-red-100 border border-red-400 text-red-700"
+                }`}
+              >
+                {submitMessage.text}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="flex justify-end px-4 sm:px-6 sm:pl-12 md:px-8 md:pl-16 lg:pl-32 lg:pr-6 xl:pl-48 xl:pr-8 2xl:pl-64 2xl:pr-8 3xl:pl-80 3xl:pr-8 4xl:pl-96 4xl:pr-8 5xl:pl-[48rem] 5xl:pr-12">
           <form
             ref={formRef}
             onSubmit={handleSubmit}
             className="w-full max-w-[1200px] mx-auto md:pl-8 lg:pl-16 xl:pl-32 2xl:pl-48 px-0"
           >
             {/* Hidden TrustedForm fields */}
-            <input
-              type="hidden"
-              id="xxTrustedFormCertUrl"
-              name="xxTrustedFormCertUrl"
-              value={certId}
-            />
-            <input
-              type="hidden"
-              id="xxTrustedFormCertToken"
-              name="xxTrustedFormCertToken"
-              value={tokenUrl}
-            />
-            <input
-              type="hidden"
-              id="xxTrustedFormPingUrl"
-              name="xxTrustedFormPingUrl"
-              value={pingUrl}
-            />
+            <input type="hidden" id="xxTrustedFormCertUrl" name="xxTrustedFormCertUrl" value={certId} />
+            <input type="hidden" id="xxTrustedFormCertToken" name="xxTrustedFormCertToken" value={tokenUrl} />
+            <input type="hidden" id="xxTrustedFormPingUrl" name="xxTrustedFormPingUrl" value={pingUrl} />
 
+            {/* Rest of your desktop form fields remain exactly the same */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 xl:gap-20 mb-12">
               <div className="space-y-10">
                 <TextField
@@ -1087,22 +979,13 @@ const ContactUsForm = () => {
                     },
                   }}
                 >
-                  <MenuItem
-                    value="Mesothelioma Lawsuit"
-                    sx={{ textAlign: "left" }}
-                  >
+                  <MenuItem value="Mesothelioma Lawsuit" sx={{ textAlign: "left" }}>
                     Mesothelioma Lawsuit
                   </MenuItem>
-                  <MenuItem
-                    value="Truck Accident Claims"
-                    sx={{ textAlign: "left" }}
-                  >
+                  <MenuItem value="Truck Accident Claims" sx={{ textAlign: "left" }}>
                     Truck Accident Claims
                   </MenuItem>
-                  <MenuItem
-                    value="Rideshare Class Action Lawsuits"
-                    sx={{ textAlign: "left" }}
-                  >
+                  <MenuItem value="Rideshare Class Action Lawsuits" sx={{ textAlign: "left" }}>
                     Rideshare Class Action Lawsuits
                   </MenuItem>
                   <MenuItem value="Other" sx={{ textAlign: "left" }}>
@@ -1128,13 +1011,7 @@ const ContactUsForm = () => {
                   marginBottom: "40px",
                   "& .MuiInputLabel-root": {
                     transform: "translate(0, 15px) scale(1)",
-                    fontSize: isMobile
-                      ? "16px"
-                      : isTablet
-                      ? "18px"
-                      : isLaptop
-                      ? "14px"
-                      : "16px",
+                    fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
                     color: "white",
                     fontWeight: "normal",
                   },
@@ -1158,13 +1035,7 @@ const ContactUsForm = () => {
                   },
                   "& .MuiInput-input": {
                     color: "white",
-                    fontSize: isMobile
-                      ? "16px"
-                      : isTablet
-                      ? "18px"
-                      : isLaptop
-                      ? "14px"
-                      : "16px",
+                    fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
                     fontWeight: "normal",
                   },
                   "& .MuiFormHelperText-root": {
@@ -1174,23 +1045,6 @@ const ContactUsForm = () => {
               />
 
               <div className="space-y-8 text-white">
-                {/* <div className="flex items-start">
-                    <input
-                      type="checkbox"
-                      id="settlementHelp"
-                      name="settlementHelp"
-                      checked={formData.settlementHelp || false}
-                      onChange={handleChange}
-                      className="mt-1 h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                    />
-                    <label
-                      htmlFor="settlementHelp"
-                      className="ml-3 block text-[12px] font-normal"
-                    >
-                      I would be needing help to file a settlement.
-                    </label>
-                  </div> */}
-
                 <div className="flex items-start">
                   <div className="flex-shrink-0 -mt-0.5">
                     <input
@@ -1209,17 +1063,11 @@ const ContactUsForm = () => {
                   >
                     <span className="block">
                       I agree to the{" "}
-                      <a
-                        href="/Privacypolicy"
-                        className="text-[#C09F53] underline hover:text-yellow-500"
-                      >
+                      <a href="/Privacypolicy" className="text-[#C09F53] underline hover:text-yellow-500">
                         privacy policy
                       </a>{" "}
                       and{" "}
-                      <a
-                        href="/Disclaimer"
-                        className="text-[#C09F53] underline hover:text-yellow-500"
-                      >
+                      <a href="/Disclaimer" className="text-[#C09F53] underline hover:text-yellow-500">
                         disclaimer
                       </a>{" "}
                       and give my express written consent, affiliates and/or
@@ -1234,7 +1082,6 @@ const ContactUsForm = () => {
                   </label>
                 </div>
 
-                {/* Human Verification with Captcha */}
                 <div className="flex items-start">
                   <input
                     type="checkbox"
@@ -1248,8 +1095,7 @@ const ContactUsForm = () => {
                     htmlFor="captchaEnabled"
                     className="ml-3 block text-[12px] font-normal text-[#FFFBF399]"
                   >
-                    Please click this box so we know you're a person and not a
-                    computer
+                    Please click this box so we know you're a person and not a computer
                   </label>
                 </div>
                 {formData.captchaEnabled && (
@@ -1269,16 +1115,41 @@ const ContactUsForm = () => {
               disabled={isSubmitting}
               className="inline-flex h-[60px] px-[49px] justify-center items-center gap-[10px] flex-shrink-0 rounded-[60px] bg-[#C09F53] text-[#FFFBF3] border border-[#C09F53] font-open-sans text-[22px] font-bold leading-normal hover:bg-[#374A67] disabled:opacity-70 transition-colors duration-200 w-[400px] md:w-[350px] lg:w-[400px] xl:w-[420px] 2xl:w-[450px]"
             >
-              {isSubmitting ? "Submitting..." : "Submit"}
+              {isSubmitting ? (
+                <span className="flex items-center justify-center">
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#FFFBF3]"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Submitting...
+                </span>
+              ) : (
+                "Submit"
+              )}
             </button>
           </form>
         </div>
 
-        {/* Success Popup */}
-        <SuccessPopup 
-          isOpen={successDialogOpen} 
-          onClose={() => setSuccessDialogOpen(false)} 
-        />
+<SuccessPopup
+  isOpen={successDialogOpen}
+  onClose={() => setSuccessDialogOpen(false)}
+/>
       </div>
     </>
   );

@@ -28,17 +28,11 @@ import HomeSouthAustralia from './Components/Regions/HomeSouthAustralia/HomePage
 import HomeNorthernTerritory from './Components/Regions/HomeNorthernTerritory/HomePage';
 import HomeAustralainCapitalTerritory from './Components/Regions/HomeAustralianCapitalTerritory/HomePage';
 import LawyersPage from './Components/Lawyers/HomePage';
-import HomeState1 from './Components/HomeState1/HomePage';
-import HomeState2 from './Components/HomeState2/HomePage';
-import HomeState3 from './Components/HomeState3/HomePage';      
-import HomeState4 from './Components/HomeState4/HomePage';
-import HomeState5 from './Components/HomeState5/HomePage';
-import HomeState6 from './Components/HomeState6/HomePage';
-import HomeState7 from './Components/HomeState7/HomePage';
 import PersonalInjury from './Components/Services/PersonalInjury/PersonalInjury';
 import ClassAction from './Components/Services/ClassAction/ClassAction';
 import SubService18Wheeler from './Components/Sub-Services/18-wheeler/SubService';
 import SubServiceRideshare from './Components/Sub-Services/Rideshare/SubService';
+import { HeadProvider } from 'react-head';
 function App() {
 
 
@@ -79,34 +73,6 @@ function App() {
       path: '/Northern-Territory',
       element: <HomeNorthernTerritory/>,
     },
-     {
-      path: '/HomeState1',
-      element: <HomeState1 />,
-    },
-     {
-      path: '/HomeState2',
-      element: <HomeState2 />,
-    },
-     {
-      path: '/HomeState3',
-      element: <HomeState3 />,
-    },
-     {
-      path: '/HomeState4',
-      element: <HomeState4 />,
-    },
-     {
-      path: '/HomeState5',
-      element: <HomeState5 />,
-    },
-     {
-      path: '/HomeState6',
-      element: <HomeState6 />,
-    },
-     {
-      path: '/HomeState7',
-      element: <HomeState7 />,
-    },
     {
       path: '/chat',
       element: <ChatInterface />,
@@ -120,36 +86,36 @@ function App() {
       ,
     },
     {
-      path: '/SubServicemeso',
+      path: 'Service/MassTort/Mesothelioma-Lawsuit',
       element: <SubService />
     },
     {
-      path : '/SubService18Wheeler',
+      path : '/Service/MassTort/18Wheeler-Lawsuit',
       element: <SubService18Wheeler />
     },
     {
-      path : '/SubServiceRideshare',
+      path : '/Service/MassTort/Rideshare-Lawsuit',
       element: <SubServiceRideshare />
 
     },
     {
-      path: '/about',
+      path: '/About-Us',
       element: <About />
     },
     {
-      path: '/ContactUs',
+      path: '/Contact-Us',
       element: <ContactUs />
     },
     {
-      path: '/MassTort',
+      path: '/Service/MassTort',
       element: <MassTort />
     },
     {
-      path: '/ClassAction',
+      path: '/Service/ClassAction',
       element: <ClassAction />
     },
     {
-      path: '/PersonalInjury',
+      path: 'Service/PersonalInjury',
       element: <PersonalInjury />
     },
     {
@@ -173,7 +139,7 @@ function App() {
       element: <ClassService />,
     },
     {
-      path:'/Lawyers',
+      path:'/Partner-With-Us',
       element:<LawyersPage />,
     },
     {
@@ -183,7 +149,9 @@ function App() {
   ]);
 
   return (
+    <HeadProvider>
     <RouterProvider router={router} />
+    </HeadProvider>
   );
 }
 

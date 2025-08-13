@@ -4,7 +4,9 @@ import Footer from '../../Footer';
 import FaqClassAction from '../../FAQClassAction';
 import ClassActionHero from './ClassActionHero';
 import ClassActionTwo from './ClassActionTwo';
+import Homeseven from '../../Home/HomeSeven'
 import { Class } from 'leaflet';
+import Seo from "../../Seo/Seo"
 
 
 function ClassAction() {
@@ -16,11 +18,14 @@ function ClassAction() {
 
     return (
         <div>
+            <Seo pageKey="classAction" />
+
             <NavBar />
             <div className="relative w-full">
                 <ClassActionHero />
                 <ClassActionTwo /> 
                 <FaqClassAction />
+                <Homeseven/>
                 <Footer />
             </div>
         </div>

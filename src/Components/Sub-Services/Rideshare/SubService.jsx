@@ -9,13 +9,16 @@ import SubFive from './SubFive'
 import NavBar from "../../NavBar"
 import HomeSeven from '../../Home/HomeSeven'
 import Faqmeso from '../../faqrideshare'
+import Seo from "../../Seo/Seo"
 
 function SubServiceRideshare() {
   return (
     <div className='overflow-hidden'>
+      <Seo pageKey="rideshare" />
+
         <NavBar />
         <SubOne />
-        {/* <SubTwo /> */}
+        <SubTwo />
         <SubThree />
         <SubFour />
         <SubFive />

@@ -34,7 +34,7 @@ function HomeSeven() {
     </div>
     <button
       className="mt-4 flex h-[44px] px-6 py-2 justify-center items-center bg-[#C09F53] text-white font-semibold text-sm sm:text-base transition-colors w-full max-w-[160px] rounded-3xl"
-      onClick={() => navigate("/Lawyers")}
+      onClick={() => navigate("/Partner-With-Us")}
     >
       Let’s Talk
     </button>
@@ -52,7 +52,7 @@ function HomeSeven() {
     </div>
     <button
       className="mt-4 flex h-[44px] px-6 py-2 justify-center items-center bg-[#C09F53] text-white font-semibold text-sm sm:text-base transition-colors w-full max-w-[180px] rounded-3xl"
-      onClick={() => navigate("/ContactUs")}
+      onClick={() => navigate("/Contact-Us")}
     >
       Start Your Claim
     </button>
@@ -156,7 +156,7 @@ export default HomeSeven;
 //                     </div>
 //                     <button
 //                         className="flex h-[40px] sm:h-[44px] lg:h-[52px] xl:h-[56px] px-6 lg:px-8 xl:px-10 py-2 justify-start items-center rounded-[60px] bg-[#C09F53] hover:bg-amber-600 text-white text-center font-open-sans text-base lg:text-lg xl:text-xl font-semibold leading-normal transition-colors whitespace-nowrap w-full max-w-[120px] sm:max-w-[140px] lg:max-w-[150px] xl:max-w-[170px]"
-//                         onClick={() => navigate("/ContactUs")}
+//                         onClick={() => navigate("/Contact-Us")}
 //                     >
 //                         Start Now
 //                     </button>

@@ -232,8 +232,8 @@ function Footer() {
 
         <div className="w-full md:w-auto text-center md:text-left mb-2 md:mb-0 truncate whitespace-normal break-words">Copyright ©2025 C2L All Rights Reserved</div>
         <div className="w-full md:w-auto flex flex-wrap justify-center md:justify-end gap-x-2 gap-y-1 text-center">
-          <a href="#" className="hover:underline whitespace-nowrap">Privacy Policy</a>
-          <a href="#" className="hover:underline whitespace-nowrap">Disclaimer</a>
+          <a href="Privacy-Policy" className="hover:underline whitespace-nowrap">Privacy Policy</a>
+          <a href="Disclaimer" className="hover:underline whitespace-nowrap">Disclaimer</a>
         </div>
       </div>
     </div>

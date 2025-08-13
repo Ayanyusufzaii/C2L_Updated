@@ -7,10 +7,12 @@ import AboutFive from './AboutFive'
 import HomeSeven from '../Home/HomeSeven'
 import NavBar from '../NavBar'
 import Footer from '../Footer'
+import Seo from "../Seo/Seo"
 
 function About() {
   return (
     <div className='overflow-hidden '>
+     <Seo pageKey="about" />
       <NavBar />
       <AboutOne />
       <AboutTwo />

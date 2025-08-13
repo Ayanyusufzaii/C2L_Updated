@@ -35,19 +35,19 @@ function HomeThree() {
             number: "Step 1",
             title: "Submit your claim",
             description: "Get a free case review from experienced professionals.",
-            route: "/ContactUs"
+            route: "/Contact-Us"
         },
         {
             number: "Step 2", 
             title: "We take action",
             description: "We will begin a detailed review of your case as soon as your claim is received.",
-            route: "/about"
+            route: "/About-Us"
         },
         {
             number: "Step 3",
             title: "Justice drives us", 
             description: "If we represent you, our team works tirelessly to secure the results you're entitled to.",
-            route: "/about"
+            route: "/About-Us"
         }
     ];
 
@@ -126,7 +126,7 @@ function HomeThree() {
                                   </p>
                                   <button
                                       className="rounded-full border-2 border-[#ffffff] px-6 md:px-8 py-3 md:py-4 text-[#ffffff] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
-                                      onClick={() => navigate("/SubServicemeso")}
+                                      onClick={() => navigate("Service/MassTort/Mesothelioma-Lawsuit")}
                                   >
                                       Learn More
                                   </button>
@@ -150,7 +150,7 @@ function HomeThree() {
                                   <button
                                       className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                                       style={{fontSize: '20px'}}
-                                      onClick={() => navigate("/SubServicemeso")}
+                                      onClick={() => navigate("Service/MassTort/Mesothelioma-Lawsuit")}
                                   >
                                       Learn More
                                   </button>
@@ -180,7 +180,7 @@ function HomeThree() {
                             </p>
                             <button
                               className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-[#023437] hover:text-[#C09F53] cursor-pointer drop-shadow-md"
-                              onClick={() => navigate("/SubServiceRideshare")}
+                              onClick={() => navigate("/Service/MassTort/Rideshare-Lawsuit")}
                             >
                               Learn More
                             </button>
@@ -202,7 +202,7 @@ function HomeThree() {
                             <button
                               className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                               style={{fontSize: '20px'}}
-                              onClick={() => navigate("/SubServiceRideshare")}
+                              onClick={() => navigate("/Service/MassTort/Rideshare-Lawsuit")}
                             >
                               Learn More
                             </button>
@@ -230,7 +230,7 @@ function HomeThree() {
                             </p>
                             <button
                               className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
-                             onClick={() => navigate("/SubService18Wheeler")}
+                             onClick={() => navigate("/Service/MassTort/18Wheeler-Lawsuit")}
                             >
                               Learn More
                             </button>
@@ -252,7 +252,7 @@ function HomeThree() {
                             <button
                               className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                               style={{fontSize: '20px'}}
-                             onClick={() => navigate("/SubService18Wheeler")}
+                             onClick={() => navigate("/Service/MassTort/18Wheeler-Lawsuit")}
                             >
                               Learn More
                             </button>

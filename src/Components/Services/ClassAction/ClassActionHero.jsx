@@ -1,9 +1,19 @@
-import React from 'react';
-import { ArrowLeft } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import heroBg from "../../../assets/caHeroBg.png";
 import heroBgMob from "../../../assets/caHeroBgmob.png";
+import backimg from "../../../assets/backimg.png"; 
+
+
+
+
 
 const ClassActionHero = () => {
+  const navigate = useNavigate();
+
+const handleBackClick = () => {
+    navigate(-1); // Goes back to the previous page in history
+  };
   return (
     <>
       <section className="relative w-full h-[365px] bg-black overflow-hidden">
@@ -40,30 +50,20 @@ const ClassActionHero = () => {
         {/* Content Container */}
         <div className="relative z-10 h-full">
           <div className="h-full flex flex-col max-w-[1920px] mx-auto">
-            {/* Back Button */}
-            <div className="flex-shrink-0 p-4 sm:p-5 md:p-6 lg:p-8 xl:p-10">
-              <button
-                onClick={() => window.history.back()}
-                className="group inline-flex items-center justify-center 
-                  w-10 h-10
-                  sm:w-12 sm:h-12
-                  md:w-12 md:h-12
-                  lg:w-14 lg:h-14
-                  xl:w-14 xl:h-14
-                  2xl:w-16 2xl:h-16
-                  bg-white/10 backdrop-blur-md rounded-full border border-white/20 
-                  hover:bg-white/20 hover:border-white/30 
-                  transform transition-all duration-300 ease-out
-                  focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent"
-                aria-label="Go back"
-              >
-                <ArrowLeft 
-                  className="w-5 h-5 md:w-6 md:h-6 text-white 
-                    group-hover:-translate-x-0.5 transition-transform duration-200" 
-                  strokeWidth={2}
-                />
-              </button>
-            </div>
+            {/* Back Button - Top Left */}
+        <div className="absolute top-4 left-4 md:top-6 md:left-6 lg:top-8 lg:left-8 xl:top-10 xl:left-10 z-20">
+          <button
+            onClick={handleBackClick}
+            style={{ outline: 'none', cursor: 'pointer' }}
+            className="transition-transform duration-300 group"
+          >
+            <img
+              src={backimg}
+              alt="Back"
+              className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain group-hover:scale-110 transition-transform duration-300"
+            />
+          </button>
+        </div>
             
             {/* Main Content - Bottom Aligned */}
             <div className="flex-1 flex items-end">

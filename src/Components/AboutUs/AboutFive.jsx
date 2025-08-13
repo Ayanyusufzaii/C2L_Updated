@@ -59,7 +59,7 @@ const AboutFive = () => {
                         {/* CTA Button */}
                         <div className="pt-2 sm:pt-3 md:pt-4">
                             <button
-                                onClick={() => window.location.href = '/contact'}
+                                onClick={() => window.location.href = '/Contact-Us'}
                                 className="
                   bg-[#C09F53] 
                   hover:bg-yellow-400 

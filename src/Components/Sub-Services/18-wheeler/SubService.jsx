@@ -9,13 +9,16 @@ import SubFive from './SubFive'
 import NavBar from "../../NavBar"
 import HomeSeven from '../../Home/HomeSeven'
 import Faqmeso from '../../faq18wheeler'
+import Seo from "../../Seo/Seo"
 
 function SubService18Wheeler() {
   return (
     <div className='overflow-hidden'>
+        <Seo pageKey="heavyVehicle" />
+      
         <NavBar />
         <SubOne />
-        {/* <SubTwo /> */}
+        <SubTwo />
         <SubThree />
         <SubFour />
         <SubFive />

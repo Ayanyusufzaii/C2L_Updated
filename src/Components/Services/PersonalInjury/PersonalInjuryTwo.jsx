@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const PersonalInjuryTwo = () => {
   const navigate = useNavigate();
-  
+
   return (
     <section className="px-4 py-8 lg:px-16 lg:py-12">
       {/* Desktop layout: combined image with two overlays */}
@@ -38,12 +38,14 @@ const PersonalInjuryTwo = () => {
             Seeks the compensation you deserve for injuries caused by accidents
             involving large commercial trucks.
           </p>
+
           <button
-            className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition"
-            onClick={() => navigate("/SubService18Wheeler")}
+            className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start"
+            onClick={() => navigate("/Service/MassTort/18Wheeler-Lawsuit")}
           >
             Learn More
           </button>
+
         </div>
       </div>
 
@@ -84,9 +86,14 @@ const PersonalInjuryTwo = () => {
               Seeks the compensation you deserve for injuries caused by
               accidents involving large commercial trucks.
             </p>
-            <button className="mt-4 inline-flex items-center px-5 py-2 bg-[#023437] text-white rounded-full text-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition">
+            <button
+              className="mt-4 inline-flex items-center px-5 py-2 bg-[#023437] text-white rounded-full text-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start"
+              onClick={() => navigate("/Service/MassTort/18Wheeler-Lawsuit")}
+            >
               Learn More
             </button>
+
+
           </div>
         </div>
       </div>

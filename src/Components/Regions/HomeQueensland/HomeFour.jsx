@@ -6,7 +6,7 @@ const HomeFour = () => {
   const navigate = useNavigate();
 
   const handleContactClick = () => {
-    navigate('/ContactUs');
+    navigate('/Contact-Us');
   };
 
   const handleLearnMoreClick = () => {

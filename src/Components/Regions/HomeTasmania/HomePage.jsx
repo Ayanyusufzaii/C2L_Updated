@@ -1,16 +1,18 @@
 import React from 'react'
 import NavBar from "../../NavBar"
-import HomeTwo from "./HomeTwo"
+import HomeTwo from "../HomeTwo/HomeTwo"
 import HomeSeven from '../../Home/HomeSeven'
 import Footer from '../../Footer'
 import HomeThree from './HomeThree'
 import HomeOne from './HomeOne'
 import HomeFour from './HomeFour'
 import HomeFive from './HomeFive'
+import Seo from "../../Seo/Seo"
 import { Home } from 'lucide-react'
 function HomeNewSouthWales() {
   return (
     <div className='overflow-hidden'>
+       <Seo pageKey="homepage" />
       <NavBar />
       <HomeOne/>
       <HomeThree />

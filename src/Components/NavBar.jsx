@@ -22,8 +22,8 @@ const regions = [
 const menuLinks = [
   { name: 'Home', path: '/' },
   { name: 'Services', path: '/Service' },
-  { name: 'About Us', path: '/About' },
-  { name: 'Contact Us', path: '/ContactUs' }
+  { name: 'About Us', path: '/About-Us' },
+  { name: 'Contact Us', path: '/Contact-Us' }
 ];
 
 const NavBar = () => {
@@ -246,7 +246,7 @@ const NavBar = () => {
           {/* Free Consultation Button in Mobile Menu */}
           <button
             onClick={() => {
-              navigate('/ContactUs');
+              navigate('/Contact-Us');
               setMobileMenuOpen(false);
             }}
             className="w-full bg-[#C09F53] text-white px-6 py-4 rounded-full text-xl font-semibold mt-8 hover:bg-[#a88a47] transition-colors duration-200"
@@ -428,7 +428,7 @@ const NavBar = () => {
 
                 {/* Free Consultation Button */}
                 <button
-                  onClick={() => navigate('/ContactUs')}
+                  onClick={() => navigate('/Contact-Us')}
                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
                 >
                   Free Consultation
@@ -495,7 +495,7 @@ const NavBar = () => {
 
                 {/* Free Consultation Button */}
                 <button
-                  onClick={() => navigate('/ContactUs')}
+                  onClick={() => navigate('/Contact-Us')}
                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
                 >
                   Free Consultation
@@ -839,7 +839,7 @@ export default NavBar;
 //     const targetRef = useRef(null);
 
 //     const handleConsultationClick = () => {
-//         navigate('/ContactUs');
+//         navigate('/Contact-Us');
 //     };
 
 //     const menuItems = [
@@ -850,9 +850,9 @@ export default NavBar;
 
 //         },
 //         // { name: 'Sub Services', path: '/SubService' },
-//         { name: 'About Us', path: '/About' },
-//         { name: 'Contact', path: '/ContactUs' },
-//         // { name: 'Masstort', path: '/Masstort' }
+//         { name: 'About Us', path: '/About-Us' },
+//         { name: 'Contact', path: '/Contact-Us' },
+//         // { name: 'Masstort', path: '/Service/MassTort' }
 //     ];
 
 //     return (
@@ -1114,3 +1114,909 @@ export default NavBar;
 // };
 
 // export default NavBar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect, useRef } from 'react';
+// import { useLocation, useNavigate } from 'react-router-dom';
+// import Frame from '../../src/assets/LogoNavbar.png';
+// import frame1 from '../../src/assets/logoo.png';
+// import SearchbarIcon from '../../src/assets/searchlogo.png';
+// import callIcon from '../../src/assets/calllogoheader.png';
+// import SearchbarIcon1 from '../../src/assets/searchlogo1.png';
+// import locationIcon from '../../src/assets/locationlogo.png';
+
+// const regions = [
+//   'New South Wales', 'Queensland', 'South Australia', 'Tasmania',
+//   'Victoria', 'Western Australia', 'Australian Capital Territory', 'Northern Territory'
+// ];
+
+// const menuLinks = [
+//   { name: 'Home', path: '/' },
+//   { name: 'Services', path: '/Service' },
+//   { name: 'About Us', path: '/About-Us' },
+//   { name: 'Contact Us', path: '/Contact-Us' }
+// ];
+
+// const searchSuggestions = [
+//   'about', 'ContactUs', 'Service', 'SubServicemeso', 'SubService18Wheeler',
+//   'SubServiceRideshare', 'MassTort', 'ClassAction', 'PersonalInjury', 'Lawyers',
+//   'Contract Law', 'New-South-Wales', 'Queensland', 'South-Australia',
+//   'Tasmania', 'Victoria', 'Western-Australia', 'Australian-Capital-Territory', 'Northern-Territory',
+// ];
+
+// const NavBar = () => {
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const [selectedRegion, setSelectedRegion] = useState('Select Region');
+//   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
+//   const [showFullNavbar, setShowFullNavbar] = useState(true);
+//   const [searchActive, setSearchActive] = useState(false);
+//   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+//   const [navbarHeight, setNavbarHeight] = useState(0);
+//   const [isScrolling, setIsScrolling] = useState(false);
+
+//   // Search-related
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+//   const [showSuggestions, setShowSuggestions] = useState(false);
+//   const [recentSearches, setRecentSearches] = useState([]);
+//   const [searchHistory, setSearchHistory] = useState([]);
+//   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
+//   const [isSearching, setIsSearching] = useState(false);
+
+//   const searchInputRef = useRef(null);
+//   const searchOverlayRef = useRef(null);
+
+//   // --- Effects ---
+
+//   useEffect(() => {
+//     const savedSearchHistory = localStorage.getItem('searchHistory');
+//     const savedRecentSearches = localStorage.getItem('recentSearches');
+//     if (savedSearchHistory) {
+//       try { setSearchHistory(JSON.parse(savedSearchHistory)); } catch (error) { }
+//     }
+//     if (savedRecentSearches) {
+//       try { setRecentSearches(JSON.parse(savedRecentSearches)); } catch (error) { }
+//     }
+//   }, []);
+
+//   useEffect(() => {
+//     if (searchQuery.trim().length > 0) {
+//       const filtered = searchSuggestions.filter(suggestion =>
+//         suggestion.toLowerCase().includes(searchQuery.toLowerCase())
+//       );
+//       setFilteredSuggestions(filtered.slice(0, 8));
+//       setShowSuggestions(true);
+//     } else {
+//       setFilteredSuggestions([]);
+//       setShowSuggestions(false);
+//     }
+//     setSelectedSuggestionIndex(-1);
+//   }, [searchQuery]);
+
+//   useEffect(() => {
+//     if (searchActive && searchInputRef.current) {
+//       setTimeout(() => { searchInputRef.current.focus(); }, 100);
+//     }
+//   }, [searchActive]);
+
+//   // Change handler for input
+//   const handleSearchInputChange = (e) => {
+//     // No stopPropagation needed here
+//     console.log(e.target.value);
+
+//     setSearchQuery(e.target.value);
+//   };
+
+//   const handleSearchSubmit = (query = searchQuery) => {
+//     if (!query || query.trim().length === 0) return;
+//     const trimmedQuery = query.trim();
+//     setIsSearching(true);
+//     const newSearchHistory = [trimmedQuery, ...searchHistory.filter(item => item !== trimmedQuery)].slice(0, 10);
+//     const newRecentSearches = [trimmedQuery, ...recentSearches.filter(item => item !== trimmedQuery)].slice(0, 5);
+//     setSearchHistory(newSearchHistory);
+//     setRecentSearches(newRecentSearches);
+//     try {
+//       localStorage.setItem('searchHistory', JSON.stringify(newSearchHistory));
+//       localStorage.setItem('recentSearches', JSON.stringify(newRecentSearches));
+//     } catch (error) {}
+//     setTimeout(() => {
+//       setIsSearching(false);
+//       navigate(`/${encodeURIComponent(trimmedQuery)}`);
+//       setSearchActive(false);
+//       setSearchQuery('');
+//       setShowSuggestions(false);
+//     }, 500);
+//   };
+
+//   // Keyboard navigation
+//   const handleSearchKeyDown = (e) => {
+//     const suggestions = searchQuery.trim().length > 0 ? filteredSuggestions : recentSearches;
+//     switch (e.key) {
+//       case 'ArrowDown':
+//         e.preventDefault();
+//         setSelectedSuggestionIndex(prev => prev < suggestions.length - 1 ? prev + 1 : 0);
+//         break;
+//       case 'ArrowUp':
+//         e.preventDefault();
+//         setSelectedSuggestionIndex(prev => prev > 0 ? prev - 1 : suggestions.length - 1);
+//         break;
+//       case 'Enter':
+//         e.preventDefault();
+//         if (selectedSuggestionIndex >= 0 && suggestions[selectedSuggestionIndex]) {
+//           handleSearchSubmit(suggestions[selectedSuggestionIndex]);
+//         } else {
+//           handleSearchSubmit();
+//         }
+//         break;
+//       case 'Escape':
+//         setSearchActive(false);
+//         setSearchQuery('');
+//         setShowSuggestions(false);
+//         setSelectedSuggestionIndex(-1);
+//         break;
+//       default:
+//         break;
+//     }
+//   };
+
+//   // Suggestion click
+//   const handleSuggestionClick = (suggestion) => {
+//     setSearchQuery(suggestion);
+//     handleSearchSubmit(suggestion);
+//   };
+
+//   // Clear search history
+//   const clearSearchHistory = () => {
+//     setSearchHistory([]);
+//     setRecentSearches([]);
+//     localStorage.removeItem('searchHistory');
+//     localStorage.removeItem('recentSearches');
+//   };
+
+//   // Remove individual search from history
+//   const removeFromHistory = (searchTerm) => {
+//     const newSearchHistory = searchHistory.filter(item => item !== searchTerm);
+//     const newRecentSearches = recentSearches.filter(item => item !== searchTerm);
+//     setSearchHistory(newSearchHistory);
+//     setRecentSearches(newRecentSearches);
+//     try {
+//       localStorage.setItem('searchHistory', JSON.stringify(newSearchHistory));
+//       localStorage.setItem('recentSearches', JSON.stringify(newRecentSearches));
+//     } catch (error) {}
+//   };
+
+//   // Detect region from URL
+//   useEffect(() => {
+//     const currentPath = location.pathname;
+//     const isMenuPath = menuLinks.some(link => link.path === currentPath);
+//     if (isMenuPath) return;
+//     const pathWithoutSlash = currentPath.substring(1);
+//     const regionFromUrl = pathWithoutSlash.replace(/-/g, ' ');
+//     const matchedRegion = regions.find(region =>
+//       region.toLowerCase() === regionFromUrl.toLowerCase()
+//     );
+//     if (matchedRegion) {
+//       setSelectedRegion(matchedRegion);
+//     } else if (currentPath === '/') {
+//       setSelectedRegion('Select Region');
+//     }
+//   }, [location.pathname]);
+
+//   useEffect(() => {
+//     let lastScrollY = window.scrollY;
+//     let scrollTimeout;
+//     const handleScroll = () => {
+//       const currentScrollY = window.scrollY;
+//       const scrollDifference = currentScrollY - lastScrollY;
+//       clearTimeout(scrollTimeout);
+//       setIsScrolling(true);
+//       if (Math.abs(scrollDifference) > 1) {
+//         if (currentScrollY <= 10) setShowFullNavbar(true);
+//         else setShowFullNavbar(false);
+//         lastScrollY = currentScrollY;
+//       }
+//       scrollTimeout = setTimeout(() => {
+//         setIsScrolling(false);
+//         if (currentScrollY <= 10) setShowFullNavbar(true);
+//         else setShowFullNavbar(false);
+//       }, 50);
+//     };
+//     window.addEventListener('scroll', handleScroll, { passive: true });
+//     return () => {
+//       window.removeEventListener('scroll', handleScroll);
+//       clearTimeout(scrollTimeout);
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     const calculateNavbarHeight = () => {
+//       if (searchActive) setNavbarHeight(64);
+//       else if (showFullNavbar)
+//         setNavbarHeight(window.innerWidth >= 1024 ? 120 : window.innerWidth >= 768 ? 120 : 100);
+//       else
+//         setNavbarHeight(window.innerWidth >= 1024 ? 60 : window.innerWidth >= 768 ? 60 : 50);
+//     };
+//     requestAnimationFrame(calculateNavbarHeight);
+//     const handleResize = () => {
+//       requestAnimationFrame(calculateNavbarHeight);
+//     };
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, [showFullNavbar, searchActive]);
+
+//   // --- Fix Click Outside: Only close suggestion, not overlay while typing ---
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (!event.target.closest('.region-dropdown')) {
+//         setRegionDropdownOpen(false);
+//       }
+//       // Only close suggestion, not overlay while typing
+//       if (
+//         searchActive &&
+//         searchOverlayRef.current &&
+//         !searchOverlayRef.current.contains(event.target)
+//       ) {
+//         setShowSuggestions(false);
+//       }
+//     };
+//     document.addEventListener('click', handleClickOutside);
+//     return () => {
+//       document.removeEventListener('click', handleClickOutside);
+//     };
+//   }, [searchActive]);
+
+//   useEffect(() => {
+//     if (mobileMenuOpen) {
+//       document.body.style.overflow = 'hidden';
+//     } else {
+//       document.body.style.overflow = 'unset';
+//     }
+//     return () => {
+//       document.body.style.overflow = 'unset';
+//     };
+//   }, [mobileMenuOpen]);
+
+//   const isActive = (path) => location.pathname === path;
+
+//   const handleRegionSelect = (region) => {
+//     setSelectedRegion(region);
+//     setRegionDropdownOpen(false);
+//     navigate(`/${region.replace(/\s+/g, '-')}`);
+//   };
+
+//   // --- Hamburger Icon ---
+//   const HamburgerIcon = ({ isOpen, onClick }) => (
+//     <button
+//       onClick={onClick}
+//       className="flex flex-col justify-center items-center w-8 h-8 space-y-1"
+//       aria-label="Toggle menu"
+//     >
+//       <span
+//         className={`w-6 h-0.5 bg-[#023437] transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`}
+//       />
+//       <span
+//         className={`w-6 h-0.5 bg-[#023437] transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}
+//       />
+//       <span
+//         className={`w-6 h-0.5 bg-[#023437] transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}
+//       />
+//     </button>
+//   );
+
+//   // --- Mobile Menu ---
+//   const MobileMenu = () => (
+//     <div className={`fixed inset-0 z-[9999] transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+//       {/* Backdrop */}
+//       <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)} />
+//       {/* Menu Panel */}
+//       <div className="absolute right-0 top-0 h-full w-full bg-white shadow-lg">
+//         {/* Menu Header */}
+//         <div className="flex items-center justify-between p-6 border-b border-gray-200">
+//           <img src={frame1} alt="Logo" className="h-10" />
+//           <button
+//             onClick={() => setMobileMenuOpen(false)}
+//             className="p-2"
+//             aria-label="Close menu"
+//           >
+//             <svg className="w-8 h-8 text-[#023437]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+//             </svg>
+//           </button>
+//         </div>
+//         {/* Menu Items */}
+//         <div className="p-6 space-y-6 flex flex-col justify-center h-[calc(100vh-120px)]">
+//           {menuLinks.map((item) => (
+//             <button
+//               key={item.name}
+//               onClick={() => {
+//                 navigate(item.path); setMobileMenuOpen(false);
+//               }}
+//               className={`block w-full text-center px-6 py-4 rounded-lg text-2xl font-semibold transition-all duration-200 ${isActive(item.path) ? 'text-[#023437] bg-gray-100 font-extrabold' : 'text-gray-600 hover:text-[#C09F53] hover:bg-gray-50'}`}
+//             >
+//               {item.name}
+//             </button>
+//           ))}
+//           <button
+//             onClick={() => { navigate('/Contact-Us'); setMobileMenuOpen(false); }}
+//             className="w-full bg-[#C09F53] text-white px-6 py-4 rounded-full text-xl font-semibold mt-8 hover:bg-[#a88a47] transition-colors duration-200"
+//           >
+//             Free Consultation
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+
+//   // --- Search Overlay ---
+//   const SearchOverlay = () => (
+//     <div
+//       ref={searchOverlayRef}
+//       className="fixed top-0 left-0 w-full h-screen bg-white z-[60] flex flex-col"
+//       onMouseDown={e => {
+//         // Only close if clicking overlay itself, not children
+//         if (e.target === e.currentTarget) {
+//           setSearchActive(false);
+//           setSearchQuery('');
+//           setShowSuggestions(false);
+//           setSelectedSuggestionIndex(-1);
+//         }
+//       }}
+//     >
+//       {/* Search Header */}
+//       <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200">
+//         <img src={frame1} alt="Logo" className="h-8 md:h-10" />
+//         {/* Input */}
+//         <div className="flex-1 mx-4 relative">
+//           <div className="relative">
+//             <input
+//               ref={searchInputRef}
+//               type="text"
+//               placeholder="I'm searching for..."
+//               value={searchQuery}
+//               onChange={handleSearchInputChange}
+//               onKeyDown={handleSearchKeyDown}
+//               onClick={e => e.stopPropagation()}
+//               autoComplete="on"
+//               className="w-full px-4 py-3 pr-12 border-2 border-[#023437] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#C09F53] focus:border-transparent"
+//               disabled={isSearching}
+//             />
+//             {/* Search Button */}
+//             <button
+//               onClick={() => handleSearchSubmit()}
+//               disabled={isSearching}
+//               className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-[#C09F53] text-white rounded-full hover:bg-[#a88a47] transition-colors duration-200 disabled:opacity-50"
+//               aria-label="Search"
+//             >
+//               {isSearching ? (
+//                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+//               ) : (
+//                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+//                 </svg>
+//               )}
+//             </button>
+//           </div>
+//         </div>
+//         <button
+//           onClick={() => {
+//             setSearchActive(false);
+//             setSearchQuery('');
+//             setShowSuggestions(false);
+//             setSelectedSuggestionIndex(-1);
+//           }}
+//           className="p-2"
+//           aria-label="Close search"
+//         >
+//           <svg className="w-6 h-6 text-[#023437]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+//           </svg>
+//         </button>
+//       </div>
+//       {/* ---- Content ---- */}
+//       <div className="flex-1 overflow-y-auto p-4" onClick={e => e.stopPropagation()}>
+//         {/* Suggestions or Recent */}
+//         {(searchQuery.trim().length > 0 ? filteredSuggestions : recentSearches).length > 0 && (
+//           <div className="mb-6">
+//             <div className="flex items-center justify-between mb-3">
+//               <h3 className="text-lg font-semibold text-[#023437]">{searchQuery.trim().length > 0 ? 'Suggestions' : 'Recent Searches'}</h3>
+//               {recentSearches.length > 0 && searchQuery.trim().length === 0 && (
+//                 <button
+//                   onClick={clearSearchHistory}
+//                   className="text-sm text-gray-500 hover:text-[#C09F53] transition-colors duration-200"
+//                 >Clear All</button>
+//               )}
+//             </div>
+//             <div className="space-y-2">
+//               {(searchQuery.trim().length > 0 ? filteredSuggestions : recentSearches).map((item, index) => (
+//                 <div
+//                   key={item + '-' + index}
+//                   className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all duration-200 ${selectedSuggestionIndex === index ? 'bg-[#C09F53] text-white' : 'bg-gray-50 hover:bg-gray-100 text-[#023437]'}`}
+//                   onClick={() => handleSuggestionClick(item)}
+//                 >
+//                   <div className="flex items-center gap-3">
+//                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                       {searchQuery.trim().length > 0 ? (
+//                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+//                       ) : (
+//                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+//                       )}
+//                     </svg>
+//                     <span className="text-sm">{item}</span>
+//                   </div>
+//                   {searchQuery.trim().length === 0 && (
+//                     <button
+//                       onClick={e => {
+//                         e.stopPropagation();
+//                         e.preventDefault();
+//                         removeFromHistory(item);
+//                       }}
+//                       className="p-1 hover:bg-gray-200 rounded transition-colors duration-200"
+//                       aria-label="Remove from history"
+//                     >
+//                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+//                       </svg>
+//                     </button>
+//                   )}
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         )}
+//         {/* Popular Searches */}
+//         {searchQuery.trim().length === 0 && recentSearches.length === 0 && (
+//           <div className="mb-6">
+//             <h3 className="text-lg font-semibold text-[#023437] mb-3">Popular Searches</h3>
+//             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+//               {searchSuggestions.slice(0, 10).map((suggestion, index) => (
+//                 <div
+//                   key={suggestion}
+//                   className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors duration-200"
+//                   onClick={() => handleSuggestionClick(suggestion)}
+//                 >
+//                   <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+//                   </svg>
+//                   <span className="text-sm text-[#023437]">{suggestion}</span>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         )}
+//         {/* No Results */}
+//         {searchQuery.trim().length > 0 && filteredSuggestions.length === 0 && (
+//           <div className="text-center py-12">
+//             <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+//             </svg>
+//             <p className="text-gray-500 text-lg mb-2">No suggestions found</p>
+//             <p className="text-gray-400 text-sm">Try searching for something else or press Enter to search anyway</p>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+
+//   // --- Region Dropdown ---
+//   const RegionDropdown = ({ isMobile = false, buttonClassName, dropdownClassName, forceClose = false }) => {
+//     const [localDropdownOpen, setLocalDropdownOpen] = useState(false);
+//     const dropdownRef = useRef(null);
+//     const timeoutRef = useRef(null);
+//     useEffect(() => { if (forceClose) setLocalDropdownOpen(false); }, [forceClose]);
+
+//     const handleMouseEnter = () => {
+//       if (!isMobile && window.innerWidth >= 768) {
+//         clearTimeout(timeoutRef.current);
+//         setLocalDropdownOpen(true);
+//         setRegionDropdownOpen(false);
+//       }
+//     };
+//     const handleMouseLeave = () => {
+//       if (!isMobile && window.innerWidth >= 768) {
+//         timeoutRef.current = setTimeout(() => {
+//           setLocalDropdownOpen(false);
+//         }, 200);
+//       }
+//     };
+//     const handleClick = (e) => {
+//       e.stopPropagation();
+//       if (isMobile || window.innerWidth < 768) {
+//         setLocalDropdownOpen(!localDropdownOpen);
+//       }
+//     };
+//     useEffect(() => () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }, []);
+//     return (
+//       <div
+//         ref={dropdownRef}
+//         className={`relative region-dropdown ${isMobile ? 'flex-1 mr-4' : ''}`}
+//         onMouseEnter={handleMouseEnter}
+//         onMouseLeave={handleMouseLeave}
+//       >
+//         <button
+//           onClick={handleClick}
+//           className={buttonClassName}
+//           aria-expanded={localDropdownOpen}
+//           aria-haspopup="true"
+//         >
+//           <div className="flex items-center gap-2">
+//             <img src={locationIcon} alt="Location" className={`${isMobile ? 'w-5 h-5' : 'w-6 h-6'} m-0 p-0`} />
+//             <span className={isMobile ? 'truncate' : ''}>{selectedRegion}</span>
+//           </div>
+//           <svg className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${localDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+//             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+//           </svg>
+//         </button>
+//         {localDropdownOpen && (
+//           <div className={`${dropdownClassName} animate-fade-in`}>
+//             {regions.map((region) => (
+//               <div
+//                 key={region}
+//                 onClick={() => { handleRegionSelect(region); setLocalDropdownOpen(false); }}
+//                 className="px-4 py-2 text-sm text-[#023437] hover:bg-[#C09F53] hover:text-white cursor-pointer transition-colors duration-200"
+//               >
+//                 {region}
+//               </div>
+//             ))}
+//           </div>
+//         )}
+//       </div>
+//     );
+//   };
+
+//   // ---- Render ----
+//   return (
+//     <>
+//       {/* Anim CSS */}
+//       <style jsx>{`
+//         .animate-fade-in {
+//           animation: fadeIn 0.2s ease-in-out;
+//         }
+//         @keyframes fadeIn {
+//           from { opacity: 0; transform: translateY(-10px);}
+//           to { opacity: 1; transform: translateY(0);}
+//         }
+//       `}</style>
+
+//       <div style={{ paddingTop: `${navbarHeight}px` }} />
+//       <MobileMenu />
+
+//       {/* Only one NavBar at a time */}
+//       {searchActive ? (
+//         <SearchOverlay />
+//       ) : showFullNavbar ? (
+//         <div className="fixed w-full z-40 top-0 bg-white shadow-md transition-all duration-200 ease-out">
+//           {/* Desktop Full Navbar */}
+//           <div className="hidden lg:block">
+//             <div className="flex flex-wrap items-center justify-between px-4 py-3 border-b border-gray-200">
+//               <img src={Frame} alt="Logo" className="w-88 h-10 cursor-pointer" onClick={() => navigate('/')} />
+//               <div className="flex items-center gap-2">
+//                 <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full">
+//                   <img src={callIcon} alt="Call" className="h-8" />
+//                   <div className="flex flex-col">
+//                     <span className="text-[10px] text-[#023437]">Toll Free Number</span>
+//                     <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
+//                   </div>
+//                 </div>
+//                 <button
+//                   onClick={() => navigate('/Contact-Us')}
+//                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
+//                 >Free Consultation</button>
+//               </div>
+//             </div>
+//             <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-2">
+//               <RegionDropdown
+//                 buttonClassName="flex items-center gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 cursor-pointer transition-colors duration-200"
+//                 dropdownClassName="absolute top-12 left-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+//               />
+//               <div className="flex flex-wrap gap-12 justify-center lg:justify-start">
+//                 {menuLinks.map((item) => (
+//                   <button
+//                     key={item.name}
+//                     onClick={() => navigate(item.path)}
+//                     className={`text-sm font-semibold transition-colors duration-200 ${isActive(item.path) ? 'text-[#023437] font-extrabold' : 'text-gray-500 hover:text-[#C09F53]'}`}
+//                   >{item.name}</button>
+//                 ))}
+//               </div>
+//               <div className="relative">
+//                 <img
+//                   src={SearchbarIcon}
+//                   alt="Search"
+//                   className="w-30 h-10 cursor-pointer hover:opacity-80 transition-opacity duration-200"
+//                   onClick={() => setSearchActive(true)}
+//                 />
+//               </div>
+//             </div>
+//           </div>
+//           {/* Tablet Full Navbar */}
+//           <div className="hidden md:block lg:hidden">
+//             <div className="flex flex-wrap items-center justify-between px-4 py-3 border-b border-gray-200">
+//               <img src={Frame} alt="Logo" className="w-72 h-8 cursor-pointer" onClick={() => navigate('/')} />
+//               <div className="flex items-center gap-2">
+//                 <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full">
+//                   <img src={callIcon} alt="Call" className="h-8" />
+//                   <div className="flex flex-col">
+//                     <span className="text-[10px] text-[#023437]">Toll Free Number</span>
+//                     <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
+//                   </div>
+//                 </div>
+//                 <button
+//                   onClick={() => navigate('/Contact-Us')}
+//                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
+//                 >Free Consultation</button>
+//               </div>
+//             </div>
+//             <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-2">
+//               <RegionDropdown
+//                 buttonClassName="flex items-center gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 cursor-pointer transition-colors duration-200"
+//                 dropdownClassName="absolute top-12 left-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+//               />
+//               <div className="flex flex-wrap gap-12 justify-center md:justify-start">
+//                 {menuLinks.map((item) => (
+//                   <button
+//                     key={item.name}
+//                     onClick={() => navigate(item.path)}
+//                     className={`text-sm font-semibold transition-colors duration-200 ${isActive(item.path) ? 'text-[#023437] font-extrabold' : 'text-gray-500 hover:text-[#C09F53]'}`}
+//                   >{item.name}</button>
+//                 ))}
+//               </div>
+//               <div className="relative">
+//                 <img
+//                   src={SearchbarIcon1}
+//                   alt="Search"
+//                   className="w-30 h-10 cursor-pointer hover:opacity-80 transition-opacity duration-200"
+//                   onClick={() => setSearchActive(true)}
+//                 />
+//               </div>
+//             </div>
+//           </div>
+//           {/* Mobile Full Navbar */}
+//           <div className="md:hidden">
+//             <div className="flex items-center justify-between px-4 py-3">
+//               <img src={Frame} alt="Logo" className="h-5 cursor-pointer" onClick={() => navigate('/')} />
+//               <div className="flex items-center gap-3">
+//                 <img src={callIcon} alt="Call" className="h-7" />
+//                 <HamburgerIcon isOpen={mobileMenuOpen} onClick={() => setMobileMenuOpen(!mobileMenuOpen)} />
+//               </div>
+//             </div>
+//             <div className="px-4 pb-3">
+//               <div className="flex items-center justify-between">
+//                 <RegionDropdown
+//                   isMobile={true}
+//                   buttonClassName="flex items-center justify-between gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 w-full transition-colors duration-200"
+//                   dropdownClassName="absolute top-12 left-0 right-0 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+//                 />
+//                 <img
+//                   src={SearchbarIcon1}
+//                   alt="Search"
+//                   className="w-10 h-10 cursor-pointer flex-shrink-0 hover:opacity-80 transition-opacity duration-200"
+//                   onClick={() => setSearchActive(true)}
+//                 />
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       ) : (
+//         <div className="fixed top-0 w-full bg-white shadow-md z-50 transition-all duration-200 ease-out transform translate-y-0">
+//           {/* Desktop Collapsed Nav */}
+//           <div className="hidden lg:flex items-center justify-between px-4 py-2">
+//             <div className="flex items-center gap-4">
+//               <img src={frame1} alt="Logo" className="w-88 h-10 cursor-pointer" onClick={() => navigate('/')} />
+//               <RegionDropdown
+//                 buttonClassName="flex items-center gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 transition-colors duration-200"
+//                 dropdownClassName="absolute top-12 left-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+//               />
+//             </div>
+//             <div className="flex flex-wrap gap-12 justify-center">
+//               {menuLinks.map((item) => (
+//                 <button
+//                   key={item.name}
+//                   onClick={() => navigate(item.path)}
+//                   className={`text-sm font-semibold transition-colors duration-200 ${isActive(item.path) ? 'text-[#023437] font-extrabold' : 'text-gray-500 hover:text-[#C09F53]'}`}
+//                 >{item.name}</button>
+//               ))}
+//             </div>
+//             <div className="relative">
+//               <img
+//                 src={SearchbarIcon}
+//                 alt="Search"
+//                 className="w-30 h-10 cursor-pointer hover:opacity-80 transition-opacity duration-200"
+//                 onClick={() => setSearchActive(true)}
+//               />
+//             </div>
+//           </div>
+//           {/* Tablet Collapsed Nav */}
+//           <div className="hidden md:flex lg:hidden items-center justify-between px-4 py-2">
+//             <div className="flex items-center gap-4">
+//               <img src={frame1} alt="Logo" className="w-88 h-10 cursor-pointer" onClick={() => navigate('/')} />
+//               <RegionDropdown
+//                 buttonClassName="flex items-center gap-2 border border-[#023437] px-4 py-2 rounded-full text-sm font-bold text-[#023437] hover:bg-gray-100 transition-colors duration-200"
+//                 dropdownClassName="absolute top-12 left-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+//               />
+//             </div>
+//             <div className="flex flex-wrap gap-12 justify-center">
+//               {menuLinks.map((item) => (
+//                 <button
+//                   key={item.name}
+//                   onClick={() => navigate(item.path)}
+//                   className={`text-sm font-semibold transition-colors duration-200 ${isActive(item.path) ? 'text-[#023437] font-extrabold' : 'text-gray-500 hover:text-[#C09F53]'}`}
+//                 >{item.name}</button>
+//               ))}
+//             </div>
+//             <div className="relative">
+//               <img
+//                 src={SearchbarIcon1}
+//                 alt="Search"
+//                 className="w-30 h-10 cursor-pointer hover:opacity-80 transition-opacity duration-200"
+//                 onClick={() => setSearchActive(true)}
+//               />
+//             </div>
+//           </div>
+//           {/* Mobile Collapsed Nav */}
+//           <div className="md:hidden flex items-center justify-between px-4 py-2">
+//             <img src={frame1} alt="Logo" className="h-8 cursor-pointer" onClick={() => navigate('/')} />
+//             <div className="flex items-center gap-3">
+//               <RegionDropdown
+//                 isMobile={false}
+//                 buttonClassName="flex items-center gap-2 border border-[#023437] px-3 py-1.5 rounded-full text-xs font-bold text-[#023437] hover:bg-gray-100 transition-colors duration-200"
+//                 dropdownClassName="absolute top-8 right-0 w-48 bg-white border border-[#023437] rounded-lg shadow-md z-10"
+//               />
+//               <img
+//                 src={SearchbarIcon1}
+//                 alt="Search"
+//                 className="w-10 h-10 cursor-pointer hover:opacity-80 transition-opacity duration-200"
+//                 onClick={() => setSearchActive(true)}
+//               />
+//               <HamburgerIcon
+//                 isOpen={mobileMenuOpen}
+//                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+//               />
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// };
+
+// export default NavBar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

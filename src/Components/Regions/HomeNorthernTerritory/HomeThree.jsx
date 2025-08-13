@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import oldladyimg from "../../../assets/lawyer talking with old couple.png";
 import truck from "../../../assets/truck.png";
 import rideshare from "../../../assets/rideshare.png";
@@ -19,6 +20,7 @@ const contentConfig = {
       "Mining, construction, and industrial sectors.",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
+    link:"/Service/MassTort/Mesothelioma-Lawsuit",
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
@@ -34,8 +36,9 @@ const contentConfig = {
       "Freight transport, mining logistics, and agricultural haulage.",
     imgSrc: truck,
     imgAlt: "18-Wheeler Accident",
+    link: "/Service/MassTort/18Wheeler-Lawsuit",
   },
-  "Rideshare Accident Claims": {
+  "Rideshare Sexual Assault": {
     bgColor: "#023437",
     textBg: "#C09F53",
     title: "Rideshare Sexual Assault",
@@ -49,16 +52,70 @@ const contentConfig = {
       "Rideshare services (e.g., Uber), food delivery, and private transport.",
     imgSrc: rideshare,
     imgAlt: "Rideshare Service",
+    link: "/Service/MassTort/Rideshare-Lawsuit",
+  },
+};
+
+const contentConfigMob = {
+  "Mesothelioma Lawsuits": {
+    bgColor: "#023437",
+    textBg: "#C09F53",
+    title: "Asbestos Exposure and Mesothelioma",
+    description:
+      "If you’ve been diagnosed with mesothelioma, you may be entitled to compensation through asbestos exposure claims.",
+    lawsuitTypeTitle: "Lawsuit Type",
+    lawsuitTypeDesc:
+      "Common law personal injury claims focusing on occupational exposure and negligence.",
+    industriesTitle: "Industries",
+    industriesDesc:
+      "Mining, construction, and industrial sectors.",
+    imgSrc: oldladyimg,
+    imgAlt: "Mesothelioma Consultation",
+    link:"/Service/MassTort/Mesothelioma-Lawsuit",
+  },
+  "Rideshare Sexual Assault": {
+    bgColor: "#023437",
+    textBg: "#C09F53",
+    title: "Rideshare Sexual Assault",
+    description:
+      "Legal support is available for survivors of sexual assault involving rideshare services like Uber or Lyft.",
+    lawsuitTypeTitle: "Lawsuit Type",
+    lawsuitTypeDesc:
+      " MAC Scheme claims providing no-fault compensation for injuries sustained during rideshare operations.",
+    industriesTitle: "Industries",
+    industriesDesc:
+      "Rideshare services (e.g., Uber), food delivery, and private transport.",
+    imgSrc: rideshare,
+    imgAlt: "Rideshare Service",
+    link: "/Service/MassTort/Rideshare-Lawsuit",
+  },
+  "18-Wheeler & Heavy Vehicle Accidents": {
+    bgColor: "#023437",
+    textBg: "#C09F53",
+    title: "18-Wheeler & Heavy Vehicle Accidents",
+    description:
+      "Victims of heavy vehicle or 18-wheeler crashes can pursue legal claims for serious injuries, lost wages, and damages.",
+    lawsuitTypeTitle: "Lawsuit Type",
+    lawsuitTypeDesc:
+      "Claims under the MAC Scheme, with provisions for additional common law actions in severe cases. ",
+    industriesTitle: "Industries",
+    industriesDesc:
+      "Freight transport, mining logistics, and agricultural haulage.",
+    imgSrc: truck,
+    imgAlt: "18-Wheeler Accident",
+    link: "/Service/MassTort/18Wheeler-Lawsuit",
   },
 };
 // Mobile Version - Same structure, no changes
+
 const HomeThreeMobile = () => {
   const [activeTag, setActiveTag] = useState("Mesothelioma Lawsuits");
-  const expertiseTags = Object.keys(contentConfig);
+  const expertiseTags = Object.keys(contentConfigMob);
+  const navigate = useNavigate();
 
   // Renders the section for the current activeTag
   const renderContent = () => {
-    const data = contentConfig[activeTag];
+    const data = contentConfigMob[activeTag];
     if (!data) return null;
 
     return (
@@ -71,13 +128,13 @@ const HomeThreeMobile = () => {
           className="flex-1 flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-14 3xl:p-16 4xl:p-20 5xl:p-24 text-white  "
           style={{ backgroundColor: data.textBg }}
         >
-          <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
+          <div className="space-y-4 sm:space-y-6 md:space-y-4 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-playfair font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
-            <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+            <p className="leading-relaxed text-sm  font-opensans sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
               {data.description}
             </p>
             {/* Lawsuit Type */}
@@ -110,6 +167,7 @@ const HomeThreeMobile = () => {
           />
           <button
             className={`absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-4 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 xl:px-12 xl:py-5 2xl:px-14 2xl:py-6 3xl:px-16 3xl:py-8 4xl:px-20 4xl:py-10 5xl:px-24 5xl:py-12 border border-white text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl rounded-full shadow-md transition duration-300 hover:bg-white hover:text-[#023437]`}
+            onClick={() => navigate(data.link)}
           >
             Learn More
           </button>
@@ -182,9 +240,11 @@ const HomeThreeMobile = () => {
 };
 
 // Desktop Version - Same structure, no changes
+
 const HomeThreeDesktop = () => {
   const [activeTag, setActiveTag] = useState("Mesothelioma Lawsuits");
   const expertiseTags = Object.keys(contentConfig);
+  const navigate = useNavigate();
 
   // Renders the section for the current activeTag
   const renderContent = () => {
@@ -201,9 +261,9 @@ const HomeThreeDesktop = () => {
           className="flex-1 flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-14 3xl:p-16 4xl:p-20 5xl:p-24 text-white  "
           style={{ backgroundColor: data.textBg }}
         >
-          <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
+          <div className="space-y-4 sm:space-y-6 md:space-y-4 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-playfair font-semibold leading-tight text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
@@ -215,7 +275,7 @@ const HomeThreeDesktop = () => {
               <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
                 {data.lawsuitTypeTitle}
               </h4>
-              <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+              <p className="leading-relaxed text-sm  font-opensans sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
                 {data.lawsuitTypeDesc}
               </p>
             </div>
@@ -240,6 +300,7 @@ const HomeThreeDesktop = () => {
           />
           <button
             className={`absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-4 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 xl:px-12 xl:py-5 2xl:px-14 2xl:py-6 3xl:px-16 3xl:py-8 4xl:px-20 4xl:py-10 5xl:px-24 5xl:py-12 border border-white text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl rounded-full shadow-md transition duration-300 hover:bg-white hover:text-[#023437]`}
+            onClick={() => navigate(data.link)}
           >
             Learn More
           </button>
