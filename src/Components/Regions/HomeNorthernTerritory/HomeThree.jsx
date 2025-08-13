@@ -20,7 +20,7 @@ const contentConfig = {
       "Mining, construction, and industrial sectors.",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
-    link:"Service/MassTort/Mesothelioma-Lawsuit",
+    link:"/Service/MassTort/Mesothelioma-Lawsuit",
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
@@ -71,7 +71,7 @@ const contentConfigMob = {
       "Mining, construction, and industrial sectors.",
     imgSrc: oldladyimg,
     imgAlt: "Mesothelioma Consultation",
-    link:"Service/MassTort/Mesothelioma-Lawsuit",
+    link:"/Service/MassTort/Mesothelioma-Lawsuit",
   },
   "Rideshare Sexual Assault": {
     bgColor: "#023437",
