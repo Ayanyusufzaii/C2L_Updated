@@ -24,7 +24,8 @@ const menuLinks = [
   { name: 'Home', path: '/' },
   { name: 'Services', path: '/Service' },
   { name: 'About Us', path: '/About-Us' },
-  { name: 'Contact Us', path: '/Contact-Us' }
+  { name: 'Contact Us', path: '/Contact-Us' },
+  {name:'Parter With Us',path:'/Partner-With-Us'}
 ];
 
 const NavBar = () => {
@@ -449,7 +450,7 @@ const NavBar = () => {
               />
 
               {/* Menu Links */}
-              <div className="flex flex-wrap gap-12 justify-center lg:justify-start">
+              <div className="flex flex-wrap md:gap-8 lg:gap-12  justify-center lg:justify-start">
                 {menuLinks.map((item) => (
                   <button
                     key={item.name}
@@ -518,7 +519,7 @@ const NavBar = () => {
               />
 
               {/* Menu Links */}
-              <div className="flex flex-wrap gap-12 justify-center md:justify-start">
+              <div className="flex flex-wrap md:gap-8 lg:gap-12  justify-center md:justify-start">
                 {menuLinks.map((item) => (
                   <button
                     key={item.name}
@@ -653,7 +654,7 @@ const NavBar = () => {
             </div>
 
             {/* Center Section: Menu Links */}
-            <div className="flex flex-wrap gap-12 justify-center">
+            <div className="flex flex-wrap md:gap-6 lg:gap-12    justify-center">
               {menuLinks.map((item) => (
                 <button
                   key={item.name}
