@@ -6,8 +6,10 @@ import HomeSeven from './HomeSeven'
 import Footer from '../Footer'
 import HomeThree from './HomeThree'
 import { useState, useEffect, useRef } from 'react';
-import Seo from "../Seo/Seo"
+import { useMeta } from "../hooks/useMeta";
+// import Seo from "../Seo/Seo"
 const TURNSTILE_SITE_KEY = '0x4AAAAAABpnCnFP_lyxRtVO';
+
 
 // function HomePage() {
 //    const [verified, setVerified] = useState(false);
@@ -176,10 +178,13 @@ const HomeMain = () => {
     loadTurnstileScript();
   };
  
- 
+   useMeta("homepage");
+
+
   return (
+    
     <div className="relative">
-          <Seo pageKey="homepage" />
+          {/* <Seo pageKey="homepage" /> */}
 
       <div className={`transition-all duration-300 ${!verified ? 'pointer-events-none blur-sm select-none' : ''}`}>
            <NavBar />

@@ -10,11 +10,13 @@ import NavBar from "../../NavBar"
 import HomeSeven from '../../Home/HomeSeven'
 import Faqmeso from '../../faqrideshare'
 import Seo from "../../Seo/Seo"
+import { useMeta } from "../../hooks/useMeta";
 
 function SubServiceRideshare() {
+  useMeta("rideshare");
+
   return (
     <div className='overflow-hidden'>
-      <Seo pageKey="rideshare" />
 
         <NavBar />
         <SubOne />

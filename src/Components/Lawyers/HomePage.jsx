@@ -8,6 +8,7 @@ import HomeFive from './HomeFive';
 import HomeSeven from '../Home/HomeSeven';
 import Footer from '../Footer';
 import Seo from "../Seo/Seo"
+import { useMeta } from "../hooks/useMeta";
 
 const HomePage = () => {
   // Scroll to top when the component mounts
@@ -18,10 +19,10 @@ const HomePage = () => {
       behavior: 'instant', // avoid animation delay for initial load
     });
   }, []);
+useMeta("partner");
 
   return (
     <div>
-      <Seo pageKey="partner" />
       <Navbar />
       <HomeOne />
       <HomeTwo />

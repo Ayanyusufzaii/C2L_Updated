@@ -5,6 +5,7 @@ import FaqClassAction from '../../FAQClassAction';
 import ClassActionHero from './ClassActionHero';
 import ClassActionTwo from './ClassActionTwo';
 import Homeseven from '../../Home/HomeSeven'
+import { useMeta } from "../../hooks/useMeta";
 
 import Seo from "../../Seo/Seo"
 
@@ -15,10 +16,11 @@ function ClassAction() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+useMeta("classAction");
 
     return (
         <div>
-            <Seo pageKey="classAction" />
+ 
 
             <NavBar />
             <div className="relative w-full">

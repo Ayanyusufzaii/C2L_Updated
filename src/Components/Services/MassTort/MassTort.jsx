@@ -6,6 +6,7 @@ import MassTortHero from './MassTortHero';
 import Homeseven from '../../Home/HomeSeven'
 import MassTortTwo from './MassTortTwo';
 import Seo from "../../Seo/Seo"
+import { useMeta } from "../../hooks/useMeta";
 
 
 function MassTort() {
@@ -14,10 +15,10 @@ function MassTort() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+useMeta("massTort");
 
     return (
         <div>
-            <Seo pageKey="massTort" />
 
             <NavBar />
             <div className="relative w-full">

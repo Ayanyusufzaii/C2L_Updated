@@ -8,11 +8,12 @@ import HomeSeven from '../Home/HomeSeven'
 import NavBar from '../NavBar'
 import Footer from '../Footer'
 import Seo from "../Seo/Seo"
+import { useMeta } from "../hooks/useMeta";
 
 function About() {
+  useMeta("about");
   return (
     <div className='overflow-hidden '>
-     <Seo pageKey="about" />
       <NavBar />
       <AboutOne />
       <AboutTwo />

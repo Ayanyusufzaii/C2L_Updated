@@ -10,11 +10,13 @@ import NavBar from "../../NavBar"
 import HomeSeven from '../../Home/HomeSeven'
 import Faqmeso from '../../faq18wheeler'
 import Seo from "../../Seo/Seo"
+import { useMeta } from "../../hooks/useMeta";
 
 function SubService18Wheeler() {
+  useMeta("heavyVehicle");
+
   return (
     <div className='overflow-hidden'>
-        <Seo pageKey="heavyVehicle" />
       
         <NavBar />
         <SubOne />

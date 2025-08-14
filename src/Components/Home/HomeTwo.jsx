@@ -12,6 +12,10 @@ import mobFormBG from "../../assets/MobileFormBG.png";
 import thankyou from "../../assets/thankyouimng.png"
 import { sendBothEmails, testEmailJSConnection, setInitialLandingUrl } from './emailJsService'; // <- service we just created
 
+
+
+
+
 // Custom Captcha Component (kept same UI, minor safe fixes)
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const [captchaText, setCaptchaText] = useState('');
@@ -161,9 +165,8 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
               type="button"
               onClick={speakCaptcha}
               disabled={isSpeaking}
-              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${
-                isSpeaking ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
+              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${isSpeaking ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               title="Listen to CAPTCHA"
               aria-label="Listen to CAPTCHA"
             >
@@ -192,11 +195,10 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           value={userInput}
           onChange={handleInputChange}
           placeholder="Enter CAPTCHA"
-          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            userInput !== '' && !isValid
-              ? 'border-red-500 focus:ring-red-500'
-              : 'border-gray-300'
-          }`}
+          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${userInput !== '' && !isValid
+            ? 'border-red-500 focus:ring-red-500'
+            : 'border-gray-300'
+            }`}
         />
         {userInput !== '' && !isValid && (
           <p className="text-red-500 text-sm mt-1">
@@ -212,6 +214,105 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     </div>
   );
 };
+
+
+// STRICT formatter for your 3 allowed patterns:
+// "" -> "4XX XXX XXX"
+// "0" -> "04XX XXX XXX"
+// "+61" -> "+61 4XX XXX XXX"
+const formatAustralianMobile = (input) => {
+  if (!input) return "";
+
+  let raw = String(input).trim();
+
+  // Keep a bare '+' visible while typing
+  if (raw === "+") return "+";
+
+  // keep only digits and a leading + (drop other pluses)
+  // remove any plus characters after the first
+  const plus = raw.startsWith("+") ? "+" : "";
+  raw = plus + raw.replace(/\+/g, "").replace(/[^\d]/g, "");
+
+  let prefix = "";
+  let actual = "";
+
+  if (raw.startsWith("+61")) {
+    prefix = "+61";
+    actual = raw.slice(3);
+  } else if (raw.startsWith("0")) {
+    prefix = "0";
+    actual = raw.slice(1);
+  } else if (raw.startsWith("+")) {
+    // user typed '+' then some digits but not +61 yet — preserve as-is for UX
+    prefix = "+";
+    actual = raw.slice(1);
+  } else {
+    prefix = "";
+    actual = raw;
+  }
+
+  // actual should be only digits and limited to 9 digits
+  actual = actual.replace(/\D/g, "").slice(0, 9);
+
+  // format actual as XXX XXX XXX grouping (3-3-3)
+  let formattedActual = actual;
+  if (actual.length <= 3) {
+    formattedActual = actual;
+  } else if (actual.length <= 6) {
+    formattedActual = `${actual.slice(0, 3)} ${actual.slice(3)}`;
+  } else {
+    formattedActual = `${actual.slice(0, 3)} ${actual.slice(3, 6)} ${actual.slice(6)}`;
+  }
+
+  // construct visible output
+  if (prefix === "+61") {
+    // show +61 with a space — desired final layout
+    return `${prefix} ${formattedActual}`.trim();
+  } else if (prefix === "0") {
+    return `${prefix}${formattedActual}`.trim();
+  } else if (prefix === "+") {
+    // preserve the + while user is typing unsupported prefix; show + + digits (no extra space)
+    // if there are no digits yet, just return "+"
+    return formattedActual ? `+${formattedActual}` : "+";
+  } else {
+    return formattedActual;
+  }
+};
+
+
+ 
+// Returns { isValid: boolean, reason: string|null }
+// Reasons: "empty", "invalid_prefix", "actual_start", "length"
+const validateAustralianMobile = (input) => {
+  if (!input) return { isValid: false, reason: "empty" };
+
+  const raw = String(input).trim().replace(/[^\d+]/g, "");
+
+  // Allowed prefixes: +61, 0, or none. Anything else -> invalid_prefix
+  let actual = "";
+  if (raw.startsWith("+61")) {
+    actual = raw.slice(3);
+  } else if (raw.startsWith("0")) {
+    actual = raw.slice(1);
+  } else if (raw.startsWith("+") && !raw.startsWith("+61")) {
+    return { isValid: false, reason: "invalid_prefix" };
+  } else {
+    actual = raw;
+  }
+
+  // actual must be digits only
+  actual = actual.replace(/\D/g, "");
+
+  // actual must start with '4'
+  if (actual.length === 0) return { isValid: false, reason: "length" };
+  if (actual[0] !== "4") return { isValid: false, reason: "actual_start" };
+
+  // actual must be exactly 9 digits
+  if (actual.length !== 9) return { isValid: false, reason: "length" };
+
+  return { isValid: true, reason: null };
+};
+
 
 function HomeTwo() {
   const formRef = useRef();
@@ -232,6 +333,9 @@ function HomeTwo() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
+  const [submitMessage, setSubmitMessage] = useState(null);
+
 
   // Landers & captcha
   const [captchaValid, setCaptchaValid] = useState(false);
@@ -275,47 +379,47 @@ function HomeTwo() {
     let pollInterval = null;
     let attemptCount = 0;
     const maxAttempts = 100;
-    
+
     const checkTrustedFormValues = () => {
       const certField = document.querySelector('[name="xxTrustedFormCertUrl"]');
       const pingField = document.querySelector('[name="xxTrustedFormPingUrl"]');
       const tokenField = document.querySelector('[name="xxTrustedFormCertToken"]');
-      
+
       let hasAllValues = false;
-      
+
       if (certField) {
         const actualCertValue = certField.value;
         if (actualCertValue && actualCertValue !== '' && actualCertValue !== certId) {
           setCertId(actualCertValue);
         }
       }
-      
+
       if (pingField) {
         const actualPingValue = pingField.value;
         if (actualPingValue && actualPingValue !== '' && actualPingValue !== pingUrl) {
           setPingUrl(actualPingValue);
         }
       }
-      
+
       if (tokenField) {
         const actualTokenValue = tokenField.value;
         if (actualTokenValue && actualTokenValue !== '' && actualTokenValue !== tokenUrl) {
           setTokenUrl(actualTokenValue);
         }
       }
-      
+
       if (certField?.value && pingField?.value && tokenField?.value) {
         hasAllValues = true;
       }
-      
+
       return hasAllValues;
     };
-    
+
     pollInterval = setInterval(() => {
       attemptCount++;
-      
+
       const hasValues = checkTrustedFormValues();
-      
+
       if (hasValues || attemptCount >= maxAttempts) {
         clearInterval(pollInterval);
         if (!hasValues) {
@@ -323,11 +427,11 @@ function HomeTwo() {
         }
       }
     }, 100);
-    
+
     const handleTrustedFormEvent = () => {
       setTimeout(checkTrustedFormValues, 500);
     };
-    
+
     document.addEventListener('trustedform:loaded', handleTrustedFormEvent);
     document.addEventListener('trustedform:ready', handleTrustedFormEvent);
     window.addEventListener('message', (event) => {
@@ -335,7 +439,7 @@ function HomeTwo() {
         handleTrustedFormEvent();
       }
     });
-    
+
     return () => {
       if (pollInterval) clearInterval(pollInterval);
       document.removeEventListener('trustedform:loaded', handleTrustedFormEvent);
@@ -382,14 +486,70 @@ function HomeTwo() {
     }
   });
 
+  const handlePhoneChange = (value) => {
+    // format and validate using the new functions
+    const formatted = formatAustralianMobile(value);
+    const validation = validateAustralianMobile(formatted);
+
+    // map validation reasons to friendly messages
+    let nextPhoneError = "";
+    if (!value || value.trim() === "") {
+      nextPhoneError = "";
+    } else if (!validation.isValid) {
+      switch (validation.reason) {
+        case "invalid_prefix":
+          nextPhoneError = "Prefix must be empty, 0, or +61 (e.g. +61 4XX XXX XXX)";
+          break;
+        case "actual_start":
+          nextPhoneError = "Phone number must start with '4'";
+          break;
+        case "length":
+          nextPhoneError = "Phone number must have 9 digits";
+          break;
+        default:
+          nextPhoneError = "Please enter a valid Australian mobile number";
+      }
+    } else {
+      nextPhoneError = "";
+    }
+
+    // update phoneError only if it changed
+    setPhoneError((prev) => (prev === nextPhoneError ? prev : nextPhoneError));
+
+    // write formatted value back to form state only if different
+    setFormData((prev) => {
+      if (prev.phoneNumber === formatted) return prev;
+      return { ...prev, phoneNumber: formatted };
+    });
+
+    // clear any general phone error that may exist in errors object, only if set
+    if (errors.phoneNumber) {
+      setErrors((prevErrors) => {
+        if (!prevErrors.phoneNumber) return prevErrors;
+        return { ...prevErrors, phoneNumber: "" };
+      });
+    }
+  };
+
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
+    // Route phone field to dedicated handler
+    if (name === "phoneNumber") {
+      handlePhoneChange(value);
+      // Clear submit message if any (same behavior as before)
+      if (submitMessage) setSubmitMessage(null);
+      return;
+    }
+
     setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
 
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
+
 
   const handleCaptchaChange = (isValid) => {
     setCaptchaValid(isValid);
@@ -408,14 +568,36 @@ function HomeTwo() {
 
     if (!formData.phoneNumber.trim()) {
       newErrors.phoneNumber = 'Phone number is required';
+    } else if (phoneError) {
+      // prefer the live validation message if present
+      newErrors.phoneNumber = phoneError;
     } else {
-      const phoneDigits = formData.phoneNumber.replace(/\D/g, '');
-      const isValidAusMobile = phoneDigits.length === 10 && phoneDigits.startsWith('04');
-      const isValidAusLandline = phoneDigits.length === 10 && /^(02|03|07|08)/.test(phoneDigits);
-      if (!isValidAusMobile && !isValidAusLandline) {
-        newErrors.phoneNumber = 'Please enter a valid Australian phone number';
+      // final safety check (fallback) — runs only if no live error
+      const { isValid, reason } = validateAustralianMobile(formData.phoneNumber);
+      if (!isValid) {
+        const phoneDigits = formData.phoneNumber.replace(/\D/g, '');
+        const isValidAusLandline =
+          phoneDigits.length === 10 &&
+          (phoneDigits.startsWith("02") ||
+            phoneDigits.startsWith("03") ||
+            phoneDigits.startsWith("07") ||
+            phoneDigits.startsWith("08"));
+
+        if (!isValidAusLandline) {
+          if (reason === "length") {
+            newErrors.phoneNumber = "Phone number must have 9 digits after the prefix";
+          } else if (reason === "actual_start") {
+            newErrors.phoneNumber = "Phone number must start with '4' (after prefix)";
+          } else if (reason === "invalid_prefix") {
+            newErrors.phoneNumber = "Prefix must be empty, 0, or +61 (e.g. +61 4XX XXX XXX)";
+          } else {
+            newErrors.phoneNumber = "Please enter a valid Australian phone number";
+          }
+        }
       }
+      // if isValid === true then mobile is valid — no error
     }
+
 
     if (!formData.emailId.trim()) {
       newErrors.emailId = 'Email is required';
@@ -550,7 +732,7 @@ function HomeTwo() {
       minHeight: '100vh'
     }}>
       {/* Toast container (keeps react-toastify like before) */}
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -565,9 +747,9 @@ function HomeTwo() {
 
       {/* Responsive Marquee Banner */}
       <div className={`${isMobile ? 'mt-10' : isTablet ? 'mt-32' : 'mt-40'} ${isMobile ? 'px-4' : ''}`}>
-        <div 
+        <div
           className="flex justify-end items-center bg-[#C09F53] overflow-hidden relative -rotate-[4.013deg]"
-          style={{ 
+          style={{
             height: marqueeConfig.height,
             width: '110vw',
             marginLeft: isMobile ? '-16px' : isTablet ? '-40px' : '-10px',
@@ -579,20 +761,20 @@ function HomeTwo() {
             <div className="flex whitespace-nowrap animate-marquee" style={{ animationDuration: isMobile ? '8s' : isTablet ? '10s' : '12s', animationTimingFunction: 'linear', animationIterationCount: 'infinite' }}>
               {[...Array(10)].map((_, index) => (
                 <div key={index} className="flex items-center" style={{ marginRight: marqueeConfig.marginLeft }}>
-                  <span 
+                  <span
                     className="text-[#FFF] text-center font-['Playfair_Display'] font-[800] leading-none flex-shrink-0 ml-20"
                     style={{ fontSize: marqueeConfig.fontSize }}
                   >
                     Get a free case review
                   </span>
-                  <img 
-                    src={Marquee} 
-                    alt="Banner" 
+                  <img
+                    src={Marquee}
+                    alt="Banner"
                     className="object-cover ml-4"
-                    style={{ 
-                      height: marqueeConfig.iconSize, 
-                      width: marqueeConfig.iconSize 
-                    }} 
+                    style={{
+                      height: marqueeConfig.iconSize,
+                      width: marqueeConfig.iconSize
+                    }}
                   />
                 </div>
               ))}
@@ -601,7 +783,7 @@ function HomeTwo() {
         </div>
 
         {/* Responsive Form Container */}
-        <div 
+        <div
           className="bg-[#FFFBF3] mx-auto"
           style={{
             padding: isSmallMobile ? '16px 12px' : isMobile ? '24px 20px' : isTablet ? '48px' : '60px 80px',
@@ -614,9 +796,9 @@ function HomeTwo() {
             borderRadius: '0'
           }}
         >
-          <form 
-            ref={formRef} 
-            onSubmit={handleSubmit} 
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
             className={`${isMobile ? 'mt-[10%]' : isTablet ? 'mt-[15%]' : 'mt-[20%]'}`}
           >
             {/* Hidden TrustedForm fields - NO value attribute to prevent React control */}
@@ -668,13 +850,19 @@ function HomeTwo() {
                   fullWidth
                   value={formData.phoneNumber}
                   onChange={handleChange}
-                  error={!!errors.phoneNumber}
-                  helperText={errors.phoneNumber}
+                  error={!!errors.phoneNumber || !!phoneError}
+                  helperText={phoneError || errors.phoneNumber}
                   sx={{
                     ...getTextFieldStyle(),
                     marginBottom: isMobile ? '0px' : '40px'
                   }}
+                  inputProps={{
+                    maxLength: formData.phoneNumber.replace(/[^\d+]/g, "").startsWith("+61") ? 18 : 15,
+                    inputMode: "text",
+                    pattern: "[+0-9 ]*"
+                  }}
                 />
+
               </div>
 
               {/* Email ID */}
@@ -801,17 +989,28 @@ function HomeTwo() {
                     <>
                       <span className="block">
                         I agree to the{' '}
-                        <a href="/PrivacyPolicy" className=" text-[#C09F53] hover:text-yellow-500">
+                        <a href="/Privacy-policy" className="text-[#C09F53] underline hover:text-blue-200">
                           privacy policy
                         </a>{' '}
                         and{' '}
-                        <a href="/Disclaimer" className=" text-[#C09F53] hover:text-yellow-500">
+                        <a href="/Disclaimer" className="text-[#C09F53] underline hover:text-blue-200">
                           disclaimer
                         </a>{' '} and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
                       </span>
                     </>
                   ) : (
-                    "I agree to the privacy policy and disclaimer and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising."
+                    <>
+                      <span className="block">
+                        I agree to the{' '}
+                        <a href="/Privacy-policy" className="text-[#C09F53] underline hover:text-blue-200">
+                          privacy policy
+                        </a>{' '}
+                        and{' '}
+                        <a href="/Disclaimer" className="text-[#C09F53] underline hover:text-blue-200">
+                          disclaimer
+                        </a>{' '} and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
+                      </span>
+                    </>
                   )}
                 </label>
                 {errors.privacyConsent && (
@@ -838,9 +1037,9 @@ function HomeTwo() {
                   </label>
                 </div>
                 {formData.captchaEnabled && (
-                  <CustomCaptcha 
-                    onCaptchaChange={handleCaptchaChange} 
-                    resetTrigger={captchaResetTrigger} 
+                  <CustomCaptcha
+                    onCaptchaChange={handleCaptchaChange}
+                    resetTrigger={captchaResetTrigger}
                   />
                 )}
                 {errors.captcha && (

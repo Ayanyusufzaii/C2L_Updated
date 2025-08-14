@@ -6,6 +6,7 @@ import ContactUsHero from './ContactUsHero';
 import ContactUsTwo from './ContactUsTwo';
 import ContactUsForm from './ContactUsForm';
 import Seo from "../Seo/Seo"
+import { useMeta } from "../hooks/useMeta";
 
 function ContactUs() {
     const [showModal, setShowModal] = useState(false);
@@ -14,9 +15,10 @@ function ContactUs() {
         window.scrollTo(0, 0);
     }, []);
 
+    useMeta("contact");
+
     return (
         <div>
-        <Seo pageKey="contact" />
             <NavBar />
             <div className="relative w-full">
                 <ContactUsHero />

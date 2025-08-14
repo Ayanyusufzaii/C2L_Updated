@@ -5,6 +5,7 @@ import FaqPersonalInjury from '../../FAQPersonalInjury';
 import PersonalInjuryHero from './PersonalInjuryHero';
 import PersonalInjuryTwo from './PersonalInjuryTwo';
 import Homeseven from '../../Home/HomeSeven'
+import { useMeta } from "../../hooks/useMeta";
 
 import Seo from "../../Seo/Seo"
 
@@ -15,10 +16,11 @@ function PersonalInjury() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+useMeta("personalInjury");
 
     return (
         <div>
-            <Seo pageKey="personalInjury" />
+           
             <NavBar />
             <div className="relative w-full">
                 <PersonalInjuryHero />
