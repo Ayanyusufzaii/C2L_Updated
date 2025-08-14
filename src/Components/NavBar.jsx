@@ -25,7 +25,7 @@ const menuLinks = [
   { name: 'Services', path: '/Service' },
   { name: 'About Us', path: '/About-Us' },
   { name: 'Contact Us', path: '/Contact-Us' },
-  {name:'Parter With Us',path:'/Partner-With-Us'}
+  {name:'Partner With Us',path:'/Partner-With-Us'}
 ];
 
 const NavBar = () => {
