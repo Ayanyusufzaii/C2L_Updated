@@ -8,6 +8,7 @@ import SearchbarIcon1 from '../../src/assets/searchlogo1.png';
 import locationIcon from '../../src/assets/locationlogo.png';
 import closeIcon from '../../src/assets/logoo.png';
 
+
 const regions = [
   'New South Wales',
   'Queensland',
@@ -418,13 +419,16 @@ const NavBar = () => {
               {/* Call and Button Container */}
               <div className="flex items-center gap-2">
                 {/* Call Capsule */}
-                <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full">
-                  <img src={callIcon} alt="Call" className="h-8" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-[#023437]">Toll Free Number</span>
-                    <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
-                  </div>
-                </div>
+               <a href="tel:+61470695167" style={{ textDecoration: 'none' }}>
+  <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full cursor-pointer">
+    <img src={callIcon} alt="Call" className="h-8" />
+    <div className="flex flex-col">
+      <span className="text-[10px] text-[#023437]">Toll Free Number</span>
+      <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
+    </div>
+  </div>
+</a>
+
 
                 {/* Free Consultation Button */}
                 <button
@@ -485,13 +489,15 @@ const NavBar = () => {
               {/* Call and Button Container */}
               <div className="flex items-center gap-2">
                 {/* Call Capsule */}
-                <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full">
-                  <img src={callIcon} alt="Call" className="h-8" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-[#023437]">Toll Free Number</span>
-                    <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
-                  </div>
-                </div>
+             <a href="tel:+61470695167" className="no-underline">
+  <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full cursor-pointer">
+    <img src={callIcon} alt="Call" className="h-8" />
+    <div className="flex flex-col">
+      <span className="text-[10px] text-[#023437]">Toll Free Number</span>
+      <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
+    </div>
+  </div>
+</a>
 
                 {/* Free Consultation Button */}
                 <button
@@ -551,7 +557,10 @@ const NavBar = () => {
 
               <div className="flex items-center gap-3">
                 {/* Call Icon Only */}
-                <img src={callIcon} alt="Call" className="h-7" />
+             <a href="tel:+61470695167">
+  <img src={callIcon} alt="Call" className="h-7 cursor-pointer" />
+</a>
+
 
                 {/* Hamburger Menu */}
                 <HamburgerIcon 
