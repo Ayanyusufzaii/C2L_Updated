@@ -5,7 +5,7 @@ import FaqClassAction from '../../FAQClassAction';
 import ClassActionHero from './ClassActionHero';
 import ClassActionTwo from './ClassActionTwo';
 import Homeseven from '../../Home/HomeSeven'
-import { Class } from 'leaflet';
+
 import Seo from "../../Seo/Seo"
 
 

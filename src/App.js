@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
-import 'leaflet/dist/leaflet.css';
+
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import "leaflet/dist/leaflet.css";
+
 import React from "react";
 import HomePage from "./Components/Home/HomePage"
 import Footer from "./Components/Footer"

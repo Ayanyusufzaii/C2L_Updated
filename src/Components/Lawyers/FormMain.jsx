@@ -210,28 +210,64 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   );
 };
 
-const formatAusMobile = (input) => {
-  // Remove all non-digit characters
-  const digits = input.replace(/\D/g, "");
 
-  // Immediately limit to 10 digits maximum - prevent excessive input
-  const limited = digits.slice(0, 10);
+const formatAustralianMobile = (input) => {
+  if (!input) return "";
 
-  // Check if it's a valid Australian mobile number
-  if (limited.length === 0) return "";
-  if (!limited.startsWith("04")) return null;
+  const cleaned = input.replace(/[^\d+]/g, "");
 
-  // Format based on length
-  if (limited.length <= 4) {
-    return limited;
-  } else if (limited.length <= 7) {
-    return `${limited.slice(0, 4)} ${limited.slice(4)}`;
-  } else if (limited.length <= 10) {
-    return `${limited.slice(0, 4)} ${limited.slice(4, 7)} ${limited.slice(7)}`;
+  let digits;
+  
+  if (cleaned.startsWith("+61")) {
+    // +614xx xxx xxx -> 04xx xxx xxx
+    digits = "0" + cleaned.slice(3).replace(/\D/g, "");
+  } else if (cleaned.startsWith("61") && cleaned.length >= 11) {
+    // 614xx xxx xxx -> 04xx xxx xxx
+    digits = "0" + cleaned.slice(2);
+  } else if (cleaned.startsWith("4") && cleaned.length >= 9 && !cleaned.startsWith("04")) {
+    // 4xx xxx xxx -> 04xx xxx xxx
+    digits = "0" + cleaned;
+  } else {
+    // 04xx xxx xxx (already correct) or other formats
+    digits = cleaned.replace(/\D/g, "");
   }
 
-  return limited;
+  digits = digits.slice(0, 10);
+
+  if (!digits.startsWith("04")) return digits;
+
+  if (digits.length <= 4) return digits;
+  if (digits.length <= 7) return `${digits.slice(0, 4)} ${digits.slice(4)}`;
+  return `${digits.slice(0, 4)} ${digits.slice(4, 7)} ${digits.slice(7)}`;
 };
+
+const validateAustralianMobile = (input) => {
+  if (!input) return { isValid: false, reason: "empty" };
+
+  const cleaned = input.replace(/[^\d+]/g, "");
+  let localDigits;
+
+  if (cleaned.startsWith("+61")) {
+    // +614xx xxx xxx -> 04xx xxx xxx
+    localDigits = "0" + cleaned.slice(3);
+  } else if (cleaned.startsWith("61") && cleaned.length >= 11) {
+    // 614xx xxx xxx -> 04xx xxx xxx  
+    localDigits = "0" + cleaned.slice(2);
+  } else if (cleaned.startsWith("4") && cleaned.length >= 9 && !cleaned.startsWith("04")) {
+    // 4xx xxx xxx -> 04xx xxx xxx
+    localDigits = "0" + cleaned;
+  } else {
+    // 04xx xxx xxx or other formats
+    const digits = cleaned.replace(/\D/g, "");
+    localDigits = digits;
+  }
+
+  if (localDigits.length !== 10) return { isValid: false, reason: "length" };
+  if (!localDigits.startsWith("04")) return { isValid: false, reason: "prefix" };
+
+  return { isValid: true, reason: null };
+};
+
 
 
 
@@ -623,6 +659,25 @@ const FormMain = () => {
   // You can add your image source here if you have one
   const imageSrc = null; // Replace with your success image URL if available
 
+  const handlePhoneChange = (value) => {
+    const formatted = formatAustralianMobile(value);
+    const validation = validateAustralianMobile(formatted);
+
+    if (!value) {
+      setPhoneError("");
+    } else if (validation.reason === "prefix") {
+      setPhoneError("Australian mobile numbers must start with 04");
+    } else if (validation.reason === "length") {
+      setPhoneError("Please Enter Valid Australian Number");
+    } else {
+      setPhoneError("");
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      phone: formatted,
+    }));
+  };
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -636,23 +691,7 @@ const FormMain = () => {
     }
 
     if (name === "phone") {
-      const rawDigits = value.replace(/\D/g, "").slice(0, 10);
-      const formatted = formatAusMobile(rawDigits);
-
-      if (!rawDigits) {
-        setPhoneError("");
-      } else if (!formatted) {
-        setPhoneError("Phone number must start with 04");
-      } else if (rawDigits.length < 10) {
-        setPhoneError("Phone number must be 10 digits");
-      } else {
-        setPhoneError("");
-      }
-
-      setFormData((prev) => ({
-        ...prev,
-        phone: formatted ?? rawDigits,
-      }));
+      handlePhoneChange(value);
       return;
     }
 
