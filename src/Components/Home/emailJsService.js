@@ -1,7 +1,7 @@
 import emailjs from "@emailjs/browser";
 
 const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || "DyDZ85E9uwzwSyUoD";
-const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID || "service_x4p0olc";
+const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID || "service_brjo5qt";
 const ADMIN_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_ADMIN_TEMPLATE_ID || "template_nkno2ao";
 const USER_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_USER_TEMPLATE_ID || "template_k77901w"; 
 
