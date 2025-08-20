@@ -30,7 +30,7 @@ function ClassFour() {
                         </p>
 
                         {/* Understanding Lawsuits Section */}
-                        <h2 className="w-full md:w-[514px] text-[28px] md:text-[32px] font-bold leading-normal text-[#C09F53] font-sans">
+                        <h2 className="w-full md:w-[514px] text-[28px] md:text-[32px] font-bold leading-normal text-[#C09F53] font-opensans ">
                             How Rideshare Class Actions<br />
                             Work in Australia
                         </h2>
@@ -45,7 +45,7 @@ function ClassFour() {
 
                     {/* Right Content Section */}
                     <div className="w-full md:w-6/12 p-8 md:p-16 mt-6 md:mt-10">
-                        <h3 className="text-[#023437] font-sans text-xl md:text-2xl font-bold not-italic leading-normal uppercase mb-6">Latest Rideshare Class Action Lawsuit News in Australia</h3>
+                        <h3 className="text-[#023437] font-opensans  text-xl md:text-2xl font-bold not-italic leading-normal uppercase mb-6">Latest Rideshare Class Action Lawsuit News in Australia</h3>
 
                         {/* Common Law Claim */}
                         <div className="mb-12 inline-flex p-[40px_20px_20px_20px] md:p-[79px_35px_40px_40px] flex-col justify-end items-start gap-6 border border-[rgba(2,52,55,0.41)] md:-ml-[9%]">
@@ -90,7 +90,7 @@ function ClassFour() {
                 <p className="text-[rgba(2,52,55,0.69)] font-open-sans text-[16px] font-semibold mb-6">
                     Whether you’re a current or former driver, or a passenger affected by misconduct, you may be eligible to join an ongoing legal action depending on your experience. </p>
 
-                <h2 className="text-[24px] font-bold leading-normal text-[#C09F53] font-sans mb-4">
+                <h2 className="text-[24px] font-bold leading-normal text-[#C09F53] font-opensans  mb-4">
                     How Rideshare Class Actions<br />
                     Work in Australia
                 </h2>
@@ -112,7 +112,7 @@ function ClassFour() {
                         </div>
                     </div>
                 </div>
-                <h3 className="text-[#023437] font-sans text-[18px] font-bold not-italic leading-normal uppercase mb-4">
+                <h3 className="text-[#023437] font-opensans  text-[18px] font-bold not-italic leading-normal uppercase mb-4">
                     Latest Rideshare Class Action Lawsuit News in Australia
                 </h3>
 

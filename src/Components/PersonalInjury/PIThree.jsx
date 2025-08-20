@@ -11,10 +11,10 @@ function PIThree() {
                         <h1 className="text-[#023437] font-['Playfair_Display'] text-[96px] font-extrabold italic leading-[100px] w-[512px]">See how we can help</h1>
                     </div>
                     <div className="mt-[25%]">
-                        <h4 className="text-[#023437] text-left font-sans text-2xl font-bold normal-case mb-4">
+                        <h4 className="text-[#023437] text-left font-opensans  text-2xl font-bold normal-case mb-4">
                             How We Help
                         </h4>
-                        <p className="text-[#023437] font-sans text-2xl font-semibold leading-normal w-[450px]">
+                        <p className="text-[#023437] font-opensans  text-2xl font-semibold leading-normal w-[450px]">
                         At Connect2Lawyer, our network of personal injury experts works with victims of truck accidents across Australia. We aim to simplify the legal process during a difficult time.
                         </p>
                     </div>
@@ -51,10 +51,10 @@ function PIThree() {
                         See how we can help
                     </h1>
                     <div className="mb-8">
-                        <h4 className="text-[#023437] text-left font-sans text-xl font-bold normal-case mb-3">
+                        <h4 className="text-[#023437] text-left font-opensans  text-xl font-bold normal-case mb-3">
                             How We Help
                         </h4>
-                        <p className="text-[#023437] font-sans text-lg font-semibold leading-normal">
+                        <p className="text-[#023437] font-opensans  text-lg font-semibold leading-normal">
                         At Connect2Lawyer, our network of personal injury experts works with victims of truck accidents across Australia. We aim to simplify the legal process during a difficult time.
                         </p>
                     </div>

@@ -28,7 +28,7 @@ function PIFour() {
                         </p>
 
                         {/* Understanding Lawsuits Section */}
-                        <h2 className="w-full md:w-[414px] text-[28px] md:text-[32px] font-bold leading-normal text-[#C09F53] font-sans">
+                        <h2 className="w-full md:w-[414px] text-[28px] md:text-[32px] font-bold leading-normal text-[#C09F53] font-opensans ">
                             How Truck Accident Claims <br />
                             Work in Australia
                         </h2>
@@ -47,7 +47,7 @@ function PIFour() {
 
                     {/* Right Content Section */}
                     <div className="w-full md:w-6/12 p-8 md:p-16 mt-6 md:mt-10">
-                        <h3 className="text-[#023437] font-sans text-xl md:text-2xl font-bold not-italic leading-normal uppercase mb-6">Latest Truck Accident Lawsuit News in Australia</h3>
+                        <h3 className="text-[#023437] font-opensans  text-xl md:text-2xl font-bold not-italic leading-normal uppercase mb-6">Latest Truck Accident Lawsuit News in Australia</h3>
 
                         {/* Common Law Claim */}
                         <div className="mb-12 inline-flex p-[40px_20px_20px_20px] md:p-[79px_35px_40px_40px] flex-col justify-end items-start gap-6 border border-[rgba(2, 52, 55, 0.41)] md:-ml-[9%]">
@@ -89,7 +89,7 @@ function PIFour() {
                 <p className="text-[rgba(2,52,55,0.69)] font-open-sans text-[16px] font-semibold mb-6">
                     Whether you were a pedestrian, passenger, or another driver, you may be eligible for legal compensation depending on the circumstances. </p>
 
-                <h2 className="text-[24px] font-bold leading-normal text-[#C09F53] font-sans mb-4">
+                <h2 className="text-[24px] font-bold leading-normal text-[#C09F53] font-opensans  mb-4">
                     How Truck Accident Claims <br />
                     Work in Australia
                 </h2>
@@ -115,7 +115,7 @@ function PIFour() {
                         </div>
                     </div>
                 </div>
-                <h3 className="text-[#023437] font-sans text-[18px] font-bold not-italic leading-normal uppercase mb-4">
+                <h3 className="text-[#023437] font-opensans  text-[18px] font-bold not-italic leading-normal uppercase mb-4">
                     Latest Truck Accident Lawsuit News in Australia
                 </h3>
 

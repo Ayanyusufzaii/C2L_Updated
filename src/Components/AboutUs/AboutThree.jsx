@@ -78,12 +78,12 @@ function AboutThree() {
                             Start Your Case Today
                         </h1>
                         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-8">
-                            <p className="text-[#023437] font-sans text-base md:text-lg lg:text-xl font-semibold leading-normal max-w-3xl">
+                            <p className="text-[#023437] font-opensans  text-base md:text-lg lg:text-xl font-semibold leading-normal max-w-3xl">
                                 Finding the right lawyer has never been easier.
                                 Take a moment to explore our website today and connect with a dedicated attorney who will protect your rights.
                             </p>
                             <button 
-                                className="inline-flex justify-center items-center px-6 md:px-8 py-3 rounded-[60px] border border-[rgba(2,52,55,0.61)] text-[#023437] font-sans text-base md:text-lg font-medium whitespace-nowrap hover:bg-[rgba(2,52,55,0.05)] transition-colors duration-200" 
+                                className="inline-flex justify-center items-center px-6 md:px-8 py-3 rounded-[60px] border border-[rgba(2,52,55,0.61)] text-[#023437] font-opensans  text-base md:text-lg font-medium whitespace-nowrap hover:bg-[rgba(2,52,55,0.05)] transition-colors duration-200" 
                                 onClick={() => navigate('/Contact-Us')}
                             >
                                 Contact Us
@@ -93,7 +93,7 @@ function AboutThree() {
 
                     {/* CTA Button */}
                     {/* <div className="relative bg-[#023437] flex items-center justify-between rounded-[60px] h-[80px] md:h-[90px] lg:h-[100px] w-full max-w-6xl mx-auto cursor-pointer hover:bg-[#034448] transition-colors duration-200 px-6 md:px-8 lg:px-16" onClick={() => navigate('/Contact-Us')}>
-                        <p className="text-[#EFE4CB] font-sans text-[20px] md:text-[28px] lg:text-[32px] xl:text-[36px] font-bold leading-tight flex-1">
+                        <p className="text-[#EFE4CB] font-opensans  text-[20px] md:text-[28px] lg:text-[32px] xl:text-[36px] font-bold leading-tight flex-1">
                             Fill out the free case review form now!
                         </p>
                         <img src={arrow} alt="Arrow" className="h-[60px] md:h-[80px] lg:h-[100px] w-[60px] md:w-[80px] lg:w-[100px] flex-shrink-0" />
@@ -160,12 +160,12 @@ function AboutThree() {
                         Start Your Case Today
                     </h1>
                     <div className="space-y-4">
-                        <p className="text-[#023437] font-sans text-sm sm:text-base font-semibold leading-normal">
+                        <p className="text-[#023437] font-opensans  text-sm sm:text-base font-semibold leading-normal">
                             Finding the right lawyer has never been easier.
                             Take a moment to explore our website today and connect with a dedicated attorney who will protect your rights.
                         </p>
                         <button 
-                            className="w-full text-center px-6 py-3 rounded-[60px] border border-[rgba(2,52,55,0.61)] text-[#023437] font-sans text-base sm:text-lg font-medium hover:bg-[rgba(2,52,55,0.05)] transition-colors duration-200" 
+                            className="w-full text-center px-6 py-3 rounded-[60px] border border-[rgba(2,52,55,0.61)] text-[#023437] font-opensans  text-base sm:text-lg font-medium hover:bg-[rgba(2,52,55,0.05)] transition-colors duration-200" 
                             onClick={() => navigate('/Contact-Us')}
                         >
                             Contact Us
@@ -174,7 +174,7 @@ function AboutThree() {
                 </div> */}
 
                 {/* <div className="relative bg-[#023437] flex items-center justify-between rounded-[60px] h-[50px] sm:h-[60px] px-4 sm:px-5 cursor-pointer hover:bg-[#034448] transition-colors duration-200" onClick={() => navigate('/Contact-Us')}>
-                    <p className="text-[#EFE4CB] font-sans text-[13px] sm:text-[15px] font-bold leading-tight flex-1 pr-2">
+                    <p className="text-[#EFE4CB] font-opensans  text-[13px] sm:text-[15px] font-bold leading-tight flex-1 pr-2">
                         Fill out the free case review form now!
                     </p>
                     <img

@@ -62,7 +62,7 @@ function FaqClassAction() {
     : faqItems;
 
   return (
-     <section className="py-1 bg-[#EFE4CB] font-sans">
+     <section className="py-1 bg-[#EFE4CB] font-opensans ">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="relative pb-12  sm:pb-16  md:pb-20 lg:pt-32 lg:pb-24">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">

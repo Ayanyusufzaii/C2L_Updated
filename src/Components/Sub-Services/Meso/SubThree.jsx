@@ -51,10 +51,10 @@ function SubThree() {
   {/* RIGHT SIDE - Smaller + bottom-aligned */}
   <div className="w-[180px] sm:w-[200px] md:w-[220px] lg:w-[240px] xl:w-[260px] flex flex-col justify-end">
     <div className="mt-auto">
-      <h4 className="text-[#C09F53] font-sans text-sm md:text-base lg:text-lg font-bold mb-2">
+      <h4 className="text-[#C09F53] font-opensans  text-sm md:text-base lg:text-lg font-bold mb-2">
         How We Help
       </h4>
-      <p className="text-[#023437] font-sans text-xs md:text-sm lg:text-base font-medium leading-normal">
+      <p className="text-[#023437] font-opensans  text-xs md:text-sm lg:text-base font-medium leading-normal">
        At Connect2Lawyer, our experienced Mesothelioma Lawyers are dedicated to guiding you every step of the way.
       </p>
     </div>
@@ -83,7 +83,7 @@ function SubThree() {
                       <h3 className="text-base md:text-lg lg:text-xl font-semibold font-['Playfair_Display'] text-right w-full break-words whitespace-normal overflow-visible leading-tight" style={{wordBreak: 'break-word'}}>{card.heading}</h3>
                     </div>
                     <div className="flex-1 w-full flex items-center justify-center">
-                      <p className="px-2 md:px-3 lg:px-4 text-xs md:text-[11px] lg:text-sm font-sans mt-2 md:mt-4 lg:mt-6 break-words w-full text-center leading-snug overflow-y-auto"
+                      <p className="px-2 md:px-3 lg:px-4 text-xs md:text-[11px] lg:text-sm font-opensans  mt-2 md:mt-4 lg:mt-6 break-words w-full text-center leading-snug overflow-y-auto"
                         style={{maxHeight: '150px', minHeight: '60px', whiteSpace: 'normal'}}>
                         {card.description}
                       </p>
@@ -116,10 +116,10 @@ function SubThree() {
 </h1>
 
           <div className="mb-8">
-            <h4 className="text-[#C09F53] text-left font-sans text-xl font-bold normal-case mb-3">
+            <h4 className="text-[#C09F53] text-left font-opensans  text-xl font-bold normal-case mb-3">
               How We Help
             </h4>
-            <p className="text-[#023437] font-sans text-lg font-semibold leading-normal">
+            <p className="text-[#023437] font-opensans  text-lg font-semibold leading-normal">
          At Connect2Lawyer, our experienced Mesothelioma Lawyers are dedicated to guiding you every step of the way.
             </p>
           </div>

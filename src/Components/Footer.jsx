@@ -38,7 +38,7 @@ function Footer() {
                     onClick={handleCall}
                   />
                   <span
-                    className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold"
+                    className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold font-opensans"
                     onClick={handleCall}
                   >
                     +61 470 695 167
@@ -52,7 +52,7 @@ function Footer() {
                     onClick={handleEmail}
                   />
                   <span
-                    className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold"
+                    className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold font-opensans"
                     onClick={handleEmail}
                   >
                     teamup@connect2lawyer.com.au
@@ -71,7 +71,7 @@ function Footer() {
                     src={addressicon}
                     alt="Address Icon"
                   />
-                  <span className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold hover:underline break-words">
+                  <span className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold font-opensans hover:underline break-words">
                     45 Monterey Bay Drive, Point Cook 3030, Melbourne, Victoria,
                     Australia
                   </span>

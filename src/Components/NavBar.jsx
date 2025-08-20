@@ -960,7 +960,7 @@ export default NavBar;
 //                             className="w-[40px] h-[40px]"
 //                         />
 //                         <button
-//                             className="rounded-full border border-[#023437] text-[#023437] font-sans text-xs font-bold cursor-pointer px-3 py-2"
+//                             className="rounded-full border border-[#023437] text-[#023437] font-opensans  text-xs font-bold cursor-pointer px-3 py-2"
 //                             onClick={() => setIsMenuOpen(!isMenuOpen)}
 //                         >
 //                             {isMenuOpen ? 'Close' : 'Menu'}

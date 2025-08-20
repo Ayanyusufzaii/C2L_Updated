@@ -847,7 +847,7 @@ function HomeTwo() {
                     text-[#023437]
                     border-2
                     border-[#023437]
-                    font-sans
+                    font-opensans 
                     text-[16px]
                     font-semibold
                     hover:bg-[#023437]

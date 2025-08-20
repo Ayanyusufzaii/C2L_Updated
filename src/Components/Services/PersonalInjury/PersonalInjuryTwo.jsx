@@ -22,7 +22,7 @@ const PersonalInjuryTwo = () => {
             Trusted Legal Help for <br />
             <span className="text-[#C09F53]"> Personal Injury </span> Victims
           </h2>
-          <p className="mt-4 text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px] leading-tight text-[#EFE4CB]">
+          <p className="mt-4 text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px] leading-tight text-[#EFE4CB] font-opensans ">
             Connect2Lawyer helps individuals injured in accidents connect with
             trusted legal support so they can focus on recovery while we take
             care of what comes next.
@@ -34,13 +34,13 @@ const PersonalInjuryTwo = () => {
           <h2 className="font-['Playfair_Display'] text-[24px] md:text-[20px] lg:text-[26px] xl:text-[36px] font-semibold leading-tight">
             18-Wheeler & Heavy <br /> Vehicle Accident
           </h2>
-          <p className="mt-4 text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px] leading-tight max-w-[400px] text-[#FFFBF3]">
+          <p className="mt-4 text-[12px] md:text-[12px] lg:text-[14px] xl:text-[16px] leading-tight max-w-[400px] text-[#FFFBF3]  font-opensans ">
             Seeks the compensation you deserve for injuries caused by accidents
             involving large commercial trucks.
           </p>
 
           <button
-            className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start"
+            className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start font-opensans "
             onClick={() => navigate("/Services/PersonalInjury/18Wheeler-Lawsuit")}
           >
             Learn More
@@ -63,7 +63,7 @@ const PersonalInjuryTwo = () => {
               Trusted Legal Help for <br />
               <span className="text-[#C09F53]"> Personal Injury </span> Victims
             </h2>
-            <p className="mt-3 text-xs min-[420px]:text-sm sm:text-base leading-normal text-[#EFE4CB]">
+            <p className="mt-3 text-xs min-[420px]:text-sm sm:text-base leading-normal text-[#EFE4CB] font-opensans ">
               Connect2Lawyer helps individuals injured in accidents connect with
               trusted legal support so they can focus on recovery while we take
               care of what comes next.
@@ -82,12 +82,12 @@ const PersonalInjuryTwo = () => {
             <h2 className="font-['Playfair_Display'] text-[18px] min-[350px]:text-[20px] min-[420px]:text-[24px] sm:text-[32px] font-semibold leading-relaxed">
               18-Wheeler & Heavy <br /> Vehicle Accident
             </h2>
-            <p className="mt-3 text-xs min-[420px]:text-sm sm:text-base leading-normal text-[#FFFBF3]">
+            <p className="mt-3 text-xs min-[420px]:text-sm sm:text-base leading-normal text-[#FFFBF3] font-opensans">
               Seeks the compensation you deserve for injuries caused by
               accidents involving large commercial trucks.
             </p>
             <button
-              className="mt-4 inline-flex items-center px-5 py-2 bg-[#023437] text-white rounded-full text-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start"
+              className="mt-4 inline-flex items-center px-5 py-2 bg-[#023437] text-white rounded-full text-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start font-opensans "
               onClick={() => navigate("/Services/PersonalInjury/18Wheeler-Lawsuit")}
             >
               Learn More

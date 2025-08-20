@@ -70,7 +70,7 @@ function FaqTruck() {
     : faqItems;
 
   return (
-    <section className="py-1 bg-[#023437] font-sans">
+    <section className="py-1 bg-[#023437] font-opensans ">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="relative pt-16 pb-12 sm:pt-20 sm:pb-16 md:pt-24 md:pb-20 lg:pt-32 lg:pb-24">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">

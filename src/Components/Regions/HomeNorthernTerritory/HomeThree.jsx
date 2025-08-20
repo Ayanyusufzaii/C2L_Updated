@@ -120,7 +120,7 @@ const HomeThreeMobile = () => {
 
     return (
       <div
-        className={`w-full flex flex-col md:flex-row  items-stretch min-h-[350px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] 2xl:min-h-[800px] 3xl:min-h-[900px] 4xl:min-h-[1000px] 5xl:min-h-[1200px]`}
+        className={`w-full flex flex-col md:flex-row  items-stretch min-h-[350px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[570px] xl:min-h-[700px] 2xl:min-h-[800px] 3xl:min-h-[900px] 4xl:min-h-[1000px] 5xl:min-h-[1200px]`}
         style={{ backgroundColor: data.bgColor }}
       >
         {/* Text Section */}
@@ -257,7 +257,7 @@ const HomeThreeDesktop = () => {
 
     return (
       <div
-        className={`w-full flex flex-col md:flex-row  items-stretch min-h-[350px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] 2xl:min-h-[800px] 3xl:min-h-[900px] 4xl:min-h-[1000px] 5xl:min-h-[1200px]`}
+        className={`w-full flex flex-col md:flex-row  items-stretch min-h-[350px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[570px] xl:min-h-[700px] 2xl:min-h-[800px] 3xl:min-h-[900px] 4xl:min-h-[1000px] 5xl:min-h-[1200px]`}
         style={{ backgroundColor: data.bgColor }}
       >
         {/* Text Section */}

@@ -13,7 +13,7 @@ function Thankyou() {
                     <h3 className="text-[#023437] font-serif text-3xl lg:text-[40px] font-bold leading-tight mt-4">
                         for submitting your case!
                     </h3>
-                    <p className="text-[#023437] font-sans text-xl lg:text-[33px] font-normal leading-normal w-full lg:w-[500px] mt-8 lg:mt-16 mx-auto">
+                    <p className="text-[#023437] font-opensans  text-xl lg:text-[33px] font-normal leading-normal w-full lg:w-[500px] mt-8 lg:mt-16 mx-auto">
                         We're on it and will be in touch shortly to assist you.
                     </p>
                 </div>
@@ -33,7 +33,7 @@ function Thankyou() {
                     <h3 className="text-[#023437] font-serif text-2xl font-bold leading-tight mt-4">
                         for submitting your case!
                     </h3>
-                    <p className="text-[#023437] font-sans text-lg font-normal leading-normal mt-8">
+                    <p className="text-[#023437] font-opensans  text-lg font-normal leading-normal mt-8">
                         We're on it and will be in touch shortly to assist you.
                     </p>
                 </div>

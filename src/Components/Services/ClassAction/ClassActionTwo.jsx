@@ -41,7 +41,7 @@ const ClassActionTwo = () => {
             conditions.
           </p>
           <button
-            className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start"
+            className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start font-opensans "
             onClick={() => navigate("/Services/ClassAction/Rideshare-Lawsuit")}
           >
             Learn More
@@ -64,7 +64,7 @@ const ClassActionTwo = () => {
               We Make Class Actions <br />
               <span className="text-[#C09F53]">Easy to Join</span>
             </h2>
-            <p className="mt-3 text-xs min-[420px]:text-sm sm:text-base leading-normal text-[#EFE4CB]">
+            <p className="mt-3 text-xs min-[420px]:text-sm sm:text-base leading-normal text-[#EFE4CB] font-opensans ">
               Connect2Lawyer identifies eligible individuals and connects them
               with legal teams leading class action lawsuits, ensuring no one
               misses the opportunity to be part of a collective claim.
@@ -84,13 +84,13 @@ const ClassActionTwo = () => {
               Rideshare Sexual
               <br /> Assault Lawsuit
             </h2>
-            <p className="mt-3 text-xs min-[420px]:text-sm sm:text-base leading-normal text-[#FFFBF3]">
+            <p className="mt-3 text-xs min-[420px]:text-sm sm:text-base leading-normal text-[#FFFBF3] font-opensans">
               Supports survivors seeking justice for sexual assault or
               harassment during rideshare trips, holding companies accountable
               for unsafe conditions.
             </p>
             <button
-              className="mt-4 inline-flex items-center px-5 py-2 bg-[#023437] text-white rounded-full text-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start"
+              className="mt-4 inline-flex items-center px-5 py-2 bg-[#023437] text-white rounded-full text-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start font-opensans "
               onClick={() => navigate("/Services/ClassAction/Rideshare-Lawsuit")}
             >
               Learn More
