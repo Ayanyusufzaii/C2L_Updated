@@ -1,7 +1,7 @@
 import emailjs from "@emailjs/browser";
 
 const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || "DyDZ85E9uwzwSyUoD";
-const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID || "service_x4p0olc";
+const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID || "service_brjo5qt";
 const ADMIN_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_ADMIN_TEMPLATE_ID || "template_nkno2ao";
 const USER_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_USER_TEMPLATE_ID || "template_k77901w"; 
 
@@ -44,7 +44,15 @@ const getIPAddress = async () => {
 };
 
 const getTimestamp = () => {
-  return new Date().toLocaleString();
+    return new Date().toLocaleString('en-AU', {
+    timeZone: 'Australia/Sydney',  
+    year: 'numeric',              
+    month: '2-digit',              
+    day: '2-digit',                
+    hour: '2-digit',             
+    minute: '2-digit',            
+    second: '2-digit'              
+  });
 };
 
 /* ---------------- Build params ---------------- */

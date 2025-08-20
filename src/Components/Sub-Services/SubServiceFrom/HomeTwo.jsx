@@ -12,10 +12,6 @@ import mobFormBG from "../../../assets/MobileFormBG.png";
 import thankyou from "../../../assets/thankyouimng.png"
 import { sendBothEmails, testEmailJSConnection, setInitialLandingUrl } from './emailJsService'; // <- service we just created
 
-
-
-
-
 // Custom Captcha Component (kept same UI, minor safe fixes)
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const [captchaText, setCaptchaText] = useState('');
@@ -280,7 +276,7 @@ const formatAustralianMobile = (input) => {
 };
 
 
- 
+
 // Returns { isValid: boolean, reason: string|null }
 // Reasons: "empty", "invalid_prefix", "actual_start", "length"
 const validateAustralianMobile = (input) => {
@@ -335,6 +331,7 @@ function HomeTwo() {
   const [showModal, setShowModal] = useState(false);
   const [phoneError, setPhoneError] = useState("");
   const [submitMessage, setSubmitMessage] = useState(null);
+  const [emailError, setEmailError] = useState("");
 
 
   // Landers & captcha
@@ -447,56 +444,56 @@ function HomeTwo() {
     };
   }, [certId, pingUrl, tokenUrl]);
 
- const getTextFieldStyle = () => ({
-  '& .MuiInputLabel-root': {
-    color: '#023437',
-    fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
-    fontFamily: 'Helvetica',
-    fontWeight: 'bold',
-    '&.Mui-focused': {
-      color: '#023437'
+  const getTextFieldStyle = () => ({
+    '& .MuiInputLabel-root': {
+      color: '#023437',
+      fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
+      fontFamily: 'Helvetica',
+      fontWeight: 'bold',
+      '&.Mui-focused': {
+        color: '#023437'
+      },
+      // <-- ensure label does NOT turn red when MUI applies .Mui-error
+      '&.Mui-error': {
+        color: '#023437'
+      }
     },
-    // <-- ensure label does NOT turn red when MUI applies .Mui-error
-    '&.Mui-error': {
-      color: '#023437'
-    }
-  },
 
-  // extra safety: cover FormLabel root error variant too
-  '& .MuiFormLabel-root.Mui-error': {
-    color: '#023437'
-  },
-
-  '& .MuiInput-root': {
-    fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
-    fontFamily: 'Helvetica',
-    color: '#023437',
-    '&:before': {
-      borderBottomColor: '#023437'
-    },
-    '&:hover:not(.Mui-disabled):before': {
-      borderBottomColor: '#023437'
-    },
-    // keep the focused/after underline color behavior intact
-    '&:after': {
-      borderBottomColor: '#023437'
-    },
-    '&.Mui-focused': {
+    // extra safety: cover FormLabel root error variant too
+    '& .MuiFormLabel-root.Mui-error': {
       color: '#023437'
+    },
+
+    '& .MuiInput-root': {
+      fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
+      fontFamily: 'Helvetica',
+      color: '#023437',
+      '&:before': {
+        borderBottomColor: '#023437'
+      },
+      '&:hover:not(.Mui-disabled):before': {
+        borderBottomColor: '#023437'
+      },
+      // keep the focused/after underline color behavior intact
+      '&:after': {
+        borderBottomColor: '#023437'
+      },
+      '&.Mui-focused': {
+        color: '#023437'
+      }
+    },
+    '& .MuiFormHelperText-root': {
+      fontSize: isMobile ? '12px' : '14px',
+      fontFamily: 'Helvetica'
+    },
+    // keep your existing error underline helper rule (no label color override here)
+    '& .Mui-error': {
+      color: '#023437',
+      '&:after': {
+        borderBottomColor: '#d32f2f'
+      }
     }
-  },
-  '& .MuiFormHelperText-root': {
-    fontSize: isMobile ? '12px' : '14px',
-    fontFamily: 'Helvetica'
-  },
-  // keep your existing error underline helper rule (no label color override here)
-  '& .Mui-error': {
-    color: '#023437',
-    '&:after': {
-      borderBottomColor: '#d32f2f'
-    }
-  }
-});
+  });
 
 
   const handlePhoneChange = (value) => {
@@ -544,6 +541,66 @@ function HomeTwo() {
     }
   };
 
+  // --- Email helpers (minimal, live-friendly) ---
+  const formatEmail = (value) => {
+    if (value === undefined || value === null) return "";
+    return String(value).trim();
+  };
+
+  // Returns { isValid: boolean, reason: string|null }
+  // Reasons used: "missing_at", "multiple_at", "invalid_format"
+  const validateEmail = (value) => {
+    if (!value) return { isValid: false, reason: "missing_at" };
+
+    const trimmed = String(value).trim();
+    const atCount = (trimmed.match(/@/g) || []).length;
+    if (atCount === 0) return { isValid: false, reason: "missing_at" };
+    if (atCount > 1) return { isValid: false, reason: "multiple_at" };
+
+    const simpleEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!simpleEmailRegex.test(trimmed)) return { isValid: false, reason: "invalid_format" };
+
+    return { isValid: true, reason: null };
+  };
+
+  // Live email handler (stable ref)
+  const handleEmailChange = (value) => {
+    try {
+      const formatted = formatEmail(value);
+      const validation = validateEmail(formatted);
+
+      let nextEmailError = "";
+      if (!value || value.trim() === "") {
+        nextEmailError = "";
+      } else if (!validation.isValid) {
+        switch (validation.reason) {
+          case "missing_at":
+            nextEmailError = "Missing @";
+            break;
+          case "multiple_at":
+            nextEmailError = "Email can only contain one @";
+            break;
+          default:
+            nextEmailError = "Please enter valid email";
+        }
+      } else {
+        nextEmailError = "";
+      }
+
+      // update only if changed
+      setEmailError((prev) => (prev === nextEmailError ? prev : nextEmailError));
+
+      // write formatted value back to the correct state key (emailId)
+      setFormData((prev) => {
+        if (prev.emailId === formatted) return prev;
+        return { ...prev, emailId: formatted };
+      });
+    } catch (err) {
+      console.error("Error handling email change:", err);
+      setEmailError("Please enter valid email");
+    }
+  };
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -571,76 +628,81 @@ function HomeTwo() {
     }
   };
 
- // Replace your existing validateForm with this
-const validateForm = () => {
-  const newErrors = {};
+  // Replace your existing validateForm with this
+  const validateForm = () => {
+    const newErrors = {};
 
-  if (!formData.firstName.trim()) {
-    newErrors.firstName = 'Name is required';
-  }
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'Name is required';
+    }
 
-  if (!formData.phoneNumber.trim()) {
-    newErrors.phoneNumber = 'Phone number is required';
-  } else if (phoneError) {
-    // prefer the live validation message if present
-    newErrors.phoneNumber = phoneError;
-  } else {
-    // final safety check (fallback) — runs only if no live error
-    const { isValid, reason } = validateAustralianMobile(formData.phoneNumber);
-    if (!isValid) {
-      const phoneDigits = formData.phoneNumber.replace(/\D/g, '');
-      const isValidAusLandline =
-        phoneDigits.length === 10 &&
-        (phoneDigits.startsWith("02") ||
-          phoneDigits.startsWith("03") ||
-          phoneDigits.startsWith("07") ||
-          phoneDigits.startsWith("08"));
+    if (!formData.phoneNumber.trim()) {
+      newErrors.phoneNumber = 'Phone number is required';
+    } else if (phoneError) {
+      // prefer the live validation message if present
+      newErrors.phoneNumber = phoneError;
+    } else {
+      // final safety check (fallback) — runs only if no live error
+      const { isValid, reason } = validateAustralianMobile(formData.phoneNumber);
+      if (!isValid) {
+        const phoneDigits = formData.phoneNumber.replace(/\D/g, '');
+        const isValidAusLandline =
+          phoneDigits.length === 10 &&
+          (phoneDigits.startsWith("02") ||
+            phoneDigits.startsWith("03") ||
+            phoneDigits.startsWith("07") ||
+            phoneDigits.startsWith("08"));
 
-      if (!isValidAusLandline) {
-        if (reason === "length") {
-          newErrors.phoneNumber = "Phone number must have 9 digits after the prefix";
-        } else if (reason === "actual_start") {
-          newErrors.phoneNumber = "Phone number must start with '4' (after prefix)";
-        } else if (reason === "invalid_prefix") {
-          newErrors.phoneNumber = "Prefix must be empty, 0, or +61 (e.g. +61 4XX XXX XXX)";
-        } else {
-          newErrors.phoneNumber = "Please enter a valid Australian phone number";
+        if (!isValidAusLandline) {
+          if (reason === "length") {
+            newErrors.phoneNumber = "Phone number must have 9 digits after the prefix";
+          } else if (reason === "actual_start") {
+            newErrors.phoneNumber = "Phone number must start with '4' (after prefix)";
+          } else if (reason === "invalid_prefix") {
+            newErrors.phoneNumber = "Prefix must be empty, 0, or +61 (e.g. +61 4XX XXX XXX)";
+          } else {
+            newErrors.phoneNumber = "Please enter a valid Australian phone number";
+          }
         }
       }
+      // if isValid === true then mobile is valid — no error
     }
-    // if isValid === true then mobile is valid — no error
-  }
 
-  if (!formData.emailId.trim()) {
-    newErrors.emailId = 'Email is required';
-  } else {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.emailId)) {
-      newErrors.emailId = 'Please enter a valid email address';
+    if (!formData.emailId || !formData.emailId.trim()) {
+      newErrors.emailId = 'Email is required';
+    } else if (emailError) {
+      // prefer the live validation message if present
+      newErrors.emailId = emailError;
+    } else {
+      // final regex fallback (stricter)
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.emailId)) {
+        newErrors.emailId = 'Please enter a valid email address';
+      }
     }
-  }
 
-  // NEW: require concern (dropdown)
-  if (!formData.concern || !formData.concern.toString().trim()) {
-    newErrors.concern = 'Please select your concern';
-  }
 
-  // NEW: require caseHistory (textarea)
-  if (!formData.caseHistory || !formData.caseHistory.trim()) {
-    newErrors.caseHistory = 'Please briefly explain your case history';
-  }
+    // NEW: require concern (dropdown)
+    if (!formData.concern || !formData.concern.toString().trim()) {
+      newErrors.concern = 'Please select your concern';
+    }
 
-  if (!formData.privacyConsent) {
-    newErrors.privacyConsent = 'You must agree to the privacy policy';
-  }
+    // NEW: require caseHistory (textarea)
+    if (!formData.caseHistory || !formData.caseHistory.trim()) {
+      newErrors.caseHistory = 'Please briefly explain your case history';
+    }
 
-  if (formData.captchaEnabled && !captchaValid) {
-    newErrors.captcha = 'Please complete the CAPTCHA verification';
-  }
+    if (!formData.privacyConsent) {
+      newErrors.privacyConsent = 'You must agree to the privacy policy';
+    }
 
-  setErrors(newErrors);
-  return Object.keys(newErrors).length === 0;
-};
+    if (formData.captchaEnabled && !captchaValid) {
+      newErrors.captcha = 'Please complete the CAPTCHA verification';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -896,11 +958,12 @@ const validateForm = () => {
                   variant="standard"
                   fullWidth
                   value={formData.emailId}
-                  onChange={handleChange}
-                  error={!!errors.emailId}
-                  helperText={errors.emailId}
+                  onChange={(e) => { handleChange(e); handleEmailChange(e.target.value); }}
+                  error={!!errors.emailId || !!emailError}
+                  helperText={emailError || errors.emailId}
                   sx={getTextFieldStyle()}
                 />
+
               </div>
 
               {/* Concern Dropdown */}
