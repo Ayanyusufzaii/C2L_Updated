@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import home_main from "../../assets/homeMain.png";
+import home_main from "../../assets/AboutHeroMain.png";
 import aboutMobile from "../../assets/aboutUsHero.png"; // You'll need a mobile-optimized image
 import Frame from "../../assets/Frame 19.png";
 import Searchbar from "../../assets/Search bar.png";
@@ -11,10 +11,10 @@ function AboutOne() {
 
   const menuItems = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/Service" },
+    { name: "Services", path: "/Services" },
     { name: "Sub Services", path: "/SubService" },
-    { name: "About Us", path: "/About" },
-    { name: "Contact", path: "/ContactUs" },
+    { name: "About Us", path: "/About-Us" },
+    { name: "Contact", path: "/Contact-Us" },
   ];
 
   return (
@@ -63,9 +63,11 @@ function AboutOne() {
           <p className="text-[#C09F53] font-open-sans text-[14px] sm:text-[16px] font-bold normal-case mb-2">
             Who We Are
           </p>
-          <h1 className="text-[#ffffff] font-['Playfair_Display'] text-[32px] sm:text-[32px] font-extrabold leading-[1.2] sm:leading-[1.1]">
-            We connect you with the best legal minds in<span className="text-[#C09F53]"> Australia.</span>
-          </h1>
+        <h1 className="text-[#ffffff] font-['Playfair_Display'] text-[22px] sm:text-[26px] md:text-[28px] font-extrabold leading-[1.3] sm:leading-[1.2] md:leading-[1.1]">
+  We connect you with the best legal minds in
+  <span className="text-[#C09F53]"> Australia.</span>
+</h1>
+
         </div>
 
         {/* Background Image - Mobile (Super Responsive) */}

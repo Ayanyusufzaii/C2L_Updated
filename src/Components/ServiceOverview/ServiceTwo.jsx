@@ -45,7 +45,7 @@ function ServiceTwo() {
                         alt="Service 1"
                         className="h-full w-[91%] object-cover mt-3 ml-12 mb-[5%]"
                     />
-                    <button className="mt-[-17%] ml-20 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[#023437] text-[#023437] font-['Open Sans'] text-sm font-bold" onClick={() => navigate("/MassTort")}>
+                    <button className="mt-[-17%] ml-20 lg:ml-24 xl:ml-[110px] 2xl:ml-[130px] absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[#023437] text-[#023437] font-opensans  text-sm font-bold" onClick={() => navigate("/Services/MassTort")}>
                         Learn more
                     </button>
                 </div>
@@ -55,7 +55,7 @@ function ServiceTwo() {
                         alt="Service 2"
                         className="h-full w-[91%] object-cover mt-3 ml-12 mb-[5%]"
                     />
-                    <button className="mt-[-17%] ml-20 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[#ffffff] text-[#ffffff] font-['Open Sans'] text-sm font-bold" onClick={() => navigate("/PersonalInjury")}>
+                    <button className="mt-[-17%] ml-20 lg:ml-24 xl:ml-[110px] 2xl:ml-[130px] absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[#C09F53] text-[#C09F53] font-opensans  text-sm font-bold" onClick={() => navigate("/Services/PersonalInjury")}>
                         Learn more
                     </button>
                 </div>
@@ -65,7 +65,7 @@ function ServiceTwo() {
                         alt="Service 3"
                         className="h-full w-[91%] object-cover mt-3 ml-12 mb-[5%]"
                     />
-                    <button className="mt-[-17%] ml-20 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[#023437] text-[#023437] font-['Open Sans'] text-sm font-bold" onClick={() => navigate("/ClassAction")}>
+                    <button className="mt-[-17%] ml-20 lg:ml-24 xl:ml-[110px] 2xl:ml-[130px] absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[#023437] text-[#023437] font-opensans  text-sm font-bold" onClick={() => navigate("/Services/ClassAction")}>
                         Learn more
                     </button>
                 </div>
@@ -82,7 +82,7 @@ function ServiceTwo() {
                     </h1> */}
                    
 
-                    <p className="text-[#C09F53] font-['Open Sans'] text-[14px] font-[600] leading-none mt-4 w-[273px]">
+                    <p className="text-[#C09F53] font-opensans  text-[14px] font-[600] leading-none mt-4 w-[273px]">
                         Get trusted legal solutions <br></br>
 tailored to your needs.
                     </p>
@@ -94,7 +94,7 @@ tailored to your needs.
                         alt="Service 1"
                         className=" w-[100%]  object-cover mb-6"
                     />
-                    <button className="mt-[-25%] ml-5 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.80)] text-[#FFFBF3] font-['Open Sans'] text-sm font-bold" onClick={() => navigate('/MassTort')}>
+                    <button className="mt-[-25%] ml-5 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.80)] text-[#FFFBF3] font-opensans  text-sm font-bold" onClick={() => navigate('/Services/MassTort')}>
                         Learn more
                     </button>
                 </div>
@@ -104,7 +104,7 @@ tailored to your needs.
                         alt="Service 2"
                         className=" w-[100%] object-cover mb-6"
                     />
-                    <button className="mt-[-25%] ml-5 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.80)] text-[#FFFBF3] font-['Open Sans'] text-sm font-bold"  onClick={() => navigate("/PersonalInjury")}>
+                    <button className="mt-[-25%] ml-5 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.80)] text-[#FFFBF3] font-opensans  text-sm font-bold"  onClick={() => navigate("Service/PersonalInjury")}>
                         Learn more
                     </button>
                 </div>
@@ -114,7 +114,7 @@ tailored to your needs.
                         alt="Service 3"
                         className=" w-[100%]  object-cover mb-6"
                     />
-                    <button className="mt-[-25%] ml-5 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.80)] text-[#FFFBF3] font-['Open Sans'] text-sm font-bold" onClick={() => navigate("/ClassAction")}>
+                    <button className="mt-[-25%] ml-5 absolute z-10 inline-flex px-6 py-2.5 justify-center items-center rounded-[40px] border border-[rgba(255,251,243,0.80)] text-[#FFFBF3] font-opensans  text-sm font-bold" onClick={() => navigate("Service/ClassAction")}>
                         Learn more
                     </button>
                 </div>

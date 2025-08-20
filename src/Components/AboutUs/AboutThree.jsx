@@ -37,7 +37,7 @@ function AboutThree() {
       <h3 className="font-['Playfair_Display'] text-[28px] md:text-[38px] lg:text-[48px] xl:text-[56px] font-medium leading-[1.1] mb-2 md:mb-4">
         Expert<br /> Network
       </h3>
-      <p className="font-['Open Sans'] text-sm md:text-[14px] lg:text-[16px] xl:text-[20px] leading-relaxed max-w-md">
+      <p className="font-opensans  text-sm md:text-[14px] lg:text-[16px] xl:text-[20px] leading-relaxed max-w-md">
         Our platform features a vast network of experienced lawyers, each vetted for their expertise and commitment to client success.
       </p>
     </div>
@@ -46,7 +46,7 @@ function AboutThree() {
       <h3 className="font-['Playfair_Display'] text-[28px] md:text-[40px] lg:text-[52px] xl:text-[64px] font-[800] leading-[1.1] mb-2 md:mb-4">
         Transparent Insights
       </h3>
-      <p className="font-['Open Sans'] text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
+      <p className="font-opensans  text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
         Access detailed lawyer profiles, client reviews, and success stories to make informed decisions.
       </p>
     </div>
@@ -55,7 +55,7 @@ function AboutThree() {
       <h3 className="font-['Playfair_Display'] text-[28px] md:text-[40px] lg:text-[52px] xl:text-[64px] font-[800] leading-[1.1] mb-2 md:mb-4">
         Seamless Connection
       </h3>
-      <p className="font-['Open Sans'] text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
+      <p className="font-opensans  text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
         Our user-friendly interface allows for direct communication with your chosen legal professional, streamlining the initiation process.
       </p>
     </div>
@@ -64,7 +64,7 @@ function AboutThree() {
       <h3 className="font-['Playfair_Display'] text-[28px] md:text-[40px] lg:text-[52px] xl:text-[64px] font-[800] leading-[1.1] mb-2 md:mb-4">
         Nationwide Reach
       </h3>
-      <p className="font-['Open Sans'] text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
+      <p className="font-opensans  text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
         Serving clients across all major cities and regions in Australia, ensuring local expertise is always within reach.
       </p>
     </div>
@@ -84,7 +84,7 @@ function AboutThree() {
                             </p>
                             <button 
                                 className="inline-flex justify-center items-center px-6 md:px-8 py-3 rounded-[60px] border border-[rgba(2,52,55,0.61)] text-[#023437] font-sans text-base md:text-lg font-medium whitespace-nowrap hover:bg-[rgba(2,52,55,0.05)] transition-colors duration-200" 
-                                onClick={() => navigate('/ContactUs')}
+                                onClick={() => navigate('/Contact-Us')}
                             >
                                 Contact Us
                             </button>
@@ -92,7 +92,7 @@ function AboutThree() {
                     </div> */}
 
                     {/* CTA Button */}
-                    {/* <div className="relative bg-[#023437] flex items-center justify-between rounded-[60px] h-[80px] md:h-[90px] lg:h-[100px] w-full max-w-6xl mx-auto cursor-pointer hover:bg-[#034448] transition-colors duration-200 px-6 md:px-8 lg:px-16" onClick={() => navigate('/ContactUs')}>
+                    {/* <div className="relative bg-[#023437] flex items-center justify-between rounded-[60px] h-[80px] md:h-[90px] lg:h-[100px] w-full max-w-6xl mx-auto cursor-pointer hover:bg-[#034448] transition-colors duration-200 px-6 md:px-8 lg:px-16" onClick={() => navigate('/Contact-Us')}>
                         <p className="text-[#EFE4CB] font-sans text-[20px] md:text-[28px] lg:text-[32px] xl:text-[36px] font-bold leading-tight flex-1">
                             Fill out the free case review form now!
                         </p>
@@ -117,7 +117,7 @@ function AboutThree() {
     <h3 className="font-['Playfair_Display'] text-[34px] sm:text-[36px] font-[800] leading-[1.15] mb-3 max-w-[260px] text-center">
       Expert Network
     </h3>
-    <p className="font-['Open_Sans'] text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
+    <p className="font-opensans  text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
       Our platform features a vast network of experienced lawyers, each vetted for their expertise and commitment.
     </p>
   </div>
@@ -127,7 +127,7 @@ function AboutThree() {
     <h3 className="font-['Playfair_Display'] text-[34px] sm:text-[36px] font-[800] leading-[1.15] mb-3 max-w-[260px] text-center">
       Transparent Insights
     </h3>
-    <p className="font-['Open_Sans'] text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
+    <p className="font-opensans  text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
       Access detailed lawyer profiles, client reviews, and success stories to make informed decisions.
     </p>
   </div>
@@ -137,7 +137,7 @@ function AboutThree() {
     <h3 className="font-['Playfair_Display'] text-[34px] sm:text-[36px] font-[800] leading-[1.15] mb-3 max-w-[260px] text-center">
       Seamless Connection
     </h3>
-    <p className="font-['Open_Sans'] text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
+    <p className="font-opensans  text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
       Our user-friendly interface allows for direct communication with your chosen legal professional.
     </p>
   </div>
@@ -147,7 +147,7 @@ function AboutThree() {
     <h3 className="font-['Playfair_Display'] text-[34px] sm:text-[36px] font-[800] leading-[1.15] mb-3 max-w-[260px] text-center">
       Nationwide Reach
     </h3>
-    <p className="font-['Open_Sans'] text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
+    <p className="font-opensans  text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
       Serving clients across all major cities and regions in Australia, ensuring local expertise is always within reach.
     </p>
   </div>
@@ -166,14 +166,14 @@ function AboutThree() {
                         </p>
                         <button 
                             className="w-full text-center px-6 py-3 rounded-[60px] border border-[rgba(2,52,55,0.61)] text-[#023437] font-sans text-base sm:text-lg font-medium hover:bg-[rgba(2,52,55,0.05)] transition-colors duration-200" 
-                            onClick={() => navigate('/ContactUs')}
+                            onClick={() => navigate('/Contact-Us')}
                         >
                             Contact Us
                         </button>
                     </div>
                 </div> */}
 
-                {/* <div className="relative bg-[#023437] flex items-center justify-between rounded-[60px] h-[50px] sm:h-[60px] px-4 sm:px-5 cursor-pointer hover:bg-[#034448] transition-colors duration-200" onClick={() => navigate('/ContactUs')}>
+                {/* <div className="relative bg-[#023437] flex items-center justify-between rounded-[60px] h-[50px] sm:h-[60px] px-4 sm:px-5 cursor-pointer hover:bg-[#034448] transition-colors duration-200" onClick={() => navigate('/Contact-Us')}>
                     <p className="text-[#EFE4CB] font-sans text-[13px] sm:text-[15px] font-bold leading-tight flex-1 pr-2">
                         Fill out the free case review form now!
                     </p>

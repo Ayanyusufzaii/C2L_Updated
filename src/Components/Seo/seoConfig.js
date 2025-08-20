@@ -1,20 +1,20 @@
 const seoConfig = {
   homepage: {
-    title: "Connect2Lawyer – Australia's Trusted Platform to Find Top Lawyers 2025",
+    title: "Australia's Trusted Platform to Find Top Lawyers 2025",
     description:
       "Connect2Lawyer helps you find Australia's top and best lawyers across multiple practice areas. Get expert legal advice and representation today.",
     primaryKeyword: "Connect2Lawyer",
     secondaryKeyword: "legal help Australia",
   },
   about: {
-    title: "About Connect2Lawyer - Leading Legal Referral Platform in Australia",
+    title: "About Us - Leading Legal Referral Platform in Australia",
     description:
       "Learn about Connect2Lawyer's mission to connect individuals with trusted lawyers across Australia. Get to know our team and values.",
     primaryKeyword: "About Connect2Lawyer",
     secondaryKeyword: "legal referral platform Australia",
   },
   contact: {
-    title: "Contact Connect2Lawyer - Get Legal Help & Support",
+    title: "Contact Us - Get Legal Help & Support",
     description:
       "Reach out to Connect2Lawyer for expert legal advice and support. Contact us today to connect with leading lawyers in Australia.",
     primaryKeyword: "Contact Connect2Lawyer",
@@ -22,7 +22,7 @@ const seoConfig = {
   },
   partner: {
     title:
-      "Partner With Connect2Lawyer - Lawyer Lead Generation & Referral Opportunities",
+      "Partner With Us - Lawyer Lead Generation & Referral Opportunities",
     description:
       "Partner with Connect2Lawyer to gain access to quality legal leads and grow your law practice. Official legal referral opportunities for lawyers and firms.",
     primaryKeyword: "lawyer lead generation",

@@ -100,6 +100,8 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     }
   };
 
+  
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     setUserInput(value);
@@ -111,6 +113,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const handleAudioToggle = (e) => {
     setAudioEnabled(e.target.checked);
   };
+  
 
   return (
     <div className="mt-4">
@@ -178,9 +181,9 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           id="enableAudio"
           checked={audioEnabled}
           onChange={handleAudioToggle}
-          className="mr-2"
+          className="h-5 w-5 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53]"
         />
-        <label htmlFor="enableAudio" className="text-sm text-white">
+        <label htmlFor="enableAudio" className="ml-2 text-sm text-white">
           Enable Audio
         </label>
       </div>
@@ -223,6 +226,104 @@ const SuccessPopup = ({ isOpen, onClose }) => {
       />
     </div>
   );
+};
+
+// STRICT formatter for your 3 allowed patterns, but allows typing + while user types:
+// "" -> "4XX XXX XXX"
+// "0" -> "04XX XXX XXX"
+// "+61" -> "+61 4XX XXX XXX"
+// while typing "+6", "+61", "+612" etc. it'll preserve the plus and digits so user can complete +61
+const formatAustralianMobile = (input) => {
+  if (!input) return "";
+
+  let raw = String(input).trim();
+
+  // Keep a bare '+' visible while typing
+  if (raw === "+") return "+";
+
+  // keep only digits and a leading + (drop other pluses)
+  // remove any plus characters after the first
+  const plus = raw.startsWith("+") ? "+" : "";
+  raw = plus + raw.replace(/\+/g, "").replace(/[^\d]/g, "");
+
+  let prefix = "";
+  let actual = "";
+
+  if (raw.startsWith("+61")) {
+    prefix = "+61";
+    actual = raw.slice(3);
+  } else if (raw.startsWith("0")) {
+    prefix = "0";
+    actual = raw.slice(1);
+  } else if (raw.startsWith("+")) {
+    // user typed '+' then some digits but not +61 yet — preserve as-is for UX
+    prefix = "+";
+    actual = raw.slice(1);
+  } else {
+    prefix = "";
+    actual = raw;
+  }
+
+  // actual should be only digits and limited to 9 digits
+  actual = actual.replace(/\D/g, "").slice(0, 9);
+
+  // format actual as XXX XXX XXX grouping (3-3-3)
+  let formattedActual = actual;
+  if (actual.length <= 3) {
+    formattedActual = actual;
+  } else if (actual.length <= 6) {
+    formattedActual = `${actual.slice(0, 3)} ${actual.slice(3)}`;
+  } else {
+    formattedActual = `${actual.slice(0, 3)} ${actual.slice(3, 6)} ${actual.slice(6)}`;
+  }
+
+  // construct visible output
+  if (prefix === "+61") {
+    // show +61 with a space — desired final layout
+    return `${prefix} ${formattedActual}`.trim();
+  } else if (prefix === "0") {
+    return `${prefix}${formattedActual}`.trim();
+  } else if (prefix === "+") {
+    // preserve the + while user is typing unsupported prefix; show + + digits (no extra space)
+    // if there are no digits yet, just return "+"
+    return formattedActual ? `+${formattedActual}` : "+";
+  } else {
+    return formattedActual;
+  }
+};
+
+
+ 
+// Returns { isValid: boolean, reason: string|null }
+// Reasons: "empty", "invalid_prefix", "actual_start", "length"
+const validateAustralianMobile = (input) => {
+  if (!input) return { isValid: false, reason: "empty" };
+
+  const raw = String(input).trim().replace(/[^\d+]/g, "");
+
+  // Allowed prefixes: +61, 0, or none. Anything else -> invalid_prefix
+  let actual = "";
+  if (raw.startsWith("+61")) {
+    actual = raw.slice(3);
+  } else if (raw.startsWith("0")) {
+    actual = raw.slice(1);
+  } else if (raw.startsWith("+") && !raw.startsWith("+61")) {
+    return { isValid: false, reason: "invalid_prefix" };
+  } else {
+    actual = raw;
+  }
+
+  // actual must be digits only
+  actual = actual.replace(/\D/g, "");
+
+  // actual must start with '4'
+  if (actual.length === 0) return { isValid: false, reason: "length" };
+  if (actual[0] !== "4") return { isValid: false, reason: "actual_start" };
+
+  // actual must be exactly 9 digits
+  if (actual.length !== 9) return { isValid: false, reason: "length" };
+
+  return { isValid: true, reason: null };
 };
 
 
@@ -288,9 +389,11 @@ const ContactUsForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [phoneError, setPhoneError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [submitMessage, setSubmitMessage] = useState(null);
+  
 
   const [captchaValid, setCaptchaValid] = useState(false);
   const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
@@ -443,6 +546,54 @@ const ContactUsForm = () => {
     },
   };
 
+const handlePhoneChange = (value) => {
+  // format and validate using the new functions
+  const formatted = formatAustralianMobile(value);
+  const validation = validateAustralianMobile(formatted);
+
+  // map validation reasons to friendly messages
+  let nextPhoneError = "";
+  if (!value || value.trim() === "") {
+    nextPhoneError = "";
+  } else if (!validation.isValid) {
+    switch (validation.reason) {
+      case "invalid_prefix":
+        nextPhoneError = "Prefix must be empty, 0, or +61 (e.g. +61 4XX XXX XXX)";
+        break;
+      case "actual_start":
+        nextPhoneError = "Phone number must start with '4'";
+        break;
+      case "length":
+        nextPhoneError = "Phone number must have 9 digits";
+        break;
+      default:
+        nextPhoneError = "Please enter a valid Australian mobile number";
+    }
+  } else {
+    nextPhoneError = "";
+  }
+
+  // update phoneError only if it changed
+  setPhoneError((prev) => (prev === nextPhoneError ? prev : nextPhoneError));
+
+  // write formatted value back to form state only if different
+  setFormData((prev) => {
+    if (prev.phoneNumber === formatted) return prev;
+    return { ...prev, phoneNumber: formatted };
+  });
+
+  // clear any general phone error that may exist in errors object, only if set
+  if (errors.phoneNumber) {
+    setErrors((prevErrors) => {
+      if (!prevErrors.phoneNumber) return prevErrors;
+      return { ...prevErrors, phoneNumber: "" };
+    });
+  }
+};
+
+
+
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     let processedValue = value;
@@ -453,8 +604,9 @@ const ContactUsForm = () => {
     }
 
     if (name === "phoneNumber") {
-      processedValue = formatPhoneNumber(value);
-    }
+    handlePhoneChange(value);
+    return;
+  }
 
     setFormData((prevState) => ({
       ...prevState,
@@ -483,19 +635,36 @@ const ContactUsForm = () => {
       newErrors.Name = "Name is required";
     }
 
-    if (!formData.phoneNumber.trim()) {
-      newErrors.phoneNumber = "Phone number is required";
-    } else {
-      const phoneDigits = formData.phoneNumber.replace(/\D/g, "");
-      const isValidAusMobile = phoneDigits.length === 10 && phoneDigits.startsWith("04");
-      const isValidAusLandline = phoneDigits.length === 10 && 
-        (phoneDigits.startsWith("02") || phoneDigits.startsWith("03") || 
-         phoneDigits.startsWith("07") || phoneDigits.startsWith("08"));
-      
-      if (!isValidAusMobile && !isValidAusLandline) {
+        if (!formData.phoneNumber.trim()) {
+  newErrors.phoneNumber = "Phone number is required";
+} else if (phoneError) {
+  // prefer the live validation message if present
+  newErrors.phoneNumber = phoneError;
+} else {
+  // final safety check (fallback) — runs only if no live error
+  const { isValid, reason } = validateAustralianMobile(formData.phoneNumber);
+  if (!isValid) {
+    const phoneDigits = formData.phoneNumber.replace(/\D/g, "");
+    const isValidAusLandline =
+      phoneDigits.length === 10 &&
+      (phoneDigits.startsWith("02") ||
+        phoneDigits.startsWith("03") ||
+        phoneDigits.startsWith("07") ||
+        phoneDigits.startsWith("08"));
+
+    if (!isValidAusLandline) {
+      if (reason === "length") {
+        newErrors.phoneNumber = "Phone number must have 10 digits";
+      } else if (reason === "prefix") {
+        newErrors.phoneNumber = "Mobile must start with 04 (or +61 4...)";
+      } else {
         newErrors.phoneNumber = "Please enter a valid Australian phone number";
+          }
+        }
       }
+      // if isValid === true then mobile is valid — no error
     }
+
 
     if (!formData.emailId.trim()) {
       newErrors.emailId = "Email is required";
@@ -580,6 +749,8 @@ const ContactUsForm = () => {
           humanVerification: false,
           captchaEnabled: false,
         });
+
+        setPhoneError("");
         
         // Reset captcha
         setCaptchaValid(false);
@@ -641,12 +812,12 @@ const ContactUsForm = () => {
           theme="colored"
         />
         
-        <div className="w-full bg-[#023437] px-0 py-8 flex flex-col items-center">
+        <div className="w-full bg-[#023437] px-4 py-8 flex flex-col items-center">
           <h1 className="w-full max-w-lg text-[#C09F53] font-['Playfair_Display'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 text-center">
             <span style={{ color: "white" }}>Let's Review</span> Your Case{" "}
             <span style={{ color: "white" }}>Today</span>.
           </h1>
-          <p className="text-[#C09F53] font-open-sans text-base sm:text-lg font-semibold mb-9 w-full max-w-lg text-center">
+          <p className="text-[#C09F53] font-open-sans text-base sm:text-lg font-semibold mb-9 w-full max-w-lg text-center font-opensans">
             Take the first step toward justice—complete your free case evaluation
             today.
           </p>
@@ -697,10 +868,10 @@ const ContactUsForm = () => {
               fullWidth
               value={formData.phoneNumber}
               onChange={handleChange}
-              error={!!errors.phoneNumber}
-              helperText={errors.phoneNumber}
+              error={!!errors.phoneNumber || !!phoneError}
+              helperText={phoneError || errors.phoneNumber}
               sx={textFieldStyle}
-              inputProps={{ maxLength: 14 }}
+              inputProps={{ maxLength: 15 }}
             />
 
             <TextField
@@ -752,23 +923,25 @@ const ContactUsForm = () => {
 
             <div className="space-y-4 text-white text-sm leading-relaxed">
               <div className="flex items-start">
+                <div className="flex-shrink-0">
                 <input
                   type="checkbox"
                   id="privacyConsent"
                   name="privacyConsent"
                   checked={formData.privacyConsent || false}
                   onChange={handleChange}
-                  className="h-5 w-5 accent-[#C09F53] mt-1"
+                  className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53]"
                   required
                 />
-                <label htmlFor="privacyConsent" className="ml-3 block text-left">
+                </div>
+                <label htmlFor="privacyConsent" className="ml-3 block text-left font-opensans text-[#FFFBF399]">
                   <span>
                     I agree to the{" "}
-                    <a href="/Privacypolicy" className="underline hover:text-blue-200">
+                    <a href="/Privacy-policy" className="text-[#C09F53] underline hover:text-blue-200">
                       privacy policy
                     </a>{" "}
                     and{" "}
-                    <a href="/Disclaimer" className="underline hover:text-blue-200">
+                    <a href="/Disclaimer" className="text-[#C09F53] underline hover:text-blue-200">
                       disclaimer
                     </a>{" "}
                     and give my express written consent, affiliates and/or lawyer
@@ -787,15 +960,17 @@ const ContactUsForm = () => {
               </div>
 
               <div className="flex items-start">
+                <div className="flex-shrink-0">
                 <input
                   type="checkbox"
                   id="captchaEnabled"
                   name="captchaEnabled"
                   checked={formData.captchaEnabled || false}
                   onChange={handleChange}
-                  className="h-5 w-5 accent-[#C09F53] mt-1"
+                  className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53]"
                 />
-                <label htmlFor="captchaEnabled" className="ml-3 block">
+                </div>
+                <label htmlFor="captchaEnabled" className="ml-3 block font-opensans text-[#FFFBF399]">
                   Please click this box so we know you're a person and not a computer
                 </label>
               </div>
@@ -880,7 +1055,7 @@ const ContactUsForm = () => {
               Your Case <span style={{ color: "white" }}>Today.</span>
             </h1>
             <div className="pb-0">
-              <p className="text-[#C09F53] font-open-sans text-base md:text-lg lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-normal leading-relaxed text-right max-w-[500px] xl:max-w-[500px] 2xl:max-w-[500px]">
+              <p className="text-[#C09F53] font-open-sans text-base md:text-lg lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-normal leading-relaxed text-right max-w-[500px] xl:max-w-[500px] 2xl:max-w-[500px] font-opensans">
                 Take the first step toward justice complete
                 <br />
                 your free case evaluation today.
@@ -956,10 +1131,10 @@ const ContactUsForm = () => {
                   fullWidth
                   value={formData.phoneNumber}
                   onChange={handleChange}
-                  error={!!errors.phoneNumber}
-                  helperText={errors.phoneNumber}
+                  error={!!errors.phoneNumber || !!phoneError}
+                  helperText={phoneError || errors.phoneNumber}
                   sx={textFieldStyle}
-                  inputProps={{ maxLength: 14 }}
+                  inputProps={{ maxLength: 15 }}
                 />
                 <TextField
                   id="concern"
@@ -1053,17 +1228,17 @@ const ContactUsForm = () => {
                       name="privacyConsent"
                       checked={formData.privacyConsent || false}
                       onChange={handleChange}
-                      className="h-3 w-3 border-2 border-white bg-[#023437] checked:bg-[#C09F53] checked:border-[#C09F53] focus:ring-1 focus:ring-white text-[#C09F53] mt-1"
+                      className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53]"
                       required
                     />
                   </div>
                   <label
                     htmlFor="privacyConsent"
-                    className="ml-3 block text-[#FFFBF399] text-[12px] font-normal text-left"
+                    className="ml-3 block text-[#FFFBF399] font-opensans text-[12px] font-normal text-left"
                   >
                     <span className="block">
                       I agree to the{" "}
-                      <a href="/Privacypolicy" className="text-[#C09F53] underline hover:text-yellow-500">
+                      <a href="/Privacy-policy" className="text-[#C09F53] underline hover:text-yellow-500">
                         privacy policy
                       </a>{" "}
                       and{" "}
@@ -1089,11 +1264,11 @@ const ContactUsForm = () => {
                     name="captchaEnabled"
                     checked={formData.captchaEnabled || false}
                     onChange={handleChange}
-                    className="mt-1 h-3 w-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53] font-opensans"
                   />
                   <label
                     htmlFor="captchaEnabled"
-                    className="ml-3 block text-[12px] font-normal text-[#FFFBF399]"
+                    className="ml-3 block text-[12px] font-normal text-[#FFFBF399] font-opensans "
                   >
                     Please click this box so we know you're a person and not a computer
                   </label>

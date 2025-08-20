@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
-import 'leaflet/dist/leaflet.css';
+
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import "leaflet/dist/leaflet.css";
+
 import React from "react";
 import HomePage from "./Components/Home/HomePage"
 import Footer from "./Components/Footer"
@@ -78,7 +77,7 @@ function App() {
       element: <ChatInterface />,
     },
     {
-      path: '/service',
+      path: '/services',
       element:
         <ParallaxProvider>
           <Service />
@@ -86,36 +85,36 @@ function App() {
       ,
     },
     {
-      path: '/SubServicemeso',
+      path: 'Services/MassTort/Mesothelioma-Lawsuit',
       element: <SubService />
     },
     {
-      path : '/SubService18Wheeler',
+      path : '/Services/PersonalInjury/18Wheeler-Lawsuit',
       element: <SubService18Wheeler />
     },
     {
-      path : '/SubServiceRideshare',
+      path : '/Services/ClassAction/Rideshare-Lawsuit',
       element: <SubServiceRideshare />
 
     },
     {
-      path: '/about',
+      path: '/About-Us',
       element: <About />
     },
     {
-      path: '/ContactUs',
+      path: '/Contact-Us',
       element: <ContactUs />
     },
     {
-      path: '/MassTort',
+      path: '/Services/MassTort',
       element: <MassTort />
     },
     {
-      path: '/ClassAction',
+      path: '/Services/ClassAction',
       element: <ClassAction />
     },
     {
-      path: '/PersonalInjury',
+      path: 'Services/PersonalInjury',
       element: <PersonalInjury />
     },
     {
@@ -139,7 +138,7 @@ function App() {
       element: <ClassService />,
     },
     {
-      path:'/Lawyers',
+      path:'/Partner-With-Us',
       element:<LawyersPage />,
     },
     {

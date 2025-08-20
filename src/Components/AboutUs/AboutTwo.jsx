@@ -27,7 +27,7 @@ const AboutTwo = () => {
           <h3 className="font-['Playfair_Display'] text-[32px] md:text-[32px] lg:text-[36px] xl:text-[44px] font-normal leading-[1.1] mb-4 md:mb-6">
             Personalized<br /> Matching
           </h3>
-          <p className="font-['Open_Sans'] text-sm md:text-base lg:text-lg xl:text-xl font-medium max-w-[416px]">
+          <p className="font-opensans  text-sm md:text-base lg:text-lg xl:text-xl font-medium max-w-[416px]">
             Utilizing advanced algorithms to connect you with lawyers who specialize in your specific legal matter.
           </p>
         </div>
@@ -37,7 +37,7 @@ const AboutTwo = () => {
           <h3 className="font-['Playfair_Display'] text-[32px] md:text-[32px] lg:text-[36px] xl:text-[44px] font-normal leading-[1.1] mb-4 md:mb-6">
             Comprehensive <br />Services
           </h3>
-          <p className="font-['Open_Sans'] text-sm md:text-base lg:text-lg xl:text-xl font-medium  max-w-[416px]">
+          <p className="font-opensans  text-sm md:text-base lg:text-lg xl:text-xl font-medium  max-w-[416px]">
             Offering assistance in areas such as personal injury, medical malpractice, mass tort litigation etc.
           </p>
         </div>

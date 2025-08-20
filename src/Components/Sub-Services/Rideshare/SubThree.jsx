@@ -63,7 +63,6 @@ function SubThree() {
 
 
 
-
         <div className="flex flex-row justify-center gap-4 md:gap-6 lg:gap-8 max-w-7xl mx-auto mb-8 sm:mb-12 md:mb-16 px-2 sm:px-4 md:px-0">
           {cardData.map((card) => (
             <div

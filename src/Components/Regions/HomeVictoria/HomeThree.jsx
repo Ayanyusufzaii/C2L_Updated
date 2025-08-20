@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const contentConfig = {
   "Mesothelioma Lawsuits": {
     bgColor: "#023437",
-     link:"/SubServicemeso",
+     link:"/Services/MassTort/Mesothelioma-Lawsuit",
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",
     description:
@@ -23,7 +23,7 @@ const contentConfig = {
   },
   "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
-     link: "/SubService18Wheeler",
+     link: "/Services/PersonalInjury/18Wheeler-Lawsuit",
     textBg: "#C09F53",
     title: "18-Wheeler & Heavy Vehicle Accidents",
     description:
@@ -39,7 +39,7 @@ const contentConfig = {
   },
   "Rideshare Sexual Assault": {
     bgColor: "#023437",
-    link: "/SubServiceRideshare",
+    link: "/Services/ClassAction/Rideshare-Lawsuit",
     textBg: "#C09F53",
     title: "Rideshare Sexual Assault",
     description:
@@ -58,7 +58,7 @@ const contentConfig = {
 const contentConfigMob = {
   "Mesothelioma Lawsuits": {
     bgColor: "#023437",
-     link:"/SubServicemeso",
+     link:"/Services/MassTort/Mesothelioma-Lawsuit",
     textBg: "#C09F53",
     title: "Asbestos Exposure and Mesothelioma",
     description:
@@ -74,7 +74,7 @@ const contentConfigMob = {
   },
   "Rideshare Sexual Assault": {
     bgColor: "#023437",
-    link: "/SubServiceRideshare",
+    link: "/Services/ClassAction/Rideshare-Lawsuit",
     textBg: "#C09F53",
     title: "Rideshare Sexual Assault",
     description:
@@ -90,7 +90,7 @@ const contentConfigMob = {
   },
    "18-Wheeler & Heavy Vehicle Accidents": {
     bgColor: "#023437",
-     link: "/SubService18Wheeler",
+     link: "/Services/PersonalInjury/18Wheeler-Lawsuit",
     textBg: "#C09F53",
     title: "18-Wheeler & Heavy Vehicle Accidents",
     description:
@@ -126,13 +126,13 @@ const navigate = useNavigate();
           className="flex-1 flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-14 3xl:p-16 4xl:p-20 5xl:p-24 text-white  "
           style={{ backgroundColor: data.textBg }}
         >
-          <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
+          <div className="space-y-4 sm:space-y-6 md:space-y-4 lg:space-y-10 xl:space-y-12">
             {/* Title */}
             <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
-            <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+            <p className="leading-relaxed text-sm  font-opensans sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
               {data.description}
             </p>
             {/* Lawsuit Type */}
@@ -258,7 +258,7 @@ const navigate = useNavigate();
           className="flex-1 flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-14 3xl:p-16 4xl:p-20 5xl:p-24 text-white  "
           style={{ backgroundColor: data.textBg }}
         >
-          <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10 xl:space-y-12">
+          <div className="space-y-4 sm:space-y-6 md:space-y-4 lg:space-y-10 xl:space-y-12">
             {/* Title */}
             <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
@@ -272,7 +272,7 @@ const navigate = useNavigate();
               <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
                 {data.lawsuitTypeTitle}
               </h4>
-              <p className="leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
+              <p className="leading-relaxed text-sm  font-opensans sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
                 {data.lawsuitTypeDesc}
               </p>
             </div>

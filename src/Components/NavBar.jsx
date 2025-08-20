@@ -8,6 +8,7 @@ import SearchbarIcon1 from '../../src/assets/searchlogo1.png';
 import locationIcon from '../../src/assets/locationlogo.png';
 import closeIcon from '../../src/assets/logoo.png';
 
+
 const regions = [
   'New South Wales',
   'Queensland',
@@ -21,9 +22,10 @@ const regions = [
 
 const menuLinks = [
   { name: 'Home', path: '/' },
-  { name: 'Services', path: '/Service' },
-  { name: 'About Us', path: '/About' },
-  { name: 'Contact Us', path: '/ContactUs' }
+  { name: 'Services', path: '/Services' },
+  { name: 'About Us', path: '/About-Us' },
+  { name: 'Contact Us', path: '/Contact-Us' },
+  {name:'Partner With Us',path:'/Partner-With-Us'}
 ];
 
 const NavBar = () => {
@@ -246,7 +248,7 @@ const NavBar = () => {
           {/* Free Consultation Button in Mobile Menu */}
           <button
             onClick={() => {
-              navigate('/ContactUs');
+              navigate('/Contact-Us');
               setMobileMenuOpen(false);
             }}
             className="w-full bg-[#C09F53] text-white px-6 py-4 rounded-full text-xl font-semibold mt-8 hover:bg-[#a88a47] transition-colors duration-200"
@@ -340,7 +342,7 @@ const NavBar = () => {
           aria-expanded={localDropdownOpen}
           aria-haspopup="true"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 font-opensans">
             <img src={locationIcon} alt="Location" className={`${isMobile ? 'w-5 h-5' : 'w-6 h-6'} m-0 p-0`} />
             <span className={isMobile ? 'truncate' : ''}>{selectedRegion}</span>
           </div>
@@ -416,19 +418,22 @@ const NavBar = () => {
               />
 
               {/* Call and Button Container */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 font-opensans ">
                 {/* Call Capsule */}
-                <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full">
-                  <img src={callIcon} alt="Call" className="h-8" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-[#023437]">Toll Free Number</span>
-                    <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
-                  </div>
-                </div>
+               <a href="tel:+61470695167" style={{ textDecoration: 'none' }}>
+  <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full cursor-pointer">
+    <img src={callIcon} alt="Call" className="h-8" />
+    <div className="flex flex-col">
+      <span className="text-[10px] text-[#023437]">Toll Free Number</span>
+      <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
+    </div>
+  </div>
+</a>
+
 
                 {/* Free Consultation Button */}
                 <button
-                  onClick={() => navigate('/ContactUs')}
+                  onClick={() => navigate('/Contact-Us')}
                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
                 >
                   Free Consultation
@@ -445,7 +450,7 @@ const NavBar = () => {
               />
 
               {/* Menu Links */}
-              <div className="flex flex-wrap gap-12 justify-center lg:justify-start">
+              <div className="flex flex-wrap md:gap-8 lg:gap-12  justify-center lg:justify-start">
                 {menuLinks.map((item) => (
                   <button
                     key={item.name}
@@ -485,17 +490,19 @@ const NavBar = () => {
               {/* Call and Button Container */}
               <div className="flex items-center gap-2">
                 {/* Call Capsule */}
-                <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full">
-                  <img src={callIcon} alt="Call" className="h-8" />
-                  <div className="flex flex-col">
-                    <span className="text-[10px] text-[#023437]">Toll Free Number</span>
-                    <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
-                  </div>
-                </div>
+             <a href="tel:+61470695167" className="no-underline">
+  <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full cursor-pointer">
+    <img src={callIcon} alt="Call" className="h-8" />
+    <div className="flex flex-col">
+      <span className="text-[10px] text-[#023437]">Toll Free Number</span>
+      <span className="text-xs font-bold text-[#023437]">+61 470 695 167</span>
+    </div>
+  </div>
+</a>
 
                 {/* Free Consultation Button */}
                 <button
-                  onClick={() => navigate('/ContactUs')}
+                  onClick={() => navigate('/Contact-Us')}
                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
                 >
                   Free Consultation
@@ -512,7 +519,7 @@ const NavBar = () => {
               />
 
               {/* Menu Links */}
-              <div className="flex flex-wrap gap-12 justify-center md:justify-start">
+              <div className="flex flex-wrap md:gap-8 lg:gap-12  justify-center md:justify-start">
                 {menuLinks.map((item) => (
                   <button
                     key={item.name}
@@ -551,7 +558,10 @@ const NavBar = () => {
 
               <div className="flex items-center gap-3">
                 {/* Call Icon Only */}
-                <img src={callIcon} alt="Call" className="h-7" />
+             <a href="tel:+61470695167">
+  <img src={callIcon} alt="Call" className="h-7 cursor-pointer" />
+</a>
+
 
                 {/* Hamburger Menu */}
                 <HamburgerIcon 
@@ -644,7 +654,7 @@ const NavBar = () => {
             </div>
 
             {/* Center Section: Menu Links */}
-            <div className="flex flex-wrap gap-12 justify-center">
+            <div className="flex flex-wrap md:gap-6 lg:gap-12    justify-center">
               {menuLinks.map((item) => (
                 <button
                   key={item.name}
@@ -839,20 +849,20 @@ export default NavBar;
 //     const targetRef = useRef(null);
 
 //     const handleConsultationClick = () => {
-//         navigate('/ContactUs');
+//         navigate('/Contact-Us');
 //     };
 
 //     const menuItems = [
 //         { name: 'Home', path: '/' },
 //         {
 //             name: 'Services',
-//             path: '/Service',
+//             path: '/Services',
 
 //         },
 //         // { name: 'Sub Services', path: '/SubService' },
-//         { name: 'About Us', path: '/About' },
-//         { name: 'Contact', path: '/ContactUs' },
-//         // { name: 'Masstort', path: '/Masstort' }
+//         { name: 'About Us', path: '/About-Us' },
+//         { name: 'Contact', path: '/Contact-Us' },
+//         // { name: 'Masstort', path: '/Services/MassTort' }
 //     ];
 
 //     return (
@@ -1068,7 +1078,7 @@ export default NavBar;
 //                             {/* Contact Section */}
 //                             <div className="w-full max-w-xs md:max-w-sm flex-shrink-0 border border-white/35 mx-auto text-center pt-3 mt-8 md:mt-0 p-4 md:p-6 bg-white/90 rounded-lg">
 //   <div className="gap-2">
-//     <p className="text-[#023437] text-center font-['Open_Sans'] text-[22px] md:text-[26px] font-bold not-italic leading-none mt-2 break-words">+61 470 695 167</p>
+//     <p className="text-[#023437] text-center font-opensans  text-[22px] md:text-[26px] font-bold not-italic leading-none mt-2 break-words">+61 470 695 167</p>
 //     <button className="inline-flex px-[32px] py-[8px] justify-center items-center rounded-[60px] bg-[#C09F53] text-white mt-2">
 //       Call Now
 //     </button>
@@ -1096,7 +1106,7 @@ export default NavBar;
 //         </div>
 //       </div>
 //     </div>
-//     <p className="w-full text-[#023437] font-['Open_Sans'] text-[14px] md:text-[16px] font-semibold not-italic leading-normal mt-1 break-words">
+//     <p className="w-full text-[#023437] font-opensans  text-[14px] md:text-[16px] font-semibold not-italic leading-normal mt-1 break-words">
 //       123 Legal Avenue, Suite 456 Justice Tower Sydney, NSW 2000, Australia
 //     </p>
 //     <div className="flex flex-col items-center mt-2">
@@ -1175,9 +1185,9 @@ export default NavBar;
 
 // const menuLinks = [
 //   { name: 'Home', path: '/' },
-//   { name: 'Services', path: '/Service' },
-//   { name: 'About Us', path: '/About' },
-//   { name: 'Contact Us', path: '/ContactUs' }
+//   { name: 'Services', path: '/Services' },
+//   { name: 'About Us', path: '/About-Us' },
+//   { name: 'Contact Us', path: '/Contact-Us' }
 // ];
 
 // const searchSuggestions = [
@@ -1481,7 +1491,7 @@ export default NavBar;
 //             </button>
 //           ))}
 //           <button
-//             onClick={() => { navigate('/ContactUs'); setMobileMenuOpen(false); }}
+//             onClick={() => { navigate('/Contact-Us'); setMobileMenuOpen(false); }}
 //             className="w-full bg-[#C09F53] text-white px-6 py-4 rounded-full text-xl font-semibold mt-8 hover:bg-[#a88a47] transition-colors duration-200"
 //           >
 //             Free Consultation
@@ -1742,7 +1752,7 @@ export default NavBar;
 //                   </div>
 //                 </div>
 //                 <button
-//                   onClick={() => navigate('/ContactUs')}
+//                   onClick={() => navigate('/Contact-Us')}
 //                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
 //                 >Free Consultation</button>
 //               </div>
@@ -1784,7 +1794,7 @@ export default NavBar;
 //                   </div>
 //                 </div>
 //                 <button
-//                   onClick={() => navigate('/ContactUs')}
+//                   onClick={() => navigate('/Contact-Us')}
 //                   className="bg-[#C09F53] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#a88a47] transition-colors duration-200"
 //                 >Free Consultation</button>
 //               </div>

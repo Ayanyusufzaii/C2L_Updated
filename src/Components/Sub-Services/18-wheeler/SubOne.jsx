@@ -110,7 +110,7 @@ function SubOne() {
 
         {/* Content positioned at bottom */}
         <div className="pb-20 sm:pb-24">
-          <h1 className="text-[56px] sm:text-[36px] lg:text-[56px] text-[#FFFBF3] leading-[60px] sm:leading-[56px] font-['Playfair_Display'] text-left font-extrabold mb-4 sm:mb-6">
+          <h1 className="text-[56px] sm:text-[36px]  text-[#FFFBF3] leading-[60px] sm:leading-[56px] font-['Playfair_Display'] text-left font-extrabold mb-4 sm:mb-6">
             18-Wheeler & Heavy  <span className='text-[#C09F53]'>Vehicle Accident </span>Lawsuit
           </h1>
           <p className="text-[#C09F53] font-open-sans text-[24px] sm:text-[30px] font-bold leading-normal mb-3 sm:mb-4 text-left">
