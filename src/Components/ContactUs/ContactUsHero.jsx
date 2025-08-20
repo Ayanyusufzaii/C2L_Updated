@@ -51,7 +51,7 @@ const ContactUsHero = () => {
 
           <div>
             {/* Phone */}
-            <div className="flex items-center -mb-4 md:-mb-6 lg:-mb-5 xl:-mb-2 md:-ml-4">
+            <div className="flex items-center -mb-4 md:-mb-6 lg:-mb-5 xl:-mb-2 md:-ml-4 font-opensans">
               <img 
                 src={dialer} 
                 alt="" 
@@ -68,7 +68,7 @@ const ContactUsHero = () => {
             </div>
 
             {/* Email */}
-            <div className="flex items-center md:-ml-4">
+          <div className="flex items-center md:-ml-4 font-opensans">
               <img 
                 src={mail} 
                 alt="" 
@@ -83,41 +83,16 @@ const ContactUsHero = () => {
                 teamup@connect2lawyer.com.au
               </span>
             </div>
-
-            {/* <div className="flex items-center gap-2 lg:gap-3 xl:gap-4"> */}
-              {/* When you have the email icon image, replace this div with: 
-                  <img src={emailIcon} alt="" className="cursor-pointer md:w-7 md:h-7 lg:w-9 lg:h-9 xl:w-10 xl:h-10" onClick={handleEmail} />
-              */}
-              {/* <div 
-                className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0 cursor-pointer
-                           md:w-7 md:h-7 lg:w-9 lg:h-9 xl:w-10 xl:h-10"
-                onClick={handleEmail}
-              >
-                <img 
-                src={mail} 
-                alt="" 
-                className="cursor-pointer md:w-7 md:h-7 lg:w-9 lg:h-9 xl:w-10 xl:h-10 mb-2"
-                onClick={handleCall}
-              />
-              </div>
-              <span 
-                className="font-semibold text-[#023437] break-words underline decoration-[#023437] underline-offset-4 cursor-pointer
-                           md:text-base lg:text-xl xl:text-2xl 2xl:text-[28px]"
-                onClick={handleEmail}
-              >
-                teamup@connect2lawyer.com.au
-              </span>
-            </div> */}
-          </div>
-
+          <div className="h-[1px] xl:h-[2px] w-full bg-[#023437] opacity-30  "></div>
+           </div>
           {/* Divider */}
-          <div className="h-[1px] xl:h-[2px] w-[200px] md:w-[220px] lg:w-[250px] xl:w-[280px] bg-[#023437] opacity-30 mt-6 lg:mt-8 xl:mt-12"></div>
+
 
           {/* Socials */}
           <div className="flex gap-2 lg:gap-3 mt-6 lg:mt-8 xl:mt-12">
             {socialLinks.map((social, index) => (
               <a key={index} href={social.href} target="_blank" rel="noopener noreferrer"
-                className="border-2 border-[#023437]  rounded-full flex items-center justify-center
+                className="border-[1px] border-[#023437]  rounded-full flex items-center justify-center
                            transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105
                            md:w-9 md:h-9 lg:w-10 lg:h-10 xl:w-11 xl:h-11 2xl:w-12 2xl:h-12">
                 <img src={social.icon} alt="" className="md:w-4 md:h-4 lg:w-5 lg:h-5 xl:w-6 xl:h-6" />
@@ -129,12 +104,12 @@ const ContactUsHero = () => {
           <div className="flex items-center gap-2 lg:gap-2 xl:gap-3 mt-6 lg:mt-8 xl:mt-12">
             <div className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0 relative overflow-hidden
                             md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-[70px] 2xl:h-[70px]">
-              <div className="absolute inset-[2px] bg-white rounded-full"></div>
+              <div className="absolute inset-[1px] bg-white rounded-full"></div>
               <img src={clock} alt="" className="relative z-10 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8" />
             </div>
             <div>
-              <div className="font-medium text-[#023437] md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[42px]">9:00-19:00</div>
-              <div className="text-[#023437] font-medium md:text-xs lg:text-sm xl:text-base 2xl:text-lg">Mon - Fri</div>
+              <div className="font-medium text-[#023437] md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[42px] font-opensans">9:00-19:00</div>
+              <div className="text-[#023437] font-medium md:text-xs lg:text-sm xl:text-base 2xl:text-lg font-opensans">Mon - Fri</div>
             </div>
           </div>
         </div>
@@ -159,12 +134,12 @@ const ContactUsHero = () => {
               </h1>
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0 relative overflow-hidden">
-                  <div className="absolute inset-[2px] bg-white rounded-full"></div>
+                  <div className="absolute inset-[1px] bg-white rounded-full"></div>
                   <img src={clock} alt="" className="w-4 h-4 relative z-10" />
                 </div>
                 <div>
-                  <div className="text-base font-bold text-[#023437]">9:00-19:00</div>
-                  <div className="text-sm text-[#023437] font-medium">Mon - Fri</div>
+                  <div className="text-base font-bold text-[#023437] font-opensans">9:00-19:00</div>
+                  <div className="text-sm text-[#023437] font-medium font-opensans">Mon - Fri</div>
                 </div>
               </div>
             </div>
@@ -174,7 +149,7 @@ const ContactUsHero = () => {
           </div>
 
           {/* Contact */}
-          <div className="w-full space-y-6">
+          <div className="w-full space-y-6 font-opensans">
             <div className="flex items-center -mb-12 -ml-4">
               <img 
                 src={dialer} 
@@ -233,7 +208,7 @@ const ContactUsHero = () => {
           <div className="flex justify-between items-center w-full px-2">
             {socialLinks.map((social, index) => (
               <a key={index} href={social.href} target="_blank" rel="noopener noreferrer"
-                className="border-2 border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center
+                className="border-[1px] border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center
                            transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105
                            w-10 h-10 xs:w-12 xs:h-12">
                 <img src={social.icon} alt="" className="w-5 h-5 xs:w-6 xs:h-6" />

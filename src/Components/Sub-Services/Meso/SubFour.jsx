@@ -33,7 +33,7 @@ function SubFour() {
                 <h1 className="w-full text-[#C09F53] font-['Playfair_Display'] text-[40px] md:text-[64px] lg:text-[96px] font-extrabold leading-[48px] md:leading-[70px] lg:leading-[100px]">
                     <span className='text-[#023437]'>Over</span>view <br />
                 </h1>
-                <h2 className="w-full text-[#023437] font-['Open Sans'] text-lg md:text-xl lg:text-l font-semibold tracking-widest uppercase mb-[-22px] mt-8">MESOTHELIOMA</h2>
+                <h2 className="w-full text-[#023437] font-opensans  text-lg md:text-xl lg:text-l font-semibold tracking-widest uppercase mb-[-22px] mt-8">MESOTHELIOMA</h2>
                 <p className="text-[#023437] font-open-sans text-base md:text-[18px] lg:text-[24px]  w-full mb-6 mt-6 md:mt-10">
                    Mesothelioma is a rare, aggressive cancer affecting the mesothelium, the thin lining of body cavities and organs, primarily caused by asbestos exposure. Symptoms may take 20 to 60 years to appear, making early detection challenging. Each year, fewer than 3,000 cases are diagnosed, mostly in patients aged 75 to 79. While usually malignant, rare benign cases have been reported. 
                 </p>

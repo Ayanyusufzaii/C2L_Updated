@@ -4,8 +4,8 @@ import TextField from '@mui/material/TextField';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./HomeTwo.css";
-import Frame from "../../assets/justiceimg.png";
-import Frame2 from "../../assets/justiceemobbb.png";
+import Frame from "../../assets/justiceimg.jpeg";
+import Frame2 from "../../assets/justiceemobbb.jpeg";
 import { useMediaQuery, MenuItem } from '@mui/material';
 import FormBG from "../../assets/hFormBG.png";
 import mobFormBG from "../../assets/MobileFormBG.png";
@@ -984,7 +984,7 @@ function HomeTwo() {
                     required
                   />
                 </div>
-                <label htmlFor="privacyConsent" className="ml-3 block text-[#023437] text-left">
+                <label htmlFor="privacyConsent" className="ml-3 block text-[#023437] text-left font-opensans">
                   {!isMobile ? (
                     <>
                       <span className="block">
@@ -1032,7 +1032,7 @@ function HomeTwo() {
                       style={{ backgroundColor: 'transparent', borderColor: '#023437' }}
                     />
                   </div>
-                  <label htmlFor="captchaEnabled" className="ml-3 block text-[#023437] text-left">
+                  <label htmlFor="captchaEnabled" className="ml-3 block text-[#023437] text-left font-opensans">
                     Please click this box so we know you're a person and not a computer
                   </label>
                 </div>

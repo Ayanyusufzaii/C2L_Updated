@@ -817,7 +817,7 @@ const handlePhoneChange = (value) => {
             <span style={{ color: "white" }}>Let's Review</span> Your Case{" "}
             <span style={{ color: "white" }}>Today</span>.
           </h1>
-          <p className="text-[#C09F53] font-open-sans text-base sm:text-lg font-semibold mb-9 w-full max-w-lg text-center">
+          <p className="text-[#C09F53] font-open-sans text-base sm:text-lg font-semibold mb-9 w-full max-w-lg text-center font-opensans">
             Take the first step toward justice—complete your free case evaluation
             today.
           </p>
@@ -934,7 +934,7 @@ const handlePhoneChange = (value) => {
                   required
                 />
                 </div>
-                <label htmlFor="privacyConsent" className="ml-3 block text-left">
+                <label htmlFor="privacyConsent" className="ml-3 block text-left font-opensans text-[#FFFBF399]">
                   <span>
                     I agree to the{" "}
                     <a href="/Privacy-policy" className="text-[#C09F53] underline hover:text-blue-200">
@@ -970,7 +970,7 @@ const handlePhoneChange = (value) => {
                   className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53]"
                 />
                 </div>
-                <label htmlFor="captchaEnabled" className="ml-3 block">
+                <label htmlFor="captchaEnabled" className="ml-3 block font-opensans text-[#FFFBF399]">
                   Please click this box so we know you're a person and not a computer
                 </label>
               </div>
@@ -1055,7 +1055,7 @@ const handlePhoneChange = (value) => {
               Your Case <span style={{ color: "white" }}>Today.</span>
             </h1>
             <div className="pb-0">
-              <p className="text-[#C09F53] font-open-sans text-base md:text-lg lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-normal leading-relaxed text-right max-w-[500px] xl:max-w-[500px] 2xl:max-w-[500px]">
+              <p className="text-[#C09F53] font-open-sans text-base md:text-lg lg:text-[18px] xl:text-[20px] 2xl:text-[24px] font-normal leading-relaxed text-right max-w-[500px] xl:max-w-[500px] 2xl:max-w-[500px] font-opensans">
                 Take the first step toward justice complete
                 <br />
                 your free case evaluation today.
@@ -1234,7 +1234,7 @@ const handlePhoneChange = (value) => {
                   </div>
                   <label
                     htmlFor="privacyConsent"
-                    className="ml-3 block text-[#FFFBF399] text-[12px] font-normal text-left"
+                    className="ml-3 block text-[#FFFBF399] font-opensans text-[12px] font-normal text-left"
                   >
                     <span className="block">
                       I agree to the{" "}
@@ -1264,11 +1264,11 @@ const handlePhoneChange = (value) => {
                     name="captchaEnabled"
                     checked={formData.captchaEnabled || false}
                     onChange={handleChange}
-                    className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53]"
+                    className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53] font-opensans"
                   />
                   <label
                     htmlFor="captchaEnabled"
-                    className="ml-3 block text-[12px] font-normal text-[#FFFBF399]"
+                    className="ml-3 block text-[12px] font-normal text-[#FFFBF399] font-opensans "
                   >
                     Please click this box so we know you're a person and not a computer
                   </label>

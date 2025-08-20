@@ -1,33 +1,33 @@
-import React from 'react'
-import SubOne from "./SubOne"
-import SubTwo from './SubTwo'
-import SubThree from './SubThree'
-import SubFour from './SubFour'
-import Footer from '../../Footer'
-import SubFive from './SubFive'
+import React from "react";
+import SubOne from "./SubOne";
+import SubTwo from "./SubTwo";
+import SubThree from "./SubThree";
+import SubFour from "./SubFour";
+import Footer from "../../Footer";
+import SubFive from "./SubFive";
 
-import NavBar from "../../NavBar"
-import HomeSeven from '../../Home/HomeSeven'
-import Faqmeso from '../../FAQmeso'
-import Seo from "../../Seo/Seo"
-import { useMeta } from "../../hooks/useMeta";
+import NavBar from "../../NavBar";
+import HomeSeven from "../../Home/HomeSeven";
+import Faqmeso from "../../FAQmeso";
+import Seo from "../../Seo/Seo";
 
 function SubService() {
-  useMeta("mesothelioma");
 
   return (
-    <div className='overflow-hidden'>
-        <NavBar />
-        <SubOne />
-        <SubTwo />
-        <SubThree />
-        <SubFour />
-        <SubFive />
-        <Faqmeso />
-        <HomeSeven />
-        <Footer />
+    <div className="overflow-hidden">
+        <Seo sitekey={"mesothelioma"} />
+
+      <NavBar />
+      <SubOne />
+      <SubTwo />
+      <SubThree />
+      <SubFour />
+      <SubFive />
+      <Faqmeso />
+      <HomeSeven />
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default SubService
+export default SubService;

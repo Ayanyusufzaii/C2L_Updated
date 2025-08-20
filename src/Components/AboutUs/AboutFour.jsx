@@ -22,7 +22,7 @@ const AboutFour = () => {
   
   {/* Subheading */}
   <div className="flex-1 lg:max-w-[362px] xl:max-w-[452px] 2xl:max-w-[509px]">
-    <p className="text-[#EFE4CB] font-['Open_Sans'] text-base md:text-lg lg:text-[14px] xl:text-[18px] font-medium leading-tight text-center lg:text-left">
+    <p className="text-[#EFE4CB] font-opensans  text-base md:text-lg lg:text-[14px] xl:text-[18px] font-medium leading-tight text-center lg:text-left">
       Take a moment to explore our website today and connect with a dedicated attorney who will protect your rights.
     </p>
   </div>
@@ -63,7 +63,7 @@ const AboutFour = () => {
                   {/* Text container */}
                   <div className="relative z-10">
                     {/* Main Text - responsive font sizing */}
-                    <p className="text-[#fff] font-['Open_Sans'] text-[1.8vw] xl:text-[1.8vw] 2xl:text-[1.6vw] font-medium leading-[1.6] italic text-center px-[5%]">
+                    <p className="text-[#fff] font-opensans  text-[1.8vw] xl:text-[1.8vw] 2xl:text-[1.6vw] font-medium leading-[1.6] italic text-center px-[5%]">
                       We envision a future where legal assistance is accessible, efficient, & tailored to individual needs. Connect2Lawyer strives to be the cornerstone of that future, ensuring that every Australian can confidently navigate their legal challenges with the right support.
                     </p>
                   </div>
@@ -116,7 +116,7 @@ const AboutFour = () => {
                   />
                   
                   {/* Main Text - Mobile with responsive sizing */}
-                  <p className="text-[#fff] text-[3.5vw] sm:text-[3vw] md:text-[24px] font-['Open_Sans'] font-medium leading-[1.5] sm:leading-[1.6] italic text-center">
+                  <p className="text-[#fff] text-[3.5vw] sm:text-[3vw] md:text-[24px] font-opensans  font-medium leading-[1.5] sm:leading-[1.6] italic text-center">
                     We envision a future where legal assistance is accessible, efficient, & tailored to individual needs. Connect2Lawyer strives to be the cornerstone of that future, ensuring that every Australian can confidently navigate their legal challenges with the right support.
                   </p>
                   

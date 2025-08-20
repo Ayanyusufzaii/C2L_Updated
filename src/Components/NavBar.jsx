@@ -22,7 +22,7 @@ const regions = [
 
 const menuLinks = [
   { name: 'Home', path: '/' },
-  { name: 'Services', path: '/Service' },
+  { name: 'Services', path: '/Services' },
   { name: 'About Us', path: '/About-Us' },
   { name: 'Contact Us', path: '/Contact-Us' },
   {name:'Partner With Us',path:'/Partner-With-Us'}
@@ -342,7 +342,7 @@ const NavBar = () => {
           aria-expanded={localDropdownOpen}
           aria-haspopup="true"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 font-opensans">
             <img src={locationIcon} alt="Location" className={`${isMobile ? 'w-5 h-5' : 'w-6 h-6'} m-0 p-0`} />
             <span className={isMobile ? 'truncate' : ''}>{selectedRegion}</span>
           </div>
@@ -418,7 +418,7 @@ const NavBar = () => {
               />
 
               {/* Call and Button Container */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 font-opensans ">
                 {/* Call Capsule */}
                <a href="tel:+61470695167" style={{ textDecoration: 'none' }}>
   <div className="flex items-center gap-2 border border-white bg-white px-3 py-1 rounded-full cursor-pointer">
@@ -856,13 +856,13 @@ export default NavBar;
 //         { name: 'Home', path: '/' },
 //         {
 //             name: 'Services',
-//             path: '/Service',
+//             path: '/Services',
 
 //         },
 //         // { name: 'Sub Services', path: '/SubService' },
 //         { name: 'About Us', path: '/About-Us' },
 //         { name: 'Contact', path: '/Contact-Us' },
-//         // { name: 'Masstort', path: '/Service/MassTort' }
+//         // { name: 'Masstort', path: '/Services/MassTort' }
 //     ];
 
 //     return (
@@ -1078,7 +1078,7 @@ export default NavBar;
 //                             {/* Contact Section */}
 //                             <div className="w-full max-w-xs md:max-w-sm flex-shrink-0 border border-white/35 mx-auto text-center pt-3 mt-8 md:mt-0 p-4 md:p-6 bg-white/90 rounded-lg">
 //   <div className="gap-2">
-//     <p className="text-[#023437] text-center font-['Open_Sans'] text-[22px] md:text-[26px] font-bold not-italic leading-none mt-2 break-words">+61 470 695 167</p>
+//     <p className="text-[#023437] text-center font-opensans  text-[22px] md:text-[26px] font-bold not-italic leading-none mt-2 break-words">+61 470 695 167</p>
 //     <button className="inline-flex px-[32px] py-[8px] justify-center items-center rounded-[60px] bg-[#C09F53] text-white mt-2">
 //       Call Now
 //     </button>
@@ -1106,7 +1106,7 @@ export default NavBar;
 //         </div>
 //       </div>
 //     </div>
-//     <p className="w-full text-[#023437] font-['Open_Sans'] text-[14px] md:text-[16px] font-semibold not-italic leading-normal mt-1 break-words">
+//     <p className="w-full text-[#023437] font-opensans  text-[14px] md:text-[16px] font-semibold not-italic leading-normal mt-1 break-words">
 //       123 Legal Avenue, Suite 456 Justice Tower Sydney, NSW 2000, Australia
 //     </p>
 //     <div className="flex flex-col items-center mt-2">
@@ -1185,7 +1185,7 @@ export default NavBar;
 
 // const menuLinks = [
 //   { name: 'Home', path: '/' },
-//   { name: 'Services', path: '/Service' },
+//   { name: 'Services', path: '/Services' },
 //   { name: 'About Us', path: '/About-Us' },
 //   { name: 'Contact Us', path: '/Contact-Us' }
 // ];

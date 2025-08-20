@@ -42,7 +42,7 @@ const ClassActionTwo = () => {
           </p>
           <button
             className="mt-6 xl:mt-8 inline-flex items-center px-6 py-3 bg-[#023437] text-white rounded-full text-sm md:text-base hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start"
-            onClick={() => navigate("/Service/MassTort/Rideshare-Lawsuit")}
+            onClick={() => navigate("/Services/ClassAction/Rideshare-Lawsuit")}
           >
             Learn More
           </button>
@@ -91,7 +91,7 @@ const ClassActionTwo = () => {
             </p>
             <button
               className="mt-4 inline-flex items-center px-5 py-2 bg-[#023437] text-white rounded-full text-sm hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition w-auto self-start"
-              onClick={() => navigate("/Service/MassTort/Rideshare-Lawsuit")}
+              onClick={() => navigate("/Services/ClassAction/Rideshare-Lawsuit")}
             >
               Learn More
             </button>

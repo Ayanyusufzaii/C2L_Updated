@@ -37,7 +37,7 @@ function AboutThree() {
       <h3 className="font-['Playfair_Display'] text-[28px] md:text-[38px] lg:text-[48px] xl:text-[56px] font-medium leading-[1.1] mb-2 md:mb-4">
         Expert<br /> Network
       </h3>
-      <p className="font-['Open Sans'] text-sm md:text-[14px] lg:text-[16px] xl:text-[20px] leading-relaxed max-w-md">
+      <p className="font-opensans  text-sm md:text-[14px] lg:text-[16px] xl:text-[20px] leading-relaxed max-w-md">
         Our platform features a vast network of experienced lawyers, each vetted for their expertise and commitment to client success.
       </p>
     </div>
@@ -46,7 +46,7 @@ function AboutThree() {
       <h3 className="font-['Playfair_Display'] text-[28px] md:text-[40px] lg:text-[52px] xl:text-[64px] font-[800] leading-[1.1] mb-2 md:mb-4">
         Transparent Insights
       </h3>
-      <p className="font-['Open Sans'] text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
+      <p className="font-opensans  text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
         Access detailed lawyer profiles, client reviews, and success stories to make informed decisions.
       </p>
     </div>
@@ -55,7 +55,7 @@ function AboutThree() {
       <h3 className="font-['Playfair_Display'] text-[28px] md:text-[40px] lg:text-[52px] xl:text-[64px] font-[800] leading-[1.1] mb-2 md:mb-4">
         Seamless Connection
       </h3>
-      <p className="font-['Open Sans'] text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
+      <p className="font-opensans  text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
         Our user-friendly interface allows for direct communication with your chosen legal professional, streamlining the initiation process.
       </p>
     </div>
@@ -64,7 +64,7 @@ function AboutThree() {
       <h3 className="font-['Playfair_Display'] text-[28px] md:text-[40px] lg:text-[52px] xl:text-[64px] font-[800] leading-[1.1] mb-2 md:mb-4">
         Nationwide Reach
       </h3>
-      <p className="font-['Open Sans'] text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
+      <p className="font-opensans  text-sm md:text-base lg:text-lg xl:text-[20px] font-[600] leading-relaxed max-w-md">
         Serving clients across all major cities and regions in Australia, ensuring local expertise is always within reach.
       </p>
     </div>
@@ -117,7 +117,7 @@ function AboutThree() {
     <h3 className="font-['Playfair_Display'] text-[34px] sm:text-[36px] font-[800] leading-[1.15] mb-3 max-w-[260px] text-center">
       Expert Network
     </h3>
-    <p className="font-['Open_Sans'] text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
+    <p className="font-opensans  text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
       Our platform features a vast network of experienced lawyers, each vetted for their expertise and commitment.
     </p>
   </div>
@@ -127,7 +127,7 @@ function AboutThree() {
     <h3 className="font-['Playfair_Display'] text-[34px] sm:text-[36px] font-[800] leading-[1.15] mb-3 max-w-[260px] text-center">
       Transparent Insights
     </h3>
-    <p className="font-['Open_Sans'] text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
+    <p className="font-opensans  text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
       Access detailed lawyer profiles, client reviews, and success stories to make informed decisions.
     </p>
   </div>
@@ -137,7 +137,7 @@ function AboutThree() {
     <h3 className="font-['Playfair_Display'] text-[34px] sm:text-[36px] font-[800] leading-[1.15] mb-3 max-w-[260px] text-center">
       Seamless Connection
     </h3>
-    <p className="font-['Open_Sans'] text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
+    <p className="font-opensans  text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
       Our user-friendly interface allows for direct communication with your chosen legal professional.
     </p>
   </div>
@@ -147,7 +147,7 @@ function AboutThree() {
     <h3 className="font-['Playfair_Display'] text-[34px] sm:text-[36px] font-[800] leading-[1.15] mb-3 max-w-[260px] text-center">
       Nationwide Reach
     </h3>
-    <p className="font-['Open_Sans'] text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
+    <p className="font-opensans  text-base sm:text-lg font-[600] leading-relaxed max-w-[240px] text-center">
       Serving clients across all major cities and regions in Australia, ensuring local expertise is always within reach.
     </p>
   </div>

@@ -110,7 +110,7 @@ function LegalHeroSection() {
             Your Case<br />
             Our <span className="text-[#C09F53]">Priority</span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-gray-200 mb-6 sm:mb-8 max-w-xl md:max-w-2xl lg:max-w-2xl xl:max-w-3xl leading-relaxed text-center sm:text-left">
+          <p className="font-opensans text-base sm:text-lg md:text-xl lg:text-xl xl:text-2xl 2xl:text-3xl text-gray-200 mb-6 sm:mb-8 max-w-xl md:max-w-2xl lg:max-w-2xl xl:max-w-3xl leading-relaxed text-center sm:text-left">
             We match you with the right legal expertise to ensure your rights are protected and your voice is heard.
           </p>
           <div className="flex justify-center sm:justify-start">
@@ -118,7 +118,7 @@ function LegalHeroSection() {
   onClick={() => {
     document.getElementById("form-section")?.scrollIntoView({ behavior: "smooth" });
   }}
-  className="px-6 py-3 sm:px-8 sm:py-4 bg-[#C09F53] text-white rounded-full font-semibold text-base sm:text-lg hover:bg-yellow-700 transition-colors mb-12 sm:mb-16"
+  className="font-opensans px-6 py-3 sm:px-8 sm:py-4 bg-[#C09F53] text-white rounded-full font-semibold text-base sm:text-lg hover:bg-yellow-700 transition-colors mb-12 sm:mb-16"
 >
   Start Your Free Case Review Now
 </button>
@@ -133,11 +133,11 @@ function LegalHeroSection() {
           <h2 className="font-playfair text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-[#023437] mb-3 sm:mb-4 inline-block pb-1 underline decoration-[#C09F53]">
             Select your location
           </h2>
-          <p className="text-[#023437] mb-4 sm:mb-6 text-sm sm:text-base lg:text-base xl:text-lg leading-relaxed">
+          <p className="text-[#023437] mb-4 sm:mb-6 text-sm sm:text-base lg:text-base xl:text-lg leading-relaxed font-opensans">
             Different laws apply in different states. Please choose your state to view the relevant legal information.
           </p>
 
-          <div className="bg-[#023437] p-6 shadow-lg relative z-20">
+          <div className="bg-[#023437] p-6 shadow-lg relative z-20 font-opensans">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
               <div className="relative flex-1 max-w-full lg:max-w-md dropdown-container z-50">
                 <button
