@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./HomeTwo.css";
-import Frame from "../../assets/justiceimg.jpeg";
+import Frame from "../../assets/N.webp";
 import Frame2 from "../../assets/justiceemobbb.jpeg";
 import { useMediaQuery, MenuItem } from '@mui/material';
 import FormBG from "../../assets/hFormBG.png";
