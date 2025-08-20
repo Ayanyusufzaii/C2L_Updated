@@ -44,7 +44,15 @@ const getIPAddress = async () => {
 };
 
 const getTimestamp = () => {
-  return new Date().toLocaleString();
+    return new Date().toLocaleString('en-AU', {
+    timeZone: 'Australia/Sydney',  
+    year: 'numeric',              
+    month: '2-digit',              
+    day: '2-digit',                
+    hour: '2-digit',             
+    minute: '2-digit',            
+    second: '2-digit'              
+  });
 };
 
 /* ---------------- Build params ---------------- */

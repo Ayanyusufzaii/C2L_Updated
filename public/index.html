@@ -16,56 +16,12 @@
   <meta itemprop="description"
     content="Connect2Lawyer helps you find Australia's top and best lawyers across multiple practice areas. Get expert legal advice and representation today." />
 
-  <!-- Meta Pixel Code -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17052999170"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag("js", new Date());
-    gtag("config", "AW-17052999170");
-  </script>
-  <script>
-    !(function (f, b, e, v, n, t, s) {
-      if (f.fbq) return;
-      n = f.fbq = function () {
-        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-      };
-      if (!f._fbq) f._fbq = n;
-      n.push = n;
-      n.loaded = !0;
-      n.version = "2.0";
-      n.queue = [];
-      t = b.createElement(e);
-      t.async = !0;
-      t.src = v;
-      s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s);
-    })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
-    fbq("init", "692447599963432");
-    fbq("track", "PageView");
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=692447599963432&ev=PageView&noscript=1" />
-  </noscript>
-  <!-- End Meta Pixel Code -->
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17488872097"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'AW-17488872097');
-  </script>
-
-  <!-- TrustedForm - Single Implementation -->
+  <!-- PRIORITY: TrustedForm - Load FIRST and SYNCHRONOUSLY -->
   <script type="text/javascript">
     (function () {
       var tf = document.createElement("script");
       tf.type = "text/javascript";
-      tf.async = true;
+      tf.async = false; // Changed to synchronous for priority
       tf.src =
         (document.location.protocol === "https:" ? "https" : "http") +
         "://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&ping_field=xxTrustedFormPingUrl&token_field=xxTrustedFormCertToken&l=" +
@@ -78,57 +34,127 @@
     <img src="https://api.trustedform.com/ns.gif" />
   </noscript>
 
-  <!-- IP Address Service -->
+  <!-- Initialize gtag globally first -->
   <script>
-    window.userIP = null;
-    fetch("https://api.ipify.org?format=json")
-      .then((response) => response.json())
-      .then((data) => { window.userIP = data.ip; })
-      .catch((err) => console.error("Error fetching IP:", err));
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
   </script>
 
-  <!-- TikTok Pixel Code -->
+  <!-- Delay other tracking scripts to load after page is ready -->
   <script>
-    !(function (w, d, t) {
-      w.TiktokAnalyticsObject = t;
-      var ttq = (w[t] = w[t] || []);
-      ttq.methods = [
-        "page", "track", "identify", "instances", "debug", "on", "off", "once",
-        "ready", "alias", "group", "enableCookie", "disableCookie", "holdConsent",
-        "revokeConsent", "grantConsent"
-      ];
-      ttq.setAndDefer = function (t, e) {
-        t[e] = function () {
-          t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
+    // Wait for page load before initializing heavy tracking scripts
+    window.addEventListener('load', function() {
+      // Small delay to ensure TrustedForm has initialized
+      setTimeout(function() {
+        initializeTrackingScripts();
+      }, 500);
+    });
+
+    function initializeTrackingScripts() {
+      // Google Tag Manager - First instance
+      loadGoogleTag('AW-17052999170');
+      
+      // Google Tag Manager - Second instance  
+      loadGoogleTag('AW-17488872097');
+      
+      // Facebook Pixel
+      loadFacebookPixel();
+      
+      // TikTok Pixel
+      loadTikTokPixel();
+      
+      // IP Address Service
+      loadIPService();
+    }
+
+    function loadGoogleTag(tagId) {
+      if (!document.querySelector('script[src*="gtag/js"]')) {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + tagId;
+        document.head.appendChild(script);
+      }
+      gtag("config", tagId);
+    }
+
+    function loadFacebookPixel() {
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
         };
-      };
-      for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
-      ttq.instance = function (t) {
-        for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++)
-          ttq.setAndDefer(e, ttq.methods[n]);
-        return e;
-      };
-      ttq.load = function (e, n) {
-        var r = "https://analytics.tiktok.com/i18n/pixel/events.js", o = n && n.partner;
-        ttq._i = ttq._i || {};
-        ttq._i[e] = [];
-        ttq._i[e]._u = r;
-        ttq._t = ttq._t || {};
-        ttq._t[e] = +new Date();
-        ttq._o = ttq._o || {};
-        ttq._o[e] = n || {};
-        n = document.createElement("script");
-        n.type = "text/javascript";
-        n.async = !0;
-        n.src = r + "?sdkid=" + e + "&lib=" + t;
-        e = document.getElementsByTagName("script")[0];
-        e.parentNode.insertBefore(n, e);
-      };
-      ttq.load("D0NJN7JC77U7RPGNTS80");
-      ttq.page();
-    })(window, document, "ttq");
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      fbq("init", "692447599963432");
+      fbq("track", "PageView");
+    }
+
+    function loadTikTokPixel() {
+      !(function (w, d, t) {
+        w.TiktokAnalyticsObject = t;
+        var ttq = (w[t] = w[t] || []);
+        ttq.methods = [
+          "page", "track", "identify", "instances", "debug", "on", "off", "once",
+          "ready", "alias", "group", "enableCookie", "disableCookie", "holdConsent",
+          "revokeConsent", "grantConsent"
+        ];
+        ttq.setAndDefer = function (t, e) {
+          t[e] = function () {
+            t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
+          };
+        };
+        for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+        ttq.instance = function (t) {
+          for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++)
+            ttq.setAndDefer(e, ttq.methods[n]);
+          return e;
+        };
+        ttq.load = function (e, n) {
+          var r = "https://analytics.tiktok.com/i18n/pixel/events.js", o = n && n.partner;
+          ttq._i = ttq._i || {};
+          ttq._i[e] = [];
+          ttq._i[e]._u = r;
+          ttq._t = ttq._t || {};
+          ttq._t[e] = +new Date();
+          ttq._o = ttq._o || {};
+          ttq._o[e] = n || {};
+          n = document.createElement("script");
+          n.type = "text/javascript";
+          n.async = !0;
+          n.src = r + "?sdkid=" + e + "&lib=" + t;
+          e = document.getElementsByTagName("script")[0];
+          e.parentNode.insertBefore(n, e);
+        };
+        ttq.load("D0NJN7JC77U7RPGNTS80");
+        ttq.page();
+      })(window, document, "ttq");
+    }
+
+    function loadIPService() {
+      window.userIP = null;
+      fetch("https://api.ipify.org?format=json")
+        .then((response) => response.json())
+        .then((data) => { window.userIP = data.ip; })
+        .catch((err) => console.error("Error fetching IP:", err));
+    }
   </script>
-  <!-- End TikTok Pixel Code -->
+
+  <!-- Fallback noscript tags -->
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=692447599963432&ev=PageView&noscript=1" />
+  </noscript>
 </head>
 
 <body>

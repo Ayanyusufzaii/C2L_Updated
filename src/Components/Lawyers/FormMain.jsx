@@ -1039,14 +1039,17 @@ const FormMain = () => {
               try {
                 if (target?.name === "xxTrustedFormCertUrl" && target.value) {
                   setCertId(target.value);
+                  // console.log("TrustedForm Cert ID updated:", target.value);
                 }
 
                 if (target?.name === "xxTrustedFormPingUrl" && target.value) {
                   setPingUrl(target.value);
+                  // console.log("TrustedForm Ping URL updated:", target.value);
                 }
 
                 if (target?.name === "xxTrustedFormCertToken" && target.value) {
                   setTokenUrl(target.value);
+                  // console.log("TrustedForm Token URL updated:", target.value);
                 }
               } catch (error) {
                 console.warn("TrustedForm observer error:", error);
@@ -1074,12 +1077,15 @@ const FormMain = () => {
                   switch (field.name) {
                     case "xxTrustedFormCertUrl":
                       setCertId(field.value);
+                      // console.log("TrustedForm Cert ID initialized:", field.value);
                       break;
                     case "xxTrustedFormPingUrl":
                       setPingUrl(field.value);
+                      // console.log("TrustedForm Ping URL initialized:", field.value);
                       break;
                     case "xxTrustedFormCertToken":
                       setTokenUrl(field.value);
+                      // console.log("TrustedForm Token URL initialized:", field.value);
                       break;
                     default:
                       break;
