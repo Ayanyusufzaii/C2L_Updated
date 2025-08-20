@@ -29,7 +29,7 @@ function SubFour() {
                 <div className="flex flex-col md:flex-row w-full">
             {/* Left Column */}
             <div className="w-full md:w-5/12 lg:w-6/12 p-6 md:p-8 lg:p-16 pl-0 md:pl-0 lg:pl-0 mt-6 md:mt-10 bg-[#FFFBF3]">
-                <h2 className="w-full text-[#023437] font-['Open Sans'] text-lg md:text-xl lg:text-l font-semibold tracking-widest uppercase ] mt-1 mb-1">18-Wheeler & Heavy Vehicle Accident </h2>
+                <h2 className="w-full text-[#023437] font-opensans  text-lg md:text-xl lg:text-l font-semibold tracking-widest uppercase ] mt-1 mb-1">18-Wheeler & Heavy Vehicle Accident </h2>
                 <h1 className="w-full text-[#C09F53] font-['Playfair_Display'] text-[40px] md:text-[64px] lg:text-[96px] font-extrabold leading-[48px] md:leading-[70px] lg:leading-[100px]">
                     <span className='text-[#023437]'>Over</span>view <br />
                 </h1>

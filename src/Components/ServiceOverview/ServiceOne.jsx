@@ -19,10 +19,10 @@ function ServiceOne() {
                             <h1 className="font-['Playfair_Display'] text-[#ffffff] text-[56px] md:text-[80px] lg:text-[102px] xl:text-[124px] 2xl:text-[148px] font-[800] leading-none  w-full h-auto mt-52 ">
                                 Trusted Legal <br></br><span className='text-[#C09F53]'>Support </span>
                             </h1>
-                            <h2 className="text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] font-open-sans font-bold not-italic leading-tight text-[#C09F53] tracking-wide mt-8 mb-1">
+                            <h2 className="font-opensans text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] font-open-sans font-bold not-italic leading-tight text-[#C09F53] tracking-wide mt-8 mb-1">
                                 Standing beside you because
                             </h2>
-                            <p className="text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] font-open-sans font-bold not-italic leading-tight text-[#C09F53] tracking-wide mt-1">
+                            <p className="font-opensans text-[18px] md:text-[20px] lg:text-[22px] xl:text-[24px] font-open-sans font-bold not-italic leading-tight text-[#C09F53] tracking-wide mt-1">
                                  your fight is our commitment.
                             </p>
                         </div>
@@ -61,10 +61,10 @@ function ServiceOne() {
             <h1 className="font-['Playfair_Display'] text-[#ffffff] text-[32px] sm:text-[40px] md:text-[48px] font-[800] leading-tight mb-4 border-gray-300 pb-4 break-words">
                 Trusted Legal <br></br><span className='text-[#C09F53]'>Support </span>
             </h1>
-            <h2 className="text-[14px] sm:text-[12px] md:text-[14px] font-open-sans font-bold not-italic leading-tight text-[#C09F53] tracking-wide mb-1">
+            <h2 className="font-opensans text-[14px] sm:text-[12px] md:text-[14px] font-open-sans font-bold not-italic leading-tight text-[#C09F53] tracking-wide mb-1">
                 Standing beside you  because 
             </h2>
-            <p className="text-[14px] sm:text-[12px] md:text-[14px] font-open-sans font-bold not-italic leading-tight text-[#C09F53] tracking-wide mt-1">
+            <p className="font-opensans text-[14px] sm:text-[12px] md:text-[14px] font-open-sans font-bold not-italic leading-tight text-[#C09F53] tracking-wide mt-1">
                your fight is our commitment.
             </p>
         </div>

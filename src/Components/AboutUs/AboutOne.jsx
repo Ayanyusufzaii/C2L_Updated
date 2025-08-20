@@ -11,7 +11,7 @@ function AboutOne() {
 
   const menuItems = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/Service" },
+    { name: "Services", path: "/Services" },
     { name: "Sub Services", path: "/SubService" },
     { name: "About Us", path: "/About-Us" },
     { name: "Contact", path: "/Contact-Us" },

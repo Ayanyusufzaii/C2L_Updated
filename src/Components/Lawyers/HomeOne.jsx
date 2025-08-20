@@ -1,12 +1,12 @@
 import React from "react";
-import LawyerHero from "../../assets/LawyerHeroDesktop.png";
+import LawyerHero from "../../assets/LawyerHeroMob3.png";
 import LawyerHeroMob from "../../assets/LawyerHeroMobile.png";
 import LawyerHeroMob2 from "../../assets/LawyerHeroMob2.png";
 import icon1 from "../../assets/lawyericon1.png";
 import icon2 from "../../assets/lawyericon2.png";
 import icon3 from "../../assets/lawyericon3.png";
 import { FaArrowRight } from "react-icons/fa";
-import FormMain from "./FormMain"; 
+import FormMain from "./FormMain";
 import { useNavigate } from "react-router-dom";
 const obj = [
   {
@@ -25,10 +25,6 @@ const obj = [
 
 const HomeOne = () => {
   const navigate = useNavigate();
-const handleJoinNetwork = () => {
-  navigate("/Contact-Us");
-};
-
 
   return (
     <>
@@ -41,43 +37,48 @@ const handleJoinNetwork = () => {
           className="absolute inset-0 w-full h-full object-cover z-0"
           loading="lazy"
         />
-        
+
         {/* Overlay for better text visibility */}
         <div className="absolute inset-0 bg-black/10 z-10" />
-        
+
         {/* Content Container */}
         <div className="relative z-20 container mx-auto px-8 py-16 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-white max-w-7xl mx-auto">
-            
             {/* Left Section */}
             <div className="space-y-6">
-              <h1 className="text-4xl md:text-5xl xl:text-6xl font-bold leading-tight">
-                Join the <span className="text-[#C09F53]">Connect2Lawyer</span> Network
-              </h1>
-              <p className="text-lg md:text-xl font-opensans opacity-90">
-                Get Qualified Leads. Grow Your Practice. Make a Bigger Impact.
-              </p>
+  <h1 className="text-[24px] sm:text-[32px] lg:text-[60px] xl:text-[70px] font-bold leading-tight">
+    Join the <span className="text-[#C09F53]">Connect2Lawyer</span> Network
+  </h1>
+  <p className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[19px] xl:text-[19px] font-opensans opacity-90">
+    Get Qualified Leads. Grow Your Practice. Make a Bigger Impact.
+  </p>
 
-              {/* Features List - Always in Row */}
-              <div className="w-full">
-                <div className="flex flex-row flex-wrap items-center gap-x-6 gap-y-3 text-sm md:text-base mb-8 max-w-full">
-                  {obj.map((item, index) => (
-                    <div key={index} className="flex items-center gap-2 whitespace-nowrap">
-                      <img 
-                        src={item.img} 
-                        alt={item.title} 
-                        className="w-5 h-5 md:w-6 md:h-6 shrink-0" 
-                        loading="lazy"
-                      />
-                      <span className="opacity-90">{item.title}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+  {/* Features List - Always in Row */}
+  <div className="w-full">
+    <div className="flex flex-row flex-wrap items-center gap-x-6 gap-y-3 mb-8 max-w-full">
+      {obj.map((item, index) => (
+        <div
+          key={index}
+          className="flex items-center gap-2 whitespace-nowrap"
+        >
+          <img
+            src={item.img}
+            alt={item.title}
+            className="w-5 h-5 md:w-6 md:h-6 shrink-0"
+            loading="lazy"
+          />
+          <span className="opacity-90 text-[12px] sm:text-[13px] md:text-[14px] lg:text-[12px] xl:text-[12px]">
+            {item.title}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+
 
               {/* CTA Button */}
               <div className="flex flex-wrap">
-                <button 
+                {/* <button 
                   onClick={handleJoinNetwork}
                   className="group bg-[#E8C468] text-[#002729] hover:bg-transparent hover:text-[#E8C468] hover:border-[#E8C468] border border-transparent font-medium font-opensans px-8 py-4 rounded-md transition-all duration-300 ease-in-out flex items-center gap-2 text-base md:text-lg shadow-lg hover:shadow-xl"
                   type="button"
@@ -85,7 +86,7 @@ const handleJoinNetwork = () => {
                 >
                   Join the Network Now
                   <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
-                </button>
+                </button> */}
               </div>
             </div>
 
@@ -98,12 +99,14 @@ const handleJoinNetwork = () => {
       {/* Mobile Version (below md) */}
       <section className="block lg:hidden bg-[#023437] text-white px-6 py-12 font-playfair">
         <div className="space-y-4 text-left">
-          <h1 className="text-3xl font-bold leading-snug">
-            Join the <span className="text-[#C09F53]">Connect2Lawyer</span> Network
-          </h1>
-          <p className="text-base font-opensans opacity-90">
-            Get Qualified Leads. Grow Your Practice. Make a Bigger Impact.
-          </p>
+          <h1 className="text-4xl sm:text-[48px] md:text-[63px] font-['Playfair_Display'] font-extrabold leading-[55px] text-white">
+  Join the <span className="text-[#C09F53]">Connect2Lawyer</span> Network
+</h1>
+
+          <p className="text-base sm:text-[16px] md:text-[16px] font-['Open_Sans'] font-semibold leading-6 text-[#FFFBF3]">
+  Get Qualified Leads. Grow Your Practice. Make a Bigger Impact.
+</p>
+
         </div>
 
         <div className="my-6 -mx-6">
@@ -114,16 +117,6 @@ const handleJoinNetwork = () => {
             loading="lazy"
           />
         </div>
-
-        <button 
-          onClick={handleJoinNetwork}
-          className="w-full bg-[#E8C468] text-[#002729] hover:bg-transparent hover:text-[#E8C468] hover:border hover:border-[#E8C468] font-bold font-opensans py-3 rounded flex items-center justify-center gap-2 mb-10 transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl"
-          type="button"
-          aria-label="Join the Connect2Lawyer Network"
-        >
-          Join the Network Now <FaArrowRight />
-        </button>
-
         {/* Mobile Contact Form */}
         <FormMain isMobile={true} />
       </section>

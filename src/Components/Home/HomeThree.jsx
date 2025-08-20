@@ -26,8 +26,8 @@ function HomeThree() {
 
     const expertiseTags = [
         { text: 'Mass Tort' },
-        { text: 'Class Action' },
         { text: 'Personal Injury' },
+        { text: 'Class Action' },
     ];
 
     const steps = [
@@ -70,7 +70,7 @@ function HomeThree() {
                 key={index}
                 className={`
                     rounded-full px-4 md:px-6 py-2 md:py-3
-                    font-['Open_Sans'] text-sm md:text-base font-semibold
+                    font-opensans text-sm md:text-base font-semibold
                     transition-all duration-300
                     ${activeTab === tag.text
                         ? 'bg-[#C09F53] text-[#023437]'
@@ -87,7 +87,7 @@ function HomeThree() {
     {/* Arrow Button */}
     <button
         onClick={() => window.location.href = '/service'}
-        className="flex items-center gap-2 rounded-full px-4 md:px-6 py-2 md:py-3 border border-[#FFFBF3]  bg-[#023437] text-[#ffffff] font-['Open_Sans'] text-sm md:text-base font-semibold transition-all duration-300 hover:bg-[#C09F53] hover:text-[#023437]"
+        className="flex items-center gap-2 rounded-full px-4 md:px-6 py-2 md:py-3 border border-[#FFFBF3]  bg-[#023437] text-[#ffffff] font-opensans text-sm md:text-base font-semibold transition-all duration-300 hover:bg-[#C09F53] hover:text-[#023437]"
     >
         <span>See All</span>
         <svg
@@ -121,12 +121,12 @@ function HomeThree() {
                                   <h2 className="text-white font-['Playfair_Display'] text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg">
                                       Mesothelioma Lawsuit
                                   </h2>
-                                  <p className="text-white font-['Open_Sans'] text-base sm:text-lg md:text-xl font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-full">
+                                  <p className="text-white font-opensans text-base sm:text-lg md:text-xl font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-full">
                                      We help victims file claims for asbestos-related diseases, secure financial compensation for medical expenses and hold companies accountable for toxic exposure.
                                   </p>
                                   <button
-                                      className="rounded-full border-2 border-[#ffffff] px-6 md:px-8 py-3 md:py-4 text-[#ffffff] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
-                                      onClick={() => navigate("Service/MassTort/Mesothelioma-Lawsuit")}
+                                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-opensans text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
+                                      onClick={() => navigate("Services/MassTort/Mesothelioma-Lawsuit")}
                                   >
                                       Learn More
                                   </button>
@@ -144,13 +144,13 @@ function HomeThree() {
                                   <h2 className="text-white font-['Playfair_Display'] font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg text-left whitespace-nowrap overflow-hidden text-ellipsis" style={{fontSize: 'min(6vw, 100px)'}}>
                                       Mesothelioma Lawsuit
                                   </h2>
-                                  <p className="text-white font-['Open_Sans'] font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-[50%] text-left" style={{fontSize: '20px'}}>
+                                  <p className="text-white font-opensans font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-[50%] text-left" style={{fontSize: '20px'}}>
                                      We help victims file claims for asbestos-related diseases, secure financial compensation for medical expenses and hold companies accountable for toxic exposure.
                                   </p>
                                   <button
-                                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
+                                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-opensans font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                                       style={{fontSize: '20px'}}
-                                      onClick={() => navigate("Service/MassTort/Mesothelioma-Lawsuit")}
+                                      onClick={() => navigate("Services/MassTort/Mesothelioma-Lawsuit")}
                                   >
                                       Learn More
                                   </button>
@@ -175,12 +175,12 @@ function HomeThree() {
                             <h2 className="text-white font-['Playfair_Display'] text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg">
                              Rideshare Sexual<br></br>Assault Lawsuit 
                             </h2>
-                            <p className="text-white font-['Open_Sans'] text-base sm:text-lg md:text-xl font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-full">
+                            <p className="text-white font-opensans text-base sm:text-lg md:text-xl font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-full">
                              We support survivors in taking legal action against rideshare companies, seeking compensation and accountability for assault and unsafe conditions. 
                             </p>
                             <button
-                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-[#023437] hover:text-[#C09F53] cursor-pointer drop-shadow-md"
-                              onClick={() => navigate("/Service/MassTort/Rideshare-Lawsuit")}
+                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-opensans text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-[#023437] hover:text-[#C09F53] cursor-pointer drop-shadow-md"
+                              onClick={() => navigate("/Services/ClassAction/Rideshare-Lawsuit")}
                             >
                               Learn More
                             </button>
@@ -196,13 +196,13 @@ function HomeThree() {
                             <h2 className="text-white font-['Playfair_Display'] font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg text-left whitespace-nowrap overflow-hidden text-ellipsis" style={{fontSize: 'min(6vw, 100px)'}}>
                               Rideshare Sexual <br></br>Assault Lawsuit 
                             </h2>
-                            <p className="text-white font-['Open_Sans'] font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-[50%] text-left" style={{fontSize: '20px'}}>
+                            <p className="text-white font-opensans font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-[50%] text-left" style={{fontSize: '20px'}}>
                              We support survivors in taking legal action against rideshare companies, seeking compensation and accountability for assault and unsafe conditions. 
                             </p>
                             <button
-                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
+                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-opensans font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                               style={{fontSize: '20px'}}
-                              onClick={() => navigate("/Service/MassTort/Rideshare-Lawsuit")}
+                              onClick={() => navigate("/Services/ClassAction/Rideshare-Lawsuit")}
                             >
                               Learn More
                             </button>
@@ -225,12 +225,12 @@ function HomeThree() {
                             <h2 className="text-white font-['Playfair_Display'] text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg">
                              18-Wheeler <br></br>Accident Lawsuit 
                             </h2>
-                            <p className="text-white font-['Open_Sans'] text-base sm:text-lg md:text-xl font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-full">
+                            <p className="text-white font-opensans text-base sm:text-lg md:text-xl font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-full">
                              We help victims of trucking accidents pursue claims for injuries, lost income, and damages caused by driver negligence or vehicle failure. 
                             </p>
                             <button
-                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
-                             onClick={() => navigate("/Service/MassTort/18Wheeler-Lawsuit")}
+                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-opensans text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
+                             onClick={() => navigate("/Services/PersonalInjury/18Wheeler-Lawsuit")}
                             >
                               Learn More
                             </button>
@@ -246,13 +246,13 @@ function HomeThree() {
                             <h2 className="text-white font-['Playfair_Display'] font-extrabold leading-tight mb-4 md:mb-6 drop-shadow-lg text-left whitespace-nowrap overflow-hidden text-ellipsis" style={{fontSize: 'min(6vw, 100px)'}}>
                               18-Wheeler <br></br>Accident Lawsuit 
                             </h2>
-                            <p className="text-white font-['Open_Sans'] font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-[50%] text-left" style={{fontSize: '20px'}}>
+                            <p className="text-white font-opensans font-normal leading-relaxed mb-6 md:mb-8 drop-shadow-md max-w-[50%] text-left" style={{fontSize: '20px'}}>
                              We help victims of trucking accidents pursue claims for injuries, lost income, and damages caused by driver negligence or vehicle failure. 
                             </p>
                             <button
-                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-['Open_Sans'] font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
+                              className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-opensans font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md text-left"
                               style={{fontSize: '20px'}}
-                             onClick={() => navigate("/Service/MassTort/18Wheeler-Lawsuit")}
+                             onClick={() => navigate("/Services/PersonalInjury/18Wheeler-Lawsuit")}
                             >
                               Learn More
                             </button>
@@ -278,7 +278,7 @@ function HomeThree() {
     </h1>
     <div className="flex-1 flex justify-end items-end">
       <div className="max-w-md">
-        <p className="text-[#FFFBF3] font-['Open_Sans'] text-sm sm:text-base md:text-lg lg:text-2xl leading-relaxed text-left">
+        <p className="text-[#FFFBF3] font-opensans text-sm sm:text-base md:text-lg lg:text-2xl leading-relaxed text-left">
           Start in just a few steps,<br />
           where <span className='text-[#C09F53]'>your rights come first.</span>
         </p>
@@ -290,7 +290,7 @@ function HomeThree() {
 </section>
 
                 {/* Steps Container */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-0 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-0 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 font-opensans">
                     {steps.map((step, index) => (
                         <div
                             key={index}
@@ -307,13 +307,13 @@ function HomeThree() {
         if (step.route) navigate(step.route);
       }}
                         >
-                            <p className="text-[#FFFBF3] font-['Open_Sans'] text-lg md:text-xl lg:text-2xl font-semibold">
+                            <p className="text-[#FFFBF3] font-opensans text-lg md:text-xl lg:text-2xl font-semibold">
                                 {step.number}
                             </p>
-                            <h4 className="text-[#C09F53] font-sans text-2xl md:text-3xl lg:text-4xl font-bold leading-tight underline">
+                            <h4 className="text-[#C09F53]  text-2xl md:text-3xl lg:text-4xl font-bold leading-tight underline font-opensans">
                                 {step.title}
                             </h4>
-                            <p className="text-[#FFFBF3] font-['Open_Sans'] text-base md:text-lg lg:text-xl leading-relaxed">
+                            <p className="text-[#FFFBF3] font-opensans text-base md:text-lg lg:text-xl leading-relaxed">
                                 {step.description}
                             </p>
                         </div>

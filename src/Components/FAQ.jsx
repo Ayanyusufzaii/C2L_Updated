@@ -84,7 +84,7 @@ function FaqClassAction() {
             </div>
 
             {/* FAQ Items Section */}
-            <div className="lg:w-2/3">
+            <div className="lg:w-2/3 font-opensans">
               <div className="bg-[#EFE4CB] rounded-lg lg:rounded-xl w-full">
                 <div className="relative z-10">
                   {filteredItems.length > 0 ? (

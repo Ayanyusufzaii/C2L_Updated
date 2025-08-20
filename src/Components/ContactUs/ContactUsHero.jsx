@@ -4,7 +4,7 @@ import {
   Mail,
   Clock,
 } from "lucide-react";
-
+import dialer from "../../assets/phoneiconn.png";
 import map from "../../assets/contactUsHeroMap.png";
 import mapMob from "../../assets/mapMob.png";
 import fb from "../../assets/fbiconn.png";
@@ -26,6 +26,14 @@ const ContactUsHero = () => {
     { icon: tiktok, href: "https://www.tiktok.com/@connect2lawyer" },
   ];
 
+  const handleCall = () => {
+    window.location.href = "tel:+61470695167";
+  };
+
+  const handleEmail = () => {
+    window.location.href = "mailto:teamup@connect2lawyer.com.au";
+  };
+
   return (
     <section className="relative w-full bg-white overflow-hidden pt-0">
       {/* Desktop/Tablet */}
@@ -36,45 +44,55 @@ const ContactUsHero = () => {
           style={{ paddingTop: "6%" }}
         >
           <h1 className="font-playfair font-bold leading-[0.95] mb-4 md:mb-5 lg:mb-6 xl:mb-8 text-[#023437] tracking-[-0.02em]
-                         md:text-4xl lg:text-6xl xl:text-7xl 2xl:text-[128px]">
+                         md:text-[68px] lg:text-6xl xl:text-7xl 2xl:text-[128px]">
             We're here <br />
             <span className="text-[#C09F53]">to help</span>
           </h1>
 
           <div>
             {/* Phone */}
-            <div className="flex items-center gap-2 lg:gap-3 xl:gap-4">
-              <div className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0
-                              md:w-7 md:h-7 lg:w-9 lg:h-9 xl:w-10 xl:h-10 mb-2">
-                <Phone className="text-white md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
-              </div>
-              <span className="font-semibold text-[#023437] underline decoration-[#023437] underline-offset-4
-                               md:text-base lg:text-xl xl:text-2xl 2xl:text-[28px]">
+            <div className="flex items-center -mb-4 md:-mb-6 lg:-mb-5 xl:-mb-2 md:-ml-4 font-opensans">
+              <img 
+                src={dialer} 
+                alt="" 
+                className="cursor-pointer md:w-20 md:h-20 lg:w-20 lg:h-20 xl:w-30 xl:h-30 "
+                onClick={handleCall}
+              />
+              <span 
+                className="font-semibold text-[#023437] underline decoration-[#023437] underline-offset-4 cursor-pointer
+                           md:text-lg lg:text-xl xl:text-2xl 2xl:text-[28px] -mt-5"
+                onClick={handleCall}
+              >
                 +61 470 695 167
               </span>
             </div>
 
             {/* Email */}
-            <div className="flex items-center gap-2 lg:gap-3 xl:gap-4">
-              <div className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0
-                              md:w-7 md:h-7 lg:w-9 lg:h-9 xl:w-10 xl:h-10">
-                <img src={mail} alt="" className="md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
-              </div>
-              <span className="font-semibold text-[#023437] break-words underline decoration-[#023437] underline-offset-4
-                               md:text-base lg:text-xl xl:text-2xl 2xl:text-[28px]">
+          <div className="flex items-center md:-ml-4 font-opensans">
+              <img 
+                src={mail} 
+                alt="" 
+                className="cursor-pointer md:w-20 md:h-20 lg:w-20 lg:h-20 xl:w-20 xl:h-20"
+                onClick={handleEmail}
+              />
+              <span 
+                className="font-semibold text-[#023437] underline decoration-[#023437] underline-offset-4 cursor-pointer
+                           md:text-base lg:text-xl xl:text-2xl 2xl:text-[28px] -mt-5"
+                onClick={handleEmail}
+              >
                 teamup@connect2lawyer.com.au
               </span>
             </div>
-          </div>
-
+          <div className="h-[1px] xl:h-[2px] w-full bg-[#023437] opacity-30  "></div>
+           </div>
           {/* Divider */}
-          <div className="h-[1px] xl:h-[2px] w-[200px] md:w-[220px] lg:w-[250px] xl:w-[280px] bg-[#023437] opacity-30 mt-6 lg:mt-8 xl:mt-12"></div>
+
 
           {/* Socials */}
           <div className="flex gap-2 lg:gap-3 mt-6 lg:mt-8 xl:mt-12">
             {socialLinks.map((social, index) => (
               <a key={index} href={social.href} target="_blank" rel="noopener noreferrer"
-                className="border-2 border-[#023437]  rounded-full flex items-center justify-center
+                className="border-[1px] border-[#023437]  rounded-full flex items-center justify-center
                            transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105
                            md:w-9 md:h-9 lg:w-10 lg:h-10 xl:w-11 xl:h-11 2xl:w-12 2xl:h-12">
                 <img src={social.icon} alt="" className="md:w-4 md:h-4 lg:w-5 lg:h-5 xl:w-6 xl:h-6" />
@@ -86,12 +104,12 @@ const ContactUsHero = () => {
           <div className="flex items-center gap-2 lg:gap-2 xl:gap-3 mt-6 lg:mt-8 xl:mt-12">
             <div className="bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0 relative overflow-hidden
                             md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-[70px] 2xl:h-[70px]">
-              <div className="absolute inset-[2px] bg-white rounded-full"></div>
+              <div className="absolute inset-[1px] bg-white rounded-full"></div>
               <img src={clock} alt="" className="relative z-10 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8" />
             </div>
             <div>
-              <div className="font-medium text-[#023437] md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[42px]">9:00-19:00</div>
-              <div className="text-[#023437] font-medium md:text-xs lg:text-sm xl:text-base 2xl:text-lg">Mon - Fri</div>
+              <div className="font-medium text-[#023437] md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[42px] font-opensans">9:00-19:00</div>
+              <div className="text-[#023437] font-medium md:text-xs lg:text-sm xl:text-base 2xl:text-lg font-opensans">Mon - Fri</div>
             </div>
           </div>
         </div>
@@ -116,12 +134,12 @@ const ContactUsHero = () => {
               </h1>
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-[#023437] rounded-full flex items-center justify-center flex-shrink-0 relative overflow-hidden">
-                  <div className="absolute inset-[2px] bg-white rounded-full"></div>
+                  <div className="absolute inset-[1px] bg-white rounded-full"></div>
                   <img src={clock} alt="" className="w-4 h-4 relative z-10" />
                 </div>
                 <div>
-                  <div className="text-base font-bold text-[#023437]">9:00-19:00</div>
-                  <div className="text-sm text-[#023437] font-medium">Mon - Fri</div>
+                  <div className="text-base font-bold text-[#023437] font-opensans">9:00-19:00</div>
+                  <div className="text-sm text-[#023437] font-medium font-opensans">Mon - Fri</div>
                 </div>
               </div>
             </div>
@@ -131,36 +149,66 @@ const ContactUsHero = () => {
           </div>
 
           {/* Contact */}
-          <div className="w-full space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 xs:w-10 xs:h-10 bg-[#023437] rounded-full flex items-center justify-center">
-                <Phone className="w-4 h-4 xs:w-5 xs:h-5 text-white" />
-              </div>
-              <span className="text-base xs:text-lg font-semibold text-[#023437] underline decoration-[#023437] underline-offset-4">
+          <div className="w-full space-y-6 font-opensans">
+            <div className="flex items-center -mb-12 -ml-4">
+              <img 
+                src={dialer} 
+                alt="" 
+                className="cursor-pointer w-20 h-20 xs:w-20 xs:h-20"
+                onClick={handleCall}
+              />
+              <span 
+                className="text-base xs:text-lg font-semibold text-[#023437] underline decoration-[#023437] underline-offset-4 cursor-pointer -mt-5 -ml-2"
+                onClick={handleCall}
+              >
                 +61 470 695 167
               </span>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 xs:w-10 xs:h-10 bg-[#023437] rounded-full flex items-center justify-center">
-                <img src={mail} alt="" className="w-4 h-4 xs:w-5 xs:h-5" />
-              </div>
-              <span className="text-base xs:text-lg font-semibold text-[#023437] underline decoration-[#023437] underline-offset-4 break-words">
+            <div className="flex items-center -ml-4">
+              <img 
+                src={mail} 
+                alt="" 
+                className="cursor-pointer w-20 h-20 xs:w-20 xs:h-20"
+                onClick={handleEmail}
+              />
+              <span 
+                className="text-base xs:text-lg font-semibold text-[#023437] underline decoration-[#023437] underline-offset-4 cursor-pointer -mt-5 -ml-2"
+                onClick={handleEmail}
+              >
                 teamup@connect2lawyer.com.au
               </span>
             </div>
+
+            {/* <div className="flex items-center"> */}
+              {/* When you have the email icon image, replace this div with: 
+                  <img src={emailIcon} alt="" className="cursor-pointer w-8 h-8 xs:w-10 xs:h-10" onClick={handleEmail} />
+              */}
+              {/* <div 
+                className="w-8 h-8 xs:w-10 xs:h-10 bg-[#023437] rounded-full flex items-center justify-center cursor-pointer"
+                onClick={handleEmail}
+              >
+                <img src={mail} alt="" className="w-4 h-4 xs:w-5 xs:h-5" />
+              </div>
+              <span 
+                className="text-base xs:text-lg font-semibold text-[#023437] underline decoration-[#023437] underline-offset-4 break-words cursor-pointer"
+                onClick={handleEmail}
+              >
+                teamup@connect2lawyer.com.au
+              </span>
+            </div> */}
           </div>
 
           {/* Divider */}
           <div className="flex justify-center px-2">
-            <div className="h-[1px] w-full bg-[#023437] opacity-30 mt-8 mb-8"></div>
+            <div className="h-[1px] w-full bg-[#023437] opacity-30 mb-8"></div>
           </div>
 
           {/* Socials */}
           <div className="flex justify-between items-center w-full px-2">
             {socialLinks.map((social, index) => (
               <a key={index} href={social.href} target="_blank" rel="noopener noreferrer"
-                className="border-2 border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center
+                className="border-[1px] border-[#023437] hover:bg-[#023437] rounded-full flex items-center justify-center
                            transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105
                            w-10 h-10 xs:w-12 xs:h-12">
                 <img src={social.icon} alt="" className="w-5 h-5 xs:w-6 xs:h-6" />
