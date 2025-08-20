@@ -86,7 +86,7 @@ function HomeThree() {
 
     {/* Arrow Button */}
     <button
-        onClick={() => window.location.href = '/service'}
+        onClick={() => window.location.href = '/services'}
         className="flex items-center gap-2 rounded-full px-4 md:px-6 py-2 md:py-3 border border-[#FFFBF3]  bg-[#023437] text-[#ffffff] font-opensans text-sm md:text-base font-semibold transition-all duration-300 hover:bg-[#C09F53] hover:text-[#023437]"
     >
         <span>See All</span>

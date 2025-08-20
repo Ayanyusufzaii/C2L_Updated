@@ -1,7 +1,7 @@
 import React from "react";
 import SubOne from "./SubOne";
-import SubTwo from "./SubTwo";
 import SubThree from "./SubThree";
+import HomeTwo from "../SubServiceFrom/HomeTwo"
 import SubFour from "./SubFour";
 import Footer from "../../Footer";
 import SubFive from "./SubFive";
@@ -18,8 +18,8 @@ function SubService() {
         <Seo sitekey={"mesothelioma"} />
 
       <NavBar />
-      <SubOne />
-      <SubTwo />
+      <SubOne />   
+      <HomeTwo />
       <SubThree />
       <SubFour />
       <SubFive />

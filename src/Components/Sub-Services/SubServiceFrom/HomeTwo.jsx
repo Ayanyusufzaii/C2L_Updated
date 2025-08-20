@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Marquee from "../../assets/Group 45.png";
+import Marquee from "../../../assets/Group 45.png";
 import TextField from '@mui/material/TextField';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./HomeTwo.css";
-import Frame from "../../assets/justiceimg.jpeg";
-import Frame2 from "../../assets/justiceemobbb.jpeg";
+import Frame from "../../../assets/justiceimg.jpeg";
+import Frame2 from "../../../assets/justiceemobbb.jpeg";
 import { useMediaQuery, MenuItem } from '@mui/material';
-import FormBG from "../../assets/hFormBG.png";
-import mobFormBG from "../../assets/MobileFormBG.png";
-import thankyou from "../../assets/thankyouimng.png"
+import FormBG from "../../../assets/hFormBG.png";
+import mobFormBG from "../../../assets/MobileFormBG.png";
+import thankyou from "../../../assets/thankyouimng.png"
 import { sendBothEmails, testEmailJSConnection, setInitialLandingUrl } from './emailJsService'; // <- service we just created
 
 
@@ -1142,11 +1142,11 @@ const validateForm = () => {
 
       {/* Responsive Footer Image */}
       <div className="mt-16 w-full">
-        <img
+        {/* <img
           src={isMobile ? Frame2 : Frame}
           alt="Footer"
           className="h-full w-full object-cover mt-3"
-        />
+        /> */}
       </div>
     </div>
   );

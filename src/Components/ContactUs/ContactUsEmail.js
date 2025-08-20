@@ -57,7 +57,7 @@ export const sendFormAdmin = async (formData) => {
     const templateParams = {
       // Main form fields
       from_name: sanitize(`${formData.Name || formData.name} ${formData.lastName || ''}`),
-      user_email: sanitize(formData.emailId || formData.email),
+      to_email: sanitize(formData.emailId || formData.email),
       email: sanitize(formData.emailId || formData.email),
       phone_number: sanitize(formData.phoneNumber || formData.phone),
       concern: sanitize(formData.concern || formData.category),

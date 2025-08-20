@@ -136,7 +136,7 @@ const navigate = useNavigate();
         >
           <div className="space-y-4 sm:space-y-6 md:space-y-4 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair  font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
@@ -145,7 +145,7 @@ const navigate = useNavigate();
             </p>
             {/* Lawsuit Type */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold  font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl ">
+              <h4 className="font-bold  font-playfair  text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl ">
                 {data.lawsuitTypeTitle}
               </h4>
               <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
@@ -154,7 +154,7 @@ const navigate = useNavigate();
             </div>
             {/* Industries */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl ">
+              <h4 className="font-bold font-playfair  text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl ">
                 {data.industriesTitle}
               </h4>
               <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
@@ -173,7 +173,7 @@ const navigate = useNavigate();
           />
           <button
           onClick={() => navigate(data.link)}
-            className={`absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-4 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 xl:px-12 xl:py-5 2xl:px-14 2xl:py-6 3xl:px-16 3xl:py-8 4xl:px-20 4xl:py-10 5xl:px-24 5xl:py-12 border border-white text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl rounded-full shadow-md transition duration-300 hover:bg-white hover:text-[#023437]`}
+            className={`absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-4 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 xl:px-12 xl:py-5 2xl:px-14 2xl:py-6 3xl:px-16 3xl:py-8 4xl:px-20 4xl:py-10 5xl:px-24 5xl:py-12 border border-white text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl rounded-full shadow-md transition duration-300 hover:bg-white hover:text-[#023437] font-opensans `}
           >
             Learn More
           </button>
@@ -190,7 +190,7 @@ const navigate = useNavigate();
         {/* Header */}
         <div className="w-full max-w-full mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 3xl:px-32 4xl:px-48 5xl:px-64">
         
-          <h1 className="text-[#FFFBF3] font-playfair font-extrabold leading-tight mb-6 sm:mb-8 text-3xl sm:text-4xl md:text-5xl lg:text-[86px] xl:text-[125px] 2xl:text-[190px] 3xl:text-[190px] 4xl:text-[190px] 5xl:text-[190px]">
+          <h1 className="text-[#FFFBF3] font-playfair  font-extrabold leading-tight mb-6 sm:mb-8 text-3xl sm:text-4xl md:text-5xl lg:text-[86px] xl:text-[125px] 2xl:text-[190px] 3xl:text-[190px] 4xl:text-[190px] 5xl:text-[190px]">
             Our Expertise in <span className="text-[#C09F53]">TAS</span>
           </h1>
 
@@ -206,7 +206,7 @@ const navigate = useNavigate();
                 <button
                   key={tag}
                   onClick={() => setActiveTag(tag)}
-                  className={`flex-shrink-0 px-3 py-2 text-xs rounded-full font-semibold transition-all duration-300 whitespace-nowrap ${
+                  className={`flex-shrink-0 px-3 py-2 text-xs rounded-full font-semibold transition-all duration-300 whitespace-nowrap font-opensans ${
                     activeTag === tag
                       ? "bg-[#C09F53] text-white"
                       : "border border-[white] text-[#FFFBF3] hover:bg-[#C09F53] hover:text-white"
@@ -219,21 +219,25 @@ const navigate = useNavigate();
           </div>
 
           {/* Desktop Tags */}
-          <div className="hidden md:flex flex-wrap gap-2 sm:gap-3 md:gap-4 lg:gap-5 mb-4 sm:mb-6 md:mb-8">
-            {expertiseTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setActiveTag(tag)}
-                className={`px-3 py-2 sm:px-4 sm:py-2 md:px-5 md:py-2 lg:px-6 lg:py-3 xl:px-8 xl:py-4 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl 4xl:text-3xl 5xl:text-3xl rounded-full font-semibold transition-all duration-300 ${
-                  activeTag === tag
-                    ? "bg-[#C09F53] text-white"
-                    : "border border-[white] text-[#FFFBF3] hover:bg-[#C09F53] hover:text-white"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
+         <div className="hidden md:flex flex-nowrap justify-center gap-3 md:gap-4 lg:gap-5 mb-6 md:mb-8">
+  {expertiseTags.map((tag) => (
+    <button
+      key={tag}
+      onClick={() => setActiveTag(tag)}
+      className={`px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2 lg:px-5 lg:py-2 
+        xl:px-7 xl:py-3 2xl:px-8 2xl:py-4
+        text-xs sm:text-sm md:text-base lg:text-base xl:text-lg 2xl:text-xl 3xl:text-2xl 4xl:text-2xl 5xl:text-3xl 
+        rounded-full font-semibold transition-all duration-300 font-opensans
+        ${
+          activeTag === tag
+            ? "bg-[#C09F53] text-white"
+            : "border border-[white] text-[#FFFBF3] hover:bg-[#C09F53] hover:text-white"
+        }`}
+    >
+      {tag}
+    </button>
+  ))}
+</div>
         </div>
 
         {/* Active Content */}
@@ -268,7 +272,7 @@ const navigate = useNavigate();
         >
           <div className="space-y-4 sm:space-y-6 md:space-y-4 lg:space-y-10 xl:space-y-12">
             {/* Title */}
-            <h3 className="font-playfair font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
+            <h3 className="font-playfair  font-semibold leading-tight text-4xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl 4xl:text-8xl 5xl:text-9xl">
               {data.title}
             </h3>
             {/* Description */}
@@ -277,7 +281,7 @@ const navigate = useNavigate();
             </p>
             {/* Lawsuit Type */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
+              <h4 className="font-bold font-playfair  text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
                 {data.lawsuitTypeTitle}
               </h4>
               <p className="leading-relaxed text-sm  font-opensans sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
@@ -286,7 +290,7 @@ const navigate = useNavigate();
             </div>
             {/* Industries */}
             <div className="space-y-2 sm:space-y-3">
-              <h4 className="font-bold font-playfair text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
+              <h4 className="font-bold font-playfair  text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl 3xl:text-6xl 4xl:text-7xl 5xl:text-8xl">
                 {data.industriesTitle}
               </h4>
               <p className="leading-relaxed font-opensans text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl">
@@ -305,7 +309,7 @@ const navigate = useNavigate();
           />
           <button
           onClick={() => navigate(data.link)}
-            className={`absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-4 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 xl:px-12 xl:py-5 2xl:px-14 2xl:py-6 3xl:px-16 3xl:py-8 4xl:px-20 4xl:py-10 5xl:px-24 5xl:py-12 border border-white text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl rounded-full shadow-md transition duration-300 hover:bg-white hover:text-[#023437]`}
+            className={`absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-4 py-2 sm:px-6 sm:py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 xl:px-12 xl:py-5 2xl:px-14 2xl:py-6 3xl:px-16 3xl:py-8 4xl:px-20 4xl:py-10 5xl:px-24 5xl:py-12 border border-white text-white text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl rounded-full shadow-md transition duration-300 hover:bg-white hover:text-[#023437] font-opensans `}
           >
             Learn More
           </button>
@@ -322,7 +326,7 @@ const navigate = useNavigate();
         {/* Header */}
         <div className="w-full max-w-full mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 3xl:px-32 4xl:px-48 5xl:px-64">
         
-          <h1 className="text-[#FFFBF3] font-playfair font-extrabold leading-tight mb-6 sm:mb-8 text-3xl sm:text-4xl md:text-5xl lg:text-[86px] xl:text-[125px] 2xl:text-[190px] 3xl:text-[190px] 4xl:text-[190px] 5xl:text-[190px]">
+          <h1 className="text-[#FFFBF3] font-playfair  font-extrabold leading-tight mb-6 sm:mb-8 text-3xl sm:text-4xl md:text-5xl lg:text-[86px] xl:text-[125px] 2xl:text-[190px] 3xl:text-[190px] 4xl:text-[190px] 5xl:text-[190px]">
             Our Expertise in <span className="text-[#C09F53]">TAS</span>
           </h1>
 
@@ -338,7 +342,7 @@ const navigate = useNavigate();
                 <button
                   key={tag}
                   onClick={() => setActiveTag(tag)}
-                  className={`flex-shrink-0 px-3 py-2 text-xs rounded-full font-semibold transition-all duration-300 whitespace-nowrap ${
+                  className={`flex-shrink-0 px-3 py-2 text-xs rounded-full font-semibold transition-all duration-300 whitespace-nowrap font-opensans ${
                     activeTag === tag
                       ? "bg-[#C09F53] text-white"
                       : "border border-[white] text-[#FFFBF3] hover:bg-[#C09F53] hover:text-white"
@@ -351,21 +355,25 @@ const navigate = useNavigate();
           </div>
 
           {/* Desktop Tags */}
-          <div className="hidden md:flex flex-wrap gap-2 sm:gap-3 md:gap-4 lg:gap-5 mb-4 sm:mb-6 md:mb-8">
-            {expertiseTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setActiveTag(tag)}
-                className={`px-3 py-2 sm:px-4 sm:py-2 md:px-5 md:py-2 lg:px-6 lg:py-3 xl:px-8 xl:py-4 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-2xl 4xl:text-3xl 5xl:text-3xl rounded-full font-semibold transition-all duration-300 ${
-                  activeTag === tag
-                    ? "bg-[#C09F53] text-white"
-                    : "border border-[white] text-[#FFFBF3] hover:bg-[#C09F53] hover:text-white"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
+         <div className="hidden md:flex flex-nowrap justify-center gap-3 md:gap-4 lg:gap-5 mb-6 md:mb-8">
+  {expertiseTags.map((tag) => (
+    <button
+      key={tag}
+      onClick={() => setActiveTag(tag)}
+      className={`px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2 lg:px-5 lg:py-2 
+        xl:px-7 xl:py-3 2xl:px-8 2xl:py-4
+        text-xs sm:text-sm md:text-base lg:text-base xl:text-lg 2xl:text-xl 3xl:text-2xl 4xl:text-2xl 5xl:text-3xl 
+        rounded-full font-semibold transition-all duration-300 font-opensans
+        ${
+          activeTag === tag
+            ? "bg-[#C09F53] text-white"
+            : "border border-[white] text-[#FFFBF3] hover:bg-[#C09F53] hover:text-white"
+        }`}
+    >
+      {tag}
+    </button>
+  ))}
+</div>
         </div>
 
         {/* Active Content */}

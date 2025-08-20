@@ -553,7 +553,7 @@ function HomeTwo() {
               {[...Array(10)].map((_, index) => (
                 <div key={index} className="flex items-center" style={{ marginRight: marqueeConfig.marginLeft }}>
                   <span 
-                    className="text-[#FFF] text-center font-['Playfair_Display'] font-[800] leading-none flex-shrink-0 ml-20"
+                    className="text-[#FFF] text-center font-playfair  font-[800] leading-none flex-shrink-0 ml-20"
                     style={{ fontSize: marqueeConfig.fontSize }}
                   >
                     Get a free case review

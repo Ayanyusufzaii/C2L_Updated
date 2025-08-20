@@ -52,7 +52,7 @@ function Footer() {
                     onClick={handleEmail}
                   />
                   <span
-                    className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold"
+                    className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold "
                     onClick={handleEmail}
                   >
                     teamup@connect2lawyer.com.au
@@ -218,7 +218,7 @@ function Footer() {
                   onClick={handleEmail}
                 />
                 <span
-                  className="text-lg sm:text-base font-semibold  "
+                  className="text-lg sm:text-base font-semibold break-words "
                   onClick={handleEmail}
                 >
                   teamup@connect2lawyer.com.au

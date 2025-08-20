@@ -22,7 +22,7 @@ const HomeFour = () => {
         </div>
 
         <div className="flex flex-col justify-center items-center px-4 py-8 space-y-4 text-left">
-          <h1 className="text-3xl font-extrabold font-playfair leading-tight text-[#FFFBF3]">
+          <h1 className="text-3xl font-extrabold font-playfair  leading-tight text-[#FFFBF3]">
             Start Your NT Legal Claim Today
           </h1>
           <p className="text-base font-semibold font-opensans text-white leading-snug">
@@ -31,13 +31,13 @@ const HomeFour = () => {
           <div className="flex gap-3 pt-4 w-full items-center justify-center">
             <button
               onClick={handleContactClick}
-              className="w-11/12 max-w-[300px] h-[55px] bg-[#C09F53] text-white font-semibold rounded-full"
+              className="w-11/12 max-w-[300px] h-[55px] bg-[#C09F53] text-white font-semibold rounded-full font-opensans "
             >
               Contact Us
             </button>
             <button
               onClick={handleLearnMoreClick}
-              className="w-11/12 max-w-[300px] h-[55px] border border-white text-white font-semibold rounded-full"
+              className="w-11/12 max-w-[300px] h-[55px] border border-white text-white font-semibold rounded-full font-opensans "
             >
               Learn More
             </button>
@@ -55,7 +55,7 @@ const HomeFour = () => {
             px-6 sm:px-10 md:px-16 lg:px-24 2xl:px-28 3xl:px-36 4xl:px-[12vw] 
             py-10 md:py-12 2xl:py-16 3xl:py-20 4xl:py-[100px] 
             space-y-6 min-w-[320px]">
-          <h1 className="font-extrabold font-playfair leading-tight text-[#FFFBF3]
+          <h1 className="font-extrabold font-playfair  leading-tight text-[#FFFBF3]
               text-[28px] md:text-[32px] lg:text-[43px] xl:text-[56px] 
               2xl:text-[64px] 3xl:text-[80px] 4xl:text-[90px]">
             Start Your NT Legal Claim Today
@@ -72,7 +72,7 @@ const HomeFour = () => {
               onClick={handleContactClick}
               className="w-[200px] md:w-[220px] 3xl:w-[240px] 4xl:w-[260px] 
               lg:h-[60px] md:h-[40px] 3xl:h-[70px] 4xl:h-[80px] 
-              bg-[#C09F53] text-white font-semibold rounded-full"
+              bg-[#C09F53] text-white font-semibold rounded-full font-opensans "
             >
               Contact Us
             </button>
@@ -80,7 +80,7 @@ const HomeFour = () => {
               onClick={handleLearnMoreClick}
               className="w-[200px] md:w-[220px] 3xl:w-[240px] 4xl:w-[260px] 
               lg:h-[60px] md:h-[40px] 3xl:h-[70px] 4xl:h-[80px] 
-              border border-white text-white font-semibold rounded-full"
+              border border-white text-white font-semibold rounded-full font-opensans "
             >
               Learn More
             </button>

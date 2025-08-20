@@ -1007,7 +1007,7 @@ const validateForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex h-12 px-6 justify-center items-center rounded-[40px] bg-[#C09F53] text-[#FFFBF3] border border-[#FFFBF3] font-bold hover:bg-[#374A67] disabled:opacity-70 w-full mt-8"
+              className="inline-flex h-12 px-6 justify-center items-center rounded-[40px] bg-[#C09F53] text-[#FFFBF3] border border-[#FFFBF3] font-bold  disabled:opacity-70 w-full mt-8"
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center">
@@ -1307,7 +1307,7 @@ const validateForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex h-[60px] px-[49px] justify-center items-center gap-[10px] flex-shrink-0 rounded-[60px] bg-[#C09F53] text-[#FFFBF3] border border-[#C09F53] font-open-sans text-[22px] font-bold leading-normal hover:bg-[#374A67] disabled:opacity-70 transition-colors duration-200 w-[400px] md:w-[350px] lg:w-[400px] xl:w-[420px] 2xl:w-[450px]"
+              className="inline-flex h-[60px] px-[49px] justify-center items-center gap-[10px] flex-shrink-0 rounded-[60px] bg-[#C09F53] text-[#FFFBF3] border border-[#C09F53] font-open-sans text-[22px] font-bold leading-normal  disabled:opacity-70 transition-colors duration-200 w-[400px] md:w-[350px] lg:w-[400px] xl:w-[420px] 2xl:w-[450px]"
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center">

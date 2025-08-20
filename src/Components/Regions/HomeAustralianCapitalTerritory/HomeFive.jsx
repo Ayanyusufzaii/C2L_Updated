@@ -136,9 +136,9 @@ const HomeFive = () => {
   return (
     <div>
       {/* Mobile version */}
-      <div className="block lg:hidden bg-[#FFFF] pb-8">
+      <div className="block md:hidden bg-[#FFFF] pb-8 font-opensans ">
         <div className="mx-auto">
-          <h2 className="font-['Playfair_Display'] text-4xl lg:text-6xl font-bold text-[#023437] mb-12 text-left lg:text-left leading-tight p-6">
+          <h2 className="font-playfair  text-4xl lg:text-6xl font-bold text-[#023437] mb-12 text-left lg:text-left leading-tight p-6">
             {contentMobile.heading.title}
             <br />
             <span className="text-[#C09F53]">{contentMobile.heading.highlight}</span>
@@ -161,9 +161,9 @@ const HomeFive = () => {
       </div>
 
       {/* Desktop version */}
-      <div className="hidden lg:block bg-[#FFFF] pb-8">
+      <div className="hidden md:block bg-[#FFFF] pb-8 font-opensans ">
         <div className="mx-auto">
-          <h2 className="font-['Playfair_Display'] text-4xl lg:text-6xl font-bold text-[#023437] mb-12 text-left lg:text-left leading-tight p-6">
+          <h2 className="font-playfair  text-4xl lg:text-6xl font-bold text-[#023437] mb-12 text-left lg:text-left leading-tight p-6">
             {contentDesktop.heading.title}
             <br />
             <span className="text-[#C09F53]">{contentDesktop.heading.highlight}</span>

@@ -4,15 +4,15 @@ import AustraliaMapMob from "../../../assets/ACTHEROMOBILE.png";
 import AustraliaMapTab from "../../../assets/ACTHERODESKTOP.png";
 
 const HomeOneMobile = () => (
-  <section className="block md:hidden w-full bg-white px-6 py-6 flex flex-col items-left justify-start gap-6 font-playfair">
+  <section className="block md:hidden w-full bg-white px-6 py-6 flex flex-col items-left justify-start gap-6 font-playfair ">
     {/* Text Section */}
  <div className="w-full flex flex-col items-center px-4">
-  <h1 className="text-left font-['Playfair_Display'] font-extrabold leading-snug text-[#023437] text-[36px]  sm:text-[36px] md:text-[40px]">
+  <h1 className="text-left font-playfair  font-extrabold leading-snug text-[#023437] text-[36px]  sm:text-[36px] md:text-[40px]">
     Expert legal support <br /> for <br />
     <span className="text-[#C09F53] font-extrabold"> Australian Capital Territory </span>
   </h1>
   <div className="mt-4 w-full">
-    <p className="text-left font-['Playfair_Display'] font-extrabold leading-snug text-[#023437] text-[18px] xs:text-[20px] sm:text-[22px] md:text-[24px]">
+    <p className="text-left font-playfair  font-extrabold leading-snug text-[#023437] text-[18px] xs:text-[20px] sm:text-[22px] md:text-[24px]">
       Start your Claim with No upfront Fees.
     </p>
     <p className="text-left font-opensans font-normal leading-relaxed text-[#023437] mt-2 text-[14px] xs:text-[16px] sm:text-[18px] md:text-[20px]">
@@ -42,8 +42,8 @@ const HomeOneTablet = () => (
         alt="Australia Map"
         className="w-full h-auto object-cover min-h-[350px] max-h-[75vh] rounded-lg"
       />
-      <div className="absolute top-0 left-0 w-2/3 p-6 flex flex-col items-start rounded-tl-lg">
-        <h1 className="text-left font-serif font-semibold text-[#023437] leading-snug text-2xl md:text-3xl">
+       <div className="absolute top-0 left-0 w-2/3 p-6 flex flex-col items-start rounded-tl-lg font-playfair  ">
+        <h1 className="text-left   font-semibold text-[#023437] leading-snug text-2xl md:text-3xl">
           Expert legal support <br />
           for <span className="text-[#C9A74A] font-bold">Australian Capital Territory</span>
         </h1>
@@ -51,7 +51,7 @@ const HomeOneTablet = () => (
           <p className="text-[#023437] font-semibold text-base md:text-lg">
             Start your claim with no upfront fees.
           </p>
-          <p className="text-[#023437] mt-2 leading-relaxed max-w-[22rem] text-[15px] md:text-[15px]">
+          <p className="text-[#023437] mt-2 leading-relaxed max-w-[22rem] text-[15px] md:text-[15px] font-opensans ">
 Our ACT-based lawyers are ready to review cases involving asbestos exposure, heavy vehicle accidents, and rideshare incidents - starting today. 
           </p>
         </div>
@@ -76,8 +76,8 @@ const HomeOneDesktop = () => (
           {/* Text overlay with responsive positioning and sizing */}
           <div className="absolute top-0 left-0 flex flex-col items-start rounded-tl-lg">
             {/* Responsive width and padding */}
-            <div className="p-6 lg:p-8 xl:p-10 2xl:p-12 3xl:p-16 4xl:p-20 ">
-              <h1 className="text-left font-serif font-semibold text-[#023437] leading-tight text-[32px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[72px] 4xl:text-[84px]">
+            <div className="p-6 lg:p-8 xl:p-10 2xl:p-12 3xl:p-16 4xl:p-20 font-playfair  ">
+              <h1 className="text-left   font-semibold text-[#023437] leading-tight text-[32px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] 3xl:text-[72px] 4xl:text-[84px]">
                 Expert legal support <br />
                 for <span className="text-[#C9A74A] font-bold">
                   Australian 
@@ -91,7 +91,7 @@ const HomeOneDesktop = () => (
                 max-w-[18rem] sm:max-w-[24rem] md:max-w-[28rem] 
                 lg:max-w-[30rem] xl:max-w-[36rem] 2xl:max-w-[42rem] 
                 3xl:max-w-[48rem] 4xl:max-w-[56rem]">
-  <p className="text-[#023437] font-semibold font-playfair 
+  <p className="text-[#023437] font-semibold font-playfair  
                 text-[16px] lg:text-[20px] xl:text-[24px] 
                 2xl:text-[28px] 3xl:text-[32px] 4xl:text-[36px]">
     Start your claim with no upfront fees.

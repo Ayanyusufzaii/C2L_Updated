@@ -9,10 +9,10 @@ function HomeSeven() {
       <div className="flex flex-col lg:flex-row items-center justify-between gap-6 w-full max-w-[1600px] mx-auto px-2 text-left ">
         {/* Left Section: Heading */}
         <div className="flex flex-col justify-center flex-1 w-full lg:max-w-[48%]">
-          <h2 className="text-white font-['Playfair_Display'] font-bold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[80px] 2xl:text-[100px] leading-tight lg:leading-[1.15] whitespace-nowrap lg:whitespace-normal">
+          <h2 className="text-white font-playfair  font-bold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[80px] 2xl:text-[100px] leading-tight lg:leading-[1.15] whitespace-nowrap lg:whitespace-normal">
             Achieve Justice
           </h2>
-          <h2 className="text-[#C09F53] font-['Playfair_Display'] font-bold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[80px] 2xl:text-[100px] mt-0 leading-tight lg:leading-[1.15] whitespace-nowrap lg:whitespace-normal">
+          <h2 className="text-[#C09F53] font-playfair  font-bold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[80px] 2xl:text-[100px] mt-0 leading-tight lg:leading-[1.15] whitespace-nowrap lg:whitespace-normal">
             Together!
           </h2>
         </div>
@@ -22,10 +22,10 @@ function HomeSeven() {
           {/* Tile 1: Partner With Us */}
           <div className="flex flex-col justify-between items-start p-4 md:p-6 xl:p-8 border border-white border-opacity-40 text-left bg-transparent w-full sm:w-1/2 min-h-[150px]">
             <div className="flex-1 flex flex-col justify-center w-full">
-              <h2 className="text-white text-3xl font-bold mb-2 font-['Playfair_Display']">
+              <h2 className="text-white text-3xl font-bold mb-2 font-playfair ">
                 Partner With Us
               </h2>
-              <p className="text-white text-base font-['Playfair_Display']">
+              <p className="text-white text-base font-playfair ">
                 Receive pre-qualified legal leads!
               </p>
             </div>
@@ -40,10 +40,10 @@ function HomeSeven() {
           {/* Tile 2: Need Legal Help */}
           <div className="flex flex-col justify-between items-start p-4 md:p-6 xl:p-8 border border-white border-opacity-40 text-left bg-transparent w-full sm:w-1/2 min-h-[150px]">
             <div className="flex-1 flex flex-col justify-center w-full">
-              <h2 className="text-white text-3xl font-bold mb-2 font-['Playfair_Display']">
+              <h2 className="text-white text-3xl font-bold mb-2 font-playfair ">
                 Need Legal Help?
               </h2>
-              <p className="text-white text-base font-['Playfair_Display']">
+              <p className="text-white text-base font-playfair ">
                 Start your free claim today!
               </p>
             </div>
@@ -83,10 +83,10 @@ export default HomeSeven;
 //                         className="w-16 h-16 xs:w-24 xs:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-44 xl:h-44 2xl:w-52 2xl:h-52 object-contain flex-shrink-0"
 //                     />
 //                     <div className="flex flex-col justify-center min-w-0 w-full">
-//                         <h2 className="text-white font-['Playfair_Display'] font-bold leading-tight text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[80px] 2xl:text-[100px] whitespace-nowrap lg:whitespace-normal leading-[1.1] lg:leading-[1.15] xl:leading-[1.18] 2xl:leading-[1.2] w-full">
+//                         <h2 className="text-white font-playfair  font-bold leading-tight text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[80px] 2xl:text-[100px] whitespace-nowrap lg:whitespace-normal leading-[1.1] lg:leading-[1.15] xl:leading-[1.18] 2xl:leading-[1.2] w-full">
 //                             Need
 //                         </h2>
-//                         <h2 className="text-white font-['Playfair_Display'] font-bold leading-tight text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[80px] 2xl:text-[100px] mt-0 whitespace-nowrap lg:whitespace-normal leading-[1.1] lg:leading-[1.15] xl:leading-[1.18] 2xl:leading-[1.2] w-full">
+//                         <h2 className="text-white font-playfair  font-bold leading-tight text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-[56px] xl:text-[80px] 2xl:text-[100px] mt-0 whitespace-nowrap lg:whitespace-normal leading-[1.1] lg:leading-[1.15] xl:leading-[1.18] 2xl:leading-[1.2] w-full">
 //                             Legal Help?
 //                         </h2>
 //                     </div>

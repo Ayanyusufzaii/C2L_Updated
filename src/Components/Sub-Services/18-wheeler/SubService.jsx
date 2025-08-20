@@ -1,6 +1,8 @@
 import React from "react";
 import SubOne from "./SubOne";
 import SubTwo from "./SubTwo";
+import HomeTwo from "../SubServiceFrom/HomeTwo"
+
 import SubThree from "./SubThree";
 import SubFour from "./SubFour";
 import Footer from "../../Footer";
@@ -19,7 +21,8 @@ function SubService18Wheeler() {
 
       <NavBar />
       <SubOne />
-      <SubTwo />
+      {/* <SubTwo /> */}
+      <HomeTwo />
       <SubThree />
       <SubFour />
       <SubFive />
