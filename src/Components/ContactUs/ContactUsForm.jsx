@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import TextField from "@mui/material/TextField";
 import { MenuItem, useMediaQuery } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import popup from "../../assets/SubmitPopup.png";
-import { sendBothEmails, testEmailJSConnection } from "./ContactUsEmail"; 
+import { sendBothEmails, testEmailJSConnection } from "./ContactUsEmail";
 import imageSrc from "../../assets/thankyouimng.png"
 // Custom Captcha Component (keeping exactly as is)
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
@@ -100,7 +100,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     }
   };
 
-  
+
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -113,7 +113,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
   const handleAudioToggle = (e) => {
     setAudioEnabled(e.target.checked);
   };
-  
+
 
   return (
     <div className="mt-4">
@@ -164,9 +164,8 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
               type="button"
               onClick={speakCaptcha}
               disabled={isSpeaking}
-              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${
-                isSpeaking ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${isSpeaking ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               title="Listen to CAPTCHA"
             >
               {isSpeaking ? "🔊🎵" : "🔊"}
@@ -194,11 +193,10 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           value={userInput}
           onChange={handleInputChange}
           placeholder="Enter CAPTCHA"
-          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400 bg-white ${
-            userInput !== "" && !isValid
-              ? "border-red-500 focus:ring-red-500"
-              : "border-gray-300"
-          }`}
+          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-400 bg-white ${userInput !== "" && !isValid
+            ? "border-red-500 focus:ring-red-500"
+            : "border-gray-300"
+            }`}
         />
         {userInput !== "" && !isValid && (
           <p className="text-red-500 text-sm mt-1">CAPTCHA does not match</p>
@@ -293,7 +291,7 @@ const formatAustralianMobile = (input) => {
 };
 
 
- 
+
 // Returns { isValid: boolean, reason: string|null }
 // Reasons: "empty", "invalid_prefix", "actual_start", "length"
 const validateAustralianMobile = (input) => {
@@ -330,11 +328,11 @@ const validateAustralianMobile = (input) => {
 // Australian Phone number formatting function (keeping exactly as is)
 const formatPhoneNumber = (value) => {
   const phoneNumber = value.replace(/\D/g, "");
-  
+
   if (phoneNumber.length === 0) {
     return "";
   }
-  
+
   if (phoneNumber.startsWith("04")) {
     if (phoneNumber.length <= 4) {
       return phoneNumber;
@@ -345,9 +343,9 @@ const formatPhoneNumber = (value) => {
     } else {
       return `${phoneNumber.slice(0, 4)} ${phoneNumber.slice(4, 7)} ${phoneNumber.slice(7, 10)}`;
     }
-  } 
-  else if (phoneNumber.startsWith("02") || phoneNumber.startsWith("03") || 
-           phoneNumber.startsWith("07") || phoneNumber.startsWith("08")) {
+  }
+  else if (phoneNumber.startsWith("02") || phoneNumber.startsWith("03") ||
+    phoneNumber.startsWith("07") || phoneNumber.startsWith("08")) {
     if (phoneNumber.length <= 2) {
       return `(${phoneNumber}`;
     } else if (phoneNumber.length <= 6) {
@@ -368,6 +366,22 @@ const formatPhoneNumber = (value) => {
     }
   }
 };
+
+// --- Email Utilities ---
+const formatEmail = (value) => value.trim().toLowerCase();
+
+const validateEmail = (value) => {
+  if (!value.includes("@")) {
+    return { isValid: false, reason: "missing_at" };
+  }
+  if ((value.match(/@/g) || []).length > 1) {
+    return { isValid: false, reason: "multiple_at" };
+  }
+  // Simple regex check (you can extend if needed)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return { isValid: emailRegex.test(value), reason: emailRegex.test(value) ? "" : "invalid" };
+};
+
 
 const ContactUsForm = () => {
   const isMobile = useMediaQuery("(max-width:768px)");
@@ -393,7 +407,8 @@ const ContactUsForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
   const [submitMessage, setSubmitMessage] = useState(null);
-  
+  const [emailError, setEmailError] = useState("");
+
 
   const [captchaValid, setCaptchaValid] = useState(false);
   const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
@@ -460,9 +475,9 @@ const ContactUsForm = () => {
 
         trustedFormFields.forEach((field) => {
           if (field && observerInstance) {
-            observerInstance.observe(field, { 
-              attributes: true, 
-              attributeFilter: ['value'] 
+            observerInstance.observe(field, {
+              attributes: true,
+              attributeFilter: ['value']
             });
 
             if (field.value) {
@@ -495,111 +510,173 @@ const ContactUsForm = () => {
     };
   }, []);
 
-const textFieldStyle = {
-  "& .MuiInputLabel-root": {
-    color: "white",
-    fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
-    fontFamily: "Helvetica",
-    fontWeight: "normal",
-    "&.Mui-focused": {
+  const textFieldStyle = {
+    "& .MuiInputLabel-root": {
+      color: "white",
+      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
+      fontFamily: "Helvetica",
+      fontWeight: "normal",
+      "&.Mui-focused": {
+        color: "white",
+      },
+      // ensure label does NOT turn red when MUI applies .Mui-error
+      "&.Mui-error": {
+        color: "white",
+      }
+    },
+    // extra safety: cover FormLabel root error variant too
+    "& .MuiFormLabel-root.Mui-error": {
       color: "white",
     },
-    // ensure label does NOT turn red when MUI applies .Mui-error
-    "&.Mui-error": {
+    "& .MuiInput-root": {
+      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
+      fontFamily: "Helvetica",
       color: "white",
+      "&:before": {
+        borderBottomColor: "white",
+      },
+      "&:hover:not(.Mui-disabled):before": {
+        borderBottomColor: "white",
+      },
+      "&:after": {
+        borderBottomColor: "white",
+      },
+      "&.Mui-focused": {
+        color: "white",
+      },
+    },
+    "& .MuiInputBase-input": {
+      color: "white",
+      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
+      fontWeight: "normal",
+    },
+    "& .MuiInput-input": {
+      color: "white",
+      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
+      fontWeight: "normal",
+    },
+    "& .MuiFormHelperText-root": {
+      color: "white",
+      fontSize: isMobile ? "12px" : isTablet ? "14px" : isLaptop ? "14px" : "16px",
+      fontFamily: "Helvetica",
+    },
+    "& .Mui-error": {
+      color: "white",
+      "&:after": {
+        borderBottomColor: "#d32f2f",
+      },
+    },
+  };
+
+
+  const handlePhoneChange = (value) => {
+    // format and validate using the new functions
+    const formatted = formatAustralianMobile(value);
+    const validation = validateAustralianMobile(formatted);
+
+    // map validation reasons to friendly messages
+    let nextPhoneError = "";
+    if (!value || value.trim() === "") {
+      nextPhoneError = "";
+    } else if (!validation.isValid) {
+      switch (validation.reason) {
+        case "invalid_prefix":
+          nextPhoneError = "Prefix must be empty, 0, or +61 (e.g. +61 4XX XXX XXX)";
+          break;
+        case "actual_start":
+          nextPhoneError = "Phone number must start with '4'";
+          break;
+        case "length":
+          nextPhoneError = "Phone number must have 9 digits";
+          break;
+        default:
+          nextPhoneError = "Please enter a valid Australian mobile number";
+      }
+    } else {
+      nextPhoneError = "";
     }
-  },
-  // extra safety: cover FormLabel root error variant too
-  "& .MuiFormLabel-root.Mui-error": {
-    color: "white",
-  },
-  "& .MuiInput-root": {
-    fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
-    fontFamily: "Helvetica",
-    color: "white",
-    "&:before": {
-      borderBottomColor: "white",
-    },
-    "&:hover:not(.Mui-disabled):before": {
-      borderBottomColor: "white",
-    },
-    "&:after": {
-      borderBottomColor: "white",
-    },
-    "&.Mui-focused": {
-      color: "white",
-    },
-  },
-  "& .MuiInputBase-input": {
-    color: "white",
-    fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
-    fontWeight: "normal",
-  },
-  "& .MuiInput-input": {
-    color: "white",
-    fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
-    fontWeight: "normal",
-  },
-  "& .MuiFormHelperText-root": {
-    color: "white",
-    fontSize: isMobile ? "12px" : isTablet ? "14px" : isLaptop ? "14px" : "16px",
-    fontFamily: "Helvetica",
-  },
-  "& .Mui-error": {
-    color: "white",
-    "&:after": {
-      borderBottomColor: "#d32f2f",
-    },
-  },
-};
 
+    // update phoneError only if it changed
+    setPhoneError((prev) => (prev === nextPhoneError ? prev : nextPhoneError));
 
-const handlePhoneChange = (value) => {
-  // format and validate using the new functions
-  const formatted = formatAustralianMobile(value);
-  const validation = validateAustralianMobile(formatted);
-
-  // map validation reasons to friendly messages
-  let nextPhoneError = "";
-  if (!value || value.trim() === "") {
-    nextPhoneError = "";
-  } else if (!validation.isValid) {
-    switch (validation.reason) {
-      case "invalid_prefix":
-        nextPhoneError = "Prefix must be empty, 0, or +61 (e.g. +61 4XX XXX XXX)";
-        break;
-      case "actual_start":
-        nextPhoneError = "Phone number must start with '4'";
-        break;
-      case "length":
-        nextPhoneError = "Phone number must have 9 digits";
-        break;
-      default:
-        nextPhoneError = "Please enter a valid Australian mobile number";
-    }
-  } else {
-    nextPhoneError = "";
-  }
-
-  // update phoneError only if it changed
-  setPhoneError((prev) => (prev === nextPhoneError ? prev : nextPhoneError));
-
-  // write formatted value back to form state only if different
-  setFormData((prev) => {
-    if (prev.phoneNumber === formatted) return prev;
-    return { ...prev, phoneNumber: formatted };
-  });
-
-  // clear any general phone error that may exist in errors object, only if set
-  if (errors.phoneNumber) {
-    setErrors((prevErrors) => {
-      if (!prevErrors.phoneNumber) return prevErrors;
-      return { ...prevErrors, phoneNumber: "" };
+    // write formatted value back to form state only if different
+    setFormData((prev) => {
+      if (prev.phoneNumber === formatted) return prev;
+      return { ...prev, phoneNumber: formatted };
     });
-  }
-};
+
+    // clear any general phone error that may exist in errors object, only if set
+    if (errors.phoneNumber) {
+      setErrors((prevErrors) => {
+        if (!prevErrors.phoneNumber) return prevErrors;
+        return { ...prevErrors, phoneNumber: "" };
+      });
+    }
+  };
 
 
+  // Email helpers --------------------------------------------------
+  // Normalizes common typing (trim + lowercase). You can extend this if needed.
+  const formatEmail = (value) => {
+    if (!value && value !== "") return "";
+    return String(value).trim();
+  };
+
+  // Returns { isValid: boolean, reason: string|null }
+  // Reasons: "missing_at", "multiple_at", "invalid_format"
+  const validateEmail = (value) => {
+    if (!value) return { isValid: false, reason: "missing_at" };
+
+    const trimmed = String(value).trim();
+
+    const atCount = (trimmed.match(/@/g) || []).length;
+    if (atCount === 0) return { isValid: false, reason: "missing_at" };
+    if (atCount > 1) return { isValid: false, reason: "multiple_at" };
+
+    // Very small, safe RFC-like sanity check (local@domain.tld)
+    // This is intentionally permissive because you'll still do final regex in validateForm
+    const simpleEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!simpleEmailRegex.test(trimmed)) return { isValid: false, reason: "invalid_format" };
+
+    return { isValid: true, reason: null };
+  };
+
+
+  const handleEmailChange = useCallback((value) => {
+    try {
+      const formatted = formatEmail(value);
+      const validation = validateEmail(formatted);
+
+      let nextEmailError = "";
+      if (!value || value.trim() === "") {
+        nextEmailError = "";
+      } else if (!validation.isValid) {
+        switch (validation.reason) {
+          case "missing_at":
+            nextEmailError = "Missing @";
+            break;
+          case "multiple_at":
+            nextEmailError = "Email can only contain one @";
+            break;
+          default:
+            nextEmailError = "Please enter valid email";
+        }
+      } else {
+        nextEmailError = "";
+      }
+
+      setEmailError((prev) => (prev === nextEmailError ? prev : nextEmailError));
+
+      // <-- fixed line: write to emailId (your form uses formData.emailId everywhere)
+      setFormData((prev) => {
+        if (prev.emailId === formatted) return prev;
+        return { ...prev, emailId: formatted };
+      });
+    } catch (error) {
+      console.error("Error handling email change:", error);
+      setEmailError("Please enter valid email");
+    }
+  }, []);
 
 
   const handleChange = (e) => {
@@ -612,14 +689,15 @@ const handlePhoneChange = (value) => {
     }
 
     if (name === "phoneNumber") {
-    handlePhoneChange(value);
-    return;
-  }
+      handlePhoneChange(value);
+      return;
+    }
 
     setFormData((prevState) => ({
       ...prevState,
       [name]: type === "checkbox" ? checked : processedValue,
     }));
+
 
     if (errors[name]) {
       setErrors((prevErrors) => ({
@@ -636,80 +714,85 @@ const handlePhoneChange = (value) => {
     }
   };
 
-const validateForm = () => {
-  const newErrors = {};
+  const validateForm = () => {
+    const newErrors = {};
 
-  if (!formData.Name || !formData.Name.trim()) {
-    newErrors.Name = "Name is required";
-  }
+    if (!formData.Name || !formData.Name.trim()) {
+      newErrors.Name = "Name is required";
+    }
 
-  if (!formData.phoneNumber || !formData.phoneNumber.trim()) {
-    newErrors.phoneNumber = "Phone number is required";
-  } else if (phoneError) {
-    // prefer the live validation message if present
-    newErrors.phoneNumber = phoneError;
-  } else {
-    // final safety check (fallback) — runs only if no live error
-    const { isValid, reason } = validateAustralianMobile(formData.phoneNumber);
-    if (!isValid) {
-      const phoneDigits = formData.phoneNumber.replace(/\D/g, "");
-      const isValidAusLandline =
-        phoneDigits.length === 10 &&
-        (phoneDigits.startsWith("02") ||
-          phoneDigits.startsWith("03") ||
-          phoneDigits.startsWith("07") ||
-          phoneDigits.startsWith("08"));
+    if (!formData.phoneNumber || !formData.phoneNumber.trim()) {
+      newErrors.phoneNumber = "Phone number is required";
+    } else if (phoneError) {
+      // prefer the live validation message if present
+      newErrors.phoneNumber = phoneError;
+    } else {
+      // final safety check (fallback) — runs only if no live error
+      const { isValid, reason } = validateAustralianMobile(formData.phoneNumber);
+      if (!isValid) {
+        const phoneDigits = formData.phoneNumber.replace(/\D/g, "");
+        const isValidAusLandline =
+          phoneDigits.length === 10 &&
+          (phoneDigits.startsWith("02") ||
+            phoneDigits.startsWith("03") ||
+            phoneDigits.startsWith("07") ||
+            phoneDigits.startsWith("08"));
 
-      if (!isValidAusLandline) {
-        if (reason === "length") {
-          // keep your existing message shape
-          newErrors.phoneNumber = "Phone number must have 10 digits";
-        } else if (reason === "prefix" || reason === "invalid_prefix") {
-          newErrors.phoneNumber = "Mobile must start with 04 (or +61 4...)";
-        } else {
-          newErrors.phoneNumber = "Please enter a valid Australian phone number";
+        if (!isValidAusLandline) {
+          if (reason === "length") {
+            // keep your existing message shape
+            newErrors.phoneNumber = "Phone number must have 10 digits";
+          } else if (reason === "prefix" || reason === "invalid_prefix") {
+            newErrors.phoneNumber = "Mobile must start with 04 (or +61 4...)";
+          } else {
+            newErrors.phoneNumber = "Please enter a valid Australian phone number";
+          }
         }
       }
+      // if isValid === true then mobile is valid — no error
     }
-    // if isValid === true then mobile is valid — no error
-  }
 
-  if (!formData.emailId || !formData.emailId.trim()) {
-    newErrors.emailId = "Email is required";
-  } else {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.emailId)) {
-      newErrors.emailId = "Please enter a valid email";
+    if (!formData.emailId || !formData.emailId.trim()) {
+      newErrors.emailId = "Email is required";
+    } else if (emailError) {
+      // prefer the live validation message if present
+      newErrors.emailId = emailError;
+    } else {
+      // final regex fallback (stricter)
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.emailId)) {
+        newErrors.emailId = "Please enter a valid email";
+      }
     }
-  }
 
-  // NEW: require concern (dropdown)
-  if (!formData.concern || !String(formData.concern).trim()) {
-    newErrors.concern = "Please select your concern";
-  }
 
-  // NEW: require caseHistory (textarea)
-  if (!formData.caseHistory || !formData.caseHistory.trim()) {
-    newErrors.caseHistory = "Please briefly explain your case history";
-  }
+    // NEW: require concern (dropdown)
+    if (!formData.concern || !String(formData.concern).trim()) {
+      newErrors.concern = "Please select your concern";
+    }
 
-  if (!formData.privacyConsent) {
-    newErrors.privacyConsent = "You must agree to the privacy policy";
-  }
+    // NEW: require caseHistory (textarea)
+    if (!formData.caseHistory || !formData.caseHistory.trim()) {
+      newErrors.caseHistory = "Please briefly explain your case history";
+    }
 
-  if (formData.captchaEnabled && !captchaValid) {
-    newErrors.captcha = "Please complete the CAPTCHA verification";
-  }
+    if (!formData.privacyConsent) {
+      newErrors.privacyConsent = "You must agree to the privacy policy";
+    }
 
-  setErrors(newErrors);
-  return Object.keys(newErrors).length === 0;
-};
+    if (formData.captchaEnabled && !captchaValid) {
+      newErrors.captcha = "Please complete the CAPTCHA verification";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
 
   // IMPROVED SUBMIT HANDLER (Using working logic)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       toast.error("Please correct the errors in the form");
       return;
@@ -726,16 +809,16 @@ const validateForm = () => {
       emailId: formData.emailId,
       concern: formData.concern,
       caseHistory: formData.caseHistory,
-      
+
       // TrustedForm data
       xxTrustedFormCertUrl: certId || "Not available",
       xxTrustedFormPingUrl: pingUrl || "Not available",
       xxTrustedFormCertToken: tokenUrl || "Not available",
-      
+
       // Additional metadata
       pageUrl: pageUrl,
       ipAddress: ipAddress,
-      
+
       // For compatibility with service
       name: formData.Name,
       email: formData.emailId,
@@ -747,14 +830,14 @@ const validateForm = () => {
 
     try {
       console.log("Submitting form with data:", submitData);
-      
+
       // Use the centralized email service
       const results = await sendBothEmails(submitData);
-      
+
       if (results.overallSuccess) {
         // Success - at least admin email was sent
         toast.success("Form submitted successfully!");
-        
+
         // Reset form
         setFormData({
           Name: "",
@@ -770,14 +853,14 @@ const validateForm = () => {
         });
 
         setPhoneError("");
-        
+
         // Reset captcha
         setCaptchaValid(false);
         setCaptchaResetTrigger((prev) => prev + 1);
-        
+
         // Show success popup
         setSuccessDialogOpen(true);
-        
+
         // Set success message
         if (results.user.success) {
           setSubmitMessage({
@@ -790,25 +873,25 @@ const validateForm = () => {
             text: "Form submitted successfully! We have received your inquiry.",
           });
         }
-        
-    
-        
+
+
+
       } else {
         // Both emails failed
         throw new Error("Failed to send emails");
       }
-      
+
     } catch (error) {
       console.error("Form submission error:", error);
-      
+
       // Show error message
       toast.error("There was an error submitting your form. Please try again.");
-      
+
       setSubmitMessage({
         type: "error",
         text: "There was an error submitting your form. Please try again or contact us directly.",
       });
-      
+
     } finally {
       setIsSubmitting(false);
     }
@@ -818,7 +901,7 @@ const validateForm = () => {
   if (isMobile) {
     return (
       <>
-        <ToastContainer 
+        <ToastContainer
           position="top-right"
           autoClose={5000}
           hideProgressBar={false}
@@ -830,7 +913,7 @@ const validateForm = () => {
           pauseOnHover
           theme="colored"
         />
-        
+
         <div className="w-full bg-[#023437] px-4 py-8 flex flex-col items-center">
           <h1 className="w-full max-w-lg text-[#C09F53] font-['Playfair_Display'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 text-center">
             <span style={{ color: "white" }}>Let's Review</span> Your Case{" "}
@@ -845,11 +928,10 @@ const validateForm = () => {
           {submitMessage && (
             <div className="w-full max-w-lg px-2 mb-4">
               <div
-                className={`p-4 rounded-md ${
-                  submitMessage.type === "success"
-                    ? "bg-green-100 border border-green-400 text-green-700"
-                    : "bg-red-100 border border-red-400 text-red-700"
-                }`}
+                className={`p-4 rounded-md ${submitMessage.type === "success"
+                  ? "bg-green-100 border border-green-400 text-green-700"
+                  : "bg-red-100 border border-red-400 text-red-700"
+                  }`}
               >
                 {submitMessage.text}
               </div>
@@ -894,17 +976,20 @@ const validateForm = () => {
             />
 
             <TextField
+              required
+              fullWidth
               id="emailId"
               name="emailId"
-              label="Email"
+              label="Email ID"
               variant="standard"
-              fullWidth
               value={formData.emailId}
-              onChange={handleChange}
-              error={!!errors.emailId}
-              helperText={errors.emailId}
-              sx={textFieldStyle}
+              onChange={(e) => { handleChange(e); handleEmailChange(e.target.value); }}
+              error={!!emailError}
+              helperText={emailError}
             />
+
+
+
 
             <TextField
               id="concern"
@@ -943,15 +1028,15 @@ const validateForm = () => {
             <div className="space-y-4 text-white text-sm leading-relaxed">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                <input
-                  type="checkbox"
-                  id="privacyConsent"
-                  name="privacyConsent"
-                  checked={formData.privacyConsent || false}
-                  onChange={handleChange}
-                  className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53]"
-                  required
-                />
+                  <input
+                    type="checkbox"
+                    id="privacyConsent"
+                    name="privacyConsent"
+                    checked={formData.privacyConsent || false}
+                    onChange={handleChange}
+                    className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53]"
+                    required
+                  />
                 </div>
                 <label htmlFor="privacyConsent" className="ml-3 block text-left font-opensans text-[#FFFBF399]">
                   <span>
@@ -980,14 +1065,14 @@ const validateForm = () => {
 
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                <input
-                  type="checkbox"
-                  id="captchaEnabled"
-                  name="captchaEnabled"
-                  checked={formData.captchaEnabled || false}
-                  onChange={handleChange}
-                  className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53]"
-                />
+                  <input
+                    type="checkbox"
+                    id="captchaEnabled"
+                    name="captchaEnabled"
+                    checked={formData.captchaEnabled || false}
+                    onChange={handleChange}
+                    className="h-5 w-5 mt-1 rounded border-gray-300 text-[#C09F53] focus:ring-[#C09F53] focus:ring-offset-0 accent-[#C09F53]"
+                  />
                 </div>
                 <label htmlFor="captchaEnabled" className="ml-3 block font-opensans text-[#FFFBF399]">
                   Please click this box so we know you're a person and not a computer
@@ -1039,10 +1124,10 @@ const validateForm = () => {
             </button>
           </form>
 
-<SuccessPopup
-  isOpen={successDialogOpen}
-  onClose={() => setSuccessDialogOpen(false)}
-/>
+          <SuccessPopup
+            isOpen={successDialogOpen}
+            onClose={() => setSuccessDialogOpen(false)}
+          />
 
         </div>
       </>
@@ -1052,7 +1137,7 @@ const validateForm = () => {
   // DESKTOP FORM (rest of the code remains exactly the same)
   return (
     <>
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -1064,7 +1149,7 @@ const validateForm = () => {
         pauseOnHover
         theme="colored"
       />
-      
+
       <div className="w-full bg-[#023437] from-11.75% to-[rgba(2,52,55,0.53)] to-100% backdrop-blur-[12.5px] py-8 md:py-16">
         <div className="max-w-[2200px] mx-auto flex flex-col items-start">
           <div className="w-full flex flex-row items-end justify-between mb-20 px-0 md:px-8 lg:px-12 xl:px-16 2xl:px-16">
@@ -1088,11 +1173,10 @@ const validateForm = () => {
           <div className="flex justify-end px-4 sm:px-6 sm:pl-12 md:px-8 md:pl-16 lg:pl-32 lg:pr-6 xl:pl-48 xl:pr-8 2xl:pl-64 2xl:pr-8 mb-4">
             <div className="w-full max-w-[1200px] mx-auto md:pl-8 lg:pl-16 xl:pl-32 2xl:pl-48 px-0">
               <div
-                className={`p-4 rounded-md ${
-                  submitMessage.type === "success"
-                    ? "bg-green-100 border border-green-400 text-green-700"
-                    : "bg-red-100 border border-red-400 text-red-700"
-                }`}
+                className={`p-4 rounded-md ${submitMessage.type === "success"
+                  ? "bg-green-100 border border-green-400 text-green-700"
+                  : "bg-red-100 border border-red-400 text-red-700"
+                  }`}
               >
                 {submitMessage.text}
               </div>
@@ -1134,11 +1218,13 @@ const validateForm = () => {
                   variant="standard"
                   fullWidth
                   value={formData.emailId}
-                  onChange={handleChange}
-                  error={!!errors.emailId}
-                  helperText={errors.emailId}
+                  onChange={(e) => { handleChange(e); handleEmailChange(e.target.value); }}
+                  error={!!errors.emailId || !!emailError}
+                  helperText={emailError || errors.emailId}
                   sx={textFieldStyle}
                 />
+
+
               </div>
 
               <div className="space-y-10">
@@ -1340,10 +1426,10 @@ const validateForm = () => {
           </form>
         </div>
 
-<SuccessPopup
-  isOpen={successDialogOpen}
-  onClose={() => setSuccessDialogOpen(false)}
-/>
+        <SuccessPopup
+          isOpen={successDialogOpen}
+          onClose={() => setSuccessDialogOpen(false)}
+        />
       </div>
     </>
   );
