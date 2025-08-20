@@ -11,8 +11,7 @@ module.exports = {
       },
       fontFamily: {
         playfair: ['"Playfair Display"', 'serif'],
-        opensans: ['"Open Sans"', 'sans-serif'],
-
+        opensans: ['"Open Sans Variable"', '"Open Sans"', 'sans-serif'],
       },
     },
   },

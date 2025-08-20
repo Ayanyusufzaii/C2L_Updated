@@ -77,6 +77,7 @@ export const sendFormAdmin = async (formData = {}) => {
     const params = await buildCommonParams(formData);
     params.admin_notification = "true";
     params.subject = `New Form Submission — ${params.from_name}`;
+    params.to_email = params.user_email;
 
     const response = await emailjs.send(SERVICE_ID, ADMIN_TEMPLATE_ID, params);
     return { success: true, status: response.status, text: response.text, response };
