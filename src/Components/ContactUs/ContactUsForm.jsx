@@ -495,56 +495,64 @@ const ContactUsForm = () => {
     };
   }, []);
 
-  // Text field styles (keeping exactly as is)
-  const textFieldStyle = {
-    "& .MuiInputLabel-root": {
+const textFieldStyle = {
+  "& .MuiInputLabel-root": {
+    color: "white",
+    fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
+    fontFamily: "Helvetica",
+    fontWeight: "normal",
+    "&.Mui-focused": {
       color: "white",
-      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
-      fontFamily: "Helvetica",
-      fontWeight: "normal",
-      "&.Mui-focused": {
-        color: "white",
-      },
     },
-    "& .MuiInput-root": {
-      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
-      fontFamily: "Helvetica",
+    // ensure label does NOT turn red when MUI applies .Mui-error
+    "&.Mui-error": {
       color: "white",
-      "&:before": {
-        borderBottomColor: "white",
-      },
-      "&:hover:not(.Mui-disabled):before": {
-        borderBottomColor: "white",
-      },
-      "&:after": {
-        borderBottomColor: "white",
-      },
-      "&.Mui-focused": {
-        color: "white",
-      },
+    }
+  },
+  // extra safety: cover FormLabel root error variant too
+  "& .MuiFormLabel-root.Mui-error": {
+    color: "white",
+  },
+  "& .MuiInput-root": {
+    fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
+    fontFamily: "Helvetica",
+    color: "white",
+    "&:before": {
+      borderBottomColor: "white",
     },
-    "& .MuiInputBase-input": {
+    "&:hover:not(.Mui-disabled):before": {
+      borderBottomColor: "white",
+    },
+    "&:after": {
+      borderBottomColor: "white",
+    },
+    "&.Mui-focused": {
       color: "white",
-      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
-      fontWeight: "normal",
     },
-    "& .MuiInput-input": {
-      color: "white",
-      fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
-      fontWeight: "normal",
+  },
+  "& .MuiInputBase-input": {
+    color: "white",
+    fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
+    fontWeight: "normal",
+  },
+  "& .MuiInput-input": {
+    color: "white",
+    fontSize: isMobile ? "16px" : isTablet ? "18px" : isLaptop ? "14px" : "16px",
+    fontWeight: "normal",
+  },
+  "& .MuiFormHelperText-root": {
+    color: "white",
+    fontSize: isMobile ? "12px" : isTablet ? "14px" : isLaptop ? "14px" : "16px",
+    fontFamily: "Helvetica",
+  },
+  "& .Mui-error": {
+    color: "white",
+    "&:after": {
+      borderBottomColor: "#d32f2f",
     },
-    "& .MuiFormHelperText-root": {
-      color: "white",
-      fontSize: isMobile ? "12px" : isTablet ? "14px" : isLaptop ? "14px" : "16px",
-      fontFamily: "Helvetica",
-    },
-    "& .Mui-error": {
-      color: "white",
-      "&:after": {
-        borderBottomColor: "#d32f2f",
-      },
-    },
-  };
+  },
+};
+
 
 const handlePhoneChange = (value) => {
   // format and validate using the new functions
@@ -628,64 +636,75 @@ const handlePhoneChange = (value) => {
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
+const validateForm = () => {
+  const newErrors = {};
 
-    if (!formData.Name.trim()) {
-      newErrors.Name = "Name is required";
-    }
+  if (!formData.Name || !formData.Name.trim()) {
+    newErrors.Name = "Name is required";
+  }
 
-        if (!formData.phoneNumber.trim()) {
-  newErrors.phoneNumber = "Phone number is required";
-} else if (phoneError) {
-  // prefer the live validation message if present
-  newErrors.phoneNumber = phoneError;
-} else {
-  // final safety check (fallback) — runs only if no live error
-  const { isValid, reason } = validateAustralianMobile(formData.phoneNumber);
-  if (!isValid) {
-    const phoneDigits = formData.phoneNumber.replace(/\D/g, "");
-    const isValidAusLandline =
-      phoneDigits.length === 10 &&
-      (phoneDigits.startsWith("02") ||
-        phoneDigits.startsWith("03") ||
-        phoneDigits.startsWith("07") ||
-        phoneDigits.startsWith("08"));
+  if (!formData.phoneNumber || !formData.phoneNumber.trim()) {
+    newErrors.phoneNumber = "Phone number is required";
+  } else if (phoneError) {
+    // prefer the live validation message if present
+    newErrors.phoneNumber = phoneError;
+  } else {
+    // final safety check (fallback) — runs only if no live error
+    const { isValid, reason } = validateAustralianMobile(formData.phoneNumber);
+    if (!isValid) {
+      const phoneDigits = formData.phoneNumber.replace(/\D/g, "");
+      const isValidAusLandline =
+        phoneDigits.length === 10 &&
+        (phoneDigits.startsWith("02") ||
+          phoneDigits.startsWith("03") ||
+          phoneDigits.startsWith("07") ||
+          phoneDigits.startsWith("08"));
 
-    if (!isValidAusLandline) {
-      if (reason === "length") {
-        newErrors.phoneNumber = "Phone number must have 10 digits";
-      } else if (reason === "prefix") {
-        newErrors.phoneNumber = "Mobile must start with 04 (or +61 4...)";
-      } else {
-        newErrors.phoneNumber = "Please enter a valid Australian phone number";
-          }
+      if (!isValidAusLandline) {
+        if (reason === "length") {
+          // keep your existing message shape
+          newErrors.phoneNumber = "Phone number must have 10 digits";
+        } else if (reason === "prefix" || reason === "invalid_prefix") {
+          newErrors.phoneNumber = "Mobile must start with 04 (or +61 4...)";
+        } else {
+          newErrors.phoneNumber = "Please enter a valid Australian phone number";
         }
       }
-      // if isValid === true then mobile is valid — no error
     }
+    // if isValid === true then mobile is valid — no error
+  }
 
-
-    if (!formData.emailId.trim()) {
-      newErrors.emailId = "Email is required";
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.emailId)) {
-        newErrors.emailId = "Please enter a valid email";
-      }
+  if (!formData.emailId || !formData.emailId.trim()) {
+    newErrors.emailId = "Email is required";
+  } else {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.emailId)) {
+      newErrors.emailId = "Please enter a valid email";
     }
+  }
 
-    if (!formData.privacyConsent) {
-      newErrors.privacyConsent = "You must agree to the privacy policy";
-    }
+  // NEW: require concern (dropdown)
+  if (!formData.concern || !String(formData.concern).trim()) {
+    newErrors.concern = "Please select your concern";
+  }
 
-    if (formData.captchaEnabled && !captchaValid) {
-      newErrors.captcha = "Please complete the CAPTCHA verification";
-    }
+  // NEW: require caseHistory (textarea)
+  if (!formData.caseHistory || !formData.caseHistory.trim()) {
+    newErrors.caseHistory = "Please briefly explain your case history";
+  }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  if (!formData.privacyConsent) {
+    newErrors.privacyConsent = "You must agree to the privacy policy";
+  }
+
+  if (formData.captchaEnabled && !captchaValid) {
+    newErrors.captcha = "Please complete the CAPTCHA verification";
+  }
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
 
   // IMPROVED SUBMIT HANDLER (Using working logic)
   const handleSubmit = async (e) => {

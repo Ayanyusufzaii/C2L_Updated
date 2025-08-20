@@ -447,44 +447,57 @@ function HomeTwo() {
     };
   }, [certId, pingUrl, tokenUrl]);
 
-  const getTextFieldStyle = () => ({
-    '& .MuiInputLabel-root': {
-      color: '#023437',
-      fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
-      fontFamily: 'Helvetica',
-      fontWeight: 'bold',
-      '&.Mui-focused': {
-        color: '#023437'
-      }
+ const getTextFieldStyle = () => ({
+  '& .MuiInputLabel-root': {
+    color: '#023437',
+    fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
+    fontFamily: 'Helvetica',
+    fontWeight: 'bold',
+    '&.Mui-focused': {
+      color: '#023437'
     },
-    '& .MuiInput-root': {
-      fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
-      fontFamily: 'Helvetica',
-      color: '#023437',
-      '&:before': {
-        borderBottomColor: '#023437'
-      },
-      '&:hover:not(.Mui-disabled):before': {
-        borderBottomColor: '#023437'
-      },
-      '&:after': {
-        borderBottomColor: '#023437'
-      },
-      '&.Mui-focused': {
-        color: '#023437'
-      }
-    },
-    '& .MuiFormHelperText-root': {
-      fontSize: isMobile ? '12px' : '14px',
-      fontFamily: 'Helvetica'
-    },
-    '& .Mui-error': {
-      color: '#023437',
-      '&:after': {
-        borderBottomColor: '#d32f2f'
-      }
+    // <-- ensure label does NOT turn red when MUI applies .Mui-error
+    '&.Mui-error': {
+      color: '#023437'
     }
-  });
+  },
+
+  // extra safety: cover FormLabel root error variant too
+  '& .MuiFormLabel-root.Mui-error': {
+    color: '#023437'
+  },
+
+  '& .MuiInput-root': {
+    fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
+    fontFamily: 'Helvetica',
+    color: '#023437',
+    '&:before': {
+      borderBottomColor: '#023437'
+    },
+    '&:hover:not(.Mui-disabled):before': {
+      borderBottomColor: '#023437'
+    },
+    // keep the focused/after underline color behavior intact
+    '&:after': {
+      borderBottomColor: '#023437'
+    },
+    '&.Mui-focused': {
+      color: '#023437'
+    }
+  },
+  '& .MuiFormHelperText-root': {
+    fontSize: isMobile ? '12px' : '14px',
+    fontFamily: 'Helvetica'
+  },
+  // keep your existing error underline helper rule (no label color override here)
+  '& .Mui-error': {
+    color: '#023437',
+    '&:after': {
+      borderBottomColor: '#d32f2f'
+    }
+  }
+});
+
 
   const handlePhoneChange = (value) => {
     // format and validate using the new functions
@@ -558,67 +571,76 @@ function HomeTwo() {
     }
   };
 
-  // Use same AU phone validation as ContactUs form
-  const validateForm = () => {
-    const newErrors = {};
+ // Replace your existing validateForm with this
+const validateForm = () => {
+  const newErrors = {};
 
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = 'Name is required';
-    }
+  if (!formData.firstName.trim()) {
+    newErrors.firstName = 'Name is required';
+  }
 
-    if (!formData.phoneNumber.trim()) {
-      newErrors.phoneNumber = 'Phone number is required';
-    } else if (phoneError) {
-      // prefer the live validation message if present
-      newErrors.phoneNumber = phoneError;
-    } else {
-      // final safety check (fallback) — runs only if no live error
-      const { isValid, reason } = validateAustralianMobile(formData.phoneNumber);
-      if (!isValid) {
-        const phoneDigits = formData.phoneNumber.replace(/\D/g, '');
-        const isValidAusLandline =
-          phoneDigits.length === 10 &&
-          (phoneDigits.startsWith("02") ||
-            phoneDigits.startsWith("03") ||
-            phoneDigits.startsWith("07") ||
-            phoneDigits.startsWith("08"));
+  if (!formData.phoneNumber.trim()) {
+    newErrors.phoneNumber = 'Phone number is required';
+  } else if (phoneError) {
+    // prefer the live validation message if present
+    newErrors.phoneNumber = phoneError;
+  } else {
+    // final safety check (fallback) — runs only if no live error
+    const { isValid, reason } = validateAustralianMobile(formData.phoneNumber);
+    if (!isValid) {
+      const phoneDigits = formData.phoneNumber.replace(/\D/g, '');
+      const isValidAusLandline =
+        phoneDigits.length === 10 &&
+        (phoneDigits.startsWith("02") ||
+          phoneDigits.startsWith("03") ||
+          phoneDigits.startsWith("07") ||
+          phoneDigits.startsWith("08"));
 
-        if (!isValidAusLandline) {
-          if (reason === "length") {
-            newErrors.phoneNumber = "Phone number must have 9 digits after the prefix";
-          } else if (reason === "actual_start") {
-            newErrors.phoneNumber = "Phone number must start with '4' (after prefix)";
-          } else if (reason === "invalid_prefix") {
-            newErrors.phoneNumber = "Prefix must be empty, 0, or +61 (e.g. +61 4XX XXX XXX)";
-          } else {
-            newErrors.phoneNumber = "Please enter a valid Australian phone number";
-          }
+      if (!isValidAusLandline) {
+        if (reason === "length") {
+          newErrors.phoneNumber = "Phone number must have 9 digits after the prefix";
+        } else if (reason === "actual_start") {
+          newErrors.phoneNumber = "Phone number must start with '4' (after prefix)";
+        } else if (reason === "invalid_prefix") {
+          newErrors.phoneNumber = "Prefix must be empty, 0, or +61 (e.g. +61 4XX XXX XXX)";
+        } else {
+          newErrors.phoneNumber = "Please enter a valid Australian phone number";
         }
       }
-      // if isValid === true then mobile is valid — no error
     }
+    // if isValid === true then mobile is valid — no error
+  }
 
-
-    if (!formData.emailId.trim()) {
-      newErrors.emailId = 'Email is required';
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.emailId)) {
-        newErrors.emailId = 'Please enter a valid email address';
-      }
+  if (!formData.emailId.trim()) {
+    newErrors.emailId = 'Email is required';
+  } else {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.emailId)) {
+      newErrors.emailId = 'Please enter a valid email address';
     }
+  }
 
-    if (!formData.privacyConsent) {
-      newErrors.privacyConsent = 'You must agree to the privacy policy';
-    }
+  // NEW: require concern (dropdown)
+  if (!formData.concern || !formData.concern.toString().trim()) {
+    newErrors.concern = 'Please select your concern';
+  }
 
-    if (formData.captchaEnabled && !captchaValid) {
-      newErrors.captcha = 'Please complete the CAPTCHA verification';
-    }
+  // NEW: require caseHistory (textarea)
+  if (!formData.caseHistory || !formData.caseHistory.trim()) {
+    newErrors.caseHistory = 'Please briefly explain your case history';
+  }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  if (!formData.privacyConsent) {
+    newErrors.privacyConsent = 'You must agree to the privacy policy';
+  }
+
+  if (formData.captchaEnabled && !captchaValid) {
+    newErrors.captcha = 'Please complete the CAPTCHA verification';
+  }
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
