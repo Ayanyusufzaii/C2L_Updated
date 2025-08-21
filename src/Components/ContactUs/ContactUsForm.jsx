@@ -986,6 +986,7 @@ const ContactUsForm = () => {
               onChange={(e) => { handleChange(e); handleEmailChange(e.target.value); }}
               error={!!emailError}
               helperText={emailError}
+              sx={textFieldStyle}
             />
 
 
@@ -1003,12 +1004,20 @@ const ContactUsForm = () => {
               error={!!errors.concern}
               helperText={errors.concern}
               sx={textFieldStyle}
+              SelectProps={{
+                IconComponent: (props) => (
+                  <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M7 10l5 5 5-5z" />
+                  </svg>
+                ),
+              }}
             >
               <MenuItem value="Mesothelioma Lawsuit">Mesothelioma Lawsuit</MenuItem>
               <MenuItem value="Truck Accident Claims">Truck Accident Claims</MenuItem>
               <MenuItem value="Rideshare Class Action Lawsuits">Rideshare Class Action Lawsuits</MenuItem>
               <MenuItem value="Other">Other</MenuItem>
             </TextField>
+
 
             <TextField
               id="caseHistory"
@@ -1253,25 +1262,20 @@ const ContactUsForm = () => {
                   error={!!errors.concern}
                   helperText={errors.concern}
                   sx={textFieldStyle}
-                  InputLabelProps={{
-                    sx: {
-                      marginBottom: "40px",
-                    },
+                  SelectProps={{
+                    IconComponent: (props) => (
+                      <svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M7 10l5 5 5-5z" />
+                      </svg>
+                    ),
                   }}
                 >
-                  <MenuItem value="Mesothelioma Lawsuit" sx={{ textAlign: "left" }}>
-                    Mesothelioma Lawsuit
-                  </MenuItem>
-                  <MenuItem value="Truck Accident Claims" sx={{ textAlign: "left" }}>
-                    Truck Accident Claims
-                  </MenuItem>
-                  <MenuItem value="Rideshare Class Action Lawsuits" sx={{ textAlign: "left" }}>
-                    Rideshare Class Action Lawsuits
-                  </MenuItem>
-                  <MenuItem value="Other" sx={{ textAlign: "left" }}>
-                    Other
-                  </MenuItem>
+                  <MenuItem value="Mesothelioma Lawsuit">Mesothelioma Lawsuit</MenuItem>
+                  <MenuItem value="Truck Accident Claims">Truck Accident Claims</MenuItem>
+                  <MenuItem value="Rideshare Class Action Lawsuits">Rideshare Class Action Lawsuits</MenuItem>
+                  <MenuItem value="Other">Other</MenuItem>
                 </TextField>
+
               </div>
             </div>
 
