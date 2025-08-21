@@ -10,7 +10,7 @@ const HomeFour = () => {
   };
 
   const handleLearnMoreClick = () => {
-    navigate('/service'); // assuming "leen" is the service slug
+    navigate('/services'); // assuming "leen" is the service slug
   };
 
   return (

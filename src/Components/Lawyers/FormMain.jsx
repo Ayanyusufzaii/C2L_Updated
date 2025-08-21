@@ -5,55 +5,42 @@ import imageSrc from "../../assets/thankyouimng.png"
 import { ChevronDown } from "lucide-react";
 
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
-  const [captchaText, setCaptchaText] = useState("");
-  const [userInput, setUserInput] = useState("");
+  const [captchaText, setCaptchaText] = useState('');
+  const [userInput, setUserInput] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [charOffsets, setCharOffsets] = useState([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  const generateCaptcha = useCallback(() => {
-    try {
-      // Stop any ongoing speech when generating new CAPTCHA
-      if (window.speechSynthesis && isSpeaking) {
-        window.speechSynthesis.cancel();
-        setIsSpeaking(false);
-      }
-
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      let result = "";
-      let offsets = [];
-      
-      for (let i = 0; i < 6; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-        offsets.push((Math.random() * 10 - 5).toFixed(2));
-      }
-      
-      setCaptchaText(result);
-      setCharOffsets(offsets);
-      setUserInput("");
-      setIsValid(false);
-      
-      // Safe callback invocation
-      if (typeof onCaptchaChange === 'function') {
-        onCaptchaChange(false);
-      }
-    } catch (error) {
-      console.error('Error generating CAPTCHA:', error);
+  const generateCaptcha = () => {
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
     }
-  }, [isSpeaking, onCaptchaChange]);
 
-  // Generate CAPTCHA immediately when component mounts
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    let offsets = [];
+    for (let i = 0; i < 6; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+      offsets.push((Math.random() * 10 - 5).toFixed(2));
+    }
+    setCaptchaText(result);
+    setCharOffsets(offsets);
+    setUserInput('');
+    setIsValid(false);
+    onCaptchaChange && onCaptchaChange(false);
+  };
+
   useEffect(() => {
     generateCaptcha();
-  }, [generateCaptcha]);
+  }, []);
 
-  // Reset captcha when resetTrigger changes
   useEffect(() => {
     if (resetTrigger) {
       generateCaptcha();
     }
-  }, [resetTrigger, generateCaptcha]);
+  }, [resetTrigger]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -62,91 +49,65 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
 
     return () => {
       clearInterval(timer);
-      // Stop any ongoing speech when component unmounts
-      try {
-        if (window.speechSynthesis && isSpeaking) {
-          window.speechSynthesis.cancel();
-        }
-      } catch (error) {
-        console.error('Error cleaning up speech synthesis:', error);
+      if (isSpeaking) {
+        window.speechSynthesis.cancel();
       }
     };
-  }, [generateCaptcha, isSpeaking]);
+  }, [isSpeaking]);
 
-  const speakCaptcha = useCallback(() => {
-    if (!("speechSynthesis" in window)) {
-      console.warn('Speech synthesis not supported');
-      return;
-    }
-
-    try {
-      // Stop any ongoing speech before starting new one
+  const speakCaptcha = () => {
+    if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
       setIsSpeaking(true);
 
       const voices = window.speechSynthesis.getVoices();
-      const maleUsVoice =
-        voices.find(
-          (voice) =>
-            voice.lang === "en-US" && voice.name.toLowerCase().includes("david")
-        ) || voices.find((voice) => voice.lang === "en-US");
+      const maleUsVoice = voices.find(voice =>
+        voice.lang === 'en-US' &&
+        voice.name.toLowerCase().includes('david')
+      ) || voices.find(voice =>
+        voice.lang === 'en-US'
+      );
 
       let currentIndex = 0;
       const speakNextChar = () => {
-        try {
-          if (currentIndex < captchaText.length) {
-            const char = captchaText[currentIndex];
-            const utterance = new SpeechSynthesisUtterance(char);
-            utterance.rate = 0.5;
-            utterance.pitch = 0.9;
-            utterance.volume = 1.0;
-            utterance.lang = "en-US";
+        if (currentIndex < captchaText.length) {
+          const char = captchaText[currentIndex];
+          const utterance = new SpeechSynthesisUtterance(char);
+          utterance.rate = 0.5;
+          utterance.pitch = 0.9;
+          utterance.volume = 1.0;
+          utterance.lang = 'en-US';
 
-            if (maleUsVoice) {
-              utterance.voice = maleUsVoice;
-            }
-
-            utterance.onend = () => {
-              currentIndex++;
-              speakNextChar();
-            };
-
-            utterance.onerror = (event) => {
-              console.error('Speech synthesis error:', event);
-              setIsSpeaking(false);
-            };
-
-            window.speechSynthesis.speak(utterance);
-          } else {
-            setIsSpeaking(false);
+          if (maleUsVoice) {
+            utterance.voice = maleUsVoice;
           }
-        } catch (error) {
-          console.error('Error in speech synthesis:', error);
+
+          utterance.onend = () => {
+            currentIndex++;
+            speakNextChar();
+          };
+
+          window.speechSynthesis.speak(utterance);
+        } else {
           setIsSpeaking(false);
         }
       };
 
       speakNextChar();
-    } catch (error) {
-      console.error('Error starting speech synthesis:', error);
-      setIsSpeaking(false);
     }
-  }, [captchaText]);
+  };
 
-  const handleInputChange = useCallback((e) => {
+  const handleInputChange = (e) => {
     const value = e.target.value;
     setUserInput(value);
     const valid = value === captchaText;
     setIsValid(valid);
-    
-    if (typeof onCaptchaChange === 'function') {
-      onCaptchaChange(valid);
-    }
-  }, [captchaText, onCaptchaChange]);
+    onCaptchaChange && onCaptchaChange(valid);
+  };
 
-  const handleAudioToggle = useCallback((e) => {
+  const handleAudioToggle = (e) => {
     setAudioEnabled(e.target.checked);
-  }, []);
+  };
 
   return (
     <div className="mt-4">
@@ -155,25 +116,19 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           <div
             className="absolute inset-0 opacity-30"
             style={{
-              backgroundImage: `repeating-linear-gradient(
-                0deg,
-                #ccc,
-                #ccc 1px,
-                transparent 1px,
-                transparent 5px
-              )`,
-              backgroundSize: "100% 10px",
-              backgroundPosition: "0 50%",
+              backgroundImage: `repeating-linear-gradient(0deg, #ccc, #ccc 1px, transparent 1px, transparent 5px)`,
+              backgroundSize: '100% 10px',
+              backgroundPosition: '0 50%'
             }}
           />
-          <div className="relative z-10" role="img" aria-label={`CAPTCHA text: ${captchaText}`}>
-            {captchaText.split("").map((char, index) => (
+          <div className="relative z-10">
+            {captchaText.split('').map((char, index) => (
               <span
                 key={index}
                 style={{
-                  transform: `translateY(${charOffsets[index]}px)`,
-                  display: "inline-block",
-                  textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
+                  transform: `translateY(${parseFloat(charOffsets[index] || 0)}px)`,
+                  display: 'inline-block',
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
                 }}
                 className="mx-0.5"
               >
@@ -182,7 +137,7 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
             ))}
           </div>
         </div>
-        <div className="flex gap-2 items-center justify-left sm:justify-start">
+        <div className="flex gap-2 items-center justify-start sm:justify-start">
           <button
             type="button"
             onClick={generateCaptcha}
@@ -197,13 +152,12 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
               type="button"
               onClick={speakCaptcha}
               disabled={isSpeaking}
-              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${
-                isSpeaking ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className={`px-3 py-2 text-gray-600 border border-gray-300 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-0 ${isSpeaking ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
               title="Listen to CAPTCHA"
-              aria-label={isSpeaking ? "Playing CAPTCHA audio" : "Listen to CAPTCHA"}
+              aria-label="Listen to CAPTCHA"
             >
-              {isSpeaking ? "🔊🎵" : "🔊"}
+              {isSpeaking ? '🔊🎵' : '🔊'}
             </button>
           )}
         </div>
@@ -228,20 +182,18 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
           value={userInput}
           onChange={handleInputChange}
           placeholder="Enter CAPTCHA"
-          aria-describedby={userInput !== "" && !isValid ? "captcha-error" : isValid ? "captcha-success" : undefined}
-          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            userInput !== "" && !isValid
-              ? "border-red-500 focus:ring-red-500"
-              : "border-gray-300"
-          }`}
+          className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${userInput !== '' && !isValid
+            ? 'border-red-500 focus:ring-red-500'
+            : 'border-gray-300'
+            }`}
         />
-        {userInput !== "" && !isValid && (
-          <p id="captcha-error" className="text-red-500 text-sm mt-1" role="alert">
+        {userInput !== '' && !isValid && (
+          <p className="text-red-500 text-sm mt-1">
             CAPTCHA does not match
           </p>
         )}
         {isValid && (
-          <p id="captcha-success" className="text-green-500 text-sm mt-1" role="alert">
+          <p className="text-green-500 text-sm mt-1">
             ✓ CAPTCHA verified successfully
           </p>
         )}

@@ -219,7 +219,7 @@ const navigate = useNavigate();
           </div>
 
           {/* Desktop Tags */}
-         <div className="hidden md:flex flex-nowrap justify-center gap-3 md:gap-4 lg:gap-5 mb-6 md:mb-8">
+         <div className="hidden md:flex flex-nowrap justify-left gap-3 md:gap-4 lg:gap-5 mb-6 md:mb-8">
   {expertiseTags.map((tag) => (
     <button
       key={tag}
@@ -355,7 +355,7 @@ const navigate = useNavigate();
           </div>
 
           {/* Desktop Tags */}
-         <div className="hidden md:flex flex-nowrap justify-center gap-3 md:gap-4 lg:gap-5 mb-6 md:mb-8">
+         <div className="hidden md:flex flex-nowrap justify-left gap-3 md:gap-4 lg:gap-5 mb-6 md:mb-8">
   {expertiseTags.map((tag) => (
     <button
       key={tag}

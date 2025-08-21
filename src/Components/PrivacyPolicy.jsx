@@ -1,373 +1,114 @@
 import React from 'react'
-
+ 
 function PrivacyPolicy() {
   return (
     <div className='container mx-auto px-4 py-8 md:px-6 lg:px-8'>
-      <h1 className='text-3xl font-bold mb-6'>Privacy Policy</h1>
+      <h1 className='text-3xl font-bold mb-6 text-center uppercase'>Website Privacy Policy</h1>
+      <p className='text-gray-700 mb-4'><span className='font-bold'>Last Updated :</span> August 21, 2025</p>
       <p className='text-gray-700 mb-4'>
-        The Privacy Policy outlined below discloses the specific ways in which
-        www.connect2lawyer.com.au functions, how you should use it or can use it,
-        how we collect user information and how that information is handled and
-        protected. Your privacy is important to www.connect2lawyer.com.au, and
-        we’re committed to making sure it is protected. We use your information
-        only in the ways described below.
-      </p>
-      <p className='text-gray-700 mb-6'>
-        By using this website you consent to this Policy, including your consent
-        to our use and disclosure of information about you in the manner
-        described in this Policy.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Information Collection and Use</h2>
-      <p className='text-gray-700 mb-4'>
-        www.connect2lawyer.com.au receives but does not track, a variety of
-        “personally identifiable information,” including your email address, IP
-        address, and message content. When we need to collect personally
-        identifiable information from you to execute a requested transaction or
-        provide you with a particular service, we will ask you to voluntarily
-        supply us with the information we need. We may ask you for information
-        such as, but not limited to: your name, address, telephone number, and
-        email address to process your submission. You have the option of also
-        providing information regarding your name, demographics (such as your
-        state and country of residency), operating system, browser, Internet
-        service provider (“ISP”), connection type and email program that you are
-        using. www.connect2lawyer.com.au also automatically receives and records
-        information on our server logs from your browser, including your IP
-        Address and the page you requested. Your IP address is not linked to your
-        email address or www.connect2lawyer.com.au.
+        <span className='font-bold'>Connect2Lawyer Pty Ltd</span> and its related entities (“Connect2Lawyer”, “the Company”, “we”, “us”) are committed to protecting the privacy of personal information obtained in the course of providing legal referral services, managing user and lawyer accounts, and operating our technology platform. As a trusted legal services facilitator, we take the privacy and security of your personal information very seriously.
       </p>
       <p className='text-gray-700 mb-4'>
-        www.connect2lawyer.com.au does not collect your email address unless you
-        actively provide it to the company so that we can communicate with you.
+        This Privacy Policy (the “Policy”) forms part of the overall privacy management framework of Connect2Lawyer and explains how we handle personal information and comply with the Australian Privacy Principles (“APPs”) under the <span className='font-bold'>Privacy Act 1988 (Cth)</span> (“Privacy Act”).
       </p>
-      <p className='text-gray-700 mb-4'>
-        When your Web browser or email application requests a Web page from
-        another computer on the Internet it automatically gives that computer the
-        address where the requested information should be sent. This is called
-        your computer’s “IP address.” (IP stands for “Internet protocol.”) For
-        most users accessing the Internet from a dial-up ISP, the IP address may
-        be different every time you log on. www.connect2lawyer.com.au receives
-        your IP address each time you view a Web page from the Site. Your IP
-        address is not linked to your email address or any other personally
-        identifiable information.
-      </p>
-      <p className='text-gray-700 mb-4'>
-        Your IP address may be used for various purposes, including:
-      </p>
-      <ul className='list-disc list-inside text-gray-700 mb-4 ml-4'>
-        <li>
-          To diagnose service or technology problems reported by you that are
-          associated with your IP address
-        </li>
-        <li>
-          To estimate the total number of users visiting the Site from specific
-          locales, countries or regions of the world
-        </li>
-        <li>
-          In certain areas of this website, we require that you provide us with
-          personally identifiable information, in order to be able to use that
-          portion or those portions of this website. For instance, the names and
-          contact information of persons who visit our website will be added to
-          our database so that, for example, they may be contacted in the future
-          regarding www.connect2lawyer.com.au services or future opportunities.
-          Such contact may occur by email, telephone or mail, as
-          www.connect2lawyer.com.au deems appropriate.
-        </li>
+      <p className='text-gray-700 mb-4'>This Policy covers the following areas:</p>
+      <ul className='list-disc pl-6 text-gray-700 mb-4'>
+        <li>What Information We Collect</li>
+        <li>Types of Information (Personal Information and Sensitive Information)</li>
+        <li>How We Collect Your Personal Information</li>
+        <li>Purpose of Collection</li>
+        <li>Disclosure of Information</li>
+        <li>Security, Access and Correction</li>
+        <li>Complaint Procedure</li>
+        <li>Overseas Transfers</li>
+        <li>How to Contact Us About Privacy</li>
       </ul>
       <p className='text-gray-700 mb-4'>
-        www.connect2lawyer.com.au uses your email address for the following
-        purposes:
+        This Policy applies to all directors, employees and staff of Connect2Lawyer. All personnel are required to comply with this Policy and associated Company policies when dealing with personal information and must complete data privacy training as required by the Company from time to time.
       </p>
-      <ul className='list-disc list-inside text-gray-700 mb-6 ml-4'>
-        <li>To contact you about www.connect2lawyer.com.au services or the Site</li>
-        <li>To notify you when you receive a www.connect2lawyer.com.au email message</li>
-        <li>To communicate with you concerning problems or malfunctions you report</li>
+      <p className='text-gray-700 mb-8'>Please read this Policy carefully and contact us if you have any questions. Our contact details are included below.</p>
+ 
+      <h2 className='text-2xl font-semibold mt-8 mb-4'>1. What Information Do We Collect?</h2>
+      <p className='text-gray-700 mb-4'>
+        The kind of personal information that we collect from you will depend on how you use the Website. The personal information which we collect and hold about you may include:
+      </p>
+      <ul className='list-disc pl-6 text-gray-700 mb-4'>
+        <li>Name, email address, phone number</li>
+        <li>Location and area of legal interest</li>
+        <li>Usage information, IP address, and cookies</li>
+        <li>Any other information you provide when using our Website</li>
       </ul>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Log Files</h2>
+ 
+      <h2 className='text-2xl font-semibold mt-8 mb-4'>2. Types of Information</h2>
+      <p className='text-gray-700 mb-4'>The Privacy Act 1988 (Cth) ("Privacy Act") defines types of information, including Personal Information and Sensitive Information.</p>
+      <h3 className='text-xl font-medium mb-2'>(a) Personal Information</h3>
       <p className='text-gray-700 mb-4'>
-        When a Web page on the website is requested, that request (including the
-        date and time) is logged on our servers with information including the IP
-        address of the computer that requested the page. We use log files for
-        debugging and troubleshooting purposes. IP addresses and access times are
-        not linked to your email address or any other personally identifiable
-        information.
+        Personal Information means information or an opinion about an identified individual or an individual who is reasonably identifiable:
       </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Cookies</h2>
-      <p className='text-gray-700 mb-4'>
-        A cookie is a small amount of data, which often includes a unique
-        identifier that is sent to your browser from a website’s computers and
-        then stored on your computer’s hard drive. A cookie cannot obtain
-        information from your hard drive, destroy files, or transmit viruses.
-        Each website can send its own cookie to your browser, if your browser’s
-        preferences allow it. To protect your privacy, your browser normally only
-        permits a website to access cookies that it has previously sent to you,
-        but not the cookies sent to you by other sites.
-      </p>
-      <p className='text-gray-700 mb-4'>
-        If you request certain services from us, Connect2lawyer may then attempt
-        to set cookies on your computer and later access those cookies. You can
-        normally refuse cookies by setting preferences in your browser. You do
-        not need to accept cookies in order to use the Connect2lawyer service.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Choices about Cookies</h2>
-      <p className='text-gray-700 mb-4'>
-        You can normally configure your browser to accept all cookies, reject all
-        cookies, or notify you when a cookie is set. (Each browser is different,
-        so check the “Help” menu of your browser to learn how to change your
-        cookie preferences.) If you reject all cookies, you will still be able to
-        use Connect2lawyer services. Cookies are used only as an option selected
-        by you that allows us to recall your email address from the cookie that
-        we sent to your computer.
-      </p>
-      <p className='text-gray-700 mb-6'>
-        www.connect2lawyer.com.au uses Google Analytics to analyze this
-        website’s audience and for content improvement. No personal information
-        is collected from Google Analytics.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Data Storage/User Information</h2>
-      <p className='text-gray-700 mb-4'>
-        All Connect2lawyer account information (including names, phone numbers,
-        and mailing addresses) and content of email messages are stored on
-        multiple redundant disk storage systems. No removable offline copies or
-        backups are made. If you request the deletion of your email address or
-        any other identifiable information, your information will be deactivated
-        and removed from our user registration database within 30 days.
-      </p>
-      <p className='text-gray-700 mb-6'>
-        In reviewing the information above, please keep in mind Connect2lawyer
-        cannot and does not assume any responsibility for any actions or
-        omissions of third parties, including other website users and including
-        the manner in which they might use the information received either from
-        Connect2lawyer or independently.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Information Sharing and Disclosure</h2>
-      <p className='text-gray-700 mb-6'>
-        Connect2lawyer will not sell or rent your email address, name, mailing
-        address or other supplied information to anyone, except as provided in
-        the legal disclaimer below.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Legal Disclaimer</h2>
-      <p className='text-gray-700 mb-4'>
-        We reserve the right to disclose your personally identifiable
-        information, as required, to comply with the law, applicable regulations,
-        governmental and quasi-governmental requests, judicial proceedings, court
-        orders or subpoenas, to enforce our Legal Notices or other agreements, or
-        to protect our rights, property or safety or the rights, or to protect
-        the property or safety of our users or others (e.g., to a consumer
-        reporting agency for fraud protection etc.), and to ensure the security
-        of our network and services.
-      </p>
-      <p className='text-gray-700 mb-4'>
-        Information obtained is utilized solely to improve and enhance the
-        quality of Connect2lawyer. Information submitted to
-        www.connect2lawyer.com.au in some instances may be shared or sold to a
-        third-party service provider. Connect2lawyer will not share or sell
-        information submitted to us to any third party unless consent is
-        authorized by the visitor.
-      </p>
-      <p className='text-gray-700 mb-4'>
-        For more information please see our Disclaimer page.
-      </p>
-      <p className='text-gray-700 mb-4'>
-        To protect Personal Information (to the extent that you voluntarily
-        provide it) from unauthorized access and use, we use security measures
-        that comply with applicable federal and state laws. These measures may
-        include device safeguards and secured files and buildings as well as
-        oversight of our third-party service providers to ensure information
-        remains confidential and secure.
-      </p>
-      <p className='text-gray-700 font-bold mt-6 mb-2'>
-        Transfer of Ownership and Sales of Assets
-      </p>
-      <p className='text-gray-700 mb-4'>
-        In the event that www.connect2lawyer.com.au goes through a business
-        transition, such as a merger, acquisition by another company, or sale of
-        all or a portion of its assets, your personally identifiable information
-        will likely be among the assets transferred to the extent that you
-        voluntarily provided it. You will be notified via email and/or a prominent
-        notice on our website of any change in ownership or uses of your personal
-        information, as well as any choices you may have regarding your personal
-        information.
-      </p>
-      <p className='text-gray-700 font-bold mt-6 mb-2'>Spam, Spyware</p>
-      <p className='text-gray-700 mb-6'>
-        We do not tolerate spam or spyware coming to our website or going to our
-        users through our website. If you suspect you received spam or spyware
-        because you used www.connect2lawyer.com.au, please make us aware of the
-        issue by alerting us with an email to teamup@connect2lawyer.com.au. You
-        are not permitted to use our website to spam or send spyware to a third
-        party.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Protecting Children’s Privacy Online</h2>
-      <p className='text-gray-700 mb-4'>
-        We encourage parents and guardians to spend time with their children
-        online and to be fully familiar with the websites visited by their
-        children. We recognize the particular importance of protecting privacy
-        where children are involved. We do not knowingly collect personally
-        identifiable information online from children under the age of 13. If a
-        child under the age of 13 has provided us with personally identifiable
-        information online, we ask that a parent or guardian contact us at
-        teamup@connect2lawyer.com.au or call +61470695167. Visit the Federal
-        Trade Commission website for more information about the Children’s Online
-        Privacy Protection Act (COPPA).
-      </p>
-      <p className='text-gray-700 mb-6'>
-        If you are between the ages of 13 and 18, please be sure to read this
-        Privacy Policy with your parent and obtain his or her permission before
-        you submit or post any Personal Information and before you use any
-        features of this website.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Contacting You</h2>
-      <p className='text-gray-700 mb-6'>
-        By filling out and submitting information on our website, you give us or
-        one of our affiliates or partners permission to contact you. We consider
-        this permission not to be specific to services related to drug and
-        medical devices but to include other applicable products and services we
-        may market and advertise in the future.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Removing Your Information</h2>
-      <p className='text-gray-700 mb-4'>
-        Connect2lawyer will retain your information for as long as your account
-        is active or as needed to provide you services. If you wish to request
-        that we no longer use your information to provide you services or updates
-        on additional products, contact us. Additionally, we will retain and use
-        your information as necessary to comply with our legal or regulatory
-        obligations, resolve disputes, and enforce our agreements.
-      </p>
-      <p className='text-gray-700 mb-6'>
-        If your personally identifiable information changes or if you no longer
-        desire our service, you may update or amend your information with us or
-        ask to have it removed from our database lists or production directory.
-        Simply contact us by email or traditional mail. We will respond to your
-        request to access within 30 calendar days.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Testimonials</h2>
-      <p className='text-gray-700 mb-4'>
-        If you submit a testimonial to us, we will ask for your permission to
-        post your testimonial prior to any public use. We will post your name as
-        given to us in your testimonial. Please be aware that any personally
-        identifiable information you submit as a testimonial to be posted can be
-        read, collected, or used by the general public, and could be used to send
-        you unsolicited messages. We are not responsible for the personally
-        identifiable information you choose to include in any testimonial you
-        choose to submit. If at any time you decide to remove your testimonial,
-        please contact us via email or postal mail.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Contacting Connect2lawyer</h2>
-      <p className='text-gray-700 mb-4'>
-        If you have any questions, concerns or suggestions about our Privacy
-        Policy or anything else about www.connect2lawyer.com.au, you may contact
-        us in several ways. You can:
-      </p>
-      <ul className='list-disc list-inside text-gray-700 mb-4 ml-4'>
-        <li>Send an email to: teamup@connect2lawyer.com.au</li>
+      <ul className='list-disc pl-6 text-gray-700 mb-4'>
+        <li>whether the information or opinion is true or not; and</li>
+        <li>whether the information or opinion is recorded in a material form or not.</li>
       </ul>
       <p className='text-gray-700 mb-4'>
-        Any information sent to us through email is not encrypted by us.
+        If the information does not disclose your identity or enable your identity to be ascertained, it will in most cases not be classified as "Personal Information" and will not be subject to this Privacy Policy.
       </p>
-      <p className='text-gray-700 font-bold mt-6 mb-2'>Notice to California Residents</p>
-      <p className='text-gray-700 mb-4'>
-        Residents of the State of California may request a list of all third
-        parties to which this website has disclosed certain information during the
-        preceding year for those third parties’ direct marketing purposes. If you
-        are a California resident and want such a list, please contact us at
-        teamup@connect2lawyer.com.au.
-      </p>
-      <p className='text-gray-700 mb-6'>
-        For all requests, you must put the statement “California Shine the Light
-        Privacy Request” in the body of your request, as well as your name, street
-        address, city, state, and zip code. Please note that we are not
-        responsible for requests that are not labeled or sent properly, or that
-        do not have complete information.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Notice to Vermont Residents</h2>
-      <p className='text-gray-700 mb-6'>
-        We will not share any personal information about you with other businesses
-        to the extent prohibited by applicable Vermont law or to the extent your
-        prior consent to share is required by applicable Vermont law. For purposes
-        of compliance with the Vermont Consumer Protection Act, if you are a
-        resident of the State of Vermont and would like to opt-out from the
-        disclosure of your personal information to any third-party for marketing
-        purposes, please contact us at teamup@connect2lawyer.com.au.
-      </p>
-
-      {/* --- */}
-
-      <h2 className='text-2xl font-semibold mb-4'>Changes to Privacy Policy</h2>
-      <p className='text-gray-700 mb-4'>
-        www.connect2lawyer.com.au updates or modifies this Privacy Policy from
-        time to time. If we make material changes to this Privacy Policy or to
-        how www.connect2lawyer.com.au will use your personal information, we
-        will post those changes here. We reserve the right to make changes in
-        this policy at any time. Please check the policy each time you use our
-        website to ensure that you are aware of any changes in our privacy
-        practices. Our Privacy Policy will indicate the date when it was updated.
-        Your continued use of our website will signify your acceptance of the
-        changes to our Privacy Policy. If you do not agree with the changes to
-        how your information will be used, please do not continue to use our
-        website. By using this website, you signify your consent to the
-        www.connect2lawyer.com.au Privacy Policy. If you do not agree to this
-        policy, please do not read or use www.connect2lawyer.com.au. When you
-        request rate quotes or other information through
-        www.connect2lawyer.com.au, you are authorizing us to share your
-        information with our business partners, affiliates or associates who will
-        contact you by phone, email, or mail. If you do not want further
-        communication from them, please notify the partner directly.
-      </p>
-      <p className='text-gray-700 mb-6'>
-        From time to time, we may add new websites that may or may not be listed
-        in this Privacy Policy. Please note that this policy applies only to the
-        information collected through this website and not to websites maintained
-        by other companies or organizations to which we link. In addition, this
-        policy applies only to information collected by
-        www.connect2lawyer.com.au online or offline.
-      </p>
-
-      {/* --- */}
-
-      <p className='text-sm font-semibold italic text-gray-500 mt-8'>
-        PLEASE PRINT AND RETAIN A COPY OF THIS PRIVACY POLICY FOR YOUR RECORDS.
-      </p>
+ 
+      <h3 className='text-xl font-medium mb-2'>(b) Sensitive Information</h3>
+      <p className='text-gray-700 mb-4'>Sensitive Information is defined in the Privacy Act as including information or opinion about such things as an individual's:</p>
+      <ul className='list-disc pl-6 text-gray-700 mb-4'>
+        <li>racial or ethnic origin,</li>
+        <li>political opinions,</li>
+        <li>membership of a political association,</li>
+        <li>religious or philosophical beliefs,</li>
+        <li>membership of a trade union or other professional body,</li>
+        <li>criminal record, or</li>
+        <li>health information.</li>
+      </ul>
+ 
+      <h3 className='text-xl font-medium mb-2'>(c) Use of Sensitive Information</h3>
+      <p className='text-gray-700 mb-4'>Sensitive Information will be used by us only:</p>
+      <ul className='list-disc pl-6 text-gray-700 mb-4'>
+        <li>for the primary purpose for which it was obtained;</li>
+        <li>for a secondary purpose that is directly related to the primary purpose; and</li>
+        <li>with your consent or where required or authorised by law.</li>
+      </ul>
+ 
+      <h2 className='text-2xl font-semibold mt-8 mb-4'>3. How We Collect Your Personal Information</h2>
+      <p className='text-gray-700 mb-4'>(a) We may collect Personal Information from you whenever you input such information into the Website, related app or provide it to us in any other way.</p>
+      <p className='text-gray-700 mb-4'>(b) We may also collect cookies from your computer which enable us to tell when you use the Website and to help customise your Website experience. As a general rule, however, it is not possible to identify you personally from our use of cookies.</p>
+      <p className='text-gray-700 mb-4'>(c) We generally don’t collect Sensitive Information, but when we do, we will comply with the preceding paragraph.</p>
+      <p className='text-gray-700 mb-4'>(d) Where reasonable and practicable we collect your Personal Information from you only. However, sometimes we may be given information from a third party. In such cases we will take steps to make you aware of the information that was provided by a third party.</p>
+ 
+      <h2 className='text-2xl font-semibold mt-8 mb-4'>4. Purpose of Collection</h2>
+      <p className='text-gray-700 mb-4'>(a) We collect Personal Information to provide you with the best service experience possible on the Website and keep in touch with you about developments in our business.</p>
+      <p className='text-gray-700 mb-4'>(b) We customarily only disclose Personal Information to our service providers who assist us in operating the Website. Your Personal Information may also be exposed from time to time to maintenance and support personnel acting in the normal course of their duties.</p>
+      <p className='text-gray-700 mb-4'>(c) By using our Website, you consent to the receipt of direct marketing material. We will only use your Personal Information for this purpose if we have collected such information directly from you, and if it is material of a type which you would reasonably expect to receive from us. We do not use sensitive Personal Information in direct marketing activity. Our direct marketing material will include a simple means by which you can request not to receive further communications of this nature, such as an unsubscribe link.</p>
+ 
+      <h2 className='text-2xl font-semibold mt-8 mb-4'>5. Security, Access and Correction</h2>
+      <p className='text-gray-700 mb-4'>(a) We store your Personal Information in a way that reasonably protects it from unauthorised access, misuse, modification or disclosure.</p>
+      <p className='text-gray-700 mb-4'>(b) When we no longer require your Personal Information for the purpose for which we obtained it, we will take reasonable steps to destroy or anonymise or de-identify it. Most of the Personal Information that is stored in our client files and records will be kept for a maximum of seven (7) years to fulfill our record keeping obligations.</p>
+      <p className='text-gray-700 mb-4'>(c) The Australian Privacy Principles:</p>
+      <ul className='list-disc pl-6 text-gray-700 mb-4'>
+        <li>permit you to obtain access to the Personal Information we hold about you in certain circumstances (Australian Privacy Principle 12); and</li>
+        <li>allow you to correct inaccurate Personal Information subject to certain exceptions (Australian Privacy Principle 13).</li>
+      </ul>
+      <p className='text-gray-700 mb-4'>Where you would like to obtain such access, please contact us in writing using the contact details set out at the bottom of this Privacy Policy.</p>
+ 
+      <h2 className='text-2xl font-semibold mt-8 mb-4'>6. Complaint Procedure</h2>
+      <p className='text-gray-700 mb-4'>If you have a complaint concerning the manner in which we maintain the privacy of your Personal Information, please contact us using the contact details set out at the bottom of this policy. All complaints will be considered by us and we may seek further information from you to clarify your concerns. If we agree that your complaint is well-founded, we will, in consultation with you, take appropriate steps to rectify the problem. If you remain dissatisfied with the outcome, you may refer the matter to the Office of the Australian Information Commissioner.</p>
+ 
+      <h2 className='text-2xl font-semibold mt-8 mb-4'>7. Overseas Transfer</h2>
+      <p className='text-gray-700 mb-4'>Your Personal Information may be transferred overseas or stored overseas for a variety of reasons. It is not possible to identify each and every country to which your Personal Information may be sent.</p>
+      <p className='text-gray-700 mb-4'>If your Personal Information is sent to a recipient in a country with data protection laws which are at least substantially similar to the Australian Privacy Principles, and where there are mechanisms available to you to enforce protection of your Personal Information under that overseas law, we will not be liable for a breach of the Australian Privacy Principles if your Personal Information is mishandled in that jurisdiction.</p>
+      <p className='text-gray-700 mb-4'>If your Personal Information is transferred to a jurisdiction which does not have data protection laws as comprehensive as Australia's, we will take reasonable steps to secure a contractual commitment from the recipient to handle your information in accordance with the Australian Privacy Principles.</p>
+ 
+      <h2 className='text-2xl font-semibold mt-8 mb-4'>8. How to Contact Us About Privacy</h2>
+      <p className='text-gray-700 mb-4'>If you have any queries, or if you seek access to your Personal Information, or if you have a complaint about our privacy practices, you can contact us at:</p>
+      <p className='text-gray-700'>Email: <a href='mailto:teamup@connect2lawyer.com.au' className='text-teal-600 hover:underline'>teamup@connect2lawyer.com.au</a></p>
     </div>
   )
 }
-
+ 
 export default PrivacyPolicy
+ 
+ 
