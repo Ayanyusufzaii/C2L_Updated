@@ -1232,7 +1232,7 @@ function HomeTwo() {
 
         {/* Justice aligned right so "d" of Delivered lines with "e" of Justice */}
         <h2 className="w-full text-center   text-white font-playfair font-extrabold 
-          text-[10rem] md:text-[14rem] lg:text-[18rem] xl:text-[26em] 2xl:text-[28em] 3xl:text-[48em] 
+          text-[10rem] md:text-[14rem] lg:text-[18rem] xl:text-[26em] min-[1600px]:text-[34em] min-[2200px]:text-[44em] 2xl:text-[28em] 3xl:text-[48em] 
           leading-none drop-shadow-lg ">
           Justice
         </h2>
