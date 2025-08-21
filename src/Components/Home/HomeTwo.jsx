@@ -5,6 +5,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./HomeTwo.css";
 import Frame from "../../assets/N.webp";
+import BgFrame from "../../assets/background_just.png";
+import test from "../../assets/test.jpg";
 import Frame2 from "../../assets/justiceemobbb.jpeg";
 import { useMediaQuery, MenuItem } from '@mui/material';
 import FormBG from "../../assets/hFormBG.png";
@@ -1203,14 +1205,46 @@ function HomeTwo() {
         </div>
       </div>
 
-      {/* Responsive Footer Image */}
-      <div className="mt-16 w-full">
-        <img
-          src={isMobile ? Frame2 : Frame}
-          alt="Footer"
-          className="h-full w-full object-cover mt-3"
-        />
+{/* Responsive Footer Section */}
+<div className="mt-16 w-full">
+  {isMobile ? (
+    // Mobile: Simple image
+    <img
+      src={Frame2}
+      alt="Footer"
+      className="h-full w-full object-cover mt-3"
+    />
+  ) : (
+    // Desktop: Background with overlay text
+    <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] 2xl:h-[850px] 3xl:h-[1000px] overflow-hidden">
+      <img
+        src={test}
+        alt="Footer Background"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+
+      {/* Overlay text */}
+      <div className="absolute inset-0 flex flex-col justify-end px-6 md:px-12 lg:px-20 pb-12 md:pb-16 lg:pb-20 2xl:pb-24 3xl:pb-28">
+        {/* Delivered above Justice aligned right */}
+        <p className="text-white font-bold text-lg md:text-[1.25em] lg:text-[2em] xl:text-[2.5em] 2xl:text-[3.5em] 3xl:text-[4em] drop-shadow text-right -mb-8 xl:-mb-16 xl:mr-9 2xl:mr-32 2xl:-mb-24  font-playfair">
+          Delivered
+        </p>
+
+        {/* Justice aligned right so "d" of Delivered lines with "e" of Justice */}
+        <h2 className="w-full text-center   text-white font-playfair font-extrabold 
+          text-[10rem] md:text-[14rem] lg:text-[18rem] xl:text-[26em] 2xl:text-[28em] 3xl:text-[48em] 
+          leading-none drop-shadow-lg ">
+          Justice
+        </h2>
       </div>
+    </div>
+  )}
+</div>
+
+
+
+
+
     </div>
   );
 }
