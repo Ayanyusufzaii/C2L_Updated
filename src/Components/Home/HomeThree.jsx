@@ -133,7 +133,7 @@ function HomeThree() {
                       hold companies accountable for toxic exposure.
                     </p>
                     <button
-                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-opensans text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
+                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-opensans text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-[#023437] hover:text-[#C09F53] cursor-pointer drop-shadow-md"
                       onClick={() =>
                         navigate("Services/MassTort/Mesothelioma-Lawsuit")
                       }
@@ -172,7 +172,7 @@ function HomeThree() {
 
                     {/* Button */}
                     <button
-                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 lg:px-10 py-3 md:py-4 text-[#023437] font-opensans font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
+                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 lg:px-10 py-3 md:py-4 text-[#023437] font-opensans font-semibold bg-transparent transition-all duration-300 hover:bg-[#023437] hover:text-[#fff] cursor-pointer drop-shadow-md"
                       style={{ fontSize: "clamp(16px, 1.8vw, 20px)" }}
                       onClick={() =>
                         navigate("Services/MassTort/Mesothelioma-Lawsuit")
@@ -240,7 +240,7 @@ function HomeThree() {
 
   {/* Button */}
   <button
-    className="rounded-full border-2 border-[#023437] px-6 md:px-8 lg:px-10 py-3 md:py-4 text-[#023437] font-opensans font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
+    className="rounded-full border-2 border-[#023437] px-6 md:px-8 lg:px-10 py-3 md:py-4 text-[#023437] font-opensans font-semibold bg-transparent transition-all duration-300 hover:bg-[#023437] hover:text-[#fff] cursor-pointer drop-shadow-md"
     style={{ fontSize: "clamp(16px, 1.8vw, 20px)" }}
     onClick={() =>
       navigate("/Services/ClassAction/Rideshare-Lawsuit")
@@ -274,7 +274,7 @@ function HomeThree() {
                       negligence or vehicle failure. 
                     </p>
                     <button
-                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-opensans text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
+                      className="rounded-full border-2 border-[#023437] px-6 md:px-8 py-3 md:py-4 text-[#023437] font-opensans text-base md:text-lg font-semibold bg-transparent self-start transition-all duration-300 hover:bg-[#023437] hover:text-[#fff] cursor-pointer drop-shadow-md"
                       onClick={() =>
                         navigate("/Services/PersonalInjury/18Wheeler-Lawsuit")
                       }
@@ -309,7 +309,7 @@ function HomeThree() {
 
   {/* Button */}
   <button
-    className="rounded-full border-2 border-[#023437] px-6 md:px-8 lg:px-10 py-3 md:py-4 text-[#023437] font-opensans font-semibold bg-transparent transition-all duration-300 hover:bg-white hover:text-[#023437] cursor-pointer drop-shadow-md"
+    className="rounded-full border-2 border-[#023437] px-6 md:px-8 lg:px-10 py-3 md:py-4 text-[#023437] font-opensans font-semibold bg-transparent transition-all duration-300 hover:bg-[#023437] hover:text-[#fff] cursor-pointer drop-shadow-md"
     style={{ fontSize: "clamp(16px, 1.8vw, 20px)" }}
     onClick={() => navigate("/Services/PersonalInjury/18Wheeler-Lawsuit")}
   >

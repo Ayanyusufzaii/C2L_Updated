@@ -62,8 +62,8 @@ const AboutFive = () => {
                                 onClick={() => window.location.href = '/Contact-Us'}
                                 className="
                   bg-[#C09F53] 
-                  hover:bg-yellow-400 
-                  active:bg-yellow-600
+                  hover:bg-[#C09F53] 
+                  active:bg-[#C09F53]
                   text-white 
                   font-semibold 
                   text-sm sm:text-base md:text-base lg:text-lg

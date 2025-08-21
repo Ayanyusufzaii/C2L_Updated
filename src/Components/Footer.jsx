@@ -28,7 +28,7 @@ function Footer() {
         <div className="hidden md:block lg:ml-[-3%]">
           <div className="flex flex-col md:flex-row justify-between items-start border-b border-teal-800 pb-4 px-4">
             {/* Contact Information */}
-            <div cassName="flex flex-col ">
+            <div cassName="flex flex-col">
               <div className="flex flex-col lg:flex-row lg:gap-10 space-y-2 lg:space-y-0 mb-4 md:mb-0">
                 <div className="flex items-center font-opensans">
                   <img
@@ -38,7 +38,7 @@ function Footer() {
                     onClick={handleCall}
                   />
                   <span
-                    className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold font-opensans"
+                    className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold font-opensans cursor-pointer hover:underline"
                     onClick={handleCall}
                   >
                     +61 470 695 167
@@ -52,7 +52,7 @@ function Footer() {
                     onClick={handleEmail}
                   />
                   <span
-                    className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold font-opensans"
+                    className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold font-opensans cursor-pointer hover:underline"
                     onClick={handleEmail}
                   >
                     teamup@connect2lawyer.com.au
@@ -71,7 +71,7 @@ function Footer() {
                     src={addressicon}
                     alt="Address Icon"
                   />
-                  <span className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold font-opensans hover:underline break-words">
+                  <span className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold font-opensans hover:underline break-words  md:max-w-[450px] lg:max-w-[900px] xl:max-w-[900px]">
                     45 Monterey Bay Drive, Point Cook 3030, Melbourne, Victoria,
                     Australia
                   </span>
@@ -213,7 +213,9 @@ function Footer() {
       min-[375px]:text-[16px]
       min-[425px]:text-[18px]
       sm:text-[16px]
-      font-semibold"
+      font-semibold
+      cursor-pointer
+      hover:underline"
                   onClick={handleCall}
                 >
                   +61 470 695 167
@@ -238,7 +240,9 @@ function Footer() {
       min-[375px]:text-[16px]
       min-[425px]:text-[18px]
       sm:text-[16px]
-      font-semibold"
+      font-semibold
+      cursor-pointer
+      hover:underline"
                   onClick={handleEmail}
                 >
                   teamup@connect2lawyer.com.au
