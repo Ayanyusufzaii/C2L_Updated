@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import "./FormMain.css";
 import { sendFormAdmin, sendFormUser } from "../../emailJsService"; // Adjust path as needed
-import imageSrc from "../../assets/thankyouimng.png"
+import imageSrc from "../../assets/Group 1000003865.png"
 import { ChevronDown } from "lucide-react";
 
 const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
@@ -201,7 +201,6 @@ const CustomCaptcha = ({ onCaptchaChange, resetTrigger }) => {
     </div>
   );
 };
-
 const formatAustralianMobile = (input) => {
   if (!input) return "";
 
@@ -311,73 +310,89 @@ const formatEmail = (input) => {
 
 const validateEmail = (input) => {
   if (!input) return { isValid: false, reason: "empty" };
-
-  const email = String(input).trim();
   
-  // Basic length check
-  if (email.length > 254) {
-    return { isValid: false, reason: "too_long" };
-  }
+  const email = String(input).trim().toLowerCase();
   
-  if (email.length < 5) {
-    return { isValid: false, reason: "too_short" };
-  }
-
   // Must contain exactly one @
   const atCount = (email.match(/@/g) || []).length;
-  if (atCount === 0) {
-    return { isValid: false, reason: "missing_at" };
+  if (atCount !== 1) {
+    return { isValid: false, reason: "invalid" };
   }
-  if (atCount > 1) {
-    return { isValid: false, reason: "multiple_at" };
-  }
-
+  
   const [localPart, domainPart] = email.split('@');
-
+  
   // Local part validation
   if (!localPart || localPart.length === 0) {
-    return { isValid: false, reason: "missing_local" };
+    return { isValid: false, reason: "invalid" };
   }
-  if (localPart.length > 64) {
-    return { isValid: false, reason: "local_too_long" };
-  }
-  if (localPart.startsWith('.') || localPart.endsWith('.')) {
-    return { isValid: false, reason: "local_dot_position" };
-  }
+  
+  // Check for consecutive dots in local part
   if (localPart.includes('..')) {
-    return { isValid: false, reason: "local_consecutive_dots" };
+    return { isValid: false, reason: "invalid" };
   }
-
+  
+  // Local part can't start or end with dot
+  if (localPart.startsWith('.') || localPart.endsWith('.')) {
+    return { isValid: false, reason: "invalid" };
+  }
+  
+  // Local part should only contain valid characters
+  if (!/^[a-zA-Z0-9._-]+$/.test(localPart)) {
+    return { isValid: false, reason: "invalid" };
+  }
+  
   // Domain part validation
   if (!domainPart || domainPart.length === 0) {
-    return { isValid: false, reason: "missing_domain" };
+    return { isValid: false, reason: "invalid" };
   }
-  if (domainPart.length > 253) {
-    return { isValid: false, reason: "domain_too_long" };
-  }
-  if (domainPart.startsWith('.') || domainPart.endsWith('.')) {
-    return { isValid: false, reason: "domain_dot_position" };
-  }
+  
+  // Check for consecutive dots in domain part
   if (domainPart.includes('..')) {
-    return { isValid: false, reason: "domain_consecutive_dots" };
+    return { isValid: false, reason: "invalid" };
   }
+  
+  // Domain can't start or end with dot or dash
+  if (domainPart.startsWith('.') || domainPart.endsWith('.') || 
+      domainPart.startsWith('-') || domainPart.endsWith('-')) {
+    return { isValid: false, reason: "invalid" };
+  }
+  
+  // Domain must contain at least one dot (for TLD)
   if (!domainPart.includes('.')) {
-    return { isValid: false, reason: "domain_no_tld" };
+    return { isValid: false, reason: "invalid" };
   }
-
-  // TLD validation
-  const parts = domainPart.split('.');
-  const tld = parts[parts.length - 1];
-  if (!tld || tld.length < 2 || tld.length > 6) {
-    return { isValid: false, reason: "invalid_tld" };
+  
+  // Domain should only contain valid characters
+  if (!/^[a-zA-Z0-9.-]+$/.test(domainPart)) {
+    return { isValid: false, reason: "invalid" };
   }
-
-  // Comprehensive regex validation
-  const emailRegex = /^[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?@[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?\.[a-zA-Z]{2,6}$/;
-  if (!emailRegex.test(email)) {
-    return { isValid: false, reason: "invalid_format" };
+  
+  // Split domain into parts and validate each
+  const domainParts = domainPart.split('.');
+  
+  // Each domain part should be valid
+  for (const part of domainParts) {
+    if (!part || part.length === 0) {
+      return { isValid: false, reason: "invalid" };
+    }
+    
+    // Each part can't start or end with dash
+    if (part.startsWith('-') || part.endsWith('-')) {
+      return { isValid: false, reason: "invalid" };
+    }
+    
+    // Each part should contain only valid characters
+    if (!/^[a-zA-Z0-9-]+$/.test(part)) {
+      return { isValid: false, reason: "invalid" };
+    }
   }
-
+  
+  // Last part (TLD) should be at least 2 characters and only letters
+  const tld = domainParts[domainParts.length - 1];
+  if (tld.length < 2 || !/^[a-zA-Z]+$/.test(tld)) {
+    return { isValid: false, reason: "invalid" };
+  }
+  
   return { isValid: true, reason: null };
 };
 
@@ -878,38 +893,28 @@ const FormMain = () => {
     }
   }, []);
 
- const handleEmailChange = useCallback((value) => {
+
+const handleEmailChange = useCallback((value) => {
   try {
     const formatted = formatEmail(value);
     const validation = validateEmail(formatted);
-
+    
     let nextEmailError = "";
-    if (!value || value.trim() === "") {
-      nextEmailError = "";
-    } else if (!validation.isValid) {
-      switch (validation.reason) {
-        case "missing_at":
-          nextEmailError = "Missing @";
-          break;
-        case "multiple_at":
-          nextEmailError = "Email can only contain one @";
-          break;
-        default:
-          nextEmailError = "Please enter valid email";
-      }
-    } else {
-      nextEmailError = "";
+    
+    // Only show error if user has entered something AND it's invalid
+    if (value && value.trim() !== "" && !validation.isValid) {
+      nextEmailError = "Please enter a valid email address ";
     }
-
+    
     setEmailError((prev) => (prev === nextEmailError ? prev : nextEmailError));
-
+    
     setFormData((prev) => {
       if (prev.email === formatted) return prev;
       return { ...prev, email: formatted };
     });
   } catch (error) {
     console.error('Error handling email change:', error);
-    setEmailError("Please enter valid email");
+    setEmailError("Please enter a valid email address ");
   }
 }, []);
 

@@ -575,13 +575,13 @@ function HomeTwo() {
       } else if (!validation.isValid) {
         switch (validation.reason) {
           case "missing_at":
-            nextEmailError = "Missing @";
+            nextEmailError = "Please enter a valid email address";
             break;
           case "multiple_at":
             nextEmailError = "Email can only contain one @";
             break;
           default:
-            nextEmailError = "Please enter valid email";
+            nextEmailError = "Please enter a valid email address";
         }
       } else {
         nextEmailError = "";
@@ -597,7 +597,7 @@ function HomeTwo() {
       });
     } catch (err) {
       console.error("Error handling email change:", err);
-      setEmailError("Please enter valid email");
+      setEmailError("Please enter a valid email address");
     }
   };
 

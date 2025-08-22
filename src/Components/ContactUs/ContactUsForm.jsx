@@ -653,13 +653,13 @@ const ContactUsForm = () => {
       } else if (!validation.isValid) {
         switch (validation.reason) {
           case "missing_at":
-            nextEmailError = "Missing @";
+            nextEmailError = "Please enter a valid email address";
             break;
           case "multiple_at":
             nextEmailError = "Email can only contain one @";
             break;
           default:
-            nextEmailError = "Please enter valid email";
+            nextEmailError = "Please enter a valid email address";
         }
       } else {
         nextEmailError = "";
@@ -674,7 +674,7 @@ const ContactUsForm = () => {
       });
     } catch (error) {
       console.error("Error handling email change:", error);
-      setEmailError("Please enter valid email");
+      setEmailError("Please enter a valid email address");
     }
   }, []);
 
